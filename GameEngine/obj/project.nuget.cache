@@ -1,8 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "tYBD7ZrQG2AKO6ztB2dNsJ7eZ081i+tM4MMNHKD8ezR8QSq17ujpoMObXY66fRURAjLb/eoCAHb4+dZIMedhfA==",
+  "dgSpecHash": "jRfBk+RSHf6mpmtg/wj/VaKy3luno4DDyO3wksPNi9gin10qqpPUM6WnRtZICza3UYPnHb7EY/hGcwb1YMctQg==",
   "success": true,
   "projectFilePath": "D:\\Business\\GameEngine\\GameEngine\\GameEngine\\GameEngine.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Dunno\\.nuget\\packages\\opentk\\4.7.4\\opentk.4.7.4.nupkg.sha512",
+    "C:\\Users\\Dunno\\.nuget\\packages\\opentk.compute\\4.7.4\\opentk.compute.4.7.4.nupkg.sha512",
+    "C:\\Users\\Dunno\\.nuget\\packages\\opentk.core\\4.7.4\\opentk.core.4.7.4.nupkg.sha512",
+    "C:\\Users\\Dunno\\.nuget\\packages\\opentk.graphics\\4.7.4\\opentk.graphics.4.7.4.nupkg.sha512",
+    "C:\\Users\\Dunno\\.nuget\\packages\\opentk.input\\4.7.4\\opentk.input.4.7.4.nupkg.sha512",
+    "C:\\Users\\Dunno\\.nuget\\packages\\opentk.mathematics\\4.7.4\\opentk.mathematics.4.7.4.nupkg.sha512",
+    "C:\\Users\\Dunno\\.nuget\\packages\\opentk.openal\\4.7.4\\opentk.openal.4.7.4.nupkg.sha512",
+    "C:\\Users\\Dunno\\.nuget\\packages\\opentk.redist.glfw\\3.3.7.27\\opentk.redist.glfw.3.3.7.27.nupkg.sha512",
+    "C:\\Users\\Dunno\\.nuget\\packages\\opentk.windowing.common\\4.7.4\\opentk.windowing.common.4.7.4.nupkg.sha512",
+    "C:\\Users\\Dunno\\.nuget\\packages\\opentk.windowing.desktop\\4.7.4\\opentk.windowing.desktop.4.7.4.nupkg.sha512",
+    "C:\\Users\\Dunno\\.nuget\\packages\\opentk.windowing.graphicslibraryframework\\4.7.4\\opentk.windowing.graphicslibraryframework.4.7.4.nupkg.sha512",
+    "C:\\Users\\Dunno\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
