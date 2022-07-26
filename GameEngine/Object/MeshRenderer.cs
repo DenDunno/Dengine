@@ -19,9 +19,9 @@ public class MeshRenderer : IDrawable
         GL.Color4(Color.Crimson);
         GL.Begin(PrimitiveType.Polygon);
 
-        foreach (Vector3 point in _mesh.Points)
+        foreach (Vector4 point in _mesh.Points)
         {
-            GL.Vertex3(point);
+            GL.Vertex4(_transform.LocalToWorldPoint(point));
         }
         
         GL.End();

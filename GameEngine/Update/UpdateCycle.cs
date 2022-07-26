@@ -10,7 +10,7 @@ public class UpdateCycle : IUpdatable
         _drawables = drawables;
     }
 
-    public void Update(double deltaTime)
+    public void Update(float deltaTime)
     {
         _updatables.ForEach(updatable => updatable.Update(deltaTime));
         _drawables.ForEach(drawable => drawable.Draw());

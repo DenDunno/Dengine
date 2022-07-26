@@ -2,9 +2,9 @@
 
 public class Mesh
 {
-    public readonly Vector3[] Points;
+    public readonly Vector4[] Points;
 
-    public Mesh(Vector3[] points)
+    public Mesh(Vector4[] points)
     {
         Points = points;
     }

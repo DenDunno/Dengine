@@ -4,7 +4,7 @@ using OpenTK.Windowing.Desktop;
 
 public class Window : GameWindow
 {
-    public event Action<double>? FrameRendering;
+    public event Action<float>? FrameRendering;
     
     public Window(WindowSettings windowSettings) : base(windowSettings.GameWindowSettings, windowSettings.NativeWindowSettings)
     {
@@ -14,7 +14,7 @@ public class Window : GameWindow
     {
         GL.Clear(ClearBufferMask.ColorBufferBit);
 
-        FrameRendering?.Invoke(args.Time);
+        FrameRendering?.Invoke((float)args.Time);
         
         SwapBuffers();
         base.OnRenderFrame(args);
