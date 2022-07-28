@@ -1,18 +1,29 @@
 ﻿
+using OpenTK.Graphics.OpenGL;
+
 public class UpdateCycle : IUpdatable
 {
-    private readonly IList<IUpdatable> _updatables;
-    private readonly IList<IDrawable> _drawables;
+    private readonly World _world;
 
-    public UpdateCycle(IList<IUpdatable> updatables, IList<IDrawable> drawables)
+    public UpdateCycle(World world)
     {
-        _updatables = updatables;
-        _drawables = drawables;
+        _world = world;
     }
 
     public void Update(float deltaTime)
     {
-        _updatables.ForEach(updatable => updatable.Update(deltaTime));
-        _drawables.ForEach(drawable => drawable.Draw());
+        _world.Update(deltaTime);
+        _world.Draw();
+        
+        GL.Begin(PrimitiveType.Polygon);
+        GL.Color3(1.0f, 0.0f, 0.0f); 
+        GL.Vertex3(-1.0f-2, -1.0f, 0);
+ 
+        GL.Color3(0.0f, 1.0f, 0.0f);
+        GL.Vertex3(1.0f-2, -1.0f, 0);
+ 
+        GL.Color3(0.0f, 0.0f, 1.0f);
+        GL.Vertex3(0.0f-2, 1.0f, 0);
+        GL.End();
     }
 }

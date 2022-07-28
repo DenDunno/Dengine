@@ -4,19 +4,26 @@ using OpenTK.Windowing.Desktop;
 
 public class Window : GameWindow
 {
-    public event Action<float>? FrameRendering;
+    private UpdateCycle _updateCycle = null!;
     
     public Window(WindowSettings windowSettings) : base(windowSettings.GameWindowSettings, windowSettings.NativeWindowSettings)
     {
     }
 
+    public void Run(UpdateCycle updateCycle)
+    {
+        _updateCycle = updateCycle;
+        Run();
+    }
+
     protected override void OnRenderFrame(FrameEventArgs args)
     {
-        GL.Clear(ClearBufferMask.ColorBufferBit);
-
-        FrameRendering?.Invoke((float)args.Time);
-        
-        SwapBuffers();
         base.OnRenderFrame(args);
+        
+        GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
+        _updateCycle.Update((float)args.Time);
+
+        SwapBuffers();
     }
 }
