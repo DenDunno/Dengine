@@ -1,17 +1,41 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-public class ShaderProgram
+public class ShaderProgram : IDisposable
 {
-    public readonly int Id;
+    private readonly Shader[] _shaders;
+    private readonly int _id;
     
-    public ShaderProgram()
+    public ShaderProgram(Shader[] shaders)
     {
-        Id = GL.CreateProgram();
+        _shaders = shaders;
+        _id = GL.CreateProgram();
     }
 
     public void Link()
     {
-        GL.LinkProgram(Id);
-        Console.WriteLine(GL.GetProgramInfoLog(Id));
+        foreach (Shader shader in _shaders)
+        {
+            shader.Load();
+            GL.AttachShader(_id, shader.Address);
+        }
+        
+        GL.LinkProgram(_id);
+        Console.WriteLine(GL.GetProgramInfoLog(_id));
+    }
+
+    public void Use()
+    {
+        GL.UseProgram(_id);
+    }
+
+    public void Dispose()
+    {
+        foreach (Shader shader in _shaders)
+        {
+            GL.DetachShader(_id, shader.Address);
+            GL.DeleteShader(shader.Address);
+        }
+        
+        GL.DeleteProgram(_id);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
+using OpenTK.Windowing.Common.Input;
 using OpenTK.Windowing.Desktop;
 
 public class WindowFactory
@@ -12,13 +13,13 @@ public class WindowFactory
         _gameWindowSettings = new GameWindowSettings();
         _nativeWindowSettings = new NativeWindowSettings()
         {
-            Size = new Vector2i(1200, 800),
-            Location = new Vector2i(350, 150),
+            Size = new Vector2i(1536, 864),
+            Location = new Vector2i(1536/8, 864/8),
             Title = "Game engine",
-            WindowBorder = WindowBorder.Fixed,
+            WindowBorder = WindowBorder.Hidden,
             Flags = ContextFlags.Default,
             Profile = ContextProfile.Compatability,
-            API = ContextAPI.OpenGL
+            API = ContextAPI.OpenGL,
         };
     }
     
@@ -26,6 +27,8 @@ public class WindowFactory
     {
         var windowSettings = new WindowSettings(_gameWindowSettings, _nativeWindowSettings);
         var window = new Window(windowSettings);
+        
+        window.Cursor = MouseCursor.Empty;
         window.VSync = VSyncMode.On;
 
         return window;

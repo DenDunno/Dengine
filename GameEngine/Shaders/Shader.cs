@@ -2,13 +2,11 @@
 
 public class Shader
 {
-    private readonly ShaderProgram _shaderProgram;
     private readonly string _filename;
     private readonly ShaderType _type;
 
-    public Shader(ShaderProgram shaderProgram, string filename, ShaderType type)
+    public Shader(string filename, ShaderType type)
     {
-        _shaderProgram = shaderProgram;
         _filename = filename;
         _type = type;
     }
@@ -25,7 +23,6 @@ public class Shader
         }
         
         GL.CompileShader(Address);
-        GL.AttachShader(_shaderProgram.Id, Address);
         Console.WriteLine(GL.GetShaderInfoLog(Address));
     }
 }
