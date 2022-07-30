@@ -3,15 +3,17 @@
 public class AttributePointer
 {
     private readonly int _index;
+    private readonly int _size;
 
-    public AttributePointer(int index)
+    public AttributePointer(int index, int size)
     {
         _index = index;
+        _size = size;
     }
 
     public void Enable()
     {
-        GL.VertexAttribPointer(_index, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
+        GL.VertexAttribPointer(_index, _size, VertexAttribPointerType.Float, false, _size * sizeof(float), 0);
         GL.EnableVertexAttribArray(_index);
     }
 }

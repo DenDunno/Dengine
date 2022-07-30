@@ -11,7 +11,7 @@ public class ShaderProgram : IDisposable
         _id = GL.CreateProgram();
     }
 
-    public void Link()
+    public void Init()
     {
         foreach (Shader shader in _shaders)
         {
