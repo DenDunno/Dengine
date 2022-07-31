@@ -8,6 +8,13 @@ public class CameraMovement : IUpdatable
     private readonly KeyboardState _keyboardState;
     private readonly Transform _transform;
     private const float _translationSpeed = 0.5f;
+    private readonly IReadOnlyCollection<MovementKey> _movementKeys = new MovementKey[]
+    {
+        new(Keys.S, new Vector3(0,  1, 0)),
+        new(Keys.W, new Vector3(0, -1, 0)),
+        new(Keys.A, new Vector3(1,  0, 0)),
+        new(Keys.D, new Vector3(-1, 0, 0)),
+    };
 
     public CameraMovement(KeyboardState keyboardState, MouseState mouseState, Transform transform)
     {
@@ -18,32 +25,17 @@ public class CameraMovement : IUpdatable
 
     void IUpdatable.Update(float deltaTime)
     {
-        if (_keyboardState.IsAnyKeyDown)
+        foreach (MovementKey movementKey in _movementKeys)
         {
-            if (_keyboardState.IsKeyDown(Keys.S))
+            if (_keyboardState.IsKeyDown(movementKey.Key))
             {
-                _transform.Move(0, deltaTime, 0);
+                _transform.Move(movementKey.Direction * deltaTime);
+                
+                Matrix4 proj = Matrix4.CreateTranslation(_transform.Position);
+                Console.WriteLine(proj);
+                GL.LoadMatrix(ref proj);
+                GL.MatrixMode(MatrixMode.Modelview);
             }
-            
-            if (_keyboardState.IsKeyDown(Keys.W))
-            {
-                _transform.Move(0, -deltaTime, 0);
-            }
-            
-            if (_keyboardState.IsKeyDown(Keys.A))
-            {
-                _transform.Move(deltaTime, 0, 0);
-            }
-            
-            if (_keyboardState.IsKeyDown(Keys.D))
-            {
-                _transform.Move(-deltaTime, 0, 0);
-            }
-
-            Matrix4 proj = Matrix4.CreateTranslation(_transform.Position);
-            Console.WriteLine(proj);
-            GL.LoadMatrix(ref proj);
-            GL.MatrixMode(MatrixMode.Modelview);
         }
     }
 }

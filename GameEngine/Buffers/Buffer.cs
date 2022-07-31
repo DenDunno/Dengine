@@ -17,12 +17,18 @@ public abstract class Buffer<T> : IDisposable where T : struct
         _id = GL.GenBuffer();
     }
 
-    public void Bind()
+    public void Init()
+    {
+        Bind();
+        SendData();
+    }
+
+    private void Bind()
     {
         GL.BindBuffer(_bufferTarget, _id);
     }
     
-    public void SendData()
+    private void SendData()
     {
         GL.BufferData(_bufferTarget, _data.Length * _typeSize, _data, _bufferUsageHint);
     }

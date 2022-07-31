@@ -28,3 +28,9 @@ D:\Business\GameEngine\GameEngine\GameEngine\obj\Debug\net6.0\refint\GameEngine.
 D:\Business\GameEngine\GameEngine\GameEngine\obj\Debug\net6.0\GameEngine.pdb
 D:\Business\GameEngine\GameEngine\GameEngine\obj\Debug\net6.0\GameEngine.genruntimeconfig.cache
 D:\Business\GameEngine\GameEngine\GameEngine\obj\Debug\net6.0\ref\GameEngine.dll
+D:\Business\GameEngine\GameEngine\GameEngine\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Business\GameEngine\GameEngine\GameEngine\bin\Debug\net6.0\StbImageSharp.dll
+D:\Business\GameEngine\GameEngine\GameEngine\bin\Debug\net6.0\System.Drawing.Common.dll
+D:\Business\GameEngine\GameEngine\GameEngine\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Business\GameEngine\GameEngine\GameEngine\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\Business\GameEngine\GameEngine\GameEngine\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll

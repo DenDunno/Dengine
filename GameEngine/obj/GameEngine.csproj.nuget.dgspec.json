@@ -41,6 +41,14 @@
             "OpenTK": {
               "target": "Package",
               "version": "[4.7.4, )"
+            },
+            "StbImageSharp": {
+              "target": "Package",
+              "version": "[2.27.11, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[6.0.0, )"
             }
           },
           "imports": [

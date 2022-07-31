@@ -16,8 +16,7 @@ public class VertexArrayObject
     public void Init()
     {
         Bind();
-        _vertexBufferObject.Bind();
-        _vertexBufferObject.SendData();
+        _vertexBufferObject.Init();
         _attributePointers.ForEach(pointer => pointer.Enable());
     }
     

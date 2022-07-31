@@ -22,6 +22,11 @@ public class Transform
         return Vector3.TransformVector(point, _modelMatrix);
     }
 
+    public void Move(in Vector3 movementVector)
+    {
+        Move(movementVector.X, movementVector.Y, movementVector.Z);
+    }
+    
     public void Move(float x, float y, float z)
     {
         UpdatePosition(_position.X + x, _position.Y + y, _position.Z + z);

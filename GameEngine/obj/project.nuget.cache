@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "jRfBk+RSHf6mpmtg/wj/VaKy3luno4DDyO3wksPNi9gin10qqpPUM6WnRtZICza3UYPnHb7EY/hGcwb1YMctQg==",
+  "dgSpecHash": "cJI3BDEHsUqWGMcAansdhe+KWQSfJN4K4ko6qkRAbOx+zPexsqQT6svLs716mJ6Lcgoz1GP9ySNULfioZd0N4Q==",
   "success": true,
   "projectFilePath": "D:\\Business\\GameEngine\\GameEngine\\GameEngine\\GameEngine.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Dunno\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\Dunno\\.nuget\\packages\\opentk\\4.7.4\\opentk.4.7.4.nupkg.sha512",
     "C:\\Users\\Dunno\\.nuget\\packages\\opentk.compute\\4.7.4\\opentk.compute.4.7.4.nupkg.sha512",
     "C:\\Users\\Dunno\\.nuget\\packages\\opentk.core\\4.7.4\\opentk.core.4.7.4.nupkg.sha512",
@@ -15,6 +16,8 @@
     "C:\\Users\\Dunno\\.nuget\\packages\\opentk.windowing.common\\4.7.4\\opentk.windowing.common.4.7.4.nupkg.sha512",
     "C:\\Users\\Dunno\\.nuget\\packages\\opentk.windowing.desktop\\4.7.4\\opentk.windowing.desktop.4.7.4.nupkg.sha512",
     "C:\\Users\\Dunno\\.nuget\\packages\\opentk.windowing.graphicslibraryframework\\4.7.4\\opentk.windowing.graphicslibraryframework.4.7.4.nupkg.sha512",
+    "C:\\Users\\Dunno\\.nuget\\packages\\stbimagesharp\\2.27.11\\stbimagesharp.2.27.11.nupkg.sha512",
+    "C:\\Users\\Dunno\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
     "C:\\Users\\Dunno\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
   ],
   "logs": []

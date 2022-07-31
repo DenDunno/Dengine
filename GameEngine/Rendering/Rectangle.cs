@@ -1,16 +1,18 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using OpenTK.Graphics.OpenGL4;
 
-public class Triangle : IDrawable
+public class Rectangle : IDrawable
 {
+    private readonly Texture _texture = new("Resources/wood.png");
     private readonly ElementBufferObject _elementBufferObject;
     private readonly VertexArrayObject _vertexArrayObject;
     private readonly ShaderProgram _shader;
     private readonly float[] _verticesData = 
     {
-        0.5f,  0.5f, 0.0f,  
-        0.5f, -0.5f, 0.0f,  
-        -0.5f, -0.5f, 0.0f,  
-        -0.5f,  0.5f, 0.0f
+        // Position          Texture coordinates
+         0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 
+         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 
+        -0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 
+        -0.5f,  0.5f, 0.0f,  0.0f, 1.0f  
     };
     private readonly uint[] _indices = 
     {  
@@ -18,12 +20,13 @@ public class Triangle : IDrawable
         1, 2, 3 
     };
 
-    public Triangle()
+    public Rectangle()
     {
         _elementBufferObject = new ElementBufferObject(_indices);
         _vertexArrayObject = new VertexArrayObject(new VertexBufferObject(_verticesData), new[]
         {
-            new AttributePointer(0, 3)
+            new AttributePointer(0, 3, 5, 0),
+            new AttributePointer(1, 2, 5, 3)
         });
 
         _shader = new ShaderProgram(new Shader[]
@@ -35,16 +38,17 @@ public class Triangle : IDrawable
 
     public void Init()
     {
-        _vertexArrayObject.Init();
         _shader.Init();
-        _elementBufferObject.Bind();
-        _elementBufferObject.SendData();
+        _texture.Load();
+        _vertexArrayObject.Init();
+        _elementBufferObject.Init();
     }
 
     public void Draw()
     {
-        _shader.Use();
         _vertexArrayObject.Bind();
+        _texture.Use();
+        _shader.Use();
         GL.DrawElements(PrimitiveType.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0);
     }
 }
