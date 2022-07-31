@@ -17,14 +17,34 @@ public class Shader
 
     public void Load()
     {
+        Create();
+        Read();
+        Compile();
+        CheckErrors();
+    }
+
+    private void Create()
+    {
         Address = GL.CreateShader(_type);
+    }
+
+    private void Read()
+    {
+        using var streamReader = new StreamReader(_filename);
         
-        using (var streamReader = new StreamReader(_filename))
-        {
-            GL.ShaderSource(Address, streamReader.ReadToEnd());
-        }
-        
+        GL.ShaderSource(Address, streamReader.ReadToEnd());
+    }
+
+    private void Compile()
+    {
         GL.CompileShader(Address);
-        Console.WriteLine(GL.GetShaderInfoLog(Address));
+    }
+
+    private void CheckErrors()
+    {
+        GL.GetShader(Address, ShaderParameter.CompileStatus, out int status);
+        
+        if (status == 0)
+            throw new Exception($"Error compiling shader: {GL.GetShaderInfoLog(Address)}");
     }
 }

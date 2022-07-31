@@ -1,7 +1,6 @@
 ﻿
-public class GameObject : IDrawable, IUpdatable
+public class GameObject : IUpdatable
 {
-    private readonly IDrawable _modelRenderer;
     private readonly IUpdatable[] _components;
 
     public GameObject() : this(new Transform(), new Model(), Array.Empty<IUpdatable>())
@@ -22,13 +21,11 @@ public class GameObject : IDrawable, IUpdatable
     
     public GameObject(Transform transform, Model model, IUpdatable[] components)
     {
-        _modelRenderer = new ModelRenderer(model, transform);
         _components = components;
     }
 
     public void Draw()
     {
-        _modelRenderer.Draw();
     }
 
     public void Update(float deltaTime)

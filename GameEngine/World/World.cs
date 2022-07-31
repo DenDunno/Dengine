@@ -1,20 +1,24 @@
 ﻿
-public class World : IDrawable, IUpdatable
+public class World : IUpdatable
 {
-    private readonly List<GameObject> _gameObjects;
+    private readonly IEnumerable<IDrawable> _drawables;
+    private readonly IEnumerable<IUpdatable> _updatables;
+    private readonly Camera _camera;
 
-    public World(List<GameObject> gameObjects)
+    public World(IEnumerable<IDrawable> drawables, IEnumerable<IUpdatable> updatables, Camera camera)
     {
-        _gameObjects = gameObjects;
+        _drawables = drawables;
+        _updatables = updatables;
+        _camera = camera;
     }
 
     public void Update(float deltaTime)
     {
-        _gameObjects.ForEach(gameObject => gameObject.Update(deltaTime));
+        _updatables.ForEach(gameObject => gameObject.Update(deltaTime));
     }
 
     public void Draw()
     {
-        _gameObjects.ForEach(gameObject => gameObject.Draw());
+        _drawables.ForEach(gameObject => gameObject.Draw(_camera.ViewMatrix));
     }
 }

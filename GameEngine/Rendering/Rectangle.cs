@@ -1,4 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
 
 public class Rectangle : IDrawable
 {
@@ -6,6 +7,7 @@ public class Rectangle : IDrawable
     private readonly ElementBufferObject _elementBufferObject;
     private readonly VertexArrayObject _vertexArrayObject;
     private readonly ShaderProgram _shader;
+    private readonly Transform _transform = new();
     private readonly float[] _verticesData = 
     {
         // Position          Texture coordinates
@@ -42,10 +44,15 @@ public class Rectangle : IDrawable
         _texture.Load();
         _vertexArrayObject.Init();
         _elementBufferObject.Init();
+        
+        _shader.Bridge.SetMatrix4("transform", Matrix4.Identity * Matrix4.CreateRotationX(45));
     }
-
-    public void Draw()
+    
+    public void Draw(in Matrix4 viewMatrix)
     {
+        _transform.Rotate(0, 0, 0.01f);
+        _shader.Bridge.SetMatrix4("transform", viewMatrix * _transform.ModelMatrix);
+        
         _vertexArrayObject.Bind();
         _texture.Use();
         _shader.Use();

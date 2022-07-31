@@ -2,6 +2,7 @@
 
 public class ShaderProgram : IDisposable
 {
+    public readonly ShaderBridge Bridge;
     private readonly Shader[] _shaders;
     private readonly int _id;
     
@@ -9,6 +10,7 @@ public class ShaderProgram : IDisposable
     {
         _shaders = shaders;
         _id = GL.CreateProgram();
+        Bridge = new ShaderBridge(_id);
     }
 
     public void Init()
@@ -20,7 +22,7 @@ public class ShaderProgram : IDisposable
         }
         
         GL.LinkProgram(_id);
-        Console.WriteLine(GL.GetProgramInfoLog(_id));
+        Bridge.LoadUniforms();
     }
 
     public void Use()

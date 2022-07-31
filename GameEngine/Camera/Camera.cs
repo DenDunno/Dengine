@@ -2,7 +2,7 @@
 using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
-public class CameraMovement : IUpdatable
+public class Camera : IUpdatable
 {
     private readonly MouseState _mouseState;
     private readonly KeyboardState _keyboardState;
@@ -16,12 +16,14 @@ public class CameraMovement : IUpdatable
         new(Keys.D, new Vector3(-1, 0, 0)),
     };
 
-    public CameraMovement(KeyboardState keyboardState, MouseState mouseState, Transform transform)
+    public Camera(KeyboardState keyboardState, MouseState mouseState, Transform transform)
     {
         _keyboardState = keyboardState;
         _mouseState = mouseState;
         _transform = transform;
     }
+
+    public Matrix4 ViewMatrix => _transform.ModelMatrix;
 
     void IUpdatable.Update(float deltaTime)
     {
@@ -30,10 +32,10 @@ public class CameraMovement : IUpdatable
             if (_keyboardState.IsKeyDown(movementKey.Key))
             {
                 _transform.Move(movementKey.Direction * deltaTime);
+                Matrix4 viewMatrix = _transform.ModelMatrix;
                 
-                Matrix4 proj = Matrix4.CreateTranslation(_transform.Position);
-                Console.WriteLine(proj);
-                GL.LoadMatrix(ref proj);
+                Console.WriteLine(viewMatrix);
+                GL.LoadMatrix(ref viewMatrix);
                 GL.MatrixMode(MatrixMode.Modelview);
             }
         }

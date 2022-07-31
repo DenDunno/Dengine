@@ -5,21 +5,23 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 
 public class Window : GameWindow
 {
-    private UpdateCycle _updateCycle = null!;
+    private World _world = null!;
 
     public Window(WindowSettings windowSettings) : base(windowSettings.GameWindowSettings, windowSettings.NativeWindowSettings)
     {
     }
     
-    public void Run(UpdateCycle updateCycle)
+    public void Run(World world)
     {
-        _updateCycle = updateCycle;
+        _world = world;
         Run();
     }
 
     protected override void OnUpdateFrame(FrameEventArgs args)
     {
         base.OnUpdateFrame(args);
+        
+        _world.Update((float)args.Time);
         
         if (KeyboardState.IsKeyDown(Keys.Escape))
         {
@@ -33,7 +35,7 @@ public class Window : GameWindow
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         GL.Enable(EnableCap.DepthTest);
 
-        _updateCycle.Update((float)args.Time);
+        _world.Draw();
 
         SwapBuffers();
     }

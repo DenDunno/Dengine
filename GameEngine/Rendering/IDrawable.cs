@@ -1,5 +1,6 @@
-﻿
+﻿using OpenTK.Mathematics;
+
 public interface IDrawable
 {
-    void Draw();
+    void Draw(in Matrix4 viewMatrix);
 }
