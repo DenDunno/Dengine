@@ -14,7 +14,7 @@ public class CameraFactory
     public GameObject Create()
     {
         var transform = new Transform();
-        var cameraMovement = new Camera(_keyboardState, _mouseState, transform);
+        var cameraMovement = new Camera(_keyboardState, _mouseState);
         var components = new IUpdatable[] {cameraMovement};
         
         return new GameObject(transform, components);

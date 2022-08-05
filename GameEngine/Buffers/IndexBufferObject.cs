@@ -1,8 +1,8 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-public class ElementBufferObject : Buffer<uint>
+public class IndexBufferObject : Buffer<uint>
 {
-    public ElementBufferObject(uint[] data) 
+    public IndexBufferObject(uint[] data) 
         : base(BufferUsageHint.StaticDraw, BufferTarget.ElementArrayBuffer, sizeof(uint), data)
     {
     }

@@ -1,4 +1,5 @@
-﻿using OpenTK.Mathematics;
+﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Common.Input;
 using OpenTK.Windowing.Desktop;
@@ -28,7 +29,7 @@ public class WindowFactory
         var windowSettings = new WindowSettings(_gameWindowSettings, _nativeWindowSettings);
         var window = new Window(windowSettings);
         
-        window.Cursor = MouseCursor.Empty;
+        window.CursorState = CursorState.Hidden;
         window.VSync = VSyncMode.On;
 
         return window;

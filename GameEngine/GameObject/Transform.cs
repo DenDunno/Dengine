@@ -2,36 +2,33 @@
 
 public class Transform
 {
-    private Matrix4 _modelMatrix;
-    private Vector3 _position;
-    
+    public Vector3 Position;
+    public Quaternion Rotation;
+
     public Transform() : this(Vector3.Zero, Quaternion.Identity)
     {
     }
 
     private Transform(Vector3 position, Quaternion rotation)
     {
-        _modelMatrix = Matrix4.CreateTranslation(position) * Matrix4.CreateFromQuaternion(rotation);
-    }
-    
-    public Vector3 Position => _position;
-    public Matrix4 ModelMatrix => _modelMatrix;
-
-    public Vector3 LocalToWorldPoint(Vector3 point)
-    {
-        return Vector3.TransformVector(point, _modelMatrix);
+        Position = position;
+        Rotation = rotation;
     }
 
-    public void Move(in Vector3 movementVector)
+    public Matrix4 ModelMatrix => Matrix4.CreateTranslation(Position) * Matrix4.CreateFromQuaternion(Rotation);
+
+    public void Move(float x, float y, float z)
     {
-        Move(movementVector.X, movementVector.Y, movementVector.Z);
+        Position.X += x;
+        Position.Y += y;
+        Position.Z += z;
     }
 
-    private void Move(float x, float y, float z)
+    public void Move(Vector3 delta)
     {
-        UpdatePosition(_position.X + x, _position.Y + y, _position.Z + z);
+        Position += delta;
     }
-    
+
     public void Rotate(float x, float y, float z)
     {
         Rotate(new Vector3(x, y, z));
@@ -39,16 +36,6 @@ public class Transform
 
     public void Rotate(Vector3 rotationVector)
     {
-        _modelMatrix *= Matrix4.CreateFromQuaternion(Quaternion.FromEulerAngles(rotationVector));
-    }
-
-    private void UpdatePosition(float x, float y, float z)
-    {
-        _position.X = x;
-        _position.Y = y;
-        _position.Z = z;
-        _modelMatrix[0, 3] = x;
-        _modelMatrix[1, 3] = y;
-        _modelMatrix[2, 3] = z;
+        Rotation *= Quaternion.FromEulerAngles(rotationVector);
     }
 }

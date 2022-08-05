@@ -1,31 +1,20 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
-public class Rectangle : IDrawable
+public class Cube : IDrawable
 {
     private readonly Texture _texture = new("Resources/wood.png");
-    private readonly ElementBufferObject _elementBufferObject;
+    private readonly IndexBufferObject _indexBufferObject;
     private readonly VertexArrayObject _vertexArrayObject;
     private readonly ShaderProgram _shader;
     private readonly Transform _transform = new();
-    private readonly float[] _verticesData = 
-    {
-        // Position          Texture coordinates
-         0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 
-         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 
-        -0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 
-        -0.5f,  0.5f, 0.0f,  0.0f, 1.0f  
-    };
-    private readonly uint[] _indices = 
-    {  
-        0, 1, 3,
-        1, 2, 3 
-    };
+    private readonly Mesh _mesh;
 
-    public Rectangle()
+    public Cube()
     {
-        _elementBufferObject = new ElementBufferObject(_indices);
-        _vertexArrayObject = new VertexArrayObject(new VertexBufferObject(_verticesData), new[]
+        _mesh = Primitives.Cube();
+        _indexBufferObject = new IndexBufferObject(_mesh.Indices);
+        _vertexArrayObject = new VertexArrayObject(new VertexBufferObject(_mesh.VerticesData), new[]
         {
             new AttributePointer(0, 3, 5, 0),
             new AttributePointer(1, 2, 5, 3)
@@ -43,19 +32,17 @@ public class Rectangle : IDrawable
         _shader.Init();
         _texture.Load();
         _vertexArrayObject.Init();
-        _elementBufferObject.Init();
-        
-        _shader.Bridge.SetMatrix4("transform", Matrix4.Identity * Matrix4.CreateRotationX(45));
+        _indexBufferObject.Init();
     }
     
     public void Draw(in Matrix4 viewMatrix)
     {
-        _transform.Rotate(0, 0, 0.01f);
+        //_transform.Rotate(0, 0, 0.01f);
         _shader.Bridge.SetMatrix4("transform", viewMatrix * _transform.ModelMatrix);
         
         _vertexArrayObject.Bind();
         _texture.Use();
         _shader.Use();
-        GL.DrawElements(PrimitiveType.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0);
+        GL.DrawElements(PrimitiveType.Triangles, _mesh.Indices.Length, DrawElementsType.UnsignedInt, 0);
     }
 }

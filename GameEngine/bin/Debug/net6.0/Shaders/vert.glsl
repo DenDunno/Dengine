@@ -8,5 +8,5 @@ out vec2 textureCoordinates;
 void main(void)
 {    
     textureCoordinates = vertexTextureCoordinates;    
-    gl_Position = vec4(vertexPosition, 1.0) * transform;
+    gl_Position = transform * vec4(vertexPosition, 1.0);
 }

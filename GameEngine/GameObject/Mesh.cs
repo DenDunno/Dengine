@@ -1,7 +1,6 @@
-﻿using OpenTK.Mathematics;
-
+﻿
 public class Mesh
 {
-    public IReadOnlyCollection<int> Indices { get; init; } = Array.Empty<int>();
-    public IReadOnlyCollection<Vector3> Points { get; init; } = Array.Empty<Vector3>();
+    public float[] VerticesData { get; init; } = Array.Empty<float>();
+    public uint[] Indices { get; init; } = Array.Empty<uint>();
 }
