@@ -1,17 +1,24 @@
 ﻿
 public class World : IUpdatable
 {
+    private readonly IInitializable[] _initializable;
     private readonly IEnumerable<IDrawable> _drawables;
     private readonly IEnumerable<IUpdatable> _updatables;
     private readonly Camera _camera;
 
-    public World(IEnumerable<IDrawable> drawables, IEnumerable<IUpdatable> updatables, Camera camera)
+    public World(IInitializable[] initializable, IUpdatable[] updatables, IDrawable[] drawables, Camera camera)
     {
-        _drawables = drawables;
+        _initializable = initializable;
         _updatables = updatables;
+        _drawables = drawables;
         _camera = camera;
     }
 
+    public void Initialize()
+    {
+        _initializable.ForEach(initializable => initializable.Initialize());
+    }
+    
     public void Update(float deltaTime)
     {
         _updatables.ForEach(gameObject => gameObject.Update(deltaTime));

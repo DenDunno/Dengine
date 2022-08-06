@@ -22,10 +22,10 @@ public class Camera : IUpdatable
     {
         _keyboardState = keyboardState;
         _mouseState = mouseState;
-        _projectionMatrix = Matrix4.CreatePerspectiveFieldOfView(2, 1536f / 864, 1f, 1000000.0f);
+        _projectionMatrix = Matrix4.CreatePerspectiveFieldOfView(1, 1536f / 864, 1f, 1000.0f);        
     }
 
-    public Matrix4 ProjectionViewMatrix => _transform.ModelMatrix;
+    public Matrix4 ProjectionViewMatrix => _projectionMatrix * _transform.ModelMatrix;
 
     void IUpdatable.Update(float deltaTime)
     {

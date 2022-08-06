@@ -14,6 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Include="bin\Debug\net6.0\Shaders\colorFrag.glsl" />
       <Content Include="bin\Debug\net6.0\Shaders\frag.glsl" />
       <Content Include="bin\Debug\net6.0\Shaders\vert.glsl" />
     </ItemGroup>

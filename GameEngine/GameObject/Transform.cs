@@ -8,6 +8,10 @@ public class Transform
     public Transform() : this(Vector3.Zero, Quaternion.Identity)
     {
     }
+    
+    public Transform(Vector3 position) : this(position, Quaternion.Identity)
+    {
+    }
 
     private Transform(Vector3 position, Quaternion rotation)
     {
@@ -15,7 +19,7 @@ public class Transform
         Rotation = rotation;
     }
 
-    public Matrix4 ModelMatrix => Matrix4.CreateTranslation(Position) * Matrix4.CreateFromQuaternion(Rotation);
+    public Matrix4 ModelMatrix => Matrix4.Transpose(Matrix4.CreateTranslation(Position)) * Matrix4.CreateFromQuaternion(Rotation);
 
     public void Move(float x, float y, float z)
     {

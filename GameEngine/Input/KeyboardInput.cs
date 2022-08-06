@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using OpenTK.Windowing.GraphicsLibraryFramework;
 
 public class KeyboardInput
 {

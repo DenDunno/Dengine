@@ -1,47 +1,48 @@
 ﻿
 public static class Primitives
 {
-    public static Mesh Cube()
+    public static Mesh Cube(float size)
     {
         return new Mesh()
         {
              VerticesData = new[]
              {
-                 // Position          Texture
-                 // front
-                 0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 
-                 0.5f,  0.0f, 0.0f,  1.0f, 0.0f, 
-                 0.0f,  0.0f, 0.0f,  0.0f, 0.0f, 
-                 0.0f,  0.5f, 0.0f,  0.0f, 1.0f,
-                 //back
-                 0.5f,  0.5f, 0.5f,  1.0f, 1.0f, 
-                 0.5f,  0.0f, 0.5f,  1.0f, 0.0f, 
-                 0.0f,  0.0f, 0.5f,  0.0f, 0.0f, 
-                 0.0f,  0.5f, 0.5f,  0.0f, 1.0f,
+                  // Position          Texture       Normal
+                  // front
+                  size,  size, -size,  1.0f,  1.0f,  0.0f,  0.0f, -1.0f,
+                  size, -size, -size,  1.0f,  0.0f,  0.0f,  0.0f, -1.0f,
+                 -size, -size, -size,  0.0f,  0.0f,  0.0f,  0.0f, -1.0f,
+                 -size,  size, -size,  0.0f,  1.0f,  0.0f,  0.0f, -1.0f,
                  
-                 //left
-                 0.0f,  0.5f, 0.0f,  1.0f, 1.0f, 
-                 0.0f,  0.0f, 0.0f,  1.0f, 0.0f, 
-                 0.0f,  0.0f, 0.5f,  0.0f, 0.0f, 
-                 0.0f,  0.5f, 0.5f,  0.0f, 1.0f,
+                  //back
+                  size,  size,  size,  1.0f,  1.0f,  0.0f,  0.0f,  1.0f,
+                  size, -size,  size,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
+                 -size, -size,  size,  0.0f,  0.0f,  0.0f,  0.0f,  1.0f,
+                 -size,  size,  size,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f,
                  
-                 //right
-                 0.5f,  0.5f, 0.5f,  1.0f, 1.0f, 
-                 0.5f,  0.0f, 0.5f,  1.0f, 0.0f, 
-                 0.5f,  0.0f, 0.0f,  0.0f, 0.0f, 
-                 0.5f,  0.5f, 0.0f,  0.0f, 1.0f,
+                  //left
+                 -size,  size, -size,  1.0f,  1.0f, -1.0f,  0.0f,  0.0f,
+                 -size, -size, -size,  1.0f,  0.0f, -1.0f,  0.0f,  0.0f, 
+                 -size, -size,  size,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
+                 -size,  size,  size,  0.0f,  1.0f, -1.0f,  0.0f,  0.0f,
                  
-                 //up
-                 0.5f,  0.5f, 0.5f,  1.0f, 1.0f, 
-                 0.5f,  0.5f, 0.0f,  1.0f, 0.0f, 
-                 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 
-                 0.0f,  0.5f, 0.5f,  0.0f, 1.0f,
+                  //right
+                  size,  size, -size,  1.0f,  1.0f,  1.0f,  0.0f,  0.0f,
+                  size, -size, -size,  1.0f,  0.0f,  1.0f,  0.0f,  0.0f,
+                  size, -size,  size,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
+                  size,  size,  size,  0.0f,  1.0f,  1.0f,  0.0f,  0.0f,
                  
-                 //down
-                 0.5f,  0.0f, 0.5f,  1.0f, 1.0f, 
-                 0.5f,  0.0f, 0.0f,  1.0f, 0.0f, 
-                 0.0f,  0.0f, 0.0f,  0.0f, 0.0f, 
-                 0.0f,  0.0f, 0.5f,  0.0f, 1.0f,
+                  //up
+                  size,  size,  size,  1.0f,  1.0f,  0.0f,  1.0f,  0.0f,
+                  size,  size, -size,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f, 
+                 -size,  size, -size,  0.0f,  0.0f,  0.0f,  1.0f,  0.0f,
+                 -size,  size,  size,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
+                 
+                  //down
+                  size, -size,  size,  1.0f,  1.0f,  0.0f, -1.0f,  0.0f,
+                  size, -size, -size,  1.0f,  0.0f,  0.0f, -1.0f,  0.0f,
+                 -size, -size, -size,  0.0f,  0.0f,  0.0f, -1.0f,  0.0f,
+                 -size, -size,  size,  0.0f,  1.0f,  0.0f, -1.0f,  0.0f,
              },
              
              Indices = new uint[]
