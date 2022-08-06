@@ -16,7 +16,7 @@ public class CameraFactory
         var transform = new Transform();
         var cameraMovement = new Camera(_keyboardState, _mouseState);
         var components = new IUpdatable[] {cameraMovement};
-        
-        return new GameObject(transform, components);
+
+        return null;
     }
 }

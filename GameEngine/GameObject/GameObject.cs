@@ -1,12 +1,24 @@
 ﻿using OpenTK.Mathematics;
 
-public class GameObject : IModel, IUpdatable
+public class GameObject 
 {
     private readonly IModel _model;
     private readonly IInitializable[] _initializables;
     private readonly IUpdatable[] _components;
 
-    public GameObject(IInitializable[] initializables, IUpdatable[] components, IModel model)
+    public GameObject(IUpdatable[] components, IModel model) : this(Array.Empty<IInitializable>(), components, model)
+    {
+    }
+
+    public GameObject(IModel model) : this(Array.Empty<IInitializable>(), Array.Empty<IUpdatable>(), model)
+    {
+    }
+    
+    public GameObject(IUpdatable[] components) : this(Array.Empty<IInitializable>(), components, new Point())
+    {
+    }
+
+    private GameObject(IInitializable[] initializables, IUpdatable[] components, IModel model)
     {
         _initializables = initializables;
         _components = components;

@@ -1,5 +1,4 @@
-﻿using OpenTK.Graphics.OpenGL;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
 public class Camera : IUpdatable
@@ -8,7 +7,7 @@ public class Camera : IUpdatable
     private readonly MouseState _mouseState;
     private readonly KeyboardState _keyboardState;
     private readonly Transform _transform = new();
-    private const float _translationSpeed = 0.5f;
+    private const float _translationSpeed = 1f;
     private const float _rotationSpeed = 0.5f;
     private readonly IReadOnlyCollection<MovementKey> _movementKeys = new MovementKey[]
     {
@@ -22,7 +21,7 @@ public class Camera : IUpdatable
     {
         _keyboardState = keyboardState;
         _mouseState = mouseState;
-        _projectionMatrix = Matrix4.CreatePerspectiveFieldOfView(1, 1536f / 864, 1f, 1000.0f);        
+        _projectionMatrix = Matrix4.CreatePerspectiveFieldOfView(0.5f, 1536f / 864, 1f, 1000.0f);        
     }
 
     public Matrix4 ProjectionViewMatrix => _projectionMatrix * _transform.ModelMatrix;
@@ -37,9 +36,6 @@ public class Camera : IUpdatable
             if (_keyboardState.IsKeyDown(movementKey.Key))
             {
                 _transform.Move(movementKey.Direction * deltaTime * _translationSpeed);
-                Matrix4 viewMatrix = _transform.ModelMatrix;
-                GL.LoadMatrix(ref viewMatrix);
-                GL.MatrixMode(MatrixMode.Modelview);
             }
         }
     }
