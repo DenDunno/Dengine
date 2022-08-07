@@ -19,7 +19,7 @@ public class Transform
         Rotation = rotation;
     }
 
-    public Matrix4 ModelMatrix => Matrix4.Transpose(Matrix4.CreateTranslation(Position)) * Matrix4.CreateFromQuaternion(Rotation);
+    public Matrix4 ModelMatrix => Matrix4.CreateFromQuaternion(Rotation) * Matrix4.CreateTranslation(Position);
 
     public void Move(float x, float y, float z)
     {

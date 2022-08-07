@@ -3,12 +3,13 @@
 public class CubeAnimation : IUpdatable
 {
     private readonly Transform _transform;
-    private readonly Vector3 _rotationVector = new(0, -1, 1);
+    private readonly Vector3 _rotationVector;
     private const float _rotationSpeed = 1f;
 
-    public CubeAnimation(Transform transform)
+    public CubeAnimation(Transform transform, Vector3 rotationVector)
     {
         _transform = transform;
+        _rotationVector = rotationVector;
     }
 
     public void Update(float deltaTime)

@@ -41,4 +41,10 @@ public class Window : GameWindow
 
         SwapBuffers();
     }
+
+    protected override void OnResize(ResizeEventArgs e)
+    {
+        base.OnResize(e);
+        GL.Viewport(0, 0, Size.X, Size.Y);
+    }
 }

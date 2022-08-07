@@ -27,7 +27,7 @@ public class WindowFactory
         var windowSettings = new WindowSettings(_gameWindowSettings, _nativeWindowSettings);
         var window = new Window(windowSettings);
         
-        window.CursorState = CursorState.Hidden;
+        window.CursorState = CursorState.Grabbed;
         window.VSync = VSyncMode.On;
 
         return window;

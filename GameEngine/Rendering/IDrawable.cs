@@ -2,5 +2,5 @@
 
 public interface IDrawable
 {
-    void Draw(in Matrix4 projectionViewMatrix);
+    void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix);
 }

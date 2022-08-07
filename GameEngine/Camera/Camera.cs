@@ -1,42 +1,61 @@
 ﻿using OpenTK.Mathematics;
-using OpenTK.Windowing.GraphicsLibraryFramework;
 
-public class Camera : IUpdatable
+public class Camera
 {
-    private readonly Matrix4 _projectionMatrix;
-    private readonly MouseState _mouseState;
-    private readonly KeyboardState _keyboardState;
-    private readonly Transform _transform = new();
-    private const float _translationSpeed = 1f;
-    private const float _rotationSpeed = 0.5f;
-    private readonly IReadOnlyCollection<MovementKey> _movementKeys = new MovementKey[]
-    {
-        new(Keys.S, new Vector3(0,  1, 0)),
-        new(Keys.W, new Vector3(0, -1, 0)),
-        new(Keys.A, new Vector3(1,  0, 0)),
-        new(Keys.D, new Vector3(-1, 0, 0)),
-    };
+    private Vector3 _front = -Vector3.UnitZ;
+    private Vector3 _up = Vector3.UnitY;
+    private Vector3 _right = Vector3.UnitX;
+    private float _pitch;
+    private float _yaw = -MathHelper.PiOver2;
 
-    public Camera(KeyboardState keyboardState, MouseState mouseState)
+    public Camera(Vector3 position)
     {
-        _keyboardState = keyboardState;
-        _mouseState = mouseState;
-        _projectionMatrix = Matrix4.CreatePerspectiveFieldOfView(0.5f, 1536f / 864, 1f, 1000.0f);        
+        Position = position;
     }
-
-    public Matrix4 ProjectionViewMatrix => _projectionMatrix * _transform.ModelMatrix;
-
-    void IUpdatable.Update(float deltaTime)
+    
+    public Vector3 Position { get; set; }
+    public Vector3 Front => _front;
+    public Vector3 Up => _up;
+    public Vector3 Right => _right;
+    
+    public float Pitch
     {
-        Vector2 delta = _mouseState.Delta * deltaTime * _rotationSpeed;
-        _transform.Rotate(delta.X, delta.Y, 0);
-        
-        foreach (MovementKey movementKey in _movementKeys)
+        get => MathHelper.RadiansToDegrees(_pitch);
+        set
         {
-            if (_keyboardState.IsKeyDown(movementKey.Key))
-            {
-                _transform.Move(movementKey.Direction * deltaTime * _translationSpeed);
-            }
+            var angle = MathHelper.Clamp(value, -89f, 89f);
+            _pitch = MathHelper.DegreesToRadians(angle);
+            UpdateVectors();
         }
+    }
+    
+    public float Yaw
+    {
+        get => MathHelper.RadiansToDegrees(_yaw);
+        set
+        {
+            _yaw = MathHelper.DegreesToRadians(value);
+            UpdateVectors();
+        }
+    }
+    
+    public Matrix4 GetViewMatrix()
+    {
+        return Matrix4.LookAt(Position, Position + _front, _up);
+    }
+    
+    public Matrix4 GetProjectionMatrix()
+    {
+        return Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1536f / 864, 0.01f, 100f);
+    }
+    
+    private void UpdateVectors()
+    {
+        _front.X = MathF.Cos(_pitch) * MathF.Cos(_yaw);
+        _front.Y = MathF.Sin(_pitch);
+        _front.Z = MathF.Cos(_pitch) * MathF.Sin(_yaw);
+        _front = Vector3.Normalize(_front);
+        _right = Vector3.Normalize(Vector3.Cross(_front, Vector3.UnitY));
+        _up = Vector3.Normalize(Vector3.Cross(_right, _front));
     }
 }

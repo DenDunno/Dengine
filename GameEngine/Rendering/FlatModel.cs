@@ -24,9 +24,11 @@ public class FlatModel : IModel
         _indexBufferObject.Init();
     }
 
-    void IDrawable.Draw(in Matrix4 projectionViewMatrix)
+    void IDrawable.Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
     {
-        _shader.Bridge.SetMatrix4("transform", projectionViewMatrix * _transform.ModelMatrix);
+        _shader.Bridge.SetMatrix4("model", _transform.ModelMatrix);
+        _shader.Bridge.SetMatrix4("view", viewMatrix);
+        _shader.Bridge.SetMatrix4("projection", projectionMatrix);
         _vertexArrayObject.Bind();
         _shader.Use();
         _glRenderer.Draw();

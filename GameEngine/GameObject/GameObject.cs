@@ -36,8 +36,8 @@ public class GameObject
         _components.ForEach(component => component.Update(deltaTime));
     }
 
-    public void Draw(in Matrix4 projectionViewMatrix)
+    public void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
     {
-        _model.Draw(in projectionViewMatrix);
+        _model.Draw(in projectionMatrix, in viewMatrix);
     }
 }
