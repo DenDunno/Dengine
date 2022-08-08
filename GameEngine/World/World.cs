@@ -4,7 +4,7 @@ public class World : IUpdatable
     private readonly List<GameObject> _gameObjects;
     private readonly Camera _camera;
 
-    public World(List<GameObject> gameObjects, Camera camera)
+    public World(Camera camera, List<GameObject> gameObjects)
     {
         _gameObjects = gameObjects;
         _camera = camera;

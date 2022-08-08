@@ -15,45 +15,78 @@ public class WorldFactory
         var timer = new Timer(_window);
         var camera = new Camera(Vector3.UnitZ * 3);
         var cameraControlling = new CameraControlling(camera, _window.MouseState, _window.KeyboardState);
+        var cameraGameObject = new GameObject(new IUpdatable[] {timer, cameraControlling});
         
-        var flatCubeTransform = new Transform(new Vector3(1.5f, 0, 0));
-        var textureCubeTransform = new Transform(new Vector3(-1.5f, 0, 0));
+        return new World(camera, new List<GameObject>()
+        {
+            cameraGameObject,
+            CreateFlatCube(),
+            CreateCubeWithTexture(),
+            CreatePlane()
+        });
+    }
 
-        var flatCubeData = new RenderData(flatCubeTransform, Primitives.Cube(0.5f), new[]
-        {
-            new AttributePointer(0, 3, 8, 0),
-            new AttributePointer(1, 2, 8, 3),
-        },
-            new ShaderProgram(new Shader[]
-        {
-            new("Shaders/vert.glsl", ShaderType.VertexShader),
-            new("Shaders/colorFrag.glsl", ShaderType.FragmentShader)
-        }));
-        
-        var textureCubeData = new RenderData(textureCubeTransform, Primitives.Cube(0.5f), new[]
+    private GameObject CreateSkybox()
+    {
+        return null;
+    }
+
+    private GameObject CreatePlane()
+    {
+        var renderData = new RenderData(new Transform(new Vector3(0, -1f, 0)), Primitives.Plane(5f), new[]
         {
             new AttributePointer(0, 3, 8, 0),
             new AttributePointer(1, 2, 8, 3),
             new AttributePointer(2, 3, 8, 5)
         },
-            new ShaderProgram(new Shader[]
+        new ShaderProgram(new Shader[]
         {
             new("Shaders/vert.glsl", ShaderType.VertexShader),
             new("Shaders/frag.glsl", ShaderType.FragmentShader)
         }));
 
-        var flatCubeModel = new FlatModel(flatCubeData);
-        var textureCubeModel = new ModelWithTexture(new FlatModel(textureCubeData), new Texture("Resources/wood.png"));
-        var flatCubeAnimation = new CubeAnimation(flatCubeTransform, new Vector3(0, 1, 0));
-        var textureCubeAnimation = new CubeAnimation(textureCubeTransform, new Vector3(0, -1, 0));
-        
-        var gameObjects = new List<GameObject>()
+        return new GameObject(new ModelWithTexture(
+            new FlatModel(renderData, BufferUsageHint.DynamicDraw), new Texture("Resources/Grass/Base.png")));
+    }
+
+    private GameObject CreateCubeWithTexture()
+    {
+        var transform = new Transform(new Vector3(-1.5f, 0, 0));
+        var renderData = new RenderData(transform, Primitives.Cube(0.5f), new[]
         {
-            new(new IUpdatable[] {timer, cameraControlling}),
-            new(new IUpdatable[] {flatCubeAnimation}, flatCubeModel),
-            new(new IUpdatable[] {textureCubeAnimation}, textureCubeModel),
-        };
+            new AttributePointer(0, 3, 8, 0),
+            new AttributePointer(1, 2, 8, 3),
+            new AttributePointer(2, 3, 8, 5)
+        },
+        new ShaderProgram(new Shader[]
+        {
+            new("Shaders/vert.glsl", ShaderType.VertexShader),
+            new("Shaders/frag.glsl", ShaderType.FragmentShader)
+        }));
         
-        return new World(gameObjects, camera);
+        var model = new ModelWithTexture(new FlatModel(renderData, BufferUsageHint.DynamicDraw), new Texture("Resources/wood.png"));
+        var animation = new CubeAnimation(transform, new Vector3(0, -1, 0));
+        
+        return new GameObject(new IUpdatable[] {animation}, model);
+    }
+    
+    private GameObject CreateFlatCube()
+    {
+        var transform = new Transform(new Vector3(1.5f, 0, 0));
+        var renderData = new RenderData(transform, Primitives.Cube(0.5f), new[]
+        {
+            new AttributePointer(0, 3, 8, 0),
+            new AttributePointer(1, 2, 8, 3),
+        },
+        new ShaderProgram(new Shader[]
+        {
+            new("Shaders/vert.glsl", ShaderType.VertexShader),
+            new("Shaders/colliderFrag.glsl", ShaderType.FragmentShader)
+        }));
+
+        var model = new FlatModel(renderData, BufferUsageHint.DynamicDraw);
+        var animation = new CubeAnimation(transform, new Vector3(0, 1, 0));
+        
+        return new GameObject(new IUpdatable[] {animation}, model);
     }
 }

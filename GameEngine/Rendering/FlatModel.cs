@@ -1,4 +1,5 @@
-﻿using OpenTK.Mathematics;
+﻿using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
 
 public class FlatModel : IModel
 {
@@ -8,10 +9,10 @@ public class FlatModel : IModel
     private readonly Transform _transform;
     private readonly GLRenderer _glRenderer;
     
-    public FlatModel(RenderData renderData)
+    public FlatModel(RenderData renderData, BufferUsageHint bufferUsageHint)
     {
-        _indexBufferObject = new IndexBufferObject(renderData.Mesh.Indices);
-        _vertexArrayObject = new VertexArrayObject(new VertexBufferObject(renderData.Mesh.VerticesData), renderData.AttributePointers);
+        _indexBufferObject = new IndexBufferObject(renderData.Mesh.Indices, bufferUsageHint);
+        _vertexArrayObject = new VertexArrayObject(new VertexBufferObject(renderData.Mesh.VerticesData, bufferUsageHint), renderData.AttributePointers);
         _shader = renderData.ShaderProgram;
         _transform = renderData.Transform;
         _glRenderer = new GLRenderer(renderData.Mesh.Indices.Length);

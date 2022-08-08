@@ -1,10 +1,10 @@
 ﻿
 public class RenderData
 {
-    public Transform Transform;
-    public Mesh Mesh;
-    public AttributePointer[] AttributePointers;
-    public ShaderProgram ShaderProgram;
+    public readonly Transform Transform;
+    public readonly Mesh Mesh;
+    public readonly AttributePointer[] AttributePointers;
+    public readonly ShaderProgram ShaderProgram;
 
     public RenderData(Transform transform, Mesh mesh, AttributePointer[] attributePointers, ShaderProgram shaderProgram)
     {
