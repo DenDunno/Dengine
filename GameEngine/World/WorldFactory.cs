@@ -22,13 +22,30 @@ public class WorldFactory
             cameraGameObject,
             CreateFlatCube(),
             CreateCubeWithTexture(),
-            CreatePlane()
+            CreatePlane(),
+            CreateSkybox(camera)
         });
     }
 
-    private GameObject CreateSkybox()
+    private GameObject CreateSkybox(Camera camera)
     {
-        return null;
+        var transform = new Transform(new Vector3(0, 0, 0));
+        var renderData = new RenderData(transform, Primitives.Cube(50f), new[]
+        {
+            new AttributePointer(0, 3, 8, 0),
+            new AttributePointer(1, 2, 8, 3),
+            new AttributePointer(2, 3, 8, 5)
+        },
+        new ShaderProgram(new Shader[]
+        {
+            new("Shaders/vert.glsl", ShaderType.VertexShader),
+            new("Shaders/frag.glsl", ShaderType.FragmentShader)
+        }));
+        
+        var model = new ModelWithTexture(new FlatModel(renderData, BufferUsageHint.DynamicDraw), new Texture("Resources/wood.png"));
+        var skybox = new Skybox(camera, transform);
+
+        return new GameObject(new IUpdatable[]{skybox}, model);
     }
 
     private GameObject CreatePlane()
