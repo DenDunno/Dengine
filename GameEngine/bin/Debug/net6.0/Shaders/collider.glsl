@@ -6,5 +6,5 @@ out vec4 outputColor;
 
 void main()
 {
-    outputColor = vec4(textureCoordinates.x, textureCoordinates.y, 0.5f, 0.4f); 
+    outputColor = vec4(0.0f, 1.0, 0.0f, 0.5f); 
 }

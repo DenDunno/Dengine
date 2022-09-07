@@ -12,5 +12,5 @@ void main()
     vec3 f = lightPosition;
     vec3 diffuseColor = vec3(0.1f, 0.1f, 0.1f);
     
-    outputColor = texture(tex, textureCoordinates) + vec4(normal, 1); 
+    outputColor = texture(tex, textureCoordinates) + vec4(normal, 1.0f); 
 }

@@ -12,7 +12,7 @@ public class WorldFactory
     
     public World Create()
     {
-        var timer = new Timer(_window);
+        var timer = new Timer();
         var camera = new Camera(Vector3.UnitZ * 3);
         var cameraControlling = new CameraControlling(camera, _window.MouseState, _window.KeyboardState);
         var cameraGameObject = new GameObject(new IUpdatable[] {timer, cameraControlling});
@@ -98,7 +98,7 @@ public class WorldFactory
         new ShaderProgram(new Shader[]
         {
             new("Shaders/vert.glsl", ShaderType.VertexShader),
-            new("Shaders/colliderFrag.glsl", ShaderType.FragmentShader)
+            new("Shaders/collider.glsl", ShaderType.FragmentShader)
         }));
 
         var model = new FlatModel(renderData, BufferUsageHint.DynamicDraw);
