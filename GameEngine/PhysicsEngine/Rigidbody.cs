@@ -1,6 +1,9 @@
-﻿
+﻿using OpenTK.Mathematics;
+
 public class Rigidbody
 {
-    public readonly bool IsDynamic;
-    public readonly bool Trigger;
+    public bool IsDynamic { get; init; }
+    public bool Trigger { get; init; }
+    public Transform Transform { get; init; } = new();
+    public Vector3 Velocity;
 }

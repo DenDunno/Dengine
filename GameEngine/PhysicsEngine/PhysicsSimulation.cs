@@ -1,30 +1,25 @@
 ﻿
 public class PhysicsSimulation
 {
-    private readonly int _deltaTimeMilliseconds;
-    private readonly List<IPhysicsSimulationComponent> _components;
+    private readonly float _deltaTime;
+    private readonly Dynamics _dynamics;
 
-    public PhysicsSimulation(float deltaTime, List<Rigidbody> rigidbodies)
+    public PhysicsSimulation(float deltaTime, IEnumerable<Rigidbody> rigidbodies)
     {
-        _deltaTimeMilliseconds = TimeSpan.FromSeconds(deltaTime).Milliseconds;
-        _components = new List<IPhysicsSimulationComponent>()
-        {
-            new Dynamics(rigidbodies.Where(rigidbody => rigidbody.IsDynamic)),
-        };
+        _deltaTime = deltaTime;
+        _dynamics = new Dynamics(rigidbodies.Where(rigidbody => rigidbody.IsDynamic));
     }
     
-    public async void Run()
+    public void Run()
     {
-        while (true)
+        Task.Run(async () =>
         {
-            Console.WriteLine(DateTime.Now.Second);
-            
-            foreach (IPhysicsSimulationComponent physicsEngineComponent in _components)
+            while (true)
             {
-                physicsEngineComponent.Run();
+                _dynamics.ApplyGravity();
+
+                await Task.Delay(TimeSpan.FromSeconds(_deltaTime));
             }
-            
-            await Task.Delay(TimeSpan.FromSeconds(0.02f));
-        }
+        });
     }
 }

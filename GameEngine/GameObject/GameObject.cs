@@ -1,43 +1,27 @@
 ﻿using OpenTK.Mathematics;
 
-public class GameObject 
+public class GameObject
 {
-    private readonly IModel _model;
-    private readonly IInitializable[] _initializables;
-    private readonly IUpdatable[] _components;
+    private readonly GameObjectData _data;
 
-    public GameObject(IUpdatable[] components, IModel model) : this(Array.Empty<IInitializable>(), components, model)
+    public GameObject(GameObjectData data)
     {
-    }
-
-    public GameObject(IModel model) : this(Array.Empty<IInitializable>(), Array.Empty<IUpdatable>(), model)
-    {
-    }
-    
-    public GameObject(IUpdatable[] components) : this(Array.Empty<IInitializable>(), components, new Point())
-    {
+        _data = data;
     }
 
-    private GameObject(IInitializable[] initializables, IUpdatable[] components, IModel model)
-    {
-        _initializables = initializables;
-        _components = components;
-        _model = model;
-    }
-    
     public void Initialize()
     {
-        _model.Initialize();
-        _initializables.ForEach(initializables => initializables.Initialize());
+        _data.Model.Initialize();
+        _data.Initializables.ForEach(initializables => initializables.Initialize());
     }
 
     public void Update(float deltaTime)
     {
-        _components.ForEach(component => component.Update(deltaTime));
+        _data.Components.ForEach(component => component.Update(deltaTime));
     }
 
     public void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
     {
-        _model.Draw(in projectionMatrix, in viewMatrix);
+        _data.Model.Draw(in projectionMatrix, in viewMatrix);
     }
 }

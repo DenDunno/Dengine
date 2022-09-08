@@ -17,7 +17,7 @@ public class ModelWithTexture : IModel
         _model.Initialize();
     }
 
-    public void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
+    void IModel.Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
     {
         _texture.Use();
         _model.Draw(in projectionMatrix, in viewMatrix);

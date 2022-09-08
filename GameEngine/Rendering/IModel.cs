@@ -1,4 +1,6 @@
-﻿
-public interface IModel : IDrawable, IInitializable
+﻿using OpenTK.Mathematics;
+
+public interface IModel : IInitializable
 {
+    void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix);
 }
