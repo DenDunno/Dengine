@@ -48,19 +48,19 @@ public class UpdateObjectsFactory
             new AttributePointer(1, 2, 8, 3),
             new AttributePointer(2, 3, 8, 5)
         },
-        new ShaderProgram(new Shader[]
+        new ShaderProgramWithTexture(new Texture("Resources/wood.png"), new Shader[]
         {
             new("Shaders/vert.glsl", ShaderType.VertexShader),
             new("Shaders/frag.glsl", ShaderType.FragmentShader)
         }));
-        
-        var model = new ModelWithTexture(new FlatModel(renderData, BufferUsageHint.DynamicDraw), new Texture("Resources/wood.png"));
-        var skybox = new Skybox(_camera, transform);
 
         return new GameObject(new GameObjectData()
         {
-            Model = model,
-            Components = new IUpdatable[]{skybox},
+            Model = new Model(renderData, BufferUsageHint.DynamicDraw),
+            Components = new IUpdatable[]
+            {
+                new Skybox(_camera, transform)
+            },
         });
     }
 
@@ -72,7 +72,7 @@ public class UpdateObjectsFactory
             new AttributePointer(1, 2, 8, 3),
             new AttributePointer(2, 3, 8, 5)
         },
-        new ShaderProgram(new Shader[]
+        new ShaderProgramWithTexture(new Texture("Resources/Grass/Base.png"), new Shader[]
         {
             new("Shaders/vert.glsl", ShaderType.VertexShader),
             new("Shaders/frag.glsl", ShaderType.FragmentShader)
@@ -80,7 +80,7 @@ public class UpdateObjectsFactory
 
         return new GameObject(new GameObjectData()
         {
-            Model = new ModelWithTexture(new FlatModel(renderData, BufferUsageHint.DynamicDraw), new Texture("Resources/Grass/Base.png")),
+            Model = new Model(renderData, BufferUsageHint.StaticDraw)
         });
     }
 
@@ -93,7 +93,7 @@ public class UpdateObjectsFactory
             new AttributePointer(1, 2, 8, 3),
             new AttributePointer(2, 3, 8, 5)
         },
-        new ShaderProgram(new Shader[]
+        new ShaderProgramWithTexture(new Texture("Resources/wood.png"), new Shader[]
         {
             new("Shaders/vert.glsl", ShaderType.VertexShader),
             new("Shaders/frag.glsl", ShaderType.FragmentShader)
@@ -101,8 +101,11 @@ public class UpdateObjectsFactory
 
         return new GameObject(new GameObjectData()
         {
-            Model = new ModelWithTexture(new FlatModel(renderData, BufferUsageHint.DynamicDraw), new Texture("Resources/wood.png")),
-            Components = new IUpdatable[] {new CubeAnimation(transform, new Vector3(0, -1, 0))},
+            Model = new Model(renderData, BufferUsageHint.DynamicDraw),
+            Components = new IUpdatable[]
+            {
+                new CubeAnimation(transform, new Vector3(0, -1, 0))
+            },
         });
     }
     
@@ -119,13 +122,14 @@ public class UpdateObjectsFactory
             new("Shaders/vert.glsl", ShaderType.VertexShader),
             new("Shaders/collider.glsl", ShaderType.FragmentShader)
         }));
-        
-        var animation = new CubeAnimation(transform, new Vector3(0, 1, 0));
 
         return new GameObject(new GameObjectData()
         {
-            Model = new FlatModel(renderData, BufferUsageHint.DynamicDraw),
-            Components = new IUpdatable[] {animation}
+            Model = new Model(renderData, BufferUsageHint.DynamicDraw),
+            Components = new IUpdatable[]
+            {
+                new CubeAnimation(transform, new Vector3(0, 1, 0))
+            }
         });
     }
 }

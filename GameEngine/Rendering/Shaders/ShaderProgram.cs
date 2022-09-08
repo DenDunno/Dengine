@@ -1,6 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-public class ShaderProgram : IDisposable
+public class ShaderProgram 
 {
     public readonly ShaderBridge Bridge;
     private readonly Shader[] _shaders;
@@ -15,6 +15,8 @@ public class ShaderProgram : IDisposable
 
     public void Init()
     {
+        OnInit();
+        
         foreach (Shader shader in _shaders)
         {
             shader.Load();
@@ -27,17 +29,11 @@ public class ShaderProgram : IDisposable
 
     public void Use()
     {
+        OnUse();
         GL.UseProgram(_id);
     }
 
-    public void Dispose()
-    {
-        foreach (Shader shader in _shaders)
-        {
-            GL.DetachShader(_id, shader.Address);
-            GL.DeleteShader(shader.Address);
-        }
-        
-        GL.DeleteProgram(_id);
-    }
+    protected virtual void OnInit() { }
+
+    protected virtual void OnUse() { }
 }
