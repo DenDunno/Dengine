@@ -93,6 +93,7 @@ public class UpdateObjectsFactory
 
     private GameObject CreateCubeWithTexture()
     {
+        var lightData = new LightData(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
         var transform = new Transform(new Vector3(-1.5f, 0, 0));
         var renderData = new RenderData(transform, Primitives.Cube(0.5f), new[]
         {
@@ -100,10 +101,10 @@ public class UpdateObjectsFactory
             new AttributePointer(1, 2, 8, 3),
             new AttributePointer(2, 3, 8, 5)
         },
-        new ShaderProgramWithTexture(new Texture("Resources/crate.png"), new Shader[]
+        new LightningShaderProgram(lightData, _camera, new Shader[]
         {
             new("Shaders/vert.glsl", ShaderType.VertexShader),
-            new("Shaders/frag.glsl", ShaderType.FragmentShader)
+            new("Shaders/lightning.glsl", ShaderType.FragmentShader)
         }));
 
         return new GameObject(new GameObjectData()
@@ -118,16 +119,18 @@ public class UpdateObjectsFactory
     
     private GameObject CreateFlatCube()
     {
+        var lightData = new LightData(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
         var transform = new Transform(new Vector3(1.5f, 0, 0));
         var renderData = new RenderData(transform, Primitives.Cube(0.5f), new[]
         {
             new AttributePointer(0, 3, 8, 0),
             new AttributePointer(1, 2, 8, 3),
+            new AttributePointer(2, 3, 8, 5)
         },
-        new ShaderProgram(new Shader[]
+        new LightningShaderProgram(lightData, _camera, new Shader[]
         {
             new("Shaders/vert.glsl", ShaderType.VertexShader),
-            new("Shaders/collider.glsl", ShaderType.FragmentShader)
+            new("Shaders/lightning.glsl", ShaderType.FragmentShader)
         }));
 
         return new GameObject(new GameObjectData()
@@ -136,7 +139,7 @@ public class UpdateObjectsFactory
             Components = new IUpdatable[]
             {
                 new CubeAnimation(transform, new Vector3(0, 1, 0))
-            }
+            },
         });
     }
 }

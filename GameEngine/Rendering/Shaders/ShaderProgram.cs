@@ -15,8 +15,6 @@ public class ShaderProgram
 
     public void Init()
     {
-        OnInit();
-        
         foreach (Shader shader in _shaders)
         {
             shader.Load();
@@ -25,6 +23,7 @@ public class ShaderProgram
         
         GL.LinkProgram(_id);
         Bridge.LoadUniforms();
+        OnInit();
     }
 
     public void Use()
