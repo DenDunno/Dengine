@@ -44,18 +44,16 @@ public class UpdateObjectsFactory
         var transform = new Transform(new Vector3(0, 0, 0));
         var paths = new List<string>()
         {
-            "Resources/Skybox/right.jpg",
-            "Resources/Skybox/left.jpg",
-            "Resources/Skybox/top.jpg",
-            "Resources/Skybox/bottom.jpg",
-            "Resources/Skybox/back.jpg",
-            "Resources/Skybox/front.jpg",   
+            "Resources/Storm/right.jpg",
+            "Resources/Storm/left.jpg",
+            "Resources/Storm/top.jpg",
+            "Resources/Storm/bottom.jpg",
+            "Resources/Storm/back.jpg",
+            "Resources/Storm/front.jpg",   
         };
         var renderData = new RenderData(transform, Primitives.Cube(50f), new[]
         {
-            new AttributePointer(0, 3, 8, 0),
-            new AttributePointer(1, 2, 8, 3),
-            new AttributePointer(2, 3, 8, 5)
+            new AttributePointer(0, 3, 8, 0)
         },
         new ShaderProgramWithTexture(new Cubemap(paths), new Shader[]
         {
@@ -102,17 +100,12 @@ public class UpdateObjectsFactory
             new AttributePointer(1, 2, 8, 3),
             new AttributePointer(2, 3, 8, 5)
         },
-        new ShaderProgramWithTexture(new Texture("Resources/wood.png"), new Shader[]
+        new ShaderProgramWithTexture(new Texture("Resources/crate.png"), new Shader[]
         {
             new("Shaders/vert.glsl", ShaderType.VertexShader),
             new("Shaders/frag.glsl", ShaderType.FragmentShader)
         }));
 
-        _rigidbodies.Add(new Rigidbody(transform)
-        {
-            IsDynamic = true
-        });
-        
         return new GameObject(new GameObjectData()
         {
             Model = new Model(renderData, BufferUsageHint.DynamicDraw),

@@ -1,11 +1,9 @@
 #version 330
-smooth in vec3 TexCoord;
-
-out vec4 FragColor;
-
-uniform samplerCube Texture;
+smooth in vec3 textureCoordinates;
+out vec4 outputColor;
+uniform samplerCube tex;
 
 void main()
 {	
-    FragColor = textureCube(Texture, TexCoord);
-}   
+    outputColor = texture(tex, textureCoordinates);
+}

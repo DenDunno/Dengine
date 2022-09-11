@@ -12,7 +12,7 @@ public class Texture : TextureBase
 
     public override void Load()
     {
-        Bind();
+        Use();
         using (Stream stream = File.OpenRead(_path))
         {
             ImageResult image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha); 
@@ -24,11 +24,5 @@ public class Texture : TextureBase
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
         GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
-    }
-    
-    public override void Use(TextureUnit unit = TextureUnit.Texture0)
-    {
-        GL.ActiveTexture(unit);
-        Bind();
     }
 }

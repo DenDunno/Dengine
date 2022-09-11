@@ -11,11 +11,11 @@ public abstract class TextureBase
         _id = GL.GenTexture();
     }
 
-    protected void Bind()
+    public void Use(TextureUnit unit = TextureUnit.Texture0)
     {
+        GL.ActiveTexture(unit);
         GL.BindTexture(_textureTarget, _id);
     }
-    
+
     public abstract void Load();
-    public abstract void Use(TextureUnit unit = TextureUnit.Texture0);
 }

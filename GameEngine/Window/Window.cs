@@ -7,7 +7,7 @@ public class Window : GameWindow
 {
     private World _world = null!;
 
-    public Window(WindowSettings windowSettings) : base(windowSettings.GameWindowSettings, windowSettings.NativeWindowSettings)
+    public Window(NativeWindowSettings nativeWindowSettings) : base(GameWindowSettings.Default, nativeWindowSettings)
     {
     }
     
