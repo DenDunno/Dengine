@@ -7,7 +7,7 @@ public class PhysicsSimulation
     public PhysicsSimulation(float deltaTime, IEnumerable<Rigidbody> rigidbodies)
     {
         _deltaTime = deltaTime;
-        _dynamics = new Dynamics(rigidbodies.Where(rigidbody => rigidbody.IsDynamic));
+        _dynamics = new Dynamics(rigidbodies.Where(rigidbody => rigidbody.IsDynamic), deltaTime);
     }
     
     public void Run()

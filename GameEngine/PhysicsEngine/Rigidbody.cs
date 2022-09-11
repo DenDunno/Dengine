@@ -2,8 +2,13 @@
 
 public class Rigidbody
 {
-    public bool IsDynamic { get; init; }
+    public readonly Transform Transform;
     public bool Trigger { get; init; }
-    public Transform Transform { get; init; } = new();
+    public bool IsDynamic { get; init; }
     public Vector3 Velocity;
+
+    public Rigidbody(Transform transform)
+    {
+        Transform = transform;
+    }
 }

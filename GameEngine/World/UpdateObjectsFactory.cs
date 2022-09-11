@@ -20,8 +20,8 @@ public class UpdateObjectsFactory
             CreateStaticPoint(),
             CreateFlatCube(),
             CreatePlane(),
+            CreateCubeWithTexture(),
             CreateSkybox(),
-            CreateCubeWithTexture()
         };
 
         return new UpdateObjects(gameObjects, _rigidbodies);
@@ -42,16 +42,25 @@ public class UpdateObjectsFactory
     private GameObject CreateSkybox()
     {
         var transform = new Transform(new Vector3(0, 0, 0));
+        var paths = new List<string>()
+        {
+            "Resources/Skybox/right.jpg",
+            "Resources/Skybox/left.jpg",
+            "Resources/Skybox/top.jpg",
+            "Resources/Skybox/bottom.jpg",
+            "Resources/Skybox/back.jpg",
+            "Resources/Skybox/front.jpg",   
+        };
         var renderData = new RenderData(transform, Primitives.Cube(50f), new[]
         {
             new AttributePointer(0, 3, 8, 0),
             new AttributePointer(1, 2, 8, 3),
             new AttributePointer(2, 3, 8, 5)
         },
-        new ShaderProgramWithTexture(new Texture("Resources/wood.png"), new Shader[]
+        new ShaderProgramWithTexture(new Cubemap(paths), new Shader[]
         {
-            new("Shaders/vert.glsl", ShaderType.VertexShader),
-            new("Shaders/frag.glsl", ShaderType.FragmentShader)
+            new("Shaders/skyboxVert.glsl", ShaderType.VertexShader),
+            new("Shaders/skyboxFrag.glsl", ShaderType.FragmentShader)
         }));
 
         return new GameObject(new GameObjectData()
@@ -99,6 +108,11 @@ public class UpdateObjectsFactory
             new("Shaders/frag.glsl", ShaderType.FragmentShader)
         }));
 
+        _rigidbodies.Add(new Rigidbody(transform)
+        {
+            IsDynamic = true
+        });
+        
         return new GameObject(new GameObjectData()
         {
             Model = new Model(renderData, BufferUsageHint.DynamicDraw),

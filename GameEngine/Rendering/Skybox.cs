@@ -12,6 +12,6 @@ public class Skybox : IUpdatable
     
     public void Update(float deltaTime)
     {
-        _transform.Position = _camera.Position;
+        //_transform.Position = _camera.Position;
     }
 }

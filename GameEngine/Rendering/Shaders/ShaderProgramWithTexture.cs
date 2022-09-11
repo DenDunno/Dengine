@@ -1,9 +1,9 @@
 ﻿
 public class ShaderProgramWithTexture : ShaderProgram
 {
-    private readonly Texture _texture;
+    private readonly TextureBase _texture;
 
-    public ShaderProgramWithTexture(Texture texture, Shader[] shaders) : base(shaders)
+    public ShaderProgramWithTexture(TextureBase texture, Shader[] shaders) : base(shaders)
     {
         _texture = texture;
     }
