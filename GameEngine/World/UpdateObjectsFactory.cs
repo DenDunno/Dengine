@@ -73,7 +73,9 @@ public class UpdateObjectsFactory
 
     private GameObject CreatePlane()
     {
-        var renderData = new RenderData(new Transform(new Vector3(0, -1f, 0)), Primitives.Plane(5f), new[]
+        var transform = new Transform(Quaternion.FromEulerAngles(MathHelper.DegreesToRadians(90), 0, 0));
+        
+        var renderData = new RenderData(transform, Primitives.Plane(10), new[]
         {
             new AttributePointer(0, 3, 8, 0),
             new AttributePointer(1, 2, 8, 3),
@@ -94,7 +96,7 @@ public class UpdateObjectsFactory
     private GameObject CreateCubeWithTexture()
     {
         var lightData = new LightData(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
-        var transform = new Transform(new Vector3(-1.5f, 0, 0));
+        var transform = new Transform(new Vector3(-1.5f, 1, 0));
         var renderData = new RenderData(transform, Primitives.Cube(0.5f), new[]
         {
             new AttributePointer(0, 3, 8, 0),
@@ -120,7 +122,7 @@ public class UpdateObjectsFactory
     private GameObject CreateFlatCube()
     {
         var lightData = new LightData(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
-        var transform = new Transform(new Vector3(1.5f, 0, 0));
+        var transform = new Transform(new Vector3(1.5f, 1, 0));
         var renderData = new RenderData(transform, Primitives.Cube(0.5f), new[]
         {
             new AttributePointer(0, 3, 8, 0),
