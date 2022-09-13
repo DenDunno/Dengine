@@ -2,7 +2,7 @@
 
 var windowFactory = new WindowFactory();
 var window = windowFactory.Create();
-var camera = new Camera(Vector3.Zero);
+var camera = new Camera(new Vector3(0, 1.5f, 3), window.AspectRatio);
 var updateObjectsFactory = new UpdateObjectsFactory(window, camera);
 
 var updateObjects = updateObjectsFactory.Create();

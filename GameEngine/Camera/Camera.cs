@@ -2,14 +2,18 @@
 
 public class Camera
 {
+    private readonly float _nearClipPlaneDepth = 0.01f;
+    private readonly float _farClipPlaneDepth = 100f;
+    private readonly float _aspectRatio;
     private Vector3 _front = -Vector3.UnitZ;
     private Vector3 _up = Vector3.UnitY;
     private Vector3 _right = Vector3.UnitX;
     private float _pitch;
     private float _yaw = -MathHelper.PiOver2;
 
-    public Camera(Vector3 position)
+    public Camera(Vector3 position, float aspectRatio)
     {
+        _aspectRatio = aspectRatio;
         Position = position;
     }
     
@@ -46,7 +50,7 @@ public class Camera
     
     public Matrix4 GetProjectionMatrix()
     {
-        return Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1536f / 864, 0.01f, 100f);
+        return Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2, _aspectRatio, _nearClipPlaneDepth, _farClipPlaneDepth);
     }
     
     private void UpdateVectors()

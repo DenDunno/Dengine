@@ -10,6 +10,8 @@ public class Window : GameWindow
     public Window(NativeWindowSettings nativeWindowSettings) : base(GameWindowSettings.Default, nativeWindowSettings)
     {
     }
+
+    public new float AspectRatio => (float)Size.X / Size.Y;
     
     public void Run(World world)
     {

@@ -34,7 +34,8 @@ public class UpdateObjectsFactory
             Components = new IUpdatable[]
             {
                 new Timer(), 
-                new CameraControlling(_camera, _window.MouseState, _window.KeyboardState)
+                new CameraControlling(_camera, _window.MouseState, _window.KeyboardState),
+                new FPSCounter(_window)
             } 
         });
     }
@@ -73,9 +74,9 @@ public class UpdateObjectsFactory
 
     private GameObject CreatePlane()
     {
-        var transform = new Transform(Quaternion.FromEulerAngles(MathHelper.DegreesToRadians(90), 0, 0));
+        var transform = new Transform();
         
-        var renderData = new RenderData(transform, Primitives.Plane(10), new[]
+        var renderData = new RenderData(transform, Primitives.Quad(10), new[]
         {
             new AttributePointer(0, 3, 8, 0),
             new AttributePointer(1, 2, 8, 3),
