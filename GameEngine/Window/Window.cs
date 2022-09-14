@@ -6,7 +6,8 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 public class Window : GameWindow
 {
     private World _world = null!;
-
+    private PolygonMode _polygonMode = PolygonMode.Fill;
+    
     public Window(NativeWindowSettings nativeWindowSettings) : base(GameWindowSettings.Default, nativeWindowSettings)
     {
     }
@@ -17,6 +18,11 @@ public class Window : GameWindow
     {
         _world = world;
         Run();
+    }
+
+    public void SetPolygonMode(PolygonMode polygonMode)
+    {
+        _polygonMode = polygonMode;
     }
 
     protected override void OnUpdateFrame(FrameEventArgs args)
@@ -38,6 +44,7 @@ public class Window : GameWindow
         GL.Enable(EnableCap.DepthTest);
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.Enable(EnableCap.Blend);
+        GL.PolygonMode(MaterialFace.FrontAndBack, _polygonMode);
 
         _world.Draw();
 
