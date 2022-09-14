@@ -12,8 +12,12 @@ public class Transform
     public Transform(Vector3 position) : this(position, Quaternion.Identity)
     {
     }
+    
+    public Transform(Quaternion rotation) : this(Vector3.Zero, rotation)
+    {
+    }
 
-    private Transform(Vector3 position, Quaternion rotation)
+    public Transform(Vector3 position, Quaternion rotation)
     {
         Position = position;
         Rotation = rotation;

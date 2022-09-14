@@ -1,21 +1,18 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 using StbImageSharp;
 
-public class Texture
+public class Texture : TextureBase
 {
     private readonly string _path;
-    private readonly int _id;
-    
-    public Texture(string path)
+
+    public Texture(string path) : base(TextureTarget.Texture2D)
     {
         _path = path;
-        _id = GL.GenTexture();
     }
 
-    public void Load()
+    public override void Load()
     {
         Use();
-        StbImage.stbi_set_flip_vertically_on_load(1);
         using (Stream stream = File.OpenRead(_path))
         {
             ImageResult image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha); 
@@ -27,11 +24,5 @@ public class Texture
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
         GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
-    }
-    
-    public void Use(TextureUnit unit = TextureUnit.Texture0)
-    {
-        GL.ActiveTexture(unit);
-        GL.BindTexture(TextureTarget.Texture2D, _id);
     }
 }

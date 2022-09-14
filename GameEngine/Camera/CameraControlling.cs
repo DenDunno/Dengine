@@ -7,7 +7,7 @@ public class CameraControlling : IUpdatable
     private readonly KeyboardState _keyboardState;
     private readonly IEnumerable<MovementKey> _movementKeys;
     private const float _translationSpeed = 2f;
-    private const float _acceleratedTranslationSpeed = 4f;
+    private const float _acceleratedTranslationSpeed = 6f;
     private const float _rotationSpeed = 7f;
     
     public CameraControlling(Camera camera, MouseState mouseState, KeyboardState keyboardState)

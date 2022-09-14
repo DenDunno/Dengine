@@ -1,10 +1,10 @@
 ﻿
-public class World : IUpdatable
+public class World : IUpdatable, IInitializable
 {
-    private readonly List<GameObject> _gameObjects;
+    private readonly IReadOnlyCollection<GameObject> _gameObjects;
     private readonly Camera _camera;
 
-    public World(Camera camera, List<GameObject> gameObjects)
+    public World(Camera camera, IReadOnlyCollection<GameObject> gameObjects)
     {
         _gameObjects = gameObjects;
         _camera = camera;

@@ -7,9 +7,11 @@ public class Window : GameWindow
 {
     private World _world = null!;
 
-    public Window(WindowSettings windowSettings) : base(windowSettings.GameWindowSettings, windowSettings.NativeWindowSettings)
+    public Window(NativeWindowSettings nativeWindowSettings) : base(GameWindowSettings.Default, nativeWindowSettings)
     {
     }
+
+    public new float AspectRatio => (float)Size.X / Size.Y;
     
     public void Run(World world)
     {
