@@ -1,12 +1,12 @@
 ﻿using OpenTK.Mathematics;
 
-public class CubeAnimation : IUpdatable
+public class RotationAnimation : IUpdatable
 {
     private readonly Transform _transform;
     private readonly Vector3 _rotationVector;
     private const float _rotationSpeed = 1f;
 
-    public CubeAnimation(Transform transform, Vector3 rotationVector)
+    public RotationAnimation(Transform transform, Vector3 rotationVector)
     {
         _transform = transform;
         _rotationVector = rotationVector;

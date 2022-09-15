@@ -3,27 +3,44 @@
 public class Transform
 {
     public Vector3 Position;
-    public Quaternion Rotation;
+    private Quaternion _rotation;
+    private readonly Transform? _parent;
 
-    public Transform() : this(Vector3.Zero, Quaternion.Identity)
+    public Transform() : this(Vector3.Zero, Quaternion.Identity, null)
     {
     }
     
-    public Transform(Vector3 position) : this(position, Quaternion.Identity)
+    public Transform(Vector3 position) : this(position, Quaternion.Identity, null)
     {
     }
     
-    public Transform(Quaternion rotation) : this(Vector3.Zero, rotation)
+    public Transform(Vector3 position, Transform parent) : this(position, Quaternion.Identity, parent)
+    {
+    }
+    
+    public Transform(Quaternion rotation) : this(Vector3.Zero, rotation, null)
     {
     }
 
-    public Transform(Vector3 position, Quaternion rotation)
+    private Transform(Vector3 position, Quaternion rotation, Transform? parent)
     {
         Position = position;
-        Rotation = rotation;
+        _rotation = rotation;
+        _parent = parent;
     }
 
-    public Matrix4 ModelMatrix => Matrix4.CreateFromQuaternion(Rotation) * Matrix4.CreateTranslation(Position);
+    public Matrix4 ModelMatrix
+    {
+        get
+        {
+            Matrix4 modelMatrix = Matrix4.CreateFromQuaternion(_rotation) * Matrix4.CreateTranslation(Position);
+            
+            if (_parent != null)
+                return  modelMatrix * _parent.ModelMatrix;
+
+            return modelMatrix;
+        }
+    }
 
     public void Move(float x, float y, float z)
     {
@@ -44,6 +61,6 @@ public class Transform
 
     public void Rotate(Vector3 rotationVector)
     {
-        Rotation *= Quaternion.FromEulerAngles(rotationVector);
+        _rotation *= Quaternion.FromEulerAngles(rotationVector);
     }
 }

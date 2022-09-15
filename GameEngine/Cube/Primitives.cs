@@ -75,10 +75,10 @@ public static class Primitives
              VerticesData = new[]
              {
                   // Position          Texture       Normal
-                  size,  0.0f,  size,  1.0f,  1.0f,  0.0f,  0.0f,  0.0f,
-                  size,  0.0f, -size,  1.0f,  0.0f,  0.0f,  0.0f,  0.0f, 
-                 -size,  0.0f, -size,  0.0f,  0.0f,  0.0f,  0.0f,  0.0f,
-                 -size,  0.0f,  size,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
+                  size,  0.0f,  size,  1.0f,  1.0f,  0.0f,  1.0f,  0.0f,
+                  size,  0.0f, -size,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f, 
+                 -size,  0.0f, -size,  0.0f,  0.0f,  0.0f,  1.0f,  0.0f,
+                 -size,  0.0f,  size,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
              },
              
              Indices = new uint[]
