@@ -3,11 +3,13 @@ public class PhysicsSimulation
 {
     private readonly float _deltaTime;
     private readonly Dynamics _dynamics;
-
-    public PhysicsSimulation(float deltaTime, IEnumerable<Rigidbody> rigidbodies)
+    private readonly CollisionDetection _collisionDetection;
+    
+    public PhysicsSimulation(float deltaTime, Rigidbody[] rigidbodies)
     {
         _deltaTime = deltaTime;
         _dynamics = new Dynamics(rigidbodies.Where(rigidbody => rigidbody.IsDynamic), deltaTime);
+        _collisionDetection = new CollisionDetection(rigidbodies);
     }
     
     public void Run()
@@ -17,6 +19,7 @@ public class PhysicsSimulation
             while (true)
             {
                 _dynamics.ApplyGravity();
+                _collisionDetection.CheckCollision();
 
                 await Task.Delay(TimeSpan.FromSeconds(_deltaTime));
             }

@@ -22,6 +22,6 @@ public class World : IUpdatable, IInitializable
 
     public void Draw()
     {
-        _gameObjects.ForEach(gameObject => gameObject.Draw(_camera.GetProjectionMatrix(), _camera.GetViewMatrix()));
+        _gameObjects.ForEach(gameObject => gameObject.Draw(_camera.ProjectionMatrix, _camera.ViewMatrix));
     }
 }

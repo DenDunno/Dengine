@@ -33,12 +33,12 @@ public class Transform
     {
         get
         {
-            Matrix4 modelMatrix = Matrix4.CreateFromQuaternion(_rotation) * Matrix4.CreateTranslation(Position);
+            Matrix4 localMatrix = Matrix4.CreateFromQuaternion(_rotation) * Matrix4.CreateTranslation(Position);
             
             if (_parent != null)
-                return  modelMatrix * _parent.ModelMatrix;
+                return  localMatrix * _parent.ModelMatrix;
 
-            return modelMatrix;
+            return localMatrix;
         }
     }
 

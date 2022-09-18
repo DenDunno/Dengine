@@ -2,9 +2,9 @@
 public class UpdateObjects
 {
     public readonly IReadOnlyCollection<GameObject> GameObjects;
-    public readonly IReadOnlyCollection<Rigidbody> Rigidbodies;
+    public readonly Rigidbody[] Rigidbodies;
 
-    public UpdateObjects(IReadOnlyCollection<GameObject> gameObjects, IReadOnlyCollection<Rigidbody> rigidbodies)
+    public UpdateObjects(IReadOnlyCollection<GameObject> gameObjects, Rigidbody[] rigidbodies)
     {
         GameObjects = gameObjects;
         Rigidbodies = rigidbodies;

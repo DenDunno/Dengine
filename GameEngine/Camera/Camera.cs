@@ -43,16 +43,11 @@ public class Camera
         }
     }
     
-    public Matrix4 GetViewMatrix()
-    {
-        return Matrix4.LookAt(Position, Position + _front, _up);
-    }
-    
-    public Matrix4 GetProjectionMatrix()
-    {
-        return Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2, _aspectRatio, _nearClipPlaneDepth, _farClipPlaneDepth);
-    }
-    
+    public Matrix4 ViewMatrix => Matrix4.LookAt(Position, Position + _front, _up);
+
+    public Matrix4 ProjectionMatrix => 
+        Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2, _aspectRatio, _nearClipPlaneDepth, _farClipPlaneDepth);
+
     private void UpdateVectors()
     {
         _front.X = MathF.Cos(_pitch) * MathF.Cos(_yaw);
