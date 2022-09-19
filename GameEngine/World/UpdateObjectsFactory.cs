@@ -18,13 +18,36 @@ public class UpdateObjectsFactory
         var gameObjects = new List<GameObject>()
         {
             CreateStaticPoint(),
-            CreateFlatCube(),
             CreatePlane(),
-            CreateCubeWithTexture(),
             CreateSkybox(),
+            CreateSphere(new Vector3(2, 2, 0)),
         };
 
         return new UpdateObjects(gameObjects, _rigidbodies.ToArray());
+    }
+
+    private GameObject CreateSphere(Vector3 position)
+    {
+        var transform = new Transform(position);
+        var renderData = new RenderData(transform, Primitives.Sphere(1f, 24, 24), new[]
+        {
+            new AttributePointer(0, 3, 6, 0),
+            new AttributePointer(1, 3, 6, 3),
+        },
+        new ShaderProgram(new Shader[]
+        {
+            new("Shaders/flatVert.glsl", ShaderType.VertexShader),
+            new("Shaders/flatFrag.glsl", ShaderType.FragmentShader)
+        }));
+
+        return new GameObject(new GameObjectData()
+        {
+            Model = new Model(renderData, BufferUsageHint.StaticDraw),
+            Components = new IUpdatable[]
+            {
+                new ObjectControlling(transform, _window.KeyboardState)
+            }
+        });
     }
 
     private GameObject CreateStaticPoint()
@@ -95,10 +118,10 @@ public class UpdateObjectsFactory
         });
     }
 
-    private GameObject CreateCubeWithTexture()
+    private GameObject CreateCube(Vector3 position)
     {
         var lightData = new LightData(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
-        var transform = new Transform(new Vector3(-1.5f, 1, 0));
+        var transform = new Transform(position);
         var mesh = Primitives.Cube(0.5f);
         var renderData = new RenderData(transform, mesh, new[]
         {
@@ -119,40 +142,7 @@ public class UpdateObjectsFactory
 
         return new GameObject(new GameObjectData()
         {
-            Model = new Model(renderData, BufferUsageHint.DynamicDraw),
-            Components = new IUpdatable[]
-            {
-                new CubeControlling(transform, _window.KeyboardState)
-            }
-        });
-    }
-    
-    private GameObject CreateFlatCube()
-    {
-        var lightData = new LightData(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
-        var transform = new Transform(new Vector3(1.5f, 1, 0));
-        var mesh = Primitives.Cube(0.5f);
-        var renderData = new RenderData(transform, mesh, new[]
-        {
-            new AttributePointer(0, 3, 8, 0),
-            new AttributePointer(1, 2, 8, 3),
-            new AttributePointer(2, 3, 8, 5)
-        },
-        new LightningShaderProgram(lightData, _camera, new Shader[]
-        {
-            new("Shaders/vert.glsl", ShaderType.VertexShader),
-            new("Shaders/lightning.glsl", ShaderType.FragmentShader)
-        }));
-        
-        var boundingBox = new BoundingBox(mesh.VerticesData, 8, transform);
-        boundingBox.Initialize();
-        var boxCollider = new BoxCollider(boundingBox);
-        _rigidbodies.Add(new Rigidbody(transform, boxCollider));
-
-        return new GameObject(new GameObjectData()
-        {
-            Model = new Model(renderData, BufferUsageHint.DynamicDraw),
-            Components = new IUpdatable[]{new RotationAnimation(transform, Vector3.UnitY)}
+            Model = new Model(renderData, BufferUsageHint.DynamicDraw)
         });
     }
 }

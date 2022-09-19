@@ -14,10 +14,6 @@ public class CollisionDetection
         {
             for (int j = i + 1; j < _rigidbodies.Length; ++j)
             {
-                if (_rigidbodies[i].BoxCollider.CheckCollision(_rigidbodies[j].BoxCollider))
-                {
-                    Console.WriteLine($"Collision {Timer.Time}");
-                }
             }
         }
     }

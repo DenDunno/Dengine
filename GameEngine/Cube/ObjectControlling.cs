@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
-public class CubeControlling : IUpdatable
+public class ObjectControlling : IUpdatable
 {
     private readonly Transform _transform;
     private readonly KeyboardState _keyboardState;
@@ -16,7 +16,7 @@ public class CubeControlling : IUpdatable
         {Keys.KeyPad2, new Vector3(0, -1, 0)},
     };
     
-    public CubeControlling(Transform transform, KeyboardState keyboardState)
+    public ObjectControlling(Transform transform, KeyboardState keyboardState)
     {
         _transform = transform;
         _keyboardState = keyboardState;

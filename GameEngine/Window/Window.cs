@@ -25,6 +25,10 @@ public class Window : GameWindow
         _polygonMode = polygonMode;
     }
 
+    protected override void OnLoad()
+    {
+    }
+
     protected override void OnUpdateFrame(FrameEventArgs args)
     {
         base.OnUpdateFrame(args);
