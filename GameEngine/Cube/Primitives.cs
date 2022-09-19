@@ -1,4 +1,5 @@
-﻿
+﻿using OpenTK.Mathematics;
+
 public static class Primitives
 {
     public static Mesh Cube(float size)
