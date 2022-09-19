@@ -152,6 +152,7 @@ public class UpdateObjectsFactory
         return new GameObject(new GameObjectData()
         {
             Model = new Model(renderData, BufferUsageHint.DynamicDraw),
+            Components = new IUpdatable[]{new RotationAnimation(transform, Vector3.UnitY)}
         });
     }
 }
