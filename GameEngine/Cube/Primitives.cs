@@ -124,4 +124,76 @@ public static class Primitives
             Indices = indices.ToArray()
         };
     }
+
+    public static Mesh Sphere(float radius, uint sectorCount, uint stackCount)
+    {
+        if (radius <= 0)
+            throw new Exception("Sphere must have positive radius");
+
+        return new Mesh()
+        {
+            VerticesData = CreateSphereVertices(radius, (int)sectorCount, (int)stackCount),
+            Indices = CreateSphereIndices(sectorCount, stackCount)
+        };        
+    }
+
+    private static float[] CreateSphereVertices(float radius, int sectorCount, int stackCount)
+    {
+        var vertices = new List<float>();
+        float lengthInv = 1.0f / radius;
+        float sectorStep = 2 * MathF.PI / sectorCount;
+        float stackStep = MathF.PI / stackCount;
+
+        for(int i = 0; i <= stackCount; ++i)
+        {
+            float stackAngle = MathF.PI / 2 - i * stackStep;
+            float xy = radius * MathF.Cos(stackAngle); 
+            float z = radius * MathF.Sin(stackAngle);  
+            
+            for(int j = 0; j <= sectorCount; ++j)
+            {
+                float sectorAngle = j * sectorStep;
+                
+                float x = xy * MathF.Cos(sectorAngle);   
+                float y = xy * MathF.Sin(sectorAngle);
+                float nx = x * lengthInv;
+                float ny = y * lengthInv;
+                float nz = z * lengthInv;
+                
+                vertices.AddRange(new []{x, y, z, nx, ny, nz});
+            }
+        }
+
+        return vertices.ToArray();
+    }
+
+    private static uint[] CreateSphereIndices(uint stackCount, uint sectorCount)
+    {
+        var indices = new List<uint>();
+
+        for(uint i = 0; i < stackCount; ++i)
+        {
+            uint k1 = i * (sectorCount + 1);
+            uint k2 = k1 + sectorCount + 1;
+
+            for(uint j = 0; j < sectorCount; ++j, ++k1, ++k2)
+            {
+                if(i != 0)
+                {
+                    indices.Add(k1);
+                    indices.Add(k2);
+                    indices.Add(k1 + 1);
+                }
+                
+                if(i != (stackCount-1))
+                {
+                    indices.Add(k1 + 1);
+                    indices.Add(k2);
+                    indices.Add(k2 + 1);
+                }
+            }
+        }
+        
+        return indices.ToArray();
+    }
 }

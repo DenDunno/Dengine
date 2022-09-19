@@ -22,9 +22,34 @@ public class UpdateObjectsFactory
             CreatePlane(),
             CreateCubeWithTexture(),
             CreateSkybox(),
+            CreateSphere(),
         };
 
         return new UpdateObjects(gameObjects, _rigidbodies.ToArray());
+    }
+
+    private GameObject CreateSphere()
+    {
+        var transform = new Transform(new Vector3(0, 5, 0));
+        var renderData = new RenderData(transform, Primitives.Sphere(1f, 72, 24), new[]
+        {
+            new AttributePointer(0, 3, 6, 0),
+            new AttributePointer(1, 3, 6, 3),
+        },
+        new ShaderProgramWithTexture(new Texture("Resources/Grass/Base.png"), new Shader[]
+        {
+            new("Shaders/vert.glsl", ShaderType.VertexShader),
+            new("Shaders/frag.glsl", ShaderType.FragmentShader)
+        }));
+
+        return new GameObject(new GameObjectData()
+        {
+            Model = new Model(renderData, BufferUsageHint.StaticDraw),
+            Components = new IUpdatable[]
+            {
+                new ObjectControlling(transform, _window.KeyboardState)
+            }
+        });
     }
 
     private GameObject CreateStaticPoint()
@@ -119,11 +144,7 @@ public class UpdateObjectsFactory
 
         return new GameObject(new GameObjectData()
         {
-            Model = new Model(renderData, BufferUsageHint.DynamicDraw),
-            Components = new IUpdatable[]
-            {
-                new CubeControlling(transform, _window.KeyboardState)
-            }
+            Model = new Model(renderData, BufferUsageHint.DynamicDraw)
         });
     }
     
