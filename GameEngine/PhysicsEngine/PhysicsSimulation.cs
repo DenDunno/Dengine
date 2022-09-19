@@ -1,15 +1,15 @@
 ﻿
 public class PhysicsSimulation
 {
-    private readonly float _deltaTime;
+    private readonly CollisionResolution _collisionResolution;
     private readonly Dynamics _dynamics;
-    private readonly CollisionDetection _collisionDetection;
-    
-    public PhysicsSimulation(float deltaTime, Rigidbody[] rigidbodies)
+    private readonly float _fixedDeltaTime;
+
+    public PhysicsSimulation(float fixedDeltaTime, Rigidbody[] rigidbodies)
     {
-        _deltaTime = deltaTime;
-        _dynamics = new Dynamics(rigidbodies.Where(rigidbody => rigidbody.IsDynamic), deltaTime);
-        _collisionDetection = new CollisionDetection(rigidbodies);
+        _collisionResolution = new CollisionResolution(rigidbodies);
+        _dynamics = new Dynamics(rigidbodies.Where(rigidbody => rigidbody.IsStatic == false), fixedDeltaTime);
+        _fixedDeltaTime = fixedDeltaTime;
     }
     
     public void Run()
@@ -18,10 +18,10 @@ public class PhysicsSimulation
         {
             while (true)
             {
-                _dynamics.ApplyGravity();
-                _collisionDetection.CheckCollision();
+                _dynamics.Apply();
+                _collisionResolution.Resolve();
 
-                await Task.Delay(TimeSpan.FromSeconds(_deltaTime));
+                await Task.Delay(TimeSpan.FromSeconds(_fixedDeltaTime));
             }
         });
     }

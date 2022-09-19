@@ -20,16 +20,18 @@ public class UpdateObjectsFactory
             CreateStaticPoint(),
             CreatePlane(),
             CreateSkybox(),
-            CreateSphere(new Vector3(2, 2, 0)),
+            CreateControllingSphere(),
+            CreateLeftSphere()
         };
 
         return new UpdateObjects(gameObjects, _rigidbodies.ToArray());
     }
 
-    private GameObject CreateSphere(Vector3 position)
+    private GameObject CreateLeftSphere()
     {
-        var transform = new Transform(position);
-        var renderData = new RenderData(transform, Primitives.Sphere(1f, 24, 24), new[]
+        var transform = new Transform(new Vector3(-2, 2, 0));
+        const float radius = 2f;
+        var renderData = new RenderData(transform, Primitives.Sphere(radius, 24, 24), new[]
         {
             new AttributePointer(0, 3, 6, 0),
             new AttributePointer(1, 3, 6, 3),
@@ -39,6 +41,36 @@ public class UpdateObjectsFactory
             new("Shaders/flatVert.glsl", ShaderType.VertexShader),
             new("Shaders/flatFrag.glsl", ShaderType.FragmentShader)
         }));
+
+        _rigidbodies.Add(new Rigidbody(transform, new SphereCollider(transform, radius)));
+
+        return new GameObject(new GameObjectData()
+        {
+            Model = new Model(renderData, BufferUsageHint.StaticDraw),
+            Components = new IUpdatable[]
+            {
+                new RotationAnimation(transform, new Vector3(1, 1, 0)),
+            }
+        });
+    }
+
+    private GameObject CreateControllingSphere()
+    {
+        var transform = new Transform(new Vector3(2, 2, 0));
+        const float radius = 1f;
+        var renderData = new RenderData(transform, Primitives.Sphere(radius, 24, 24), new[]
+        {
+            new AttributePointer(0, 3, 6, 0),
+            new AttributePointer(1, 3, 6, 3),
+        },
+        new ShaderProgram(new Shader[]
+        {
+            new("Shaders/flatVert.glsl", ShaderType.VertexShader),
+            new("Shaders/flatFrag.glsl", ShaderType.FragmentShader)
+        }));
+
+        var rigidbody = new Rigidbody(transform, new SphereCollider(transform, radius)); 
+        _rigidbodies.Add(rigidbody);
 
         return new GameObject(new GameObjectData()
         {
@@ -134,11 +166,6 @@ public class UpdateObjectsFactory
             new("Shaders/vert.glsl", ShaderType.VertexShader),
             new("Shaders/lightning.glsl", ShaderType.FragmentShader)
         }));
-
-        var boundingBox = new BoundingBox(mesh.VerticesData, 8, transform);
-        boundingBox.Initialize();
-        var boxCollider = new BoxCollider(boundingBox);
-        _rigidbodies.Add(new Rigidbody(transform, boxCollider));
 
         return new GameObject(new GameObjectData()
         {
