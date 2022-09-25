@@ -1,27 +1,35 @@
-﻿using System.Collections.ObjectModel;
+﻿using OpenTK.Graphics.OpenGL;
 
 public class Commands
 {
-    private readonly ReadOnlyDictionary<string, Action> _commands;
+    private readonly Window _window;
+    private readonly IReadOnlyDictionary<string, Action> _commands;
 
-    public Commands(IDictionary<string, Action> commands)
+    public Commands(Window window)
     {
-        _commands = new ReadOnlyDictionary<string, Action>(commands);
+        _window = window;
+        _commands = new Dictionary<string, Action>()
+        {
+            {"wireframe", EnableWireframeMode},
+            {"shaded", EnableShadedMode},
+        };
     }
 
-    public void Listen()
+    public void TryExecute(string command)
     {
-        Task.Run(() =>
+        if (_commands.ContainsKey(command))
         {
-            while (true)
-            {
-                string commandName = Console.ReadLine()!.ToLower();
+            _commands[command]();
+        }
+    }
 
-                if (_commands.ContainsKey(commandName))
-                {
-                    _commands[commandName]();
-                }
-            }
-        });
+    private void EnableWireframeMode()
+    {
+        _window.SetPolygonMode(PolygonMode.Line);
+    }
+
+    private void EnableShadedMode()
+    {
+        _window.SetPolygonMode(PolygonMode.Fill);
     }
 }

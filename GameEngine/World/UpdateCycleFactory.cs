@@ -1,19 +1,19 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
-public class UpdateObjectsFactory
+public class UpdateCycleFactory
 {
     private readonly Window _window;
     private readonly Camera _camera;
     private readonly List<Rigidbody> _rigidbodies = new();    
     
-    public UpdateObjectsFactory(Window window, Camera camera)
+    public UpdateCycleFactory(Window window)
     {
         _window = window;
-        _camera = camera;
+        _camera = new Camera(new Vector3(0, 1.5f, 3), window.AspectRatio);
     }
     
-    public UpdateObjects Create()
+    public UpdateCycle Create()
     {
         var gameObjects = new List<GameObject>()
         {
@@ -21,15 +21,17 @@ public class UpdateObjectsFactory
             CreatePlane(),
             CreateSkybox(),
             CreateControllingSphere(),
-            CreateLeftSphere()
+            CreateBigSphere()
         };
-
-        return new UpdateObjects(gameObjects, _rigidbodies.ToArray());
+        
+        var world = new World(_camera, gameObjects);
+        
+        return new UpdateCycle(_window, world, _rigidbodies);
     }
 
-    private GameObject CreateLeftSphere()
+    private GameObject CreateBigSphere()
     {
-        var transform = new Transform(new Vector3(-2, 2, 0));
+        var transform = new Transform(new Vector3(1.5f, 2, 0));
         const float radius = 2f;
         var renderData = new RenderData(transform, Primitives.Sphere(radius, 24, 24), new[]
         {
@@ -42,21 +44,20 @@ public class UpdateObjectsFactory
             new("Shaders/flatFrag.glsl", ShaderType.FragmentShader)
         }));
 
-        _rigidbodies.Add(new Rigidbody(transform, new SphereCollider(transform, radius)));
+        _rigidbodies.Add(new Rigidbody(transform, new SphereCollider(transform, radius))
+        {
+            Mass = 2
+        });
 
         return new GameObject(new GameObjectData()
         {
-            Model = new Model(renderData, BufferUsageHint.StaticDraw),
-            Components = new IUpdatable[]
-            {
-                new RotationAnimation(transform, new Vector3(1, 1, 0)),
-            }
+            Model = new Model(renderData, BufferUsageHint.StaticDraw)
         });
     }
 
     private GameObject CreateControllingSphere()
     {
-        var transform = new Transform(new Vector3(2, 2, 0));
+        var transform = new Transform(new Vector3(0, 2, 10));
         const float radius = 1f;
         var renderData = new RenderData(transform, Primitives.Sphere(radius, 24, 24), new[]
         {
@@ -68,9 +69,11 @@ public class UpdateObjectsFactory
             new("Shaders/flatVert.glsl", ShaderType.VertexShader),
             new("Shaders/flatFrag.glsl", ShaderType.FragmentShader)
         }));
-
-        var rigidbody = new Rigidbody(transform, new SphereCollider(transform, radius)); 
-        _rigidbodies.Add(rigidbody);
+        
+        _rigidbodies.Add(new Rigidbody(transform, new SphereCollider(transform, radius))
+        {
+            Velocity = new Vector3(0, 0, -4),
+        });
 
         return new GameObject(new GameObjectData()
         {

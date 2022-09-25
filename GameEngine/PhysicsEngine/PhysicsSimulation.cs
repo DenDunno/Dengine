@@ -5,7 +5,7 @@ public class PhysicsSimulation
     private readonly Dynamics _dynamics;
     private readonly float _fixedDeltaTime;
 
-    public PhysicsSimulation(float fixedDeltaTime, Rigidbody[] rigidbodies)
+    public PhysicsSimulation(float fixedDeltaTime, IReadOnlyList<Rigidbody> rigidbodies)
     {
         _collisionResolution = new CollisionResolution(rigidbodies);
         _dynamics = new Dynamics(rigidbodies.Where(rigidbody => rigidbody.IsStatic == false), fixedDeltaTime);
