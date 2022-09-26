@@ -4,20 +4,27 @@ public class Dynamics
 {
     private readonly IEnumerable<Rigidbody> _rigidbodies;
     private readonly Vector3 _gravity = new(0, -9.81f, 0);
-    private readonly float _deltaTime;
+    private readonly float _fixedDeltaTime;
 
-    public Dynamics(IEnumerable<Rigidbody> rigidbodies, float deltaTime)
+    public Dynamics(IEnumerable<Rigidbody> rigidbodies, float fixedDeltaTime)
     {
         _rigidbodies = rigidbodies;
-        _deltaTime = deltaTime;
+        _fixedDeltaTime = fixedDeltaTime;
     }
 
-    public void ApplyGravity()
+    public void Apply()
     {
         foreach (Rigidbody rigidbody in _rigidbodies)
         {
-            rigidbody.Velocity += _gravity * rigidbody.Mass * _deltaTime;
-            rigidbody.Transform.Move(rigidbody.Velocity * _deltaTime);
+            if (rigidbody.IsDynamic)
+            {
+                rigidbody.Force = rigidbody.Mass * _gravity;
+            }
+
+            rigidbody.Velocity += rigidbody.Force / rigidbody.Mass * _fixedDeltaTime;
+            rigidbody.Transform.Move(rigidbody.Velocity * _fixedDeltaTime);
+            
+            rigidbody.Force = Vector3.Zero;
         }
     }
 }

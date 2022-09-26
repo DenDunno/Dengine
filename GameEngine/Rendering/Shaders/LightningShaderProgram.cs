@@ -5,7 +5,8 @@ public class LightningShaderProgram : ShaderProgram
     private readonly LightData _data;
     private readonly Camera _camera;
 
-    public LightningShaderProgram(LightData data, Camera camera, Shader[] shaders) : base(shaders)
+    public LightningShaderProgram(LightData data, Camera camera, string vertexShaderPath, string fragmentShaderPath) 
+        : base(vertexShaderPath, fragmentShaderPath)
     {
         _data = data;
         _camera = camera;

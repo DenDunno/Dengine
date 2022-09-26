@@ -3,7 +3,8 @@ public class ShaderProgramWithTexture : ShaderProgram
 {
     private readonly TextureBase _texture;
 
-    public ShaderProgramWithTexture(TextureBase texture, Shader[] shaders) : base(shaders)
+    public ShaderProgramWithTexture(TextureBase texture, string vertexShaderPath, string fragmentShaderPath) 
+        : base(vertexShaderPath, fragmentShaderPath)
     {
         _texture = texture;
     }

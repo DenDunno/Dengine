@@ -1,16 +1,10 @@
-﻿
+﻿using OpenTK.Graphics.OpenGL4;
+
 public class RenderData
 {
-    public readonly Transform Transform;
-    public readonly Mesh Mesh;
-    public readonly AttributePointer[] AttributePointers;
-    public readonly ShaderProgram ShaderProgram;
-
-    public RenderData(Transform transform, Mesh mesh, AttributePointer[] attributePointers, ShaderProgram shaderProgram)
-    {
-        Transform = transform;
-        Mesh = mesh;
-        AttributePointers = attributePointers;
-        ShaderProgram = shaderProgram;
-    }
+    public Transform Transform { get; init; } = null!;
+    public Mesh Mesh { get; init; } = null!;
+    public AttributePointer[] AttributePointers { get; init; } = null!;
+    public ShaderProgram ShaderProgram { get; init; } = null!;
+    public BufferUsageHint BufferUsageHint { get; init; }
 }
