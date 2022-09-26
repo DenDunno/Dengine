@@ -33,16 +33,18 @@ public class UpdateCycleFactory
     {
         var transform = new Transform(new Vector3(1.5f, 2, 0));
         const float radius = 2f;
-        var renderData = new RenderData(transform, Primitives.Sphere(radius, 24, 24), new[]
+        var renderData = new RenderData()
         {
-            new AttributePointer(0, 3, 6, 0),
-            new AttributePointer(1, 3, 6, 3),
-        },
-        new ShaderProgram(new Shader[]
-        {
-            new("Shaders/flatVert.glsl", ShaderType.VertexShader),
-            new("Shaders/flatFrag.glsl", ShaderType.FragmentShader)
-        }));
+            Transform = transform,
+            Mesh = Primitives.Sphere(radius, 24, 24),
+            ShaderProgram = new ShaderProgram("Shaders/flatVert.glsl", "Shaders/flatFrag.glsl"),
+            BufferUsageHint = BufferUsageHint.StaticDraw,
+            AttributePointers = new[]
+            {
+                new AttributePointer(0, 3, 6, 0),
+                new AttributePointer(1, 3, 6, 3),
+            }
+        }; 
 
         _rigidbodies.Add(new Rigidbody(transform, new SphereCollider(transform, radius))
         {
@@ -51,7 +53,7 @@ public class UpdateCycleFactory
 
         return new GameObject(new GameObjectData()
         {
-            Model = new Model(renderData, BufferUsageHint.StaticDraw)
+            Model = new Model(renderData)
         });
     }
 
@@ -59,25 +61,24 @@ public class UpdateCycleFactory
     {
         var transform = new Transform(new Vector3(0, 2, 10));
         const float radius = 1f;
-        var renderData = new RenderData(transform, Primitives.Sphere(radius, 24, 24), new[]
+        var renderData = new RenderData()
         {
-            new AttributePointer(0, 3, 6, 0),
-            new AttributePointer(1, 3, 6, 3),
-        },
-        new ShaderProgram(new Shader[]
-        {
-            new("Shaders/flatVert.glsl", ShaderType.VertexShader),
-            new("Shaders/flatFrag.glsl", ShaderType.FragmentShader)
-        }));
-        
-        _rigidbodies.Add(new Rigidbody(transform, new SphereCollider(transform, radius))
-        {
-            Velocity = new Vector3(0, 0, -4),
-        });
+            Transform = transform,
+            Mesh = Primitives.Sphere(radius, 24, 24),
+            BufferUsageHint = BufferUsageHint.StaticDraw,
+            ShaderProgram = new ShaderProgram("Shaders/flatVert.glsl", "Shaders/flatFrag.glsl"),
+            AttributePointers = new[]
+            {
+                new AttributePointer(0, 3, 6, 0),
+                new AttributePointer(1, 3, 6, 3),
+            }
+        };
+
+        _rigidbodies.Add(new Rigidbody(transform, new SphereCollider(transform, radius)));
 
         return new GameObject(new GameObjectData()
         {
-            Model = new Model(renderData, BufferUsageHint.StaticDraw),
+            Model = new Model(renderData),
             Components = new IUpdatable[]
             {
                 new ObjectControlling(transform, _window.KeyboardState)
@@ -110,19 +111,21 @@ public class UpdateCycleFactory
             "Resources/Storm/back.jpg",
             "Resources/Storm/front.jpg",   
         };
-        var renderData = new RenderData(transform, Primitives.Cube(50f), new[]
+        var renderData = new RenderData()
         {
-            new AttributePointer(0, 3, 8, 0)
-        },
-        new ShaderProgramWithTexture(new Cubemap(paths), new Shader[]
-        {
-            new("Shaders/skyboxVert.glsl", ShaderType.VertexShader),
-            new("Shaders/skyboxFrag.glsl", ShaderType.FragmentShader)
-        }));
+            Transform = transform,
+            Mesh = Primitives.Cube(50f),
+            BufferUsageHint = BufferUsageHint.StaticDraw,
+            ShaderProgram = new ShaderProgramWithTexture(new Cubemap(paths), "Shaders/skyboxVert.glsl", "Shaders/skyboxFrag.glsl"),
+            AttributePointers = new[]
+            {
+                new AttributePointer(0, 3, 8, 0)
+            },
+        };
 
         return new GameObject(new GameObjectData()
         {
-            Model = new Model(renderData, BufferUsageHint.DynamicDraw),
+            Model = new Model(renderData),
             Components = new IUpdatable[]
             {
                 new Skybox(_camera, transform)
@@ -135,44 +138,46 @@ public class UpdateCycleFactory
         var lightData = new LightData(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
         var transform = new Transform();
         
-        var renderData = new RenderData(transform, Primitives.Quad(10), new[]
+        var renderData = new RenderData()
         {
-            new AttributePointer(0, 3, 8, 0),
-            new AttributePointer(1, 2, 8, 3),
-            new AttributePointer(2, 3, 8, 5)
-        },
-        new LightningShaderProgram(lightData, _camera, new Shader[]
-        {
-            new("Shaders/vert.glsl", ShaderType.VertexShader),
-            new("Shaders/lightning.glsl", ShaderType.FragmentShader)
-        }));
+            Transform = transform,
+            Mesh = Primitives.Quad(10),
+            BufferUsageHint = BufferUsageHint.StaticDraw,
+            ShaderProgram = new LightningShaderProgram(lightData, _camera, "Shaders/vert.glsl", "Shaders/lightning.glsl"),
+            AttributePointers = new[]
+            {
+                new AttributePointer(0, 3, 8, 0),
+                new AttributePointer(1, 2, 8, 3),
+                new AttributePointer(2, 3, 8, 5)
+            }
+        };
 
         return new GameObject(new GameObjectData()
         {
-            Model = new Model(renderData, BufferUsageHint.StaticDraw)
+            Model = new Model(renderData)
         });
     }
 
     private GameObject CreateCube(Vector3 position)
     {
         var lightData = new LightData(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
-        var transform = new Transform(position);
-        var mesh = Primitives.Cube(0.5f);
-        var renderData = new RenderData(transform, mesh, new[]
+        var renderData = new RenderData()
         {
-            new AttributePointer(0, 3, 8, 0),
-            new AttributePointer(1, 2, 8, 3),
-            new AttributePointer(2, 3, 8, 5)
-        },
-        new LightningShaderProgram(lightData, _camera, new Shader[]
-        {
-            new("Shaders/vert.glsl", ShaderType.VertexShader),
-            new("Shaders/lightning.glsl", ShaderType.FragmentShader)
-        }));
+            Transform = new Transform(position),
+            Mesh = Primitives.Cube(0.5f),
+            BufferUsageHint = BufferUsageHint.StaticDraw,
+            ShaderProgram = new LightningShaderProgram(lightData, _camera, "Shaders/vert.glsl", "Shaders/lightning.glsl"),
+            AttributePointers = new[]
+            {
+                new AttributePointer(0, 3, 8, 0),
+                new AttributePointer(1, 2, 8, 3),
+                new AttributePointer(2, 3, 8, 5)
+            },
+        };
 
         return new GameObject(new GameObjectData()
         {
-            Model = new Model(renderData, BufferUsageHint.DynamicDraw)
+            Model = new Model(renderData)
         });
     }
 }

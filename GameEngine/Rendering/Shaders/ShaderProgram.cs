@@ -6,9 +6,13 @@ public class ShaderProgram
     private readonly Shader[] _shaders;
     private readonly int _id;
     
-    public ShaderProgram(Shader[] shaders)
+    public ShaderProgram(string vertexShaderPath, string fragmentShaderPath)
     {
-        _shaders = shaders;
+        _shaders = new Shader[]
+        {
+            new(vertexShaderPath, ShaderType.VertexShader),
+            new(fragmentShaderPath, ShaderType.FragmentShader),
+        };
         _id = GL.CreateProgram();
         Bridge = new ShaderBridge(_id);
     }
