@@ -18,9 +18,9 @@ public class CollisionResolution
                 Rigidbody objectA = _rigidbodies[i];
                 Rigidbody objectB = _rigidbodies[j];
                 
-                if (objectA.SphereCollider.CheckCollision(objectB.SphereCollider))
+                if (objectA.Collider.CheckCollision(objectB.Collider))
                 {
-                    Resolve(objectA, objectB);
+                    Console.WriteLine("Collision" + " " + Timer.Time);
                 }
             }
         }
@@ -28,13 +28,13 @@ public class CollisionResolution
 
     private void Resolve(Rigidbody objectA, Rigidbody objectB)
     {
-        Vector3 direction = objectA.Transform.Position - objectB.Transform.Position;
-        Vector3 impulseDirection = direction.Normalized();
-        float delta = objectA.SphereCollider.Radius + objectB.SphereCollider.Radius - direction.Length;
-                    
-        TryShift(objectA,  delta * impulseDirection);
-        TryShift(objectB, -delta * impulseDirection);
-        TryRecalculateVelocities(objectA, objectB, direction);
+        // Vector3 direction = objectA.Transform.Position - objectB.Transform.Position;
+        // Vector3 impulseDirection = direction.Normalized();
+        // float delta = objectA.SphereCollider.Radius + objectB.SphereCollider.Radius - direction.Length;
+        //             
+        // TryShift(objectA,  delta * impulseDirection);
+        // TryShift(objectB, -delta * impulseDirection);
+        // TryRecalculateVelocities(objectA, objectB, direction);
     }
 
     private void TryRecalculateVelocities(Rigidbody objectA, Rigidbody objectB, Vector3 direction)

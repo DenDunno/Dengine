@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-public class BoundingBox : IInitializable
+public class BoundingBox 
 {
     private readonly float[] _verticesData;
     private readonly Transform _transform;
@@ -13,12 +13,13 @@ public class BoundingBox : IInitializable
         _verticesData = verticesData;
         _transform = transform;
         _offset = offset;
+        Initialize();
     }
 
     public Vector4 Min => _min * _transform.ModelMatrix;
     public Vector4 Max => _max * _transform.ModelMatrix;
 
-    public void Initialize()
+    private void Initialize()
     {
         Vector3 min = Vector3.Zero;
         Vector3 max = Vector3.Zero;

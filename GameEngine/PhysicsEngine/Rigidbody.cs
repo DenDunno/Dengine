@@ -3,7 +3,7 @@
 public class Rigidbody
 {
     public readonly Transform Transform;
-    public readonly SphereCollider SphereCollider;
+    public readonly ICollider Collider;
 
     public Vector3 Velocity { get; set; }
     public bool Trigger { get; init; } = false;
@@ -12,9 +12,9 @@ public class Rigidbody
     public float Mass { get; init; } = 1;
     public Vector3 Force { get; set; }
 
-    public Rigidbody(Transform transform, SphereCollider sphereCollider)
+    public Rigidbody(Transform transform, ICollider collider)
     {
         Transform = transform;
-        SphereCollider = sphereCollider;
+        Collider = collider;
     }
 }

@@ -14,7 +14,7 @@ public class LightningShaderProgram : ShaderProgram
 
     protected override void OnInit()
     {
-        Bridge.SetVector3("lightPosition", _data.Position);
+        Bridge.SetVector3("lightPosition", _data.LightPosition);
         Bridge.SetVector3("lightColor", Vector3.One);
         _data.Texture.Load();
     }
