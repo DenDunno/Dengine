@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Business\\GameEngine\\GameEngine\\GameEngine\\GameEngine.csproj": {}
+    "D:\\Denys_Bondar\\UnityProjects\\Engine\\GameEngine\\GameEngine\\GameEngine.csproj": {}
   },
   "projects": {
-    "D:\\Business\\GameEngine\\GameEngine\\GameEngine\\GameEngine.csproj": {
+    "D:\\Denys_Bondar\\UnityProjects\\Engine\\GameEngine\\GameEngine\\GameEngine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Business\\GameEngine\\GameEngine\\GameEngine\\GameEngine.csproj",
+        "projectUniqueName": "D:\\Denys_Bondar\\UnityProjects\\Engine\\GameEngine\\GameEngine\\GameEngine.csproj",
         "projectName": "GameEngine",
-        "projectPath": "D:\\Business\\GameEngine\\GameEngine\\GameEngine\\GameEngine.csproj",
-        "packagesPath": "C:\\Users\\Dunno\\.nuget\\packages\\",
-        "outputPath": "D:\\Business\\GameEngine\\GameEngine\\GameEngine\\obj\\",
+        "projectPath": "D:\\Denys_Bondar\\UnityProjects\\Engine\\GameEngine\\GameEngine\\GameEngine.csproj",
+        "packagesPath": "C:\\Users\\10400\\.nuget\\packages\\",
+        "outputPath": "D:\\Denys_Bondar\\UnityProjects\\Engine\\GameEngine\\GameEngine\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Dunno\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\10400\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -57,7 +57,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -66,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\Dunno\\.dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\10400\\.dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

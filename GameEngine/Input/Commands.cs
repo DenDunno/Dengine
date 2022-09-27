@@ -12,6 +12,7 @@ public class Commands
         {
             {"wireframe", EnableWireframeMode},
             {"shaded", EnableShadedMode},
+            {"help", ShowCommands},
         };
     }
 
@@ -20,6 +21,21 @@ public class Commands
         if (_commands.ContainsKey(command))
         {
             _commands[command]();
+        }
+        else
+        {
+            Logger.ShowError("Wrong command");
+            ShowCommands();
+        }
+    }
+
+    private void ShowCommands()
+    {
+        Logger.Show("\n");
+
+        foreach (var command in _commands)
+        {
+            Logger.Show(command.Key);
         }
     }
 
