@@ -13,6 +13,7 @@ public class Commands
             {"wireframe", EnableWireframeMode},
             {"shaded", EnableShadedMode},
             {"help", ShowCommands},
+            {"clear", ClearConsole},
         };
     }
 
@@ -29,16 +30,6 @@ public class Commands
         }
     }
 
-    private void ShowCommands()
-    {
-        Logger.Show("\n");
-
-        foreach (var command in _commands)
-        {
-            Logger.Show(command.Key);
-        }
-    }
-
     private void EnableWireframeMode()
     {
         _window.SetPolygonMode(PolygonMode.Line);
@@ -47,5 +38,22 @@ public class Commands
     private void EnableShadedMode()
     {
         _window.SetPolygonMode(PolygonMode.Fill);
+    }
+
+    private void ShowCommands()
+    {
+        Console.WriteLine();
+        
+        foreach (var command in _commands)
+        {
+            Logger.Show(command.Key);
+        }
+        
+        Console.WriteLine();
+    }
+
+    private void ClearConsole()
+    {
+        Console.Clear();
     }
 }

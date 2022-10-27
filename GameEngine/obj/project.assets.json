@@ -556,11 +556,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Denys_Bondar\\UnityProjects\\Engine\\GameEngine\\GameEngine\\GameEngine.csproj",
+      "projectUniqueName": "D:\\Denys_Bondar\\Common\\Engine\\GameEngine\\GameEngine\\GameEngine.csproj",
       "projectName": "GameEngine",
-      "projectPath": "D:\\Denys_Bondar\\UnityProjects\\Engine\\GameEngine\\GameEngine\\GameEngine.csproj",
+      "projectPath": "D:\\Denys_Bondar\\Common\\Engine\\GameEngine\\GameEngine\\GameEngine.csproj",
       "packagesPath": "C:\\Users\\10400\\.nuget\\packages\\",
-      "outputPath": "D:\\Denys_Bondar\\UnityProjects\\Engine\\GameEngine\\GameEngine\\obj\\",
+      "outputPath": "D:\\Denys_Bondar\\Common\\Engine\\GameEngine\\GameEngine\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\10400\\AppData\\Roaming\\NuGet\\NuGet.Config"
