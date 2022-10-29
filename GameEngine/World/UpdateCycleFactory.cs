@@ -21,13 +21,10 @@ public class UpdateCycleFactory
             CreatePlane(),
             CreateSkybox(),
             CreateCube(new Vector3(2, 2, 0), false), 
-            CreateCube(new Vector3(-2, 2, 0), true), 
-            // CreateSphere(new Vector3(-2, 2, 0), 1, 1, true), 
-            // CreateSphere(new Vector3(2, 2, 0), 2, 2, false), 
+            CreateCube(new Vector3(-2, 2, 0), true),
         };
         
         var world = new World(_camera, gameObjects);
-        
         return new UpdateCycle(_window, world, _rigidbodies);
     }
 
@@ -60,9 +57,10 @@ public class UpdateCycleFactory
             }
         };
 
-        _rigidbodies.Add(new Rigidbody(transform, new SphereCollider(transform, radius))
+        _rigidbodies.Add(new Rigidbody(transform)
         {
-            Mass = mass
+            Mass = mass,
+            Collider = new SphereCollider(transform, radius)
         });
 
         var components = new List<IUpdatable>();
@@ -164,7 +162,10 @@ public class UpdateCycleFactory
         }
 
         var boundingBox = new BoundingBox(renderData.Mesh.VerticesData, 8, transform);
-        _rigidbodies.Add(new Rigidbody(transform, new BoxCollider(boundingBox)));
+        _rigidbodies.Add(new Rigidbody(transform)
+        {
+            Collider = new BoxCollider(boundingBox)
+        });
 
         return new GameObject(new GameObjectData()
         {
