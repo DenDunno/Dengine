@@ -3,12 +3,14 @@
 public class Rigidbody
 {
     public readonly Transform Transform;
+    public readonly MeshWorldView MeshWorldView;
 
-    public Rigidbody(Transform transform)
+    public Rigidbody(Transform transform, MeshWorldView meshWorldView)
     {
         Transform = transform;
+        MeshWorldView = meshWorldView;
     }
-
+    
     public ICollider Collider { get; init; } = new NullableCollider();
     public Vector3 Velocity { get; set; }
     public bool Trigger { get; init; } = false;

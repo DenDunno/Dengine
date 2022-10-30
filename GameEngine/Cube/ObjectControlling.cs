@@ -8,8 +8,8 @@ public class ObjectControlling : IUpdatable
     private const float _movementSpeed = 2f;
     private readonly Dictionary<Keys, Vector3> _directions = new()
     {
-        {Keys.Up, new Vector3(0, 0, -1)},
-        {Keys.Down, new Vector3(0, 0, 1)},
+        {Keys.Up, new Vector3(0, 1, -0)},
+        {Keys.Down, new Vector3(0, -1, 0)},
         {Keys.Left, new Vector3(-1, 0, 0)},
         {Keys.Right, new Vector3(1, 0, 0)},
         {Keys.KeyPad5, new Vector3(0, 1, 0)},

@@ -4,12 +4,13 @@ public class RotationAnimation : IUpdatable
 {
     private readonly Transform _transform;
     private readonly Vector3 _rotationVector;
-    private const float _rotationSpeed = 1f;
+    private readonly float _rotationSpeed;
 
-    public RotationAnimation(Transform transform, Vector3 rotationVector)
+    public RotationAnimation(Transform transform, Vector3 rotationVector, float rotationSpeed)
     {
         _transform = transform;
         _rotationVector = rotationVector;
+        _rotationSpeed = rotationSpeed;
     }
 
     public void Update(float deltaTime)
