@@ -72,9 +72,9 @@ public static class Primitives
         float[] verticesData = new[]
         {
             // Position          Texture       Normal
-            -size, -size,  0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-            size, -size,   0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
             0.0f, size,    0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+            size, -size,   0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+            -size, -size,  0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f,
         };
 
         var indices = new uint[]

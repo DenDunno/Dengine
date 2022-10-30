@@ -17,9 +17,10 @@ public class UpdateCycleFactory
     {
         var gameObjects = new List<GameObject>()
         {
-            CreateObstacle(true, Primitives.Quad(1), new Vector3(-1.5f, 0, 0)),
+            CreateObstacle(true, Primitives.Quad(0.5f), new Vector3(-1.5f, 0, 0)),
             CreateObstacle(false, Primitives.RandomPolygon(0.25f), new Vector3(1.5f, 1.75f, 0)),
             CreateObstacle(false, Primitives.Quad(0.75f), new Vector3(1.5f, -1f, 0)),
+            CreateObstacle(false, Primitives.Triangle(0.5f), new Vector3(-1.5f, -1.5f, 0)),
         };
         
         var world = new World(_camera, gameObjects);
