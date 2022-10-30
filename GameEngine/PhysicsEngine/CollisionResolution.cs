@@ -11,6 +11,20 @@ public class CollisionResolution
 
     public void Resolve()
     {
+        Clear();
+        CheckCollisions();
+    }
+
+    private void Clear()
+    {
+        foreach (Rigidbody rigidbody in _rigidbodies)
+        {
+            rigidbody.ColorShaderProgram.SetWhiteColor();
+        }
+    }
+
+    private void CheckCollisions()
+    {
         for (int i = 0; i < _rigidbodies.Count; ++i)
         {
             for (int j = i + 1; j < _rigidbodies.Count; ++j)
@@ -18,8 +32,11 @@ public class CollisionResolution
                 Rigidbody objectA = _rigidbodies[i];
                 Rigidbody objectB = _rigidbodies[j];
 
-                bool isCollision = CheckCollision(objectA, objectB);
-                ColorShaderProgram.SetCollisionColor(isCollision);
+                if (CheckCollision(objectA, objectB))
+                {
+                    objectA.ColorShaderProgram.SetRedColor();
+                    objectB.ColorShaderProgram.SetRedColor();   
+                }
             }
         }
     }

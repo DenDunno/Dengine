@@ -10,7 +10,8 @@ public class Rigidbody
         Transform = transform;
         MeshWorldView = meshWorldView;
     }
-    
+
+    public ColorShaderProgram ColorShaderProgram { get; init; } = null!;
     public ICollider Collider { get; init; } = new NullableCollider();
     public Vector3 Velocity { get; set; }
     public bool Trigger { get; init; } = false;
@@ -18,4 +19,5 @@ public class Rigidbody
     public bool IsStatic { get; init; } = false;
     public float Mass { get; init; } = 1;
     public Vector3 Force { get; set; }
+    public bool HasCollision { get; set; }
 }

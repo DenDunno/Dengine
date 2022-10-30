@@ -15,7 +15,7 @@ public class ObjectControlling : IUpdatable
         {Keys.KeyPad5, new Vector3(0, 1, 0)},
         {Keys.KeyPad2, new Vector3(0, -1, 0)},
     };
-    
+
     public ObjectControlling(Transform transform, KeyboardState keyboardState)
     {
         _transform = transform;

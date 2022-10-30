@@ -2,15 +2,20 @@
 
 public class ColorShaderProgram : ShaderProgram
 {
-    private static Vector3 _color = Vector3.One;
+    private Vector3 _color = Vector3.One;
 
     public ColorShaderProgram(string vertexShaderPath, string fragmentShaderPath) : base(vertexShaderPath, fragmentShaderPath)
     {
     }
 
-    public static void SetCollisionColor(bool isCollision)
+    public void SetRedColor()
     {
-        _color = isCollision ? Vector3.UnitX : Vector3.One;
+        _color = Vector3.UnitX;
+    }
+
+    public void SetWhiteColor()
+    {
+        _color = Vector3.One;
     }
 
     protected override void OnUse()

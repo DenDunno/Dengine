@@ -13,14 +13,6 @@ public class Transform
     public Transform(Vector3 position) : this(position, Quaternion.Identity, null)
     {
     }
-    
-    public Transform(Vector3 position, Transform parent) : this(position, Quaternion.Identity, parent)
-    {
-    }
-    
-    public Transform(Quaternion rotation) : this(Vector3.Zero, rotation, null)
-    {
-    }
 
     private Transform(Vector3 position, Quaternion rotation, Transform? parent)
     {
