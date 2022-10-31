@@ -27,4 +27,21 @@ public class MeshWorldView
             return worldPositions;
         }
     }
+    
+    public Vector3[] Normals 
+    {
+        get
+        {
+            Matrix4 modelMatrix = _transform.ModelMatrix;
+            var normals = new Vector3[_mesh.Normals.Length];
+
+            for (int i = 0; i < _mesh.Normals.Length; ++i)
+            {
+                var normal = new Vector4(_mesh.Normals[i], 0);
+                normals[i] = (normal * modelMatrix).Xyz.Normalized();
+            }
+
+            return normals;
+        }
+    }
 }
