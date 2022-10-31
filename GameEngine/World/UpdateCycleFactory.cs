@@ -43,12 +43,7 @@ public class UpdateCycleFactory
                 Transform = transform,
                 Mesh = mesh,
                 BufferUsageHint = BufferUsageHint.StaticDraw,
-                ShaderProgram = shaderProgram,
-                AttributePointers = new[]
-                {
-                    new AttributePointer(0, 3, 6, 0),
-                    new AttributePointer(1, 3, 6, 3),
-                }
+                ShaderProgram = shaderProgram
             }),
             
             Components = GetComponents(isControlling, transform)

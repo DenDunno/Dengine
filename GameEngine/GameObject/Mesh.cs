@@ -16,10 +16,11 @@ public class Mesh
 
     public int VertexCount => Positions.Length;
     public int Stride => _attributes.Sum(attribute => attribute.Size);
-    
-    public Vector3[]? Normals { init; get; } = null;
-    public Vector2[]? TextureCoordinates { init; get; } = null;
-    public Vector3[]? Color { init; get; } = null;
+    public VertexAttributeGroup AttributeGroup => new(_attributes, Stride);
+
+    public Vector3[]? Normals { get; init; } = null;
+    public Vector2[]? TextureCoordinates { get; init; } = null;
+    public Vector3[]? Color { get; init; } = null;
 
     public void Init()
     {
@@ -74,6 +75,6 @@ public class Mesh
 
     private void AddAttribute(float[] data, int elementSize)
     {
-        _attributes.Add(new VertexAttribute(_attributes.Count, data, elementSize));
+        _attributes.Add(new VertexAttribute(_attributes.Count, data, elementSize, Stride));
     }
 }
