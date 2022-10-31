@@ -11,16 +11,15 @@ public class Mesh
     {
         Positions = positions;
         Indices = indices;
-        
     }
 
+    public Vector3[]? Normals { get; init; }
+    public Vector2[]? TextureCoordinates { get; init; }
+    public Vector3[]? Color { get; init; } = null;
+    
     public int VertexCount => Positions.Length;
     public int Stride => _attributes.Sum(attribute => attribute.Size);
     public VertexAttributeGroup AttributeGroup => new(_attributes, Stride);
-
-    public Vector3[]? Normals { get; init; } = null;
-    public Vector2[]? TextureCoordinates { get; init; } = null;
-    public Vector3[]? Color { get; init; } = null;
 
     public void Init()
     {

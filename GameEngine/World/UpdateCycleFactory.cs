@@ -17,12 +17,49 @@ public class UpdateCycleFactory
     {
         var gameObjects = new List<GameObject>()
         {
+            CreateStaticPoint(),
+            CreateCube(Vector3.One),
             CreateObstacle(true, Primitives.Quad(0.5f), new Vector3(-1.5f, 0, 0)),
             CreateObstacle(false, Primitives.Quad(0.75f), new Vector3(1.5f, -1f, 0)),
         };
         
         var world = new World(_camera, gameObjects);
         return new UpdateCycle(_window, world, _rigidbodies);
+    }
+    
+    private GameObject CreateStaticPoint()
+    {
+        return new GameObject(new GameObjectData()
+        {
+            Components = new IUpdatable[]
+            {
+                new Timer(), 
+                new CameraControlling(_camera, _window.MouseState, _window.KeyboardState),
+                new FPSCounter(_window)
+            } 
+        });
+    }
+    
+    private GameObject CreateCube(Vector3 position)
+    {
+        var lightData = new LightData(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
+        var transform = new Transform(position);
+        var renderData = new RenderData()
+        {
+            Transform = transform,
+            Mesh = Primitives.Cube(0.5f),
+            BufferUsageHint = BufferUsageHint.StaticDraw,
+            ShaderProgram = new LightningShaderProgram(lightData, _camera, "Shaders/vert.glsl", "Shaders/lightning.glsl"),
+        };
+        
+        return new GameObject(new GameObjectData()
+        {
+            Model = new Model(renderData),
+            Components = new IUpdatable[]
+            {
+                new RotationAnimation(transform, new Vector3(0, 1, 1), 1f)
+            }
+        });
     }
 
     private GameObject CreateObstacle(bool isControlling, Mesh mesh, Vector3 position)
