@@ -16,11 +16,11 @@ public class MeshWorldView
         get
         {
             Matrix4 modelMatrix = _transform.ModelMatrix;
-            var worldPositions = new Vector3[_mesh.LocalVertexPositions.Length];
+            var worldPositions = new Vector3[_mesh.Positions.Length];
 
-            for (int i = 0; i < _mesh.LocalVertexPositions.Length; ++i)
+            for (int i = 0; i < _mesh.Positions.Length; ++i)
             {
-                var vertex = new Vector4(_mesh.LocalVertexPositions[i], 1);
+                var vertex = new Vector4(_mesh.Positions[i], 1);
                 worldPositions[i] = (vertex * modelMatrix).Xyz;
             }
 

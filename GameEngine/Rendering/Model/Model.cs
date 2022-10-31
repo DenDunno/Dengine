@@ -10,7 +10,7 @@ public class Model : IModel
     
     public Model(RenderData renderData)
     {
-        var vertexBufferObject = new VertexBufferObject(renderData.Mesh.VerticesData, renderData.BufferUsageHint);
+        var vertexBufferObject = new VertexBufferObject(renderData.Mesh.GetVerticesData(), renderData.BufferUsageHint);
         _indexBufferObject = new IndexBufferObject(renderData.Mesh.Indices, renderData.BufferUsageHint);
         _vertexArrayObject = new VertexArrayObject(vertexBufferObject, renderData.AttributePointers);
         _shader = renderData.ShaderProgram;

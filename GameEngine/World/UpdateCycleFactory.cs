@@ -18,9 +18,7 @@ public class UpdateCycleFactory
         var gameObjects = new List<GameObject>()
         {
             CreateObstacle(true, Primitives.Quad(0.5f), new Vector3(-1.5f, 0, 0)),
-            CreateObstacle(false, Primitives.RandomPolygon(0.25f), new Vector3(1.5f, 1.75f, 0)),
             CreateObstacle(false, Primitives.Quad(0.75f), new Vector3(1.5f, -1f, 0)),
-            CreateObstacle(false, Primitives.Triangle(0.5f), new Vector3(-1.5f, -1.5f, 0)),
         };
         
         var world = new World(_camera, gameObjects);
@@ -48,9 +46,8 @@ public class UpdateCycleFactory
                 ShaderProgram = shaderProgram,
                 AttributePointers = new[]
                 {
-                    new AttributePointer(0, 3, 8, 0),
-                    new AttributePointer(1, 2, 8, 3),
-                    new AttributePointer(2, 3, 8, 5),
+                    new AttributePointer(0, 3, 6, 0),
+                    new AttributePointer(1, 3, 6, 3),
                 }
             }),
             
