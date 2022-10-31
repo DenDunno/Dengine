@@ -8,11 +8,11 @@ public static class VectorExtensions
     {
         var result = new float[array.Length * 3];
 
-        for (int i = 0; i < array.Length; ++i)
+        for (int i = 0, j = 0; i < array.Length; ++i, j += 3)
         {
-            result[i] = array[i].X;
-            result[i + 1] = array[i].Y;
-            result[i + 2] = array[i].Z;
+            result[j] = array[i].X;
+            result[j + 1] = array[i].Y;
+            result[j + 2] = array[i].Z;
         }
 
         return result;
@@ -22,10 +22,10 @@ public static class VectorExtensions
     {
         var result = new float[array.Length * 2];
 
-        for (int i = 0; i < array.Length; ++i)
+        for (int i = 0, j = 0; i < array.Length; ++i, j += 2)
         {
-            result[i] = array[i].X;
-            result[i + 1] = array[i].Y;
+            result[j] = array[i].X;
+            result[j + 1] = array[i].Y;
         }
 
         return result;

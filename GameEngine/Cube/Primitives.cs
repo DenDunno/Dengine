@@ -27,13 +27,13 @@ public static class Primitives
                 new(0, 1, 0),
                 new(0, 1, 0),
             },
-            TextureCoordinates = new Vector2[]
-            {
-                new(0, 1),
-                new(1, 0),
-                new(1, 1),
-                new(0, 0),
-            }, 
+            // TextureCoordinates = new Vector2[]
+            // {
+            //     new(0, 1),
+            //     new(1, 0),
+            //     new(1, 1),
+            //     new(0, 0),
+            // }, 
         };
         mesh.Init();
         return mesh;
