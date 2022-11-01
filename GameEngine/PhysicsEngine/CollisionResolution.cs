@@ -1,4 +1,6 @@
 ﻿
+using OpenTK.Mathematics;
+
 public class CollisionResolution 
 {
     private readonly IReadOnlyList<Rigidbody> _rigidbodies;
@@ -19,7 +21,7 @@ public class CollisionResolution
     {
         foreach (Rigidbody rigidbody in _rigidbodies)
         {
-            rigidbody.ColorShaderProgram.SetWhiteColor();
+            rigidbody.LightningShaderProgram.SetColor(Vector3.One);
         }
     }
 
@@ -34,8 +36,8 @@ public class CollisionResolution
 
                 if (_satAlgorithm.CheckCollision(objectA, objectB))
                 {
-                    objectA.ColorShaderProgram.SetRedColor();
-                    objectB.ColorShaderProgram.SetRedColor();   
+                    objectA.LightningShaderProgram.SetColor(Vector3.UnitX); 
+                    objectB.LightningShaderProgram.SetColor(Vector3.UnitX);
                 }
             }
         }
