@@ -24,9 +24,9 @@ public class BoundingBox
         Vector3 min = Vector3.Zero;
         Vector3 max = Vector3.Zero;
         
-        for (var i = 0; i < _verticesData.Length; i += _offset)
+        for (int i = 0; i < _verticesData.Length; i += _offset)
         {
-            var vertex = new Vector3(_verticesData[i], _verticesData[i + 1], _verticesData[i + 2]);
+            Vector3 vertex = new(_verticesData[i], _verticesData[i + 1], _verticesData[i + 2]);
 
             min = Algorithms.Min(vertex, min);
             max = Algorithms.Max(vertex, max);

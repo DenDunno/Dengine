@@ -15,7 +15,7 @@ public class SATAlgorithm
 
     private bool CheckSeparatingAxis(Vector3[] worldPositionsA, Vector3[] normalsA, Vector3[] worldPositionsB)
     {
-        var separation = float.MinValue;
+        float separation = float.MinValue;
         
         for (int i = 0; i < worldPositionsA.Length && separation <= 0; ++i)
         {
@@ -36,7 +36,7 @@ public class SATAlgorithm
 
     private (Vector3, float) FindMinSeparation(Vector3 vertexA, Vector3 normalA, Vector3[] worldPositionsB)
     {
-        var minSeparation = float.MaxValue;
+        float minSeparation = float.MaxValue;
         Vector3 minVertexB = Vector3.Zero;
             
         foreach (Vector3 vertexB in worldPositionsB)
@@ -60,7 +60,7 @@ public class SATAlgorithm
         Vector3 firstPoint = lineCentre + lineDirection;
         Vector3 secondPoint = lineCentre - lineDirection;
         
-        Gizmo.Instance.AddLineToDraw(new List<Vector2>()
+        Gizmo.Instance.AddLineToDraw(new List<Vector2>
         {
             firstPoint.Xy,
             secondPoint.Xy,

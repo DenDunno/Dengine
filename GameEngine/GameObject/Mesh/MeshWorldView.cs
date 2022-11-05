@@ -16,11 +16,11 @@ public class MeshWorldView
         get
         {
             Matrix4 modelMatrix = _transform.ModelMatrix;
-            var worldPositions = new Vector3[_mesh.Positions.Length];
+            Vector3[] worldPositions = new Vector3[_mesh.Positions.Length];
 
             for (int i = 0; i < _mesh.Positions.Length; ++i)
             {
-                var vertex = new Vector4(_mesh.Positions[i], 1);
+                Vector4 vertex = new(_mesh.Positions[i], 1);
                 worldPositions[i] = (vertex * modelMatrix).Xyz;
             }
 
@@ -33,11 +33,11 @@ public class MeshWorldView
         get
         {
             Matrix4 modelMatrix = _transform.ModelMatrix;
-            var normals = new Vector3[_mesh.Normals.Length];
+            Vector3[] normals = new Vector3[_mesh.Normals.Length];
 
             for (int i = 0; i < _mesh.Normals.Length; ++i)
             {
-                var normal = new Vector4(_mesh.Normals[i], 0);
+                Vector4 normal = new(_mesh.Normals[i], 0);
                 normals[i] = (normal * modelMatrix).Xyz.Normalized();
             }
 
