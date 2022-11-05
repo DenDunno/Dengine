@@ -11,7 +11,7 @@ public class Rigidbody
         MeshWorldView = meshWorldView;
     }
 
-    public ColorShaderProgram ColorShaderProgram { get; init; } = null!;
+    public ICollisionShaderProgram ShaderProgram { get; init; } = null!;
     public ICollider Collider { get; init; } = new NullableCollider();
     public Vector3 Velocity { get; set; }
     public bool Trigger { get; init; } = false;

@@ -25,7 +25,7 @@ public class Demo2DFactory : WorldFactory
         
         AddRigidbody(new Rigidbody(transform, meshWorldView)
         {
-            ColorShaderProgram = shaderProgram
+            ShaderProgram = shaderProgram
         });
 
         return new GameObject(new GameObjectData

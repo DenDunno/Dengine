@@ -19,7 +19,7 @@ public class CollisionResolution
     {
         foreach (Rigidbody rigidbody in _rigidbodies)
         {
-            rigidbody.ColorShaderProgram.SetWhiteColor();
+            rigidbody.ShaderProgram.SetNormalColor();
         }
     }
 
@@ -34,8 +34,8 @@ public class CollisionResolution
 
                 if (_satAlgorithm.CheckCollision(objectA, objectB))
                 {
-                    objectA.ColorShaderProgram.SetRedColor();
-                    objectB.ColorShaderProgram.SetRedColor();
+                    objectA.ShaderProgram.SetCollisionColor();
+                    objectB.ShaderProgram.SetCollisionColor();
                 }
             }
         }

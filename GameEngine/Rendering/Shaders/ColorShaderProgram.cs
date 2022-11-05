@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-public class ColorShaderProgram : ShaderProgram
+public class ColorShaderProgram : ShaderProgram, ICollisionShaderProgram
 {
     private Vector3 _color = Vector3.One;
 
@@ -8,12 +8,12 @@ public class ColorShaderProgram : ShaderProgram
     {
     }
 
-    public void SetRedColor()
+    public void SetCollisionColor()
     {
         _color = Vector3.UnitX;
     }
 
-    public void SetWhiteColor()
+    public void SetNormalColor()
     {
         _color = Vector3.One;
     }

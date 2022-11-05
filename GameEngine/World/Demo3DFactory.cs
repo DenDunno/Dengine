@@ -12,17 +12,17 @@ public class Demo3DFactory : WorldFactory
         return new List<GameObject>()
         {
             CreateSkybox(),
-            CreateCube(new Vector3(-2, 2, 0), true),
-            CreateCube(new Vector3(2, 2, 0), false),
+            CreateCube(new Vector3(-2, 2, 0), true, Vector3.Zero),
+            CreateCube(new Vector3(2, 2, 0), false, new Vector3(0, 45, 45)),
         };
     }
     
-    private GameObject CreateCube(Vector3 position, bool isControlling)
+    private GameObject CreateCube(Vector3 position, bool isControlling, Vector3 rotation)
     {
         Mesh mesh = Primitives.Cube(0.5f);
         LightData lightData = new(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
-        Transform transform = new(position);
-        ColorShaderProgram shaderProgram = new("Shaders/vert.glsl", "Shaders/uv.glsl");
+        Transform transform = new(position, Quaternion.FromEulerAngles(rotation));
+        LightningShaderProgram shaderProgram = new(lightData, Camera, "Shaders/vert.glsl", "Shaders/lightning.glsl");
         MeshWorldView meshWorldView = new(transform, mesh);
         RenderData renderData = new()
         {
@@ -34,7 +34,7 @@ public class Demo3DFactory : WorldFactory
 
         AddRigidbody(new Rigidbody(transform, meshWorldView)
         {
-            ColorShaderProgram = shaderProgram
+            ShaderProgram = shaderProgram
         });
 
         return new GameObject(new GameObjectData()

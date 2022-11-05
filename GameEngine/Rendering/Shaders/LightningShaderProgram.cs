@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-public class LightningShaderProgram : ShaderProgram
+public class LightningShaderProgram : ShaderProgram, ICollisionShaderProgram
 {
     private readonly LightData _data;
     private readonly Camera _camera;
@@ -13,11 +13,16 @@ public class LightningShaderProgram : ShaderProgram
         _camera = camera;
     }
 
-    public void SetColor(Vector3 color)
+    public void SetCollisionColor()
     {
-        _color = color;
+        _color = Vector3.UnitX;
     }
-    
+
+    public void SetNormalColor()
+    {
+        _color = Vector3.One;
+    }
+
     protected override void OnInit()
     {
         Bridge.SetVector3("lightPosition", _data.LightPosition);
