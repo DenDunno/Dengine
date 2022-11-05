@@ -2,7 +2,7 @@
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
-// Debugging tool
+// Debugging rendering tool
 public class Gizmo : IModel
 {
     public static Gizmo Instance;

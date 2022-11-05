@@ -18,13 +18,13 @@ public class UpdateCycleFactory
         var gameObjects = new List<GameObject>()
         {
             CreateStaticPoint(),
-            CreateObstacle(true, Primitives.Quad(0.5f), new Vector3(-1.5f, 0, 0)),
-            CreateObstacle(false, Primitives.Quad(0.75f), new Vector3(1.5f, -1f, 0)),
-            
+            CreateObstacle(true, Primitives.Quad(0.5f), Vector3.Zero, 0),
+            CreateObstacle(false, Primitives.Quad(0.75f), new Vector3(-1.75f, 1f, 0), 45),
+            CreateObstacle(false, Primitives.Quad(0.75f), new Vector3(1.75f, -1f, 0), -45),
         };
         
         var world = new World(_camera, gameObjects);
-        return new UpdateCycle(_window, world, _rigidbodies);
+        return new UpdateCycle(_window, world);
     }
 
     private GameObject CreateStaticPoint()
@@ -36,6 +36,7 @@ public class UpdateCycleFactory
                 new Timer(), 
                 new FPSCounter(_window),
                 new CameraControlling(_camera, _window.MouseState, _window.KeyboardState),
+                new PhysicsSimulation(1 / 60f, _rigidbodies),
                 _camera,
             },
             
@@ -43,9 +44,10 @@ public class UpdateCycleFactory
         });
     }
 
-    private GameObject CreateObstacle(bool isControlling, Mesh mesh, Vector3 position)
+    private GameObject CreateObstacle(bool isControlling, Mesh mesh, Vector3 position, float rotation)
     {
-        var transform = new Transform(position);
+        var transform = new Transform(position, Quaternion.FromEulerAngles(0, 0, rotation));
+        
         var meshWorldView = new MeshWorldView(transform, mesh);
         var shaderProgram = new ColorShaderProgram("Shaders/vert.glsl", "Shaders/uv.glsl");
         
@@ -75,11 +77,6 @@ public class UpdateCycleFactory
         if (isControlling)
         {
             components.Add(new ObjectControlling(transform, _window.KeyboardState));
-        }
-        
-        else
-        {
-            components.Add(new RotationAnimation(transform, new Vector3(0, 0, 1), 1f));   
         }
 
         return components.ToArray();
