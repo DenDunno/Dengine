@@ -17,12 +17,30 @@ public class UpdateCycleFactory
     {
         var gameObjects = new List<GameObject>()
         {
+            CreateStaticPoint(),
             CreateObstacle(true, Primitives.Quad(0.5f), new Vector3(-1.5f, 0, 0)),
             CreateObstacle(false, Primitives.Quad(0.75f), new Vector3(1.5f, -1f, 0)),
+            
         };
         
         var world = new World(_camera, gameObjects);
         return new UpdateCycle(_window, world, _rigidbodies);
+    }
+
+    private GameObject CreateStaticPoint()
+    {
+        return new GameObject(new GameObjectData()
+        {
+            Components = new IUpdatable[]
+            {
+                new Timer(), 
+                new FPSCounter(_window),
+                new CameraControlling(_camera, _window.MouseState, _window.KeyboardState),
+                _camera,
+            },
+            
+            Model = new Gizmo()
+        });
     }
 
     private GameObject CreateObstacle(bool isControlling, Mesh mesh, Vector3 position)

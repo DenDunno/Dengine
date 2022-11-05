@@ -1,6 +1,7 @@
-﻿using OpenTK.Mathematics;
+﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
-public class Camera
+public class Camera : IUpdatable
 {
     private readonly float _nearClipPlaneDepth = 0.01f;
     private readonly float _farClipPlaneDepth = 100f;
@@ -48,6 +49,18 @@ public class Camera
     public Matrix4 ProjectionMatrix => 
         Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2, _aspectRatio, _nearClipPlaneDepth, _farClipPlaneDepth);
 
+    void IUpdatable.Update(float deltaTime)
+    {
+        Matrix4 projectionMatrix = ProjectionMatrix;
+        Matrix4 viewMatrix = ViewMatrix;
+        
+        GL.MatrixMode(MatrixMode.Projection);
+        GL.LoadMatrix(ref projectionMatrix);
+        
+        GL.MatrixMode(MatrixMode.Modelview);
+        GL.LoadMatrix(ref viewMatrix);
+    }
+    
     private void UpdateVectors()
     {
         _front.X = MathF.Cos(_pitch) * MathF.Cos(_yaw);
