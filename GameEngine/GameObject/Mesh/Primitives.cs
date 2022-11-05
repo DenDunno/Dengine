@@ -43,7 +43,7 @@ public static class Primitives
             new(-size, -size, size),
         };
 
-        var indices = new uint[]
+        uint[] indices = 
         {
             0, 1, 3,
             1, 2, 3,
@@ -64,7 +64,7 @@ public static class Primitives
             21, 22, 23
         };
 
-        var mesh = new Mesh(positions, indices)
+        Mesh mesh = new(positions, indices)
         {
             TextureCoordinates = new Vector2[]
             {
@@ -139,7 +139,7 @@ public static class Primitives
     
     public static Mesh Quad(float size)
     {
-        var positions = new Vector3[]
+        Vector3[] positions = 
         {
             new(size, size, 0.0f),
             new(size, -size, 0.0f),
@@ -147,13 +147,13 @@ public static class Primitives
             new(-size, size, 0.0f),
         };
 
-        var indices = new uint[]
+        uint[] indices = 
         {
             0, 1, 3,
             1, 2, 3,
         };
 
-        Mesh mesh = new Mesh(positions, indices)
+        Mesh mesh = new(positions, indices)
         {
             Normals = new Vector3[]
             {

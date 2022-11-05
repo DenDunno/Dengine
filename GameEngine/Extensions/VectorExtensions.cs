@@ -6,7 +6,7 @@ public static class VectorExtensions
 {
     public static float[] ToFloatArray(this Vector3[] array)
     {
-        var result = new float[array.Length * 3];
+        float[] result = new float[array.Length * 3];
 
         for (int i = 0, j = 0; i < array.Length; ++i, j += 3)
         {
@@ -20,7 +20,7 @@ public static class VectorExtensions
     
     public static float[] ToFloatArray(this Vector2[] array)
     {
-        var result = new float[array.Length * 2];
+        float[] result = new float[array.Length * 2];
 
         for (int i = 0, j = 0; i < array.Length; ++i, j += 2)
         {

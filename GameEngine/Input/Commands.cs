@@ -8,7 +8,7 @@ public class Commands
     public Commands(Window window)
     {
         _window = window;
-        _commands = new Dictionary<string, Action>()
+        _commands = new Dictionary<string, Action>
         {
             {"wireframe", EnableWireframeMode},
             {"shaded", EnableShadedMode},
@@ -44,7 +44,7 @@ public class Commands
     {
         Console.WriteLine();
         
-        foreach (var command in _commands)
+        foreach (KeyValuePair<string, Action> command in _commands)
         {
             Logger.Show(command.Key);
         }

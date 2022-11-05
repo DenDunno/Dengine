@@ -33,7 +33,7 @@ public class Mesh
     {
         int stride = Stride;
         int vertexCount = VertexCount;
-        var verticesData = new float[stride * vertexCount];
+        float[] verticesData = new float[stride * vertexCount];
         int verticesDataIndex = 0;
 
         for (int i = 0; i < vertexCount; ++i)

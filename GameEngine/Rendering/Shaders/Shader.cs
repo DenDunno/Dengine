@@ -28,7 +28,7 @@ public class Shader
 
     private void Read()
     {
-        using var streamReader = new StreamReader(_filename);
+        using StreamReader streamReader = new(_filename);
         
         GL.ShaderSource(Address, streamReader.ReadToEnd());
     }

@@ -3,35 +3,35 @@ using OpenTK.Mathematics;
 
 public class ShaderBridge
 {
-    private readonly int _id;
+    private readonly int _shaderProgramId;
     private readonly Dictionary<string, int> _uniformLocations = new();
 
-    public ShaderBridge(int id)
+    public ShaderBridge(int shaderProgramId)
     {
-        _id = id;
+        _shaderProgramId = shaderProgramId;
     }
 
     public void LoadUniforms()
     {
-        GL.GetProgram(_id, GetProgramParameterName.ActiveUniforms, out int numberOfUniforms); 
+        GL.GetProgram(_shaderProgramId, GetProgramParameterName.ActiveUniforms, out int numberOfUniforms); 
         
-        for (var i = 0; i < numberOfUniforms; i++)
+        for (int i = 0; i < numberOfUniforms; i++)
         {
-            string? key = GL.GetActiveUniform(_id, i, out _, out _);
-            int location = GL.GetUniformLocation(_id, key);
+            string? key = GL.GetActiveUniform(_shaderProgramId, i, out _, out _);
+            int location = GL.GetUniformLocation(_shaderProgramId, key);
             _uniformLocations.Add(key, location);
         }
     }
     
     public void SetMatrix4(string name, Matrix4 data)
     {
-        GL.UseProgram(_id);
+        GL.UseProgram(_shaderProgramId);
         GL.UniformMatrix4(_uniformLocations[name], true, ref data);
     }
    
     public void SetVector3(string name, Vector3 data)
     {
-        GL.UseProgram(_id);
+        GL.UseProgram(_shaderProgramId);
         GL.Uniform3(_uniformLocations[name], data);
     }
 }

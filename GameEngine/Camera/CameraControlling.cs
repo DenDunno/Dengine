@@ -15,7 +15,7 @@ public class CameraControlling : IUpdatable
         _camera = camera;
         _mouseState = mouseState;
         _keyboardState = keyboardState;
-        _movementKeys = new List<MovementKey>()
+        _movementKeys = new List<MovementKey>
         {
             new(Keys.W, ()=> _camera.Front),
             new(Keys.S, ()=> -_camera.Front),

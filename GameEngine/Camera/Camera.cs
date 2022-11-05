@@ -1,6 +1,7 @@
-﻿using OpenTK.Mathematics;
+﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
-public class Camera
+public class Camera : IUpdatable
 {
     private readonly float _nearClipPlaneDepth = 0.01f;
     private readonly float _farClipPlaneDepth = 100f;
@@ -11,13 +12,12 @@ public class Camera
     private float _pitch;
     private float _yaw = -MathHelper.PiOver2;
 
-    public Camera(Vector3 position, float aspectRatio)
+    public Camera(float aspectRatio)
     {
         _aspectRatio = aspectRatio;
-        Position = position;
     }
-    
-    public Vector3 Position { get; set; }
+
+    public Vector3 Position { get; set; } = new(0, 0, 3);
     public Vector3 Front => _front;
     public Vector3 Up => _up;
     public Vector3 Right => _right;
@@ -27,7 +27,7 @@ public class Camera
         get => MathHelper.RadiansToDegrees(_pitch);
         set
         {
-            var angle = MathHelper.Clamp(value, -89f, 89f);
+            float angle = MathHelper.Clamp(value, -89f, 89f);
             _pitch = MathHelper.DegreesToRadians(angle);
             UpdateVectors();
         }
@@ -48,6 +48,18 @@ public class Camera
     public Matrix4 ProjectionMatrix => 
         Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2, _aspectRatio, _nearClipPlaneDepth, _farClipPlaneDepth);
 
+    void IUpdatable.Update(float deltaTime)
+    {
+        Matrix4 projectionMatrix = ProjectionMatrix;
+        Matrix4 viewMatrix = ViewMatrix;
+        
+        GL.MatrixMode(MatrixMode.Projection);
+        GL.LoadMatrix(ref projectionMatrix);
+        
+        GL.MatrixMode(MatrixMode.Modelview);
+        GL.LoadMatrix(ref viewMatrix);
+    }
+    
     private void UpdateVectors()
     {
         _front.X = MathF.Cos(_pitch) * MathF.Cos(_yaw);

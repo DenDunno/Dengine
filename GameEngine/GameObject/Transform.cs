@@ -14,6 +14,10 @@ public class Transform
     {
     }
 
+    public Transform(Vector3 position, Quaternion rotation) : this(position, rotation, null)
+    {
+    }
+
     private Transform(Vector3 position, Quaternion rotation, Transform? parent)
     {
         Position = position;

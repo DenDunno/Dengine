@@ -1,6 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 using StbImageSharp;
-using PixelFormat = OpenTK.Graphics.OpenGL4.PixelFormat;
 
 public class Cubemap : TextureBase
 {

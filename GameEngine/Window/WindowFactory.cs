@@ -17,7 +17,7 @@ public class WindowFactory
 
     public Window Create()
     {
-        var window = new Window(_nativeWindowSettings);
+        Window window = new(_nativeWindowSettings);
         
         window.CursorState = CursorState.Grabbed;
         window.VSync = VSyncMode.On;
