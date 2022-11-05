@@ -22,6 +22,7 @@
       <Content Include="bin\Debug\net6.0\Shaders\skybox.glsl" />
       <Content Include="bin\Debug\net6.0\Shaders\skyboxFrag.glsl" />
       <Content Include="bin\Debug\net6.0\Shaders\skyboxVert.glsl" />
+      <Content Include="bin\Debug\net6.0\Shaders\uv.glsl" />
       <Content Include="bin\Debug\net6.0\Shaders\vert.glsl" />
     </ItemGroup>
 

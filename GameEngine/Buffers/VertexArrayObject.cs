@@ -3,13 +3,13 @@
 public class VertexArrayObject
 {
     private readonly VertexBufferObject _vertexBufferObject;
-    private readonly AttributePointer[] _attributePointers;
+    private readonly VertexAttributeGroup _vertexAttributeGroup;
     private readonly int _id;
 
-    public VertexArrayObject(VertexBufferObject vertexBufferObject, AttributePointer[] attributePointers)
+    public VertexArrayObject(VertexBufferObject vertexBufferObject, VertexAttributeGroup vertexAttributeGroup)
     {
         _vertexBufferObject = vertexBufferObject;
-        _attributePointers = attributePointers;
+        _vertexAttributeGroup = vertexAttributeGroup;
         _id = GL.GenVertexArray();
     }
 
@@ -17,7 +17,7 @@ public class VertexArrayObject
     {
         Bind();
         _vertexBufferObject.Init();
-        _attributePointers.ForEach(pointer => pointer.Enable());
+        _vertexAttributeGroup.Enable();
     }
     
     public void Bind()
