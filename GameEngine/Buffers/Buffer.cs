@@ -1,4 +1,4 @@
-﻿using OpenTK.Graphics.OpenGL4;
+﻿using OpenTK.Graphics.OpenGL;
 
 public abstract class Buffer<T> : IDisposable where T : struct
 {

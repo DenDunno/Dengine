@@ -2,7 +2,7 @@
 WindowFactory windowFactory = new();
 Window window = windowFactory.Create();
 
-WorldFactory worldFactory = new(window);
+WorldFactory worldFactory = new Demo3DFactory(window);
 World world = worldFactory.Create();
 
 Commands commands = new(window);

@@ -12,13 +12,12 @@ public class Camera : IUpdatable
     private float _pitch;
     private float _yaw = -MathHelper.PiOver2;
 
-    public Camera(Vector3 position, float aspectRatio)
+    public Camera(float aspectRatio)
     {
         _aspectRatio = aspectRatio;
-        Position = position;
     }
-    
-    public Vector3 Position { get; set; }
+
+    public Vector3 Position { get; set; } = new(0, 0, 3);
     public Vector3 Front => _front;
     public Vector3 Up => _up;
     public Vector3 Right => _right;

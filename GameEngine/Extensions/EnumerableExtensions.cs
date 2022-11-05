@@ -8,4 +8,9 @@ public static class EnumerableExtensions
             action(element);
         }
     }
+
+    public static void InsertFirst<T>(this List<T> collection, T element)
+    {
+        collection.Insert(0, element);
+    }
 }
