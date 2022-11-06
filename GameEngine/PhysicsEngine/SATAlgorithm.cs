@@ -22,7 +22,7 @@ public class SATAlgorithm
         {
             Vector3 normalA = normalsA[i];
             Vector3 vertexA = worldPositionsA[i];
-
+            
             (Vector3 minVertexB, float minSeparation) = FindMinSeparation(vertexA, normalA, worldPositionsB);
             separation = MathF.Max(separation, minSeparation);
 

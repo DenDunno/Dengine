@@ -10,38 +10,28 @@ public class MeshWorldView
         _transform = transform;
         _mesh = mesh;
     }
-    
-    public Vector3[] Positions 
+
+    public Vector3[] Positions => MultiplyWithModelMatrix(_mesh.Positions, false);
+
+    public Vector3[] Normals => MultiplyWithModelMatrix(_mesh.Normals!, true);
+
+    private Vector3[] MultiplyWithModelMatrix(Vector3[] data, bool isDirection)
     {
-        get
+        int w = isDirection ? 0 : 1;
+        Matrix4 modelMatrix = _transform.ModelMatrix;
+        Vector3[] worldViewData = new Vector3[data.Length];
+
+        for (int i = 0; i < data.Length; ++i)
         {
-            Matrix4 modelMatrix = _transform.ModelMatrix;
-            Vector3[] worldPositions = new Vector3[_mesh.Positions.Length];
+            Vector4 worldViewVector = new(data[i], w);
+            worldViewData[i] = (worldViewVector * modelMatrix).Xyz;
 
-            for (int i = 0; i < _mesh.Positions.Length; ++i)
+            if (isDirection)
             {
-                Vector4 vertex = new(_mesh.Positions[i], 1);
-                worldPositions[i] = (vertex * modelMatrix).Xyz;
+                worldViewData[i].Normalize();
             }
-
-            return worldPositions;
         }
-    }
-    
-    public Vector3[] Normals 
-    {
-        get
-        {
-            Matrix4 modelMatrix = _transform.ModelMatrix;
-            Vector3[] normals = new Vector3[_mesh.Normals.Length];
 
-            for (int i = 0; i < _mesh.Normals.Length; ++i)
-            {
-                Vector4 normal = new(_mesh.Normals[i], 0);
-                normals[i] = (normal * modelMatrix).Xyz.Normalized();
-            }
-
-            return normals;
-        }
+        return worldViewData;
     }
 }

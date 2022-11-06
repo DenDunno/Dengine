@@ -12,12 +12,12 @@ public class Demo3DFactory : WorldFactory
         return new List<GameObject>()
         {
             CreateSkybox(),
-            CreateCube(new Vector3(-2, 2, 0), true, Vector3.Zero),
-            CreateCube(new Vector3(2, 2, 0), false, new Vector3(0, 45, 45)),
+            CreateCube("Controlling cube", new Vector3(-2, 2, 0), true, Vector3.Zero),
+            CreateCube("Cube1", new Vector3(2, 2, 0), false, new Vector3(0, 45, 45)),
         };
     }
     
-    private GameObject CreateCube(Vector3 position, bool isControlling, Vector3 rotation)
+    private GameObject CreateCube(string name, Vector3 position, bool isControlling, Vector3 rotation)
     {
         Mesh mesh = Primitives.Cube(0.5f);
         LightData lightData = new(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
@@ -37,7 +37,9 @@ public class Demo3DFactory : WorldFactory
             ShaderProgram = shaderProgram
         });
 
-        return new GameObject(new GameObjectData()
+        NormalsViewer.Add(transform, mesh);
+        
+        return new GameObject(new GameObjectData(name)
         {
             Model = new Model(renderData),
             Components = GetComponents(isControlling, transform)
@@ -76,7 +78,7 @@ public class Demo3DFactory : WorldFactory
             ShaderProgram = new ShaderProgramWithTexture(new Cubemap(paths), "Shaders/skyboxVert.glsl", "Shaders/skyboxFrag.glsl"),
         };
 
-        return new GameObject(new GameObjectData()
+        return new GameObject(new GameObjectData("Skybox")
         {
             Model = new Model(renderData),
             Components = new IUpdatable[]

@@ -1,13 +1,7 @@
 ﻿
-public class Component : IUpdatable
+public abstract class TogglingComponent : IUpdatable
 {
-    private readonly IUpdatable _logic;
     private bool _enabled;
-
-    public Component(IUpdatable logic)
-    {
-        _logic = logic;
-    }
 
     public void Enable()
     {
@@ -23,7 +17,9 @@ public class Component : IUpdatable
     {
         if (_enabled)
         {
-            _logic.Update(deltaTime);
+            OnUpdate(deltaTime);
         }
     }
+
+    protected abstract void OnUpdate(float deltaTime);
 }

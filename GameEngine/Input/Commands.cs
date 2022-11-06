@@ -1,19 +1,22 @@
-﻿using OpenTK.Graphics.OpenGL;
-
+﻿
 public class Commands
 {
-    private readonly Window _window;
     private readonly IReadOnlyDictionary<string, Action> _commands;
 
-    public Commands(Window window)
+    public Commands(Window window, World world)
     {
-        _window = window;
+        WindowCommands windowCommands = new(window);
+        Reflection reflection = new(world);
+        GizmoCommands gizmoCommands = new(reflection);
+        
         _commands = new Dictionary<string, Action>
         {
-            {"wireframe", EnableWireframeMode},
-            {"shaded", EnableShadedMode},
+            {"wireframe", windowCommands.EnableWireframeMode},
+            {"shaded", windowCommands.EnableShadedMode},
+            {"show normals", gizmoCommands.ShowNormals},
+            {"hide normals", gizmoCommands.HideNormals},
             {"help", ShowCommands},
-            {"clear", ClearConsole},
+            {"clear", Console.Clear},
         };
     }
 
@@ -30,16 +33,6 @@ public class Commands
         }
     }
 
-    private void EnableWireframeMode()
-    {
-        _window.SetPolygonMode(PolygonMode.Line);
-    }
-
-    private void EnableShadedMode()
-    {
-        _window.SetPolygonMode(PolygonMode.Fill);
-    }
-
     private void ShowCommands()
     {
         Console.WriteLine();
@@ -50,10 +43,5 @@ public class Commands
         }
         
         Console.WriteLine();
-    }
-
-    private void ClearConsole()
-    {
-        Console.Clear();
     }
 }

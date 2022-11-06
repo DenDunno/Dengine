@@ -11,13 +11,13 @@ public class Demo2DFactory : WorldFactory
     {
         return new List<GameObject>()
         {
-            CreateObstacle(true, Primitives.Quad(0.5f), Vector3.Zero, 0),
-            CreateObstacle(false, Primitives.Quad(0.75f), new Vector3(-1.75f, 1f, 0), 45),
-            CreateObstacle(false, Primitives.Quad(0.75f), new Vector3(1.75f, -1f, 0), -45),
+            CreateObstacle("Controlling Quad", true, Primitives.Quad(0.5f), Vector3.Zero, 0),
+            CreateObstacle("Quad1", false, Primitives.Quad(0.75f), new Vector3(-1.75f, 1f, 0), 45),
+            CreateObstacle("Quad2", false, Primitives.Quad(0.75f), new Vector3(1.75f, -1f, 0), -45),
         };
     }
     
-    private GameObject CreateObstacle(bool isControlling, Mesh mesh, Vector3 position, float rotation)
+    private GameObject CreateObstacle(string name, bool isControlling, Mesh mesh, Vector3 position, float rotation)
     {
         Transform transform = new(position, Quaternion.FromEulerAngles(0, 0, rotation));
         MeshWorldView meshWorldView = new(transform, mesh);
@@ -28,7 +28,7 @@ public class Demo2DFactory : WorldFactory
             ShaderProgram = shaderProgram
         });
 
-        return new GameObject(new GameObjectData
+        return new GameObject(new GameObjectData(name)
         {
             Model = new Model(new RenderData
             {
