@@ -1,4 +1,5 @@
-﻿using OpenTK.Mathematics;
+﻿using System.Drawing;
+using OpenTK.Mathematics;
 
 public class SATAlgorithm
 {
@@ -27,7 +28,7 @@ public class SATAlgorithm
 
             if (separation >= 0)
             {
-                DrawSeparatingAxis(vertexA, normalA, minVertexB);
+                DrawGizmo(vertexA, normalA, minVertexB);
             }
         }
         
@@ -53,17 +54,17 @@ public class SATAlgorithm
         return (minVertexB, minSeparation);
     }
 
-    private void DrawSeparatingAxis(Vector3 vertexA, Vector3 normalA, Vector3 vertexB)
+    private void DrawGizmo(Vector3 vertexA, Vector3 normalA, Vector3 vertexB)
     {
         Vector3 lineDirection = Algorithms.GetNormal(normalA);
         Vector3 lineCentre = (vertexA + vertexB) / 2;
         Vector3 firstPoint = lineCentre + lineDirection;
         Vector3 secondPoint = lineCentre - lineDirection;
+        Vector3 normalFirstPoint = vertexA + normalA * 0.4f;
+        Vector3 baDirection = (vertexB - vertexA).Normalized();
         
-        Gizmo.Instance.AddLineToDraw(new List<Vector2>
-        {
-            firstPoint.Xy,
-            secondPoint.Xy,
-        });
+        Gizmo.Instance.DrawLine(firstPoint, secondPoint, Color.Aqua);
+        Gizmo.Instance.DrawArrow(normalFirstPoint, vertexA, Color.Chartreuse);
+        Gizmo.Instance.DrawArrow(vertexB - baDirection * 0.2f, vertexA, Color.FromArgb(1, 255, 255, 0));
     }
 }
