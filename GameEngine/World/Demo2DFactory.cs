@@ -28,6 +28,8 @@ public class Demo2DFactory : WorldFactory
             ShaderProgram = shaderProgram
         });
 
+        NormalsViewer.Add(transform, mesh);
+        
         return new GameObject(new GameObjectData(name)
         {
             Model = new Model(new RenderData

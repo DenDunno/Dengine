@@ -17,4 +17,14 @@ public class GizmoCommands
     {
         _reflection.DisableComponent<NormalsViewer>("Static point");
     }
+
+    public void ShowGizmo()
+    {
+        Gizmo.Instance.Enable();
+    }
+    
+    public void HideGizmo()
+    {
+        Gizmo.Instance.Disable();
+    }
 }

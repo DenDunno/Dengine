@@ -15,6 +15,8 @@ public class Commands
             {"shaded", windowCommands.EnableShadedMode},
             {"show normals", gizmoCommands.ShowNormals},
             {"hide normals", gizmoCommands.HideNormals},
+            {"show gizmo", gizmoCommands.ShowGizmo},
+            {"hide gizmo", gizmoCommands.HideGizmo},
             {"help", ShowCommands},
             {"clear", Console.Clear},
         };

@@ -16,4 +16,12 @@ public static class Algorithms
     {
         return new Vector3(-direction.Y, direction.X, 0).Normalized();
     }
+
+    public static (Vector3, Vector3) CreateOrthonormalBasis(Vector3 firstAxis)
+    {
+        Vector3 secondAxis = GetNormal(firstAxis);
+        Vector3 thirdAxis = Vector3.Cross(firstAxis, secondAxis);
+
+        return (secondAxis, thirdAxis);
+    }
 }
