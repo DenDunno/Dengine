@@ -4,13 +4,11 @@ using OpenTK.Mathematics;
 public class Mesh
 {
     public readonly MeshData Data;
-    public readonly uint[] Indices;
     private readonly List<VertexAttribute> _attributes = new();
     
-    public Mesh(MeshData data, uint[] indices)
+    public Mesh(MeshData data)
     {
         Data = data;
-        Indices = indices;
     }
 
     public VertexAttributeGroup AttributeGroup => new(_attributes, Stride);
