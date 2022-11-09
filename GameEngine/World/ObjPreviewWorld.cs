@@ -1,6 +1,4 @@
-﻿
-using OpenTK.Graphics.OpenGL;
-using OpenTK.Mathematics;
+﻿using OpenTK.Graphics.OpenGL;
 
 public class ObjPreviewWorld : WorldFactory
 {
@@ -18,11 +16,10 @@ public class ObjPreviewWorld : WorldFactory
     
     private GameObject CreateModel()
     {
-        MeshBuilder meshBuilder = new(new MeshFromObj("Models/monkey.obj"));
+        MeshBuilder meshBuilder = new(new MeshFromObj("Models/cottage_obj.obj"));
         Mesh mesh = meshBuilder.Build();
-        LightData lightData = new(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
         Transform transform = new();
-        LightningShaderProgram shaderProgram = new(lightData, Camera, "Shaders/vert.glsl", "Shaders/lightning.glsl");
+        ShaderProgramWithTexture shaderProgram = new(new Texture("Resources/cottage_diffuse.png"), "Shaders/vert.glsl", "Shaders/frag.glsl");
         MeshWorldView meshWorldView = new(transform, mesh);
         RenderData renderData = new()
         {
