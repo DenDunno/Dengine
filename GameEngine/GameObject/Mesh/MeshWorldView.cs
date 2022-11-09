@@ -11,9 +11,9 @@ public class MeshWorldView
         _mesh = mesh;
     }
 
-    public Vector3[] Positions => MultiplyWithModelMatrix(_mesh.Positions, false);
+    public Vector3[] Positions => MultiplyWithModelMatrix(_mesh.Data.Positions, false);
 
-    public Vector3[] Normals => MultiplyWithModelMatrix(_mesh.Normals!, true);
+    public Vector3[] Normals => MultiplyWithModelMatrix(_mesh.Data.Positions!, true);
 
     private Vector3[] MultiplyWithModelMatrix(Vector3[] data, bool isDirection)
     {

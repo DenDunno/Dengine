@@ -3,36 +3,30 @@ using OpenTK.Mathematics;
 
 public class Mesh
 {
-    public readonly Vector3[] Positions;
+    public readonly MeshData Data;
     public readonly uint[] Indices;
     private readonly List<VertexAttribute> _attributes = new();
     
-    public Mesh(Vector3[] positions, uint[] indices)
+    public Mesh(MeshData data, uint[] indices)
     {
-        Positions = positions;
+        Data = data;
         Indices = indices;
     }
 
-    public Vector3[]? Normals { get; init; }
-    public Vector2[]? TextureCoordinates { get; init; }
-    public Vector3[]? Color { get; init; } = null;
-    
-    public int VertexCount => Positions.Length;
-    public int Stride => _attributes.Sum(attribute => attribute.Size);
     public VertexAttributeGroup AttributeGroup => new(_attributes, Stride);
+    private int Stride => _attributes.Sum(attribute => attribute.Size);
 
     public void Init()
     {
-        TryAddAttribute(Positions);
-        TryAddAttribute(Normals);
-        TryAddAttribute(TextureCoordinates);
-        TryAddAttribute(Color);
+        TryAddAttribute(Data.Positions);
+        TryAddAttribute(Data.Normals);
+        TryAddAttribute(Data.TextureCoordinates);
     }
 
     public float[] GetVerticesData()
     {
         int stride = Stride;
-        int vertexCount = VertexCount;
+        int vertexCount = Data.Positions.Length;
         float[] verticesData = new float[stride * vertexCount];
         int verticesDataIndex = 0;
 

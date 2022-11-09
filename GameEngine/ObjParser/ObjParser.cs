@@ -7,32 +7,27 @@ public class ObjParser
     private readonly List<Vector3> _positions = new();
     private readonly List<Vector2> _textureCoordinates = new();
     private readonly List<Vector3> _normals = new();
-    private readonly List<Polygon> _polygons = new();
     
     public ObjParser(string pathToModel)
     {
         _pathToModel = pathToModel;
     }
 
-    public MeshFaces Parse()
+    public void Parse()
     {
         string[] lines = File.ReadAllLines(_pathToModel);
-
+        
         foreach (string line in lines)
         {
-            string[] data = line.Split();
-            string identifier = data[0];
-            
-            TryAddVertexData(identifier, data);
-            TryAddPolygon(identifier, data);
+            TryParse(line);
         }
-        
-        return new MeshFaces(_polygons);
     }
 
-    private void TryAddVertexData(string identifier, string[] data)
+    private void TryParse(string line)
     {
-        switch (identifier)
+        string[] data = line.Split();
+
+        switch (data[0])
         {
             case "v":
                 ParseVector3ToCollection(data, _positions);
@@ -43,16 +38,14 @@ public class ObjParser
             case "vn":
                 ParseVector3ToCollection(data, _normals);
                 break;
+            case "f":
+                ParsePolygon(data);
+                break;
         }
     }
 
-    private void TryAddPolygon(string identifier, string[] data)
+    private void ParsePolygon(string[] data)
     {
-        if (identifier != "f") 
-            return;
-        
-        MeshVertex[] polygon = new MeshVertex[3];
-            
         for (int i = 1; i < data.Length; ++i)
         {
             int[] vertexDataIndices = data[i].Split("/").Select(int.Parse).ToArray();
@@ -64,11 +57,7 @@ public class ObjParser
             Vector3 position = _positions[positionIndex];
             Vector2 textureCoordinate = _textureCoordinates[textureCoordinateIndex];
             Vector3 normal = _normals[normalIndex];
-
-            polygon[i - 1] = new MeshVertex(position, textureCoordinate, normal);
         }
-            
-        _polygons.Add(new Polygon(polygon));
     }
 
     private void ParseVector2ToCollection(string[] dataToParse, List<Vector2> collection)
