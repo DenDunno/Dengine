@@ -2,12 +2,8 @@
 
 public class MeshData
 {
-    public readonly Vector3[] Positions;
-    public Vector3[]? Normals { get; init; } = null;
-    public Vector2[]? TextureCoordinates { get; init; } = null;
-
-    public MeshData(Vector3[] positions)
-    {
-        Positions = positions;
-    }
+    public Vector3[] Positions { get; init; } = null!;
+    public Vector3[]? Normals { get; init; }
+    public Vector2[]? TextureCoordinates { get; init; }
+    public uint[] Indices { get; init; } = null!;
 }

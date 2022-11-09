@@ -1,2 +1,3 @@
 ﻿
-ObjParser objParser = new("Models/cube.obj");
+IMeshDataSource meshFromObj = new MeshFromObj("Models/cube.obj");
+MeshData meshData = meshFromObj.Get();

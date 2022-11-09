@@ -13,38 +13,36 @@ public class ObjParser
         _pathToModel = pathToModel;
     }
 
-    public void Parse()
+    public IReadOnlyList<ObjVertex> Parse()
     {
         string[] lines = File.ReadAllLines(_pathToModel);
+        List<ObjVertex> result = new();
         
         foreach (string line in lines)
         {
-            TryParse(line);
+            string[] data = line.Split();
+
+            switch (data[0])
+            {
+                case "v":
+                    ParseVector3ToCollection(data, _positions);
+                    break;
+                case "vt":
+                    ParseVector2ToCollection(data, _textureCoordinates);
+                    break;
+                case "vn":
+                    ParseVector3ToCollection(data, _normals);
+                    break;
+                case "f":
+                    ParsePolygon(data, result);
+                    break;
+            }
         }
+
+        return result;
     }
-
-    private void TryParse(string line)
-    {
-        string[] data = line.Split();
-
-        switch (data[0])
-        {
-            case "v":
-                ParseVector3ToCollection(data, _positions);
-                break;
-            case "vt":
-                ParseVector2ToCollection(data, _textureCoordinates);
-                break;
-            case "vn":
-                ParseVector3ToCollection(data, _normals);
-                break;
-            case "f":
-                ParsePolygon(data);
-                break;
-        }
-    }
-
-    private void ParsePolygon(string[] data)
+    
+    private void ParsePolygon(string[] data, List<ObjVertex> vertices)
     {
         for (int i = 1; i < data.Length; ++i)
         {
@@ -57,6 +55,8 @@ public class ObjParser
             Vector3 position = _positions[positionIndex];
             Vector2 textureCoordinate = _textureCoordinates[textureCoordinateIndex];
             Vector3 normal = _normals[normalIndex];
+            
+            vertices.Add(new ObjVertex(position, normal, textureCoordinate));
         }
     }
 
