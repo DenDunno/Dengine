@@ -20,7 +20,6 @@ public class ObjPreviewWorld : WorldFactory
         Mesh mesh = meshBuilder.Build();
         Transform transform = new();
         ShaderProgramWithTexture shaderProgram = new(new Texture("Resources/cottage_diffuse.png"), "Shaders/vert.glsl", "Shaders/frag.glsl");
-        MeshWorldView meshWorldView = new(transform, mesh);
         RenderData renderData = new()
         {
             Transform = transform,

@@ -13,7 +13,7 @@ public class MeshWorldView
         _mesh = mesh;
     }
 
-    public IReadOnlyCollection<MeshVertex> GetWorldVertices()
+    public IReadOnlyList<MeshVertex> GetWorldVertices()
     {
         Matrix4 modelMatrix = _transform.ModelMatrix;
 

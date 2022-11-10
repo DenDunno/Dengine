@@ -5,48 +5,50 @@ public class SATAlgorithm
 {
     public bool CheckCollision(Rigidbody objectA, Rigidbody objectB)
     {
-        Vector3[] worldPositionsA = objectA.MeshWorldView.Positions;
-        Vector3[] worldPositionsB = objectB.MeshWorldView.Positions;
-        Vector3[] normalsA = objectA.MeshWorldView.Normals;
-        Vector3[] normalsB = objectB.MeshWorldView.Normals;
+        IReadOnlyList<MeshVertex> verticesA = objectA.MeshWorldView.GetWorldVertices();
+        IReadOnlyList<MeshVertex> verticesB = objectB.MeshWorldView.GetWorldVertices();
 
-        return CheckSeparatingAxis(worldPositionsA, normalsA, worldPositionsB) && 
-               CheckSeparatingAxis(worldPositionsB, normalsB, worldPositionsA);
+        return CheckSeparatingAxis(verticesA, verticesB) && 
+               CheckSeparatingAxis(verticesB, verticesA);
     }
 
-    private bool CheckSeparatingAxis(Vector3[] worldPositionsA, Vector3[] normalsA, Vector3[] worldPositionsB)
+    private bool CheckSeparatingAxis(IReadOnlyList<MeshVertex> verticesA, IReadOnlyList<MeshVertex> verticesB)
     {
         float separation = float.MinValue;
+        bool isGizmoDrawing = false;
         
-        for (int i = 0; i < worldPositionsA.Length && separation <= 0; ++i)
+        for (int i = 0; i < verticesA.Count && separation <= 0; ++i)
         {
-            Vector3 normalA = normalsA[i];
-            Vector3 vertexA = worldPositionsA[i];
-            
-            (Vector3 minVertexB, float minSeparation) = FindMinSeparation(vertexA, normalA, worldPositionsB);
-            separation = MathF.Max(separation, minSeparation);
-
-            if (separation >= 0)
+            foreach (Vector3 normal in verticesA[i].Normals)
             {
-                DrawGizmo(vertexA, normalA, minVertexB);
+                Vector3 vertexA = verticesA[i].Position;
+                
+                (Vector3 minVertexB, float minSeparation) = FindMinSeparation(vertexA, normal, verticesB);
+                separation = MathF.Max(separation, minSeparation);
+                
+                if (separation >= 0 && isGizmoDrawing == false)
+                {
+                    isGizmoDrawing = true;
+                    DrawGizmo(vertexA, normal, minVertexB);
+                }
             }
         }
         
         return separation <= 0;
     }
 
-    private (Vector3, float) FindMinSeparation(Vector3 vertexA, Vector3 normalA, Vector3[] worldPositionsB)
+    private (Vector3, float) FindMinSeparation(Vector3 vertexA, Vector3 normalA, IReadOnlyList<MeshVertex> verticesB)
     {
         float minSeparation = float.MaxValue;
         Vector3 minVertexB = Vector3.Zero;
             
-        foreach (Vector3 vertexB in worldPositionsB)
+        foreach (MeshVertex vertexB in verticesB)
         {
-            float dot = Vector3.Dot(vertexB - vertexA, normalA);
+            float dot = Vector3.Dot(vertexB.Position - vertexA, normalA);
                 
             if (dot < minSeparation)
             {
-                minVertexB = vertexB;
+                minVertexB = vertexB.Position;
                 minSeparation = dot;
             }
         }

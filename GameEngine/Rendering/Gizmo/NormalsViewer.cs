@@ -9,6 +9,11 @@ public class NormalsViewer : TogglingComponent
     {
         MeshWorldView meshWorldView = new(transform, mesh);
         meshWorldView.CalculateNormals();
+        Add(meshWorldView);
+    }
+
+    public void Add(MeshWorldView meshWorldView)
+    {
         _meshs.Add(meshWorldView);
     }
 
