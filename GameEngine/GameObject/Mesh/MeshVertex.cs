@@ -1,15 +1,13 @@
 ﻿using OpenTK.Mathematics;
 
-public readonly struct MeshVertex
+public struct MeshVertex
 {
-    public readonly Vector3 Position;
-    public readonly Vector2 TextureCoordinates;
-    public readonly Vector3 Normal;
+    public Vector3 Position;
+    public List<Vector3> Normals = new();
 
-    public MeshVertex(Vector3 position, Vector2 textureCoordinates, Vector3 normal)
+    public MeshVertex(Vector3 position, Vector3 normal)
     {
         Position = position;
-        TextureCoordinates = textureCoordinates;
-        Normal = normal;
+        Normals = new List<Vector3>() { normal };
     }
 }

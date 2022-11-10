@@ -11,7 +11,7 @@ public class Demo3DFactory : WorldFactory
     {
         return new List<GameObject>()
         {
-            CreateCube("Controlling cube", new Vector3(-2, 2, 0), true, Vector3.Zero),
+            //CreateCube("Controlling cube", new Vector3(-2, 2, 0), true, Vector3.Zero),
             CreateCube("Cube1", new Vector3(2, 2, 0), false, new Vector3(0, 45, 45)),
         };
     }

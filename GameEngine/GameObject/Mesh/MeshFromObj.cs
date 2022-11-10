@@ -19,7 +19,8 @@ public class MeshFromObj : IMeshDataSource
             Positions = optimizedVertices.Select(vertex => vertex.Position).ToArray(),
             Normals = optimizedVertices.Select(vertex => vertex.Normal).ToArray(),
             TextureCoordinates = optimizedVertices.Select(vertex => vertex.TextureCoordinate).ToArray(),
-            Indices = CreateIndices(vertices)
+            Indices = CreateIndices(vertices),
+            RealVertexCount = _indicesDictionary.Count
         };
     }
 
