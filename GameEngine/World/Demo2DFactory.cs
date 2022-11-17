@@ -13,7 +13,7 @@ public class Demo2DFactory : WorldFactory
         {
             CreateObstacle("Controlling Quad", true, Primitives.Quad(0.5f), Vector3.Zero, 0),
             CreateObstacle("Quad1", false, Primitives.Quad(0.75f), new Vector3(-1.75f, 1f, 0), 45),
-            CreateObstacle("Quad2", false, Primitives.Quad(0.75f), new Vector3(1.75f, -1f, 0), -45),
+            //CreateObstacle("Quad2", false, Primitives.Quad(0.75f), new Vector3(1.75f, -1f, 0), -45),
         };
     }
     
