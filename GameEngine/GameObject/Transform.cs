@@ -3,8 +3,9 @@
 public class Transform
 {
     public Vector3 Position;
-    private Quaternion _rotation;
-    private readonly Transform? _parent;
+    public Vector3 Scale = Vector3.One;
+    public Quaternion Rotation;
+    public readonly Transform? Parent;
 
     public Transform() : this(Vector3.Zero, Quaternion.Identity, null)
     {
@@ -21,18 +22,18 @@ public class Transform
     private Transform(Vector3 position, Quaternion rotation, Transform? parent)
     {
         Position = position;
-        _rotation = rotation;
-        _parent = parent;
+        Rotation = rotation;
+        Parent = parent;
     }
 
     public Matrix4 ModelMatrix
     {
         get
         {
-            Matrix4 localMatrix = Matrix4.CreateFromQuaternion(_rotation) * Matrix4.CreateTranslation(Position);
+            Matrix4 localMatrix = Matrix4.CreateScale(Scale) * Matrix4.CreateFromQuaternion(Rotation) * Matrix4.CreateTranslation(Position);
             
-            if (_parent != null)
-                return  localMatrix * _parent.ModelMatrix;
+            if (Parent != null)
+                return  localMatrix * Parent.ModelMatrix;
 
             return localMatrix;
         }
@@ -57,6 +58,6 @@ public class Transform
 
     public void Rotate(Vector3 rotationVector)
     {
-        _rotation *= Quaternion.FromEulerAngles(rotationVector);
+        Rotation *= Quaternion.FromEulerAngles(rotationVector);
     }
 }

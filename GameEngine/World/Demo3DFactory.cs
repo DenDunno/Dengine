@@ -11,7 +11,6 @@ public class Demo3DFactory : WorldFactory
     {
         return new List<GameObject>()
         {
-            CreateSkybox(),
             CreateCube("Controlling cube", new Vector3(-2, 2, 0), true, Vector3.Zero),
             CreateCube("Cube1", new Vector3(2, 2, 0), false, new Vector3(0, 45, 45)),
         };
@@ -19,11 +18,14 @@ public class Demo3DFactory : WorldFactory
     
     private GameObject CreateCube(string name, Vector3 position, bool isControlling, Vector3 rotation)
     {
-        Mesh mesh = Primitives.Cube(0.5f);
+        MeshBuilder meshBuilder = new(new MeshFromObj("Models/cube.obj"));
+        Mesh mesh = meshBuilder.Build();
         LightData lightData = new(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
         Transform transform = new(position, Quaternion.FromEulerAngles(rotation));
         LightningShaderProgram shaderProgram = new(lightData, Camera, "Shaders/vert.glsl", "Shaders/lightning.glsl");
         MeshWorldView meshWorldView = new(transform, mesh);
+        meshWorldView.CalculateNormals();
+        
         RenderData renderData = new()
         {
             Transform = transform,
@@ -37,7 +39,7 @@ public class Demo3DFactory : WorldFactory
             ShaderProgram = shaderProgram
         });
 
-        NormalsViewer.Add(transform, mesh);
+        NormalsViewer.Add(meshWorldView);
         
         return new GameObject(new GameObjectData(name)
         {

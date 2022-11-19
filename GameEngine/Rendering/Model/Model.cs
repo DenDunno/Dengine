@@ -11,11 +11,11 @@ public class Model : IModel
     public Model(RenderData renderData)
     {
         VertexBufferObject vertexBufferObject = new(renderData.Mesh.GetVerticesData(), renderData.BufferUsageHint);
-        _indexBufferObject = new IndexBufferObject(renderData.Mesh.Indices, renderData.BufferUsageHint);
+        _indexBufferObject = new IndexBufferObject(renderData.Mesh.Data.Indices, renderData.BufferUsageHint);
         _vertexArrayObject = new VertexArrayObject(vertexBufferObject, renderData.Mesh.AttributeGroup);
         _shader = renderData.ShaderProgram;
         _transform = renderData.Transform;
-        _glRenderer = new GLRenderer(renderData.Mesh.Indices.Length);
+        _glRenderer = new GLRenderer(renderData.Mesh.Data.Indices.Length);
     }
 
     void IInitializable.Initialize()

@@ -24,4 +24,12 @@ public static class Algorithms
 
         return (secondAxis, thirdAxis);
     }
+
+    public static Vector3 MultiplyWithMatrix4(ref Matrix4 matrix4, Vector3 vector3, bool isDirection)
+    {
+        int w = isDirection ? 0 : 1;
+        Vector4 vector4 = new(vector3, w);
+        
+        return (vector4 * matrix4).Xyz;
+    }
 }
