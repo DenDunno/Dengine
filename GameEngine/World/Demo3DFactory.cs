@@ -18,8 +18,7 @@ public class Demo3DFactory : WorldFactory
     
     private GameObject CreateCube(string name, Vector3 position, bool isControlling, Vector3 rotation)
     {
-        MeshBuilder meshBuilder = new(new MeshFromObj("Models/cube.obj"));
-        Mesh mesh = meshBuilder.Build();
+        Mesh mesh = MeshFactory.FromObj("Models/cube.obj");
         LightData lightData = new(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
         Transform transform = new(position, Quaternion.FromEulerAngles(rotation));
         LightningShaderProgram shaderProgram = new(lightData, Camera, "Shaders/vert.glsl", "Shaders/lightning.glsl");
@@ -75,7 +74,7 @@ public class Demo3DFactory : WorldFactory
         RenderData renderData = new()
         {
             Transform = transform,
-            Mesh = Primitives.Cube(50f),
+            Mesh = MeshFactory.Cube(50f),
             BufferUsageHint = BufferUsageHint.StaticDraw,
             ShaderProgram = new ShaderProgramWithTexture(new Cubemap(paths), "Shaders/skyboxVert.glsl", "Shaders/skyboxFrag.glsl"),
         };

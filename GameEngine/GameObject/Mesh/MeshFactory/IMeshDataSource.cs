@@ -1,5 +1,5 @@
 ﻿
 public interface IMeshDataSource
 {
-    MeshData Get();
+    MeshData GetMeshData();
 }

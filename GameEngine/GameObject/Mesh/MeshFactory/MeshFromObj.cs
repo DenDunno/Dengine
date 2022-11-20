@@ -9,7 +9,7 @@ public class MeshFromObj : IMeshDataSource
         _objParser = new ObjParser(pathToModel);
     }
     
-    public MeshData Get()
+    MeshData IMeshDataSource.GetMeshData()
     {
         IReadOnlyList<ObjVertex> vertices = _objParser.Parse();
         IReadOnlyList<ObjVertex> optimizedVertices = OptimizeVertices(vertices);
@@ -20,7 +20,6 @@ public class MeshFromObj : IMeshDataSource
             Normals = optimizedVertices.Select(vertex => vertex.Normal).ToArray(),
             TextureCoordinates = optimizedVertices.Select(vertex => vertex.TextureCoordinate).ToArray(),
             Indices = CreateIndices(vertices),
-            RealVertexCount = _indicesDictionary.Count
         };
     }
 

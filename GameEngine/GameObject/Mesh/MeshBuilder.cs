@@ -10,7 +10,7 @@ public class MeshBuilder
 
     public Mesh Build()
     {
-        MeshData meshData = _meshDataSource.Get();
+        MeshData meshData = _meshDataSource.GetMeshData();
         Mesh mesh = new(meshData);
         mesh.Init();
 
