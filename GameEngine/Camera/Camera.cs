@@ -18,7 +18,7 @@ public class Camera : IUpdatable
     {
         get
         {
-            Vector3 position = _transform.ModelMatrix.Position;
+            Vector3 position = _transform.Position;
             TransformOrientation orientation = _transform.Orientation;
             return Matrix4.LookAt(position, position + orientation.Front, orientation.Up);
         }

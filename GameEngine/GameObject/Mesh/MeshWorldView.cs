@@ -15,7 +15,7 @@ public class MeshWorldView
 
     public IReadOnlyList<MeshVertex> GetWorldVertices()
     {
-        Matrix4 modelMatrix = _transform.ModelMatrix.Value;
+        Matrix4 modelMatrix = _transform.ModelMatrix;
 
         for (int i = 0; i < _meshLocalVertices.Count; ++i)
         {
@@ -95,7 +95,7 @@ public class MeshWorldView
     private Vector3[] MultiplyWithModelMatrix(Vector3[] data, bool isDirection)
     {
         int w = isDirection ? 0 : 1;
-        Matrix4 modelMatrix = _transform.ModelMatrix.Value;
+        Matrix4 modelMatrix = _transform.ModelMatrix;
         Vector3[] worldViewData = new Vector3[data.Length];
 
         for (int i = 0; i < data.Length; ++i)

@@ -3,10 +3,10 @@
 public class LightningShaderProgram : ShaderProgram, ICollisionShaderProgram
 {
     private readonly LightData _data;
-    private readonly ModelMatrix _camera;
+    private readonly Transform _camera;
     private Vector3 _color = Vector3.One;
     
-    public LightningShaderProgram(LightData data, ModelMatrix camera, string vertexShaderPath, string fragmentShaderPath) 
+    public LightningShaderProgram(LightData data, Transform camera, string vertexShaderPath, string fragmentShaderPath) 
         : base(vertexShaderPath, fragmentShaderPath)
     {
         _data = data;

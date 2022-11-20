@@ -40,7 +40,7 @@ public class CameraControlling : IUpdatable
         {
             if (_keyboardState.IsKeyDown(movementKey.Key))
             {
-                _camera.ModelMatrix.Position += movementKey.Direction() * speed * deltaTime;
+                _camera.Position += movementKey.Direction() * speed * deltaTime;
             }
         }
     }

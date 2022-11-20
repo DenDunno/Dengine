@@ -1,10 +1,10 @@
 ﻿
 public class Skybox : IUpdatable
 {
-    private readonly ModelMatrix _camera;
-    private readonly ModelMatrix _transform;
+    private readonly Transform _camera;
+    private readonly Transform _transform;
     
-    public Skybox(ModelMatrix camera, ModelMatrix transform)
+    public Skybox(Transform camera, Transform transform)
     {
         _camera = camera;
         _transform = transform;

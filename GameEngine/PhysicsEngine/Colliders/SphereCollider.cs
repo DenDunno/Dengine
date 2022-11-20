@@ -12,7 +12,7 @@ public class SphereCollider : ICollider
         Radius = radius;
     }
 
-    public Vector3 Centre => (_centreOfSphere * _transform.ModelMatrix.Value).Xyz;
+    public Vector3 Centre => (_centreOfSphere * _transform.ModelMatrix).Xyz;
 
     public bool CheckCollision(ICollider collider) => collider.CheckCollision(this);
 

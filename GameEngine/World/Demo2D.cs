@@ -1,9 +1,9 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
-public class Demo2DFactory : WorldFactory
+public class Demo2D : WorldFactory
 {
-    public Demo2DFactory(Window window) : base(window)
+    public Demo2D(Window window) : base(window)
     {
     }
 

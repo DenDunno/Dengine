@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using OpenTK.Mathematics;
 
-public class SATAlgorithm
+public class SATAlgorithm : ICollisionDetection
 {
     public bool CheckCollision(Rigidbody objectA, Rigidbody objectB)
     {

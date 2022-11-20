@@ -1,18 +1,19 @@
 ﻿
 public class CollisionResolution 
 {
+    private readonly ICollisionDetection _collisionDetection;
     private readonly IReadOnlyList<Rigidbody> _rigidbodies;
-    private readonly SATAlgorithm _satAlgorithm = new();
 
-    public CollisionResolution(IReadOnlyList<Rigidbody> rigidbodies)
+    public CollisionResolution(ICollisionDetection collisionDetection, IReadOnlyList<Rigidbody> rigidbodies)
     {
+        _collisionDetection = collisionDetection;
         _rigidbodies = rigidbodies;
     }
 
     public void Resolve()
     {
         Clear();
-        CheckCollisions();
+        ResolveCollisions();
     }
 
     private void Clear()
@@ -23,7 +24,7 @@ public class CollisionResolution
         }
     }
 
-    private void CheckCollisions()
+    private void ResolveCollisions()
     {
         for (int i = 0; i < _rigidbodies.Count; ++i)
         {
@@ -32,7 +33,7 @@ public class CollisionResolution
                 Rigidbody objectA = _rigidbodies[i];
                 Rigidbody objectB = _rigidbodies[j];
 
-                if (_satAlgorithm.CheckCollision(objectA, objectB))
+                if (_collisionDetection.CheckCollision(objectA, objectB))
                 {
                     objectA.ShaderProgram.SetCollisionColor();
                     objectB.ShaderProgram.SetCollisionColor();

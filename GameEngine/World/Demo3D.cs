@@ -1,9 +1,9 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
-public class Demo3DFactory : WorldFactory
+public class Demo3D : WorldFactory
 {
-    public Demo3DFactory(Window window) : base(window)
+    public Demo3D(Window window) : base(window)
     {
     }
 
@@ -21,7 +21,7 @@ public class Demo3DFactory : WorldFactory
         Mesh mesh = MeshFactory.FromObj("Models/cube.obj");
         LightData lightData = new(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
         Transform transform = new(position, Quaternion.FromEulerAngles(rotation));
-        LightningShaderProgram shaderProgram = new(lightData, CameraTransform.ModelMatrix, "Shaders/vert.glsl", "Shaders/lightning.glsl");
+        LightningShaderProgram shaderProgram = new(lightData, CameraTransform, "Shaders/vert.glsl", "Shaders/lightning.glsl");
         MeshWorldView meshWorldView = new(transform, mesh);
         meshWorldView.CalculateNormals();
         
@@ -84,7 +84,7 @@ public class Demo3DFactory : WorldFactory
             Model = new Model(renderData),
             Components = new IUpdatable[]
             {
-                new Skybox(CameraTransform.ModelMatrix, transform.ModelMatrix)
+                new Skybox(CameraTransform, transform)
             },
         });
     }
