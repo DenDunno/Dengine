@@ -27,7 +27,7 @@ public class Model : IModel
 
     public void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
     {
-        _shader.Bridge.SetMatrix4("model", _transform.ModelMatrix);
+        _shader.Bridge.SetMatrix4("model", _transform.ModelMatrix.Value);
         _shader.Bridge.SetMatrix4("view", viewMatrix);
         _shader.Bridge.SetMatrix4("projection", projectionMatrix);
         _vertexArrayObject.Bind();

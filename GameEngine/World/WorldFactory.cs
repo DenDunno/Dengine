@@ -1,18 +1,21 @@
-﻿using OpenTK.Windowing.GraphicsLibraryFramework;
+﻿using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 public abstract class WorldFactory
 {
     private readonly Window _window;
     private readonly List<Rigidbody> _rigidbodies = new();
-
+    private Camera _camera;
+    
     protected WorldFactory(Window window)
     {
         _window = window;
-        Camera = new Camera(window.AspectRatio);
+        CameraTransform = new Transform(new Vector3(0, 0, 3));
+        _camera = new Camera(window.AspectRatio, CameraTransform);
     }
 
     protected KeyboardState KeyboardState => _window.KeyboardState;
-    protected Camera Camera { get; }
+    protected Transform CameraTransform { get; }
     protected NormalsViewer NormalsViewer { get; } = new();
 
     public World Create()
@@ -20,7 +23,7 @@ public abstract class WorldFactory
         List<GameObject> gameObjects = CreateGameObjects();
         gameObjects.InsertFirst(CreateStaticPoint());
 
-        return new World(Camera, gameObjects);
+        return new World(_camera, gameObjects);
     }
 
     private GameObject CreateStaticPoint()
@@ -31,10 +34,10 @@ public abstract class WorldFactory
             {
                 new Timer(), 
                 new FPSCounter(_window),
-                new CameraControlling(Camera, _window.MouseState, _window.KeyboardState),
+                new CameraControlling(CameraTransform, _window.MouseState, _window.KeyboardState),
                 new PhysicsSimulation(1 / 60f, _rigidbodies),
                 NormalsViewer,
-                Camera,
+                _camera,
             },
             
             Model = new Gizmo()

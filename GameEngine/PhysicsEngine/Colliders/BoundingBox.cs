@@ -16,8 +16,8 @@ public class BoundingBox
         Initialize();
     }
 
-    public Vector4 Min => _min * _transform.ModelMatrix;
-    public Vector4 Max => _max * _transform.ModelMatrix;
+    public Vector4 Min => _min * _transform.ModelMatrix.Value;
+    public Vector4 Max => _max * _transform.ModelMatrix.Value;
 
     private void Initialize()
     {

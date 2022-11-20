@@ -21,7 +21,7 @@ public class Demo3DFactory : WorldFactory
         Mesh mesh = MeshFactory.FromObj("Models/cube.obj");
         LightData lightData = new(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
         Transform transform = new(position, Quaternion.FromEulerAngles(rotation));
-        LightningShaderProgram shaderProgram = new(lightData, Camera, "Shaders/vert.glsl", "Shaders/lightning.glsl");
+        LightningShaderProgram shaderProgram = new(lightData, CameraTransform.ModelMatrix, "Shaders/vert.glsl", "Shaders/lightning.glsl");
         MeshWorldView meshWorldView = new(transform, mesh);
         meshWorldView.CalculateNormals();
         
@@ -84,7 +84,7 @@ public class Demo3DFactory : WorldFactory
             Model = new Model(renderData),
             Components = new IUpdatable[]
             {
-                new Skybox(Camera, transform)
+                new Skybox(CameraTransform.ModelMatrix, transform.ModelMatrix)
             },
         });
     }

@@ -22,10 +22,10 @@ public class QuadMeshData : IMeshDataSource
             },
             Normals = new Vector3[]
             {
-                new(0, 0, -1.0f),
-                new(0, 0, -1.0f),
-                new(0, 0, -1.0f),
-                new(0, 0, -1.0f),
+                new(1, 0, 0),
+                new(0, -1, 0),
+                new(-1, 0, 0),
+                new(0, 1, 0),
             },
             TextureCoordinates = new Vector2[]
             {

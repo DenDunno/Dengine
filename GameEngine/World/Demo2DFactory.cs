@@ -22,7 +22,8 @@ public class Demo2DFactory : WorldFactory
         Transform transform = new(position, Quaternion.FromEulerAngles(0, 0, rotation));
         MeshWorldView meshWorldView = new(transform, mesh);
         ColorShaderProgram shaderProgram = new("Shaders/vert.glsl", "Shaders/uv.glsl");
-        
+        meshWorldView.CalculateNormals();
+
         AddRigidbody(new Rigidbody(transform, meshWorldView)
         {
             ShaderProgram = shaderProgram
