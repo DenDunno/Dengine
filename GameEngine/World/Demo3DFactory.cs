@@ -24,7 +24,6 @@ public class Demo3DFactory : WorldFactory
         Transform transform = new(position, Quaternion.FromEulerAngles(rotation));
         LightningShaderProgram shaderProgram = new(lightData, Camera, "Shaders/vert.glsl", "Shaders/lightning.glsl");
         MeshWorldView meshWorldView = new(transform, mesh);
-        meshWorldView.CalculateNormals();
         
         RenderData renderData = new()
         {

@@ -1,114 +1,95 @@
-﻿using OpenTK.Mathematics;
+﻿using GameEngine.Extensions;
+using OpenTK.Mathematics;
 
 public class MeshWorldView
 {
     private readonly Transform _transform;
-    private readonly List<MeshVertex> _meshLocalVertices = new();
-    private MeshVertex[] _meshWorldVertices = null!;
-    private readonly Mesh _mesh;
+    private readonly Vector3[] _worldNormals;
+    private readonly Vector3[] _worldPositions;
+    private readonly Vector3[] _localNormals;
+    private readonly Vector3[] _localPositions;
 
     public MeshWorldView(Transform transform, Mesh mesh)
     {
         _transform = transform;
-        _mesh = mesh;
+        _localPositions = CalculatePositions(mesh);
+        _localNormals = CalculateNormals(mesh);
+        _worldPositions = new Vector3[_localPositions.Length];
+        _worldNormals = new Vector3[_localNormals.Length];
     }
 
-    public IReadOnlyList<MeshVertex> GetWorldVertices()
+    public IReadOnlyList<Vector3> Positions 
     {
-        Matrix4 modelMatrix = _transform.ModelMatrix;
-
-        for (int i = 0; i < _meshLocalVertices.Count; ++i)
+        get
         {
-            _meshWorldVertices[i].Position = Algorithms.MultiplyWithMatrix4(ref modelMatrix, _meshLocalVertices[i].Position, false);
-
-            for (int j = 0; j < _meshLocalVertices[i].Normals.Count; ++j)
-            {
-                _meshWorldVertices[i].Normals[j] = Algorithms.MultiplyWithMatrix4(ref modelMatrix, _meshLocalVertices[i].Normals[j], true);
-            }
+            Matrix4 modelMatrix = _transform.ModelMatrix;
+            return Algorithms.MultiplyPointsWithMatrix4(ref modelMatrix, _localPositions, _worldPositions);
         }
+    }
+
+    public IReadOnlyList<Vector3> Normals
+    {
+        get
+        {
+            Matrix4 modelMatrix = _transform.ModelMatrix;
+            return Algorithms.MultiplyDirectionsWithMatrix4(ref modelMatrix, _localNormals, _worldNormals);
+        }
+    }
+
+    private Vector3[] CalculatePositions(Mesh mesh)
+    {
+        return mesh.Data.Positions.Distinct().ToArray();
+    }
+
+    private Vector3[] CalculateNormals(Mesh mesh)
+    {
+        List<Vector3> normals = new();
         
-        return _meshWorldVertices;
-    }
-    
-    public void CalculateNormals()
-    {
-        _meshLocalVertices.Clear();
+        CalculatePolygonNormals(normals, mesh);
+        CalculateEdgeNormals(normals);
         
-        FillMeshVertices();
-        CalculateEdgeNormals();
-        AllocateMemoryForWorldVertices();
+        return normals.ToArray();
     }
 
-    private void AllocateMemoryForWorldVertices()
+    private void CalculatePolygonNormals(List<Vector3> normals, Mesh mesh)
     {
-        _meshWorldVertices = new MeshVertex[_meshLocalVertices.Count];
-
-        for (int i = 0; i < _meshWorldVertices.Length; ++i)
+        List<Vector3> lookUp = new();
+        
+        foreach (Vector3 normal in mesh.Data.Normals!)
         {
-            _meshWorldVertices[i].Normals = new List<Vector3>(_meshLocalVertices[i].Normals);
-        }
-    }
-
-    private void FillMeshVertices()
-    {
-        Dictionary<Vector3, int> positionIndices = new();
-
-        for (int i = 0; i < _mesh.Data.Positions.Length; ++i)
-        {
-            Vector3 position = _mesh.Data.Positions[i];
-            Vector3 normal = _mesh.Data.Normals![i];
-
-            if (positionIndices.ContainsKey(position))
+            if (lookUp.Contains(normal) == false && DoNoExistCollinear(normal, normals))
             {
-                _meshLocalVertices[positionIndices[position]].Normals.Add(normal);
-            }
-            else
-            {
-                positionIndices[position] = positionIndices.Count;
-
-                _meshLocalVertices.Add(new MeshVertex(position, normal));
+                lookUp.Add(normal);
+                normals.Add(normal);
             }
         }
     }
 
-    private void CalculateEdgeNormals()
+    private void CalculateEdgeNormals(List<Vector3> normals)
     {
-        foreach (MeshVertex meshLocalVertex in _meshLocalVertices)
+        int count = normals.Count;
+        for (int i = 0; i < count; ++i)
         {
-            int normalsCount = meshLocalVertex.Normals.Count;
-            
-            for (int i = 0; i < normalsCount; ++i)
+            for (int j = i + 1; j < count; ++j)
             {
-                for (int j = i + 1; j < normalsCount; ++j)
-                {
-                    Vector3 edgeNormal = meshLocalVertex.Normals[i] + meshLocalVertex.Normals[j];
-                    meshLocalVertex.Normals.Add(edgeNormal);
-                }
+                Vector3 edgeNormal = (normals[i] + normals[j]).Normalized();
+                normals.Add(edgeNormal);
             }
         }
     }
 
-    public Vector3[] Positions => MultiplyWithModelMatrix(_mesh.Data.Positions, false);
-
-    public Vector3[] Normals => MultiplyWithModelMatrix(_mesh.Data.Normals!, true);
-
-    private Vector3[] MultiplyWithModelMatrix(Vector3[] data, bool isDirection)
+    private bool DoNoExistCollinear(Vector3 normal, IReadOnlyList<Vector3> normals)
     {
-        int w = isDirection ? 0 : 1;
-        Matrix4 modelMatrix = _transform.ModelMatrix;
-        Vector3[] worldViewData = new Vector3[data.Length];
+        bool collinearNotFound = true;
 
-        for (int i = 0; i < data.Length; ++i)
+        for (int i = 0; i < normals.Count && collinearNotFound; ++i)
         {
-            Vector4 worldViewVector = new(data[i], w);
-            worldViewData[i] = (worldViewVector * modelMatrix).Xyz;
-
-            if (isDirection)
+            if (normal.IsCollinear(normals[i]))
             {
-                worldViewData[i].Normalize();
+                collinearNotFound = false;
             }
         }
 
-        return worldViewData;
+        return collinearNotFound;
     }
 }

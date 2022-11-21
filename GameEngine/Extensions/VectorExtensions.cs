@@ -30,4 +30,17 @@ public static class VectorExtensions
 
         return result;
     }
+
+    public static bool IsCollinear(this Vector3 first, Vector3 second)
+    {
+        const float epsilon = 0.00001f;
+        
+        float xRatio = first.X / second.X; 
+        float yRatio = first.Y / second.Y; 
+        float zRatio = first.Z / second.Z;
+        float lengthMultiplication = first.Length * second.Length;
+        float absDot = MathF.Abs(Vector3.Dot(first, second));
+
+        return Math.Abs(absDot - lengthMultiplication) < epsilon;
+    }
 }

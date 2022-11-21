@@ -25,11 +25,47 @@ public static class Algorithms
         return (secondAxis, thirdAxis);
     }
 
-    public static Vector3 MultiplyWithMatrix4(ref Matrix4 matrix4, Vector3 vector3, bool isDirection)
+    public static Vector3[] MultiplyPointsWithMatrix4(ref Matrix4 matrix4, Vector3[] from, Vector3[] to)
+    {
+        return MultiplyWithMatrix4(ref matrix4, from, to, false);
+    }
+    
+    public static Vector3[] MultiplyDirectionsWithMatrix4(ref Matrix4 matrix4, Vector3[] from, Vector3[] to)
+    {
+        return MultiplyWithMatrix4(ref matrix4, from, to, true);
+    }
+    
+    public static Vector3 MultiplyPointWithMatrix4(ref Matrix4 matrix4, Vector3 point)
+    {
+        return MultiplyWithMatrix4(ref matrix4, point, false);
+    }
+    
+    public static Vector3 MultiplyDirectionWithMatrix4(ref Matrix4 matrix4, Vector3 direction)
+    {
+        return MultiplyWithMatrix4(ref matrix4, direction, true);
+    }
+    
+    private static Vector3 MultiplyWithMatrix4(ref Matrix4 matrix4, Vector3 vector3, bool isDirection)
     {
         int w = isDirection ? 0 : 1;
         Vector4 vector4 = new(vector3, w);
+        Vector3 result = (vector4 * matrix4).Xyz;
         
-        return (vector4 * matrix4).Xyz;
+        if (isDirection)
+        {
+            result.Normalize();
+        }
+
+        return result;
+    }
+    
+    private static Vector3[] MultiplyWithMatrix4(ref Matrix4 matrix4, Vector3[] from, Vector3[] to, bool isDirection)
+    {
+        for (int i = 0; i < from.Length; ++i)
+        {
+            to[i] = MultiplyWithMatrix4(ref matrix4, from[i], isDirection);
+        }
+
+        return to;
     }
 }
