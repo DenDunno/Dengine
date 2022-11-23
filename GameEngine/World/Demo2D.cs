@@ -55,7 +55,7 @@ public class Demo2D : WorldFactory
         }
         else
         {
-            components.Add(new RotationAnimation(transform, Vector3.UnitZ, 1f));
+            //components.Add(new RotationAnimation(transform, Vector3.UnitZ, 1f));
         }
 
         return components.ToArray();

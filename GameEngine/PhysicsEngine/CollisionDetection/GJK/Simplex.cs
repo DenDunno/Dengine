@@ -9,6 +9,9 @@ public class Simplex
 
     public bool IsOriginInside()
     {
-        return false;
+        Vector3 cToOrigin = _origin - C;
+
+        return Vector3.Dot(cToOrigin, Algorithms.GetNormal(C - B)) < 0 &&
+               Vector3.Dot(cToOrigin, Algorithms.GetNormal(A - C)) < 0;
     }
 }
