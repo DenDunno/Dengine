@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using GameEngine.Rendering.Gizmo;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
@@ -24,14 +25,19 @@ public class Gizmo : IModel
         _rendering = false;
     }
 
+    public void DrawPoint(Vector3 point, Color color)
+    {
+        _drawables.Add(new GizmoPoint(point, color));
+    }
+    
     public void DrawLine(Vector3 first, Vector3 second, Color color)
     {
         _drawables.Add(new GizmoLine(first, second, color));
     }
 
-    public void DrawArrow(Vector3 first, Vector3 second, Color color)
+    public void DrawVector(Vector3 first, Vector3 second, Color color)
     {
-        _drawables.Add(new ArrowGizmo(first, second, color));
+        _drawables.Add(new GizmoVector(first, second, color));
     }
 
     public void DrawPlane(Vector3 centre, Vector3 normal, Color color)

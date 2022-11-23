@@ -67,7 +67,7 @@ public class SATAlgorithm : ICollisionDetection
         
         Gizmo.Instance.DrawPlane(lineCentre, normalA, Color.Aqua);
         //Gizmo.Instance.DrawLine(firstPoint, secondPoint, Color.Aqua);
-        Gizmo.Instance.DrawArrow(normalFirstPoint, vertexA, Color.Chartreuse);
-        Gizmo.Instance.DrawArrow(vertexB - baDirection * 0.2f, vertexA, Color.FromArgb(1, 255, 255, 0));
+        Gizmo.Instance.DrawVector(normalFirstPoint, vertexA, Color.Chartreuse);
+        Gizmo.Instance.DrawVector(vertexB - baDirection * 0.2f, vertexA, Color.FromArgb(1, 255, 255, 0));
     }
 }

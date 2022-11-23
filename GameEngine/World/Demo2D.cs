@@ -13,7 +13,7 @@ public class Demo2D : WorldFactory
         {
             CreateObstacle("Controlling Quad", true, MeshFactory.Quad(0.5f), Vector3.Zero, 0),
             CreateObstacle("Quad1", false, MeshFactory.Quad(0.75f), new Vector3(-1.75f, 1f, 0), 45),
-            CreateObstacle("Quad2", false, MeshFactory.Quad(0.75f), new Vector3(1.75f, -1f, 0), -45),
+            //CreateObstacle("Quad2", false, MeshFactory.Quad(0.75f), new Vector3(1.75f, -1f, 0), -45),
         };
     }
     
@@ -48,10 +48,14 @@ public class Demo2D : WorldFactory
     private IUpdatable[] GetComponents(bool isControlling, Transform transform)
     {
         List<IUpdatable> components = new();
-        
+
         if (isControlling)
         {
             components.Add(new ObjectControlling(transform, KeyboardState));
+        }
+        else
+        {
+            components.Add(new RotationAnimation(transform, Vector3.UnitZ, 1f));
         }
 
         return components.ToArray();
