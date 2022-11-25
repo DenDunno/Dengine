@@ -1,5 +1,4 @@
-﻿using GameEngine.Extensions;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 
 public class Mesh
 {

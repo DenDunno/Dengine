@@ -3,50 +3,43 @@ using OpenTK.Mathematics;
 
 public class GJKAlgorithm : ICollisionDetection
 {
-    private readonly Vector3 _origin = Vector3.Zero;
     private readonly Simplex _simplex = new();
-        
+    
     public bool CheckCollision(Rigidbody objectA, Rigidbody objectB)
     {
         Vector3[] positionsA = objectA.MeshWorldView.Positions;
         Vector3[] positionsB = objectB.MeshWorldView.Positions;
+        //_simplex.Clear();
         Vector3 direction = Vector3.UnitX;
 
-        _simplex.A = GetSupportPoint(direction, positionsA, positionsB);
-        direction = _origin - _simplex.A;
-        _simplex.B = GetSupportPoint(direction, positionsA, positionsB);
+        Vector3 initPoint = GetSupportPoint(direction, positionsA, positionsB);
+        _simplex.Add(initPoint);
 
+        direction = initPoint.Negated();
+    
         while (true)
         {
-            if (Vector3.Dot(_simplex.B, direction) < 0)
+            Vector3 point = GetSupportPoint(direction, positionsA, positionsB);
+            
+            if (point.Dot(direction) < 0)       
             {
                 return false;
             }
-        
-            direction = Algorithms.GetNormal(_simplex.A - _simplex.B);
-            _simplex.C = GetSupportPoint(direction, positionsA, positionsB);
 
-            if (_simplex.IsOriginInside())
+            _simplex.Add(point);
+            
+            if (_simplex.Contains(ref direction))
             {
-                Gizmo.Instance.DrawVector(_origin, _simplex.C, Color.Beige);
-                Gizmo.Instance.DrawVector(_simplex.C + Algorithms.GetNormal(_simplex.C - _simplex.B), _simplex.C, Color.Beige);
-                Gizmo.Instance.DrawVector(_simplex.C + Algorithms.GetNormal(_simplex.A - _simplex.C), _simplex.C, Color.Beige);
-                
                 DrawGizmo(positionsA, positionsB);
                 return true;
             }
-
-            _simplex.B = _simplex.C;
-        }
+        }   
     }
 
     private void DrawGizmo(IReadOnlyList<Vector3> objectA, IReadOnlyList<Vector3> objectB)
     {
-        Gizmo.Instance.DrawPoint(_simplex.A, Color.Fuchsia);
-        Gizmo.Instance.DrawLine(_simplex.A, _simplex.B, Color.Red);
-        Gizmo.Instance.DrawLine(_simplex.B, _simplex.C, Color.Red);
-        Gizmo.Instance.DrawLine(_simplex.C, _simplex.A, Color.Red);
-        Gizmo.Instance.DrawPoint(_origin, Color.Aqua);
+        Gizmo.Instance.DrawPoint(Vector3.Zero, Color.Aqua);
+        _simplex.Draw();
         DrawMinDifference(objectA, objectB);
     }
 
@@ -70,7 +63,7 @@ public class GJKAlgorithm : ICollisionDetection
             int first = i;
             int second = i + 1 >= minDifference.Count ? 0 : i + 1;
             
-            Gizmo.Instance.DrawLine(minDifference[first], minDifference[second], Color.Chartreuse);
+            Gizmo.Instance.DrawLine(minDifference[first], minDifference[second], Color.Coral);
         }
     }
 
