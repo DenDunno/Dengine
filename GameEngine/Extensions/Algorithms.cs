@@ -17,6 +17,22 @@ public static class Algorithms
         return new Vector3(-direction.Y, direction.X, 0).Normalized();
     }
 
+    public static Vector3 LeftTriple(Vector3 a, Vector3 b, Vector3 c)
+    {
+        float bcDot = b.Dot(c);
+        float acDot = a.Dot(c);
+
+        return b * acDot - a * bcDot;
+    }
+    
+    public static Vector3 TripleCross(Vector3 origin, Vector3 first, Vector3 second)
+    {
+        Vector3 firstDirection = first - origin;
+        Vector3 secondDirection = second - origin;
+        
+        return Vector3.Cross(firstDirection, Vector3.Cross(firstDirection, secondDirection));
+    }
+
     public static (Vector3, Vector3) CreateOrthonormalBasis(Vector3 firstAxis)
     {
         Vector3 secondAxis = GetNormal(firstAxis);

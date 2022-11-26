@@ -12,7 +12,7 @@ public class Rigidbody
     }
 
     public ICollisionShaderProgram ShaderProgram { get; init; } = null!;
-    public ICollider Collider { get; init; } = new NullableCollider();
+    public Collider Collider { get; init; } = new NullableCollider();
     public Vector3 Velocity { get; set; }
     public bool Trigger { get; init; } = false;
     public bool IsDynamic { get; init; } = false;

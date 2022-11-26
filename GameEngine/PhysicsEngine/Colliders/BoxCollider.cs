@@ -1,5 +1,5 @@
 ﻿
-public class BoxCollider : ICollider
+public class BoxCollider : Collider
 {
     private readonly BoundingBox _boundingBox;
 
@@ -8,9 +8,13 @@ public class BoxCollider : ICollider
         _boundingBox = boundingBox;
     }
 
-    public bool CheckCollision(ICollider collider) => collider.CheckCollision(this);
+    public override bool CheckCollision(BoxCollider boxCollider)
+    {
+        return CollisionDetection.CheckBoxCollisions(_boundingBox, boxCollider._boundingBox);
+    }
 
-    public bool CheckCollision(BoxCollider boxCollider) => CollisionDetection.CheckBoxCollisions(_boundingBox, boxCollider._boundingBox);
-
-    public bool CheckCollision(SphereCollider sphereCollider) => CollisionDetection.CheckBoxSphereCollisions(this, sphereCollider);
+    public override bool CheckCollision(SphereCollider sphereCollider)
+    {
+        return CollisionDetection.CheckBoxSphereCollisions(this, sphereCollider);
+    }
 }

@@ -1,9 +1,22 @@
 ﻿using OpenTK.Mathematics;
 
-namespace GameEngine.Extensions;
-
 public static class VectorExtensions
 {
+    public static float Dot(this Vector3 first, Vector3 second)
+    {
+        return Vector3.Dot(first, second);
+    }
+    
+    public static void Negate(this Vector3 vector3)
+    {
+        vector3 = -vector3;
+    }
+    
+    public static Vector3 Negated(this Vector3 vector3)
+    {
+        return -vector3;
+    }
+
     public static float[] ToFloatArray(this Vector3[] array)
     {
         float[] result = new float[array.Length * 3];

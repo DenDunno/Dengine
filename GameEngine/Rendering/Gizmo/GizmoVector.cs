@@ -2,9 +2,9 @@
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
-public class ArrowGizmo : GizmoLine
+public class GizmoVector : GizmoLine
 {
-    public ArrowGizmo(Vector3 first, Vector3 second, Color color) : base(first, second, color)
+    public GizmoVector(Vector3 first, Vector3 second, Color color) : base(first, second, color)
     {
     }
 
