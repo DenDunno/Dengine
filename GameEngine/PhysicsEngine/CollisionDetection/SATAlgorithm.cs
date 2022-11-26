@@ -65,8 +65,8 @@ public class SATAlgorithm : ICollisionDetection
         Vector3 normalFirstPoint = vertexA + normalA * 0.4f;
         Vector3 baDirection = (vertexB - vertexA).Normalized();
         
-        Gizmo.Instance.DrawPlane(lineCentre, normalA, Color.Aqua);
-        //Gizmo.Instance.DrawLine(firstPoint, secondPoint, Color.Aqua);
+        //Gizmo.Instance.DrawPlane(lineCentre, normalA, Color.Aqua);
+        Gizmo.Instance.DrawLine(firstPoint, secondPoint, Color.Aqua);
         Gizmo.Instance.DrawVector(normalFirstPoint, vertexA, Color.Chartreuse);
         Gizmo.Instance.DrawVector(vertexB - baDirection * 0.2f, vertexA, Color.FromArgb(1, 255, 255, 0));
     }

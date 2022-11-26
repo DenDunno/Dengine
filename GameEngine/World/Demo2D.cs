@@ -11,9 +11,9 @@ public class Demo2D : WorldFactory
     {
         return new List<GameObject>()
         {
-            CreateObstacle("Controlling Quad", true, MeshFactory.Quad(0.5f), Vector3.Zero, 0),
-            CreateObstacle("Quad1", false, MeshFactory.Quad(0.75f), new Vector3(-1.75f, 1f, 0), 45),
-            //CreateObstacle("Quad2", false, MeshFactory.Quad(0.75f), new Vector3(1.75f, -1f, 0), -45),
+            CreateObstacle("Controlling Quad", true, MeshBuilder.Quad(0.5f), Vector3.Zero, 0),
+            CreateObstacle("Quad", false, MeshBuilder.Quad(0.75f), new Vector3(-1.75f, 1f, 0), 45),
+            CreateObstacle("Triangle", false, MeshBuilder.Triangle(1.5f), new Vector3(1.75f, -1f, 0), 45),
         };
     }
     
@@ -55,7 +55,7 @@ public class Demo2D : WorldFactory
         }
         else
         {
-            //components.Add(new RotationAnimation(transform, Vector3.UnitZ, 1f));
+            components.Add(new RotationAnimation(transform, Vector3.UnitZ, 1f));
         }
 
         return components.ToArray();

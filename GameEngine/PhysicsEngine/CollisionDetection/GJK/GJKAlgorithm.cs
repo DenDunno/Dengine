@@ -9,12 +9,11 @@ public class GJKAlgorithm : ICollisionDetection
     {
         Vector3[] positionsA = objectA.MeshWorldView.Positions;
         Vector3[] positionsB = objectB.MeshWorldView.Positions;
-        //_simplex.Clear();
         Vector3 direction = Vector3.UnitX;
-
         Vector3 initPoint = GetSupportPoint(direction, positionsA, positionsB);
+        
+        _simplex.Clear();
         _simplex.Add(initPoint);
-
         direction = initPoint.Negated();
     
         while (true)
@@ -30,10 +29,34 @@ public class GJKAlgorithm : ICollisionDetection
             
             if (_simplex.Contains(ref direction))
             {
-                DrawGizmo(positionsA, positionsB);
+                //DrawGizmo(positionsA, positionsB);
                 return true;
             }
         }   
+    }
+
+    private Vector3 GetSupportPoint(Vector3 direction, IReadOnlyList<Vector3> objectA, IReadOnlyList<Vector3> objectB)
+    {
+        return GetFurthestPoint(direction, objectA) - GetFurthestPoint(-direction, objectB);
+    }
+
+    private Vector3 GetFurthestPoint(Vector3 direction, IReadOnlyList<Vector3> positions)
+    {
+        Vector3 furthestPoint = Vector3.Zero;
+        float maxDot = float.MinValue;
+
+        for (int i = 0; i < positions.Count; ++i)
+        {
+            float dot = Vector3.Dot(positions[i], direction);
+            
+            if (dot > maxDot)
+            {
+                maxDot = dot;
+                furthestPoint = positions[i];
+            }
+        }
+
+        return furthestPoint;
     }
 
     private void DrawGizmo(IReadOnlyList<Vector3> objectA, IReadOnlyList<Vector3> objectB)
@@ -65,29 +88,5 @@ public class GJKAlgorithm : ICollisionDetection
             
             Gizmo.Instance.DrawLine(minDifference[first], minDifference[second], Color.Coral);
         }
-    }
-
-    private Vector3 GetSupportPoint(Vector3 direction, IReadOnlyList<Vector3> objectA, IReadOnlyList<Vector3> objectB)
-    {
-        return GetFurthestPoint(direction, objectA) - GetFurthestPoint(-direction, objectB);
-    }
-
-    private Vector3 GetFurthestPoint(Vector3 direction, IReadOnlyList<Vector3> positions)
-    {
-        Vector3 furthestPoint = Vector3.Zero;
-        float maxDot = float.MinValue;
-
-        for (int i = 0; i < positions.Count; ++i)
-        {
-            float dot = Vector3.Dot(positions[i], direction);
-            
-            if (dot > maxDot)
-            {
-                maxDot = dot;
-                furthestPoint = positions[i];
-            }
-        }
-
-        return furthestPoint;
     }
 }

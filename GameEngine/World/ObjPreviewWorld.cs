@@ -16,8 +16,7 @@ public class ObjPreviewWorld : WorldFactory
     
     private GameObject CreateModel()
     {
-        MeshBuilder meshBuilder = new(new MeshFromObj("Models/cottage_obj.obj"));
-        Mesh mesh = meshBuilder.Build();
+        Mesh mesh = MeshBuilder.FromObj("Models/cottage_obj.obj");
         Transform transform = new();
         ShaderProgramWithTexture shaderProgram = new(new Texture("Resources/cottage_diffuse.png"), "Shaders/vert.glsl", "Shaders/frag.glsl");
         RenderData renderData = new()
