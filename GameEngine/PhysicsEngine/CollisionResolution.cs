@@ -1,12 +1,10 @@
 ﻿
 public class CollisionResolution 
 {
-    private readonly ICollisionDetection _collisionDetection;
     private readonly IReadOnlyList<Rigidbody> _rigidbodies;
 
-    public CollisionResolution(ICollisionDetection collisionDetection, IReadOnlyList<Rigidbody> rigidbodies)
+    public CollisionResolution(IReadOnlyList<Rigidbody> rigidbodies)
     {
-        _collisionDetection = collisionDetection;
         _rigidbodies = rigidbodies;
     }
 
@@ -33,12 +31,17 @@ public class CollisionResolution
                 Rigidbody objectA = _rigidbodies[i];
                 Rigidbody objectB = _rigidbodies[j];
 
-                if (_collisionDetection.CheckCollision(objectA, objectB))
+                if (objectA.Collider.CheckCollision(objectB.Collider))
                 {
-                    objectA.ShaderProgram.SetCollisionColor();
-                    objectB.ShaderProgram.SetCollisionColor();
+                    HandleCollision(objectA, objectB);
                 }
             }
         }
+    }
+
+    private void HandleCollision(Rigidbody objectA, Rigidbody objectB)
+    {
+        objectA.ShaderProgram.SetCollisionColor();
+        objectB.ShaderProgram.SetCollisionColor();
     }
 }

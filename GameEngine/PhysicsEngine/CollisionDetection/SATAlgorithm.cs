@@ -1,15 +1,17 @@
 ﻿using System.Drawing;
 using OpenTK.Mathematics;
 
-public class SATAlgorithm : ICollisionDetection
+public class SATAlgorithm 
 {
     public bool CheckCollision(Rigidbody objectA, Rigidbody objectB)
     {
-        IReadOnlyList<MeshVertex> verticesA = objectA.MeshWorldView.GetWorldVertices();
-        IReadOnlyList<MeshVertex> verticesB = objectB.MeshWorldView.GetWorldVertices();
+        // IReadOnlyList<MeshVertex> verticesA = objectA.MeshWorldView.GetWorldVertices();
+        // IReadOnlyList<MeshVertex> verticesB = objectB.MeshWorldView.GetWorldVertices();
+        //
+        // return CheckSeparatingAxis(verticesA, verticesB) && 
+        //        CheckSeparatingAxis(verticesB, verticesA);
 
-        return CheckSeparatingAxis(verticesA, verticesB) && 
-               CheckSeparatingAxis(verticesB, verticesA);
+        return false;
     }
 
     private bool CheckSeparatingAxis(IReadOnlyList<MeshVertex> verticesA, IReadOnlyList<MeshVertex> verticesB)

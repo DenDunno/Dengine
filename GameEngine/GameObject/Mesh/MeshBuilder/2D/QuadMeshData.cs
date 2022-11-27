@@ -6,7 +6,7 @@ public class QuadMeshData : IMeshDataSource
 
     public QuadMeshData(float size)
     {
-        _size = size;
+        _size = size / 2f;
     }
     
     MeshData IMeshDataSource.GetMeshData()

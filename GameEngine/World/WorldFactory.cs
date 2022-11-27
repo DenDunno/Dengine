@@ -30,7 +30,7 @@ public abstract class WorldFactory
     {
         return new GameObject(new GameObjectData("Static point")
         {
-            Components = new IUpdatable[]
+            Dependencies = new object[]
             {
                 new Timer(), 
                 new FPSCounter(_window),
@@ -39,7 +39,7 @@ public abstract class WorldFactory
                 NormalsViewer,
                 _camera,
             },
-            
+
             Model = new Gizmo()
         });
     }

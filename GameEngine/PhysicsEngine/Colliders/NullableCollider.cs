@@ -1,7 +1,8 @@
 ﻿
-public class NullableCollider : Collider
+public class NullableCollider : ICollider
 {
-    public override bool CheckCollision(BoxCollider boxCollider) => false;
-
-    public override bool CheckCollision(SphereCollider sphereCollider) => false;
+    public bool CheckCollision(ICollider collider) => false;
+    public bool CheckCollision(BoxCollider boxCollider) => false;
+    public bool CheckCollision(MeshCollider meshCollider) => false;
+    public bool CheckCollision(SphereCollider sphereCollider) => false;
 }
