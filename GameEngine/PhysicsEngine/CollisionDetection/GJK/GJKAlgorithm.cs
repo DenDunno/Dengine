@@ -1,9 +1,9 @@
-﻿using System.Drawing;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 
 public class GJKAlgorithm : ICollisionDetection
 {
     private readonly Simplex _simplex = new();
+    private readonly ConvexHullBruteForce _convexHullBruteForce = new();
     
     public bool CheckCollision(Rigidbody objectA, Rigidbody objectB)
     {
@@ -15,7 +15,9 @@ public class GJKAlgorithm : ICollisionDetection
         _simplex.Clear();
         _simplex.Add(initPoint);
         direction = initPoint.Negated();
-    
+        
+        _convexHullBruteForce.DrawSupportPoints(positionsA, positionsB);
+         
         while (true)
         {
             Vector3 point = GetSupportPoint(direction, positionsA, positionsB);
@@ -29,7 +31,7 @@ public class GJKAlgorithm : ICollisionDetection
             
             if (_simplex.Contains(ref direction))
             {
-                //DrawGizmo(positionsA, positionsB);
+                _simplex.Draw();
                 return true;
             }
         }   
@@ -57,36 +59,5 @@ public class GJKAlgorithm : ICollisionDetection
         }
 
         return furthestPoint;
-    }
-
-    private void DrawGizmo(IReadOnlyList<Vector3> objectA, IReadOnlyList<Vector3> objectB)
-    {
-        Gizmo.Instance.DrawPoint(Vector3.Zero, Color.Aqua);
-        _simplex.Draw();
-        DrawMinDifference(objectA, objectB);
-    }
-
-    private void DrawMinDifference(IReadOnlyList<Vector3> objectA, IReadOnlyList<Vector3> objectB)
-    {
-        List<Vector3> minDifference = new();
-
-        for (float angle = 0; angle < 360; angle += 0.005f)
-        {
-            Vector3 direction =  Quaternion.FromAxisAngle(Vector3.UnitZ, angle) * Vector3.UnitX;
-            Vector3 position = GetSupportPoint(direction, objectA, objectB);
-
-            if (minDifference.Contains(position) == false)
-            {
-                minDifference.Add(position);
-            }
-        }
-
-        for (int i = 0; i < minDifference.Count; ++i)
-        {
-            int first = i;
-            int second = i + 1 >= minDifference.Count ? 0 : i + 1;
-            
-            Gizmo.Instance.DrawLine(minDifference[first], minDifference[second], Color.Coral);
-        }
     }
 }

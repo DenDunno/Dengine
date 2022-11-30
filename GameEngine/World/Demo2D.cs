@@ -13,7 +13,7 @@ public class Demo2D : WorldFactory
         {
             CreateObstacle("Controlling Quad", true, MeshBuilder.Quad(0.5f), Vector3.Zero, 0),
             CreateObstacle("Quad", false, MeshBuilder.Quad(0.75f), new Vector3(-1.75f, 1f, 0), 45),
-            CreateObstacle("Triangle", false, MeshBuilder.Triangle(1.5f), new Vector3(1.75f, -1f, 0), 45),
+            //CreateObstacle("Triangle", false, MeshBuilder.Triangle(1.5f), new Vector3(1.75f, -1f, 0), 45),
         };
     }
     
