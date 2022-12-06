@@ -11,22 +11,22 @@ public class Demo2D : WorldFactory
     {
         return new List<GameObject>()
         {
-            CreateObstacle("Controlling Quad", true, MeshBuilder.Quad(0.5f), Vector3.Zero, 0),
-            CreateObstacle("Quad", false, MeshBuilder.Quad(0.75f), new Vector3(-1.75f, 1f, 0), 45),
+            CreateObstacle("Controlling Quad", true, MeshBuilder.Quad(1f), Vector3.Zero, 0),
+            CreateObstacle("Quad", false, MeshBuilder.Quad(1.5f), new Vector3(-1.75f, 1f, 0), 45),
             CreateObstacle("Triangle", false, MeshBuilder.Triangle(1.5f), new Vector3(1.75f, -1f, 0), 45),
+            CreateObstacle("Hexagon", false, MeshBuilder.Hexagon(1.15f), new Vector3(-1.75f, -1f, 0), 45),
         };
     }
     
     private GameObject CreateObstacle(string name, bool isControlling, Mesh mesh, Vector3 position, float rotation)
     {
         Transform transform = new(position, Quaternion.FromEulerAngles(0, 0, rotation));
-        MeshWorldView meshWorldView = new(transform, mesh);
         ColorShaderProgram shaderProgram = new("Shaders/vert.glsl", "Shaders/uv.glsl");
-        meshWorldView.CalculateNormals();
 
-        AddRigidbody(new Rigidbody(transform, meshWorldView)
+        AddRigidbody(new Rigidbody(transform)
         {
-            ShaderProgram = shaderProgram
+            ShaderProgram = shaderProgram,
+            Collider = new MeshCollider(mesh, transform)
         });
 
         NormalsViewer.Add(transform, mesh);
@@ -41,13 +41,13 @@ public class Demo2D : WorldFactory
                 ShaderProgram = shaderProgram,
             }),
             
-            Components = GetComponents(isControlling, transform)
+            Dependencies = GetComponents(isControlling, transform)
         });
     }
 
-    private IUpdatable[] GetComponents(bool isControlling, Transform transform)
+    private object[] GetComponents(bool isControlling, Transform transform)
     {
-        List<IUpdatable> components = new();
+        List<object> components = new();
 
         if (isControlling)
         {

@@ -33,7 +33,7 @@ public class Demo3D : WorldFactory
             ShaderProgram = shaderProgram
         };
 
-        AddRigidbody(new Rigidbody(transform, meshWorldView)
+        AddRigidbody(new Rigidbody(transform)
         {
             ShaderProgram = shaderProgram
         });
@@ -43,14 +43,14 @@ public class Demo3D : WorldFactory
         return new GameObject(new GameObjectData(name)
         {
             Model = new Model(renderData),
-            Components = GetComponents(isControlling, transform)
+            Dependencies = GetComponents(isControlling, transform)
         });
     }
     
-    private IUpdatable[] GetComponents(bool isControlling, Transform transform)
+    private object[] GetComponents(bool isControlling, Transform transform)
     {
-        List<IUpdatable> components = new();
-        
+        List<object> components = new();
+
         if (isControlling)
         {
             components.Add(new ObjectControlling(transform, KeyboardState));
@@ -82,10 +82,10 @@ public class Demo3D : WorldFactory
         return new GameObject(new GameObjectData("Skybox")
         {
             Model = new Model(renderData),
-            Components = new IUpdatable[]
+            Dependencies = new object[]
             {
-                new Skybox(CameraTransform, transform)
-            },
+                new Skybox(CameraTransform, transform),
+            }
         });
     }
 }

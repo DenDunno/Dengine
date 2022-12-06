@@ -13,8 +13,8 @@ public class GizmoLine : GizmoDrawable
         _second = second;
     }
 
-    public Vector3 First => _first;
-    public Vector3 Second => _second;
+    protected Vector3 First => _first;
+    protected Vector3 Second => _second;
     
     protected override void OnDraw()
     {

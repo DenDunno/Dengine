@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-public class SphereCollider : Collider
+public class SphereCollider : ICollider
 {
     public readonly float Radius;
     private readonly Transform _transform;
@@ -13,8 +13,12 @@ public class SphereCollider : Collider
     }
 
     public Vector3 Centre => (_centreOfSphere * _transform.ModelMatrix).Xyz;
+    
+    public bool CheckCollision(ICollider collider) => collider.CheckCollision(this);
 
-    public override bool CheckCollision(BoxCollider boxCollider) => CollisionDetection.CheckBoxSphereCollisions(boxCollider, this);
+    public bool CheckCollision(BoxCollider boxCollider) => CollisionDetection.CheckCollision(boxCollider, this);
+    
+    public bool CheckCollision(MeshCollider meshCollider) => false;
 
-    public override bool CheckCollision(SphereCollider sphereCollider) => CollisionDetection.CheckSphereCollisions(this, sphereCollider);
+    public bool CheckCollision(SphereCollider sphereCollider) => CollisionDetection.CheckCollision(this, sphereCollider);
 }

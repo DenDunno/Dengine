@@ -3,16 +3,14 @@
 public class Rigidbody
 {
     public readonly Transform Transform;
-    public readonly MeshWorldView MeshWorldView;
 
-    public Rigidbody(Transform transform, MeshWorldView meshWorldView)
+    public Rigidbody(Transform transform)
     {
         Transform = transform;
-        MeshWorldView = meshWorldView;
     }
 
     public ICollisionShaderProgram ShaderProgram { get; init; } = null!;
-    public Collider Collider { get; init; } = new NullableCollider();
+    public ICollider Collider { get; init; } = new NullableCollider();
     public Vector3 Velocity { get; set; }
     public bool Trigger { get; init; } = false;
     public bool IsDynamic { get; init; } = false;
@@ -20,4 +18,9 @@ public class Rigidbody
     public float Mass { get; init; } = 1;
     public Vector3 Force { get; set; }
     public bool HasCollision { get; set; }
+
+    public void Init()
+    {
+        Collider.Init();
+    }
 }

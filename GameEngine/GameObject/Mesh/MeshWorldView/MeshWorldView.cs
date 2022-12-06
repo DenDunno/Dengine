@@ -16,14 +16,14 @@ public class MeshWorldView
     public IReadOnlyList<MeshVertex> GetWorldVertices()
     {
         Matrix4 modelMatrix = _transform.ModelMatrix;
-
+        
         for (int i = 0; i < _meshLocalVertices.Count; ++i)
         {
-            _meshWorldVertices[i].Position = Algorithms.MultiplyWithMatrix4(ref modelMatrix, _meshLocalVertices[i].Position, false);
+            _meshWorldVertices[i].Position = (new Vector4(_meshLocalVertices[i].Position, 1) * modelMatrix).Xyz;
 
             for (int j = 0; j < _meshLocalVertices[i].Normals.Count; ++j)
             {
-                _meshWorldVertices[i].Normals[j] = Algorithms.MultiplyWithMatrix4(ref modelMatrix, _meshLocalVertices[i].Normals[j], true);
+                _meshWorldVertices[i].Normals[j] = (new Vector4(_meshLocalVertices[i].Normals[j], 0) * modelMatrix).Xyz;
             }
         }
         
@@ -92,13 +92,13 @@ public class MeshWorldView
 
     public Vector3[] Normals => MultiplyWithModelMatrix(_mesh.Data.Normals!, true);
 
-    private Vector3[] MultiplyWithModelMatrix(Vector3[] data, bool isDirection)
+    private Vector3[] MultiplyWithModelMatrix(IReadOnlyList<Vector3> data, bool isDirection)
     {
         int w = isDirection ? 0 : 1;
         Matrix4 modelMatrix = _transform.ModelMatrix;
-        Vector3[] worldViewData = new Vector3[data.Length];
+        Vector3[] worldViewData = new Vector3[data.Count];
 
-        for (int i = 0; i < data.Length; ++i)
+        for (int i = 0; i < data.Count; ++i)
         {
             Vector4 worldViewVector = new(data[i], w);
             worldViewData[i] = (worldViewVector * modelMatrix).Xyz;

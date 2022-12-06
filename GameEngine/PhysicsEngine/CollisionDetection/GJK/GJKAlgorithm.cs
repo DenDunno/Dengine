@@ -1,21 +1,19 @@
 ﻿using System.Drawing;
 using OpenTK.Mathematics;
 
-public class GJKAlgorithm : ICollisionDetection
+public class GJKAlgorithm 
 {
     private readonly Simplex _simplex = new();
     
-    public bool CheckCollision(Rigidbody objectA, Rigidbody objectB)
+    public bool CheckCollision(Vector3[] positionsA, Vector3[] positionsB)
     {
-        Vector3[] positionsA = objectA.MeshWorldView.Positions;
-        Vector3[] positionsB = objectB.MeshWorldView.Positions;
         Vector3 direction = Vector3.UnitX;
         Vector3 initPoint = GetSupportPoint(direction, positionsA, positionsB);
         
         _simplex.Clear();
         _simplex.Add(initPoint);
         direction = initPoint.Negated();
-    
+        
         while (true)
         {
             Vector3 point = GetSupportPoint(direction, positionsA, positionsB);
@@ -24,7 +22,7 @@ public class GJKAlgorithm : ICollisionDetection
             {
                 return false;
             }
-
+        
             _simplex.Add(point);
             
             if (_simplex.Contains(ref direction))
@@ -32,7 +30,7 @@ public class GJKAlgorithm : ICollisionDetection
                 //DrawGizmo(positionsA, positionsB);
                 return true;
             }
-        }   
+        }
     }
 
     private Vector3 GetSupportPoint(Vector3 direction, IReadOnlyList<Vector3> objectA, IReadOnlyList<Vector3> objectB)

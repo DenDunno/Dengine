@@ -24,7 +24,7 @@ public class TriangleMeshData : IMeshDataSource
         };
     }
 
-    private (Vector3[] positions, Vector3[] normals) EvaluateTriangle(float size)
+    private (Vector3[], Vector3[]) EvaluateTriangle(float size)
     {
         Vector3[] positions = 
         {
