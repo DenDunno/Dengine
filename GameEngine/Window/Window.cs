@@ -5,35 +5,16 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 
 public class Window : GameWindow
 {
-    private World _world = null!;
-    private PolygonMode _polygonMode = PolygonMode.Fill;
+    public readonly PlayerInput Input;
     
     public Window(NativeWindowSettings nativeWindowSettings) : base(GameWindowSettings.Default, nativeWindowSettings)
     {
-    }
-
-    public new float AspectRatio => (float)Size.X / Size.Y;
-    
-    public void Run(World world)
-    {
-        _world = world;
-        Run();
-    }
-
-    public void SetPolygonMode(PolygonMode polygonMode)
-    {
-        _polygonMode = polygonMode;
-    }
-
-    protected override void OnLoad()
-    {
+        Input = new PlayerInput(MouseState, KeyboardState);
     }
 
     protected override void OnUpdateFrame(FrameEventArgs args)
     {
         base.OnUpdateFrame(args);
-        
-        _world.Update((float)args.Time);
         
         if (KeyboardState.IsKeyDown(Keys.Escape))
         {
@@ -43,14 +24,12 @@ public class Window : GameWindow
 
     protected override void OnRenderFrame(FrameEventArgs args)
     {
-        base.OnRenderFrame(args);
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         GL.Enable(EnableCap.DepthTest);
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.Enable(EnableCap.Blend);
-        GL.PolygonMode(MaterialFace.FrontAndBack, _polygonMode);
 
-        _world.Draw();
+        base.OnRenderFrame(args);
 
         SwapBuffers();
     }

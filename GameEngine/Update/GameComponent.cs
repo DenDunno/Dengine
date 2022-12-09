@@ -1,8 +1,13 @@
 ﻿
-public abstract class TogglingComponent : IUpdatable
+public abstract class GameComponent : IUpdatable
 {
     private bool _enabled;
 
+    public void Toggle()
+    {
+        _enabled = !_enabled;
+    }
+    
     public void Enable()
     {
         _enabled = true;

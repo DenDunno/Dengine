@@ -8,9 +8,11 @@ public class Camera : IUpdatable
     private readonly float _aspectRatio;
     private readonly Transform _transform;
 
-    public Camera(float aspectRatio, Transform transform)
+    public Camera(Transform transform)
     {
-        _aspectRatio = aspectRatio;
+        int[] viewport = new int[4];
+        GL.GetInteger(GetPName.Viewport, viewport);
+        _aspectRatio = (float)viewport[2] / viewport[3];
         _transform = transform;
     }
 

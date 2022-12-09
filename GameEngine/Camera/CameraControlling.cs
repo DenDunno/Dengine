@@ -1,20 +1,18 @@
 ﻿using OpenTK.Windowing.GraphicsLibraryFramework;
 
-public class CameraControlling : IUpdatable
+public class CameraControlling : GameComponent
 {
     private readonly Transform _camera;
-    private readonly MouseState _mouseState;
-    private readonly KeyboardState _keyboardState;
+    private readonly PlayerInput _playerInput;
     private readonly IEnumerable<MovementKey> _movementKeys;
     private readonly float _translationSpeed = 4f;
     private readonly float _acceleratedTranslationSpeed = 12f;
     private readonly float _rotationSpeed = 7f;
     
-    public CameraControlling(Transform camera, MouseState mouseState, KeyboardState keyboardState)
+    public CameraControlling(Transform camera, PlayerInput playerInput)
     {
         _camera = camera;
-        _mouseState = mouseState;
-        _keyboardState = keyboardState;
+        _playerInput = playerInput;
         _movementKeys = new List<MovementKey>
         {
             new(Keys.W, ()=> _camera.Orientation.Front),
@@ -25,8 +23,8 @@ public class CameraControlling : IUpdatable
             new(Keys.LeftControl, ()=> -_camera.Orientation.Up),
         };
     }
-    
-    public void Update(float deltaTime)
+
+    protected override void OnUpdate(float deltaTime)
     {
         Move(deltaTime);
         Rotate(deltaTime);
@@ -34,11 +32,11 @@ public class CameraControlling : IUpdatable
 
     private void Move(float deltaTime)
     {
-        float speed = _keyboardState.IsKeyDown(Keys.LeftShift) ? _acceleratedTranslationSpeed : _translationSpeed;
+        float speed = _playerInput.Keyboard.IsKeyDown(Keys.LeftShift) ? _acceleratedTranslationSpeed : _translationSpeed;
         
         foreach (MovementKey movementKey in _movementKeys)
         {
-            if (_keyboardState.IsKeyDown(movementKey.Key))
+            if (_playerInput.Keyboard.IsKeyDown(movementKey.Key))
             {
                 _camera.Position += movementKey.Direction() * speed * deltaTime;
             }
@@ -47,7 +45,7 @@ public class CameraControlling : IUpdatable
 
     private void Rotate(float deltaTime)
     {
-        _camera.Orientation.Yaw += _mouseState.Delta.X * _rotationSpeed * deltaTime;
-        _camera.Orientation.Pitch -= _mouseState.Delta.Y * _rotationSpeed * deltaTime;
+        _camera.Orientation.Yaw += _playerInput.Mouse.Delta.X * _rotationSpeed * deltaTime;
+        _camera.Orientation.Pitch -= _playerInput.Mouse.Delta.Y * _rotationSpeed * deltaTime;
     }
 }

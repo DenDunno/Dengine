@@ -1,23 +1,19 @@
 ﻿
 public class FPSCounter : IUpdatable
 {
-    private readonly Window _window;
-    private float _clock;
     private int _fps;
+    private float _clock;
+
+    public int Value { get; private set; }
     
-    public FPSCounter(Window window)
-    {
-        _window = window;
-    }
-    
-    void IUpdatable.Update(float deltaTime)
+    public void Update(float deltaTime)
     {
         _fps++;
         
         if (Timer.Time > _clock + 1)
         {
             _clock = Timer.Time;
-            _window.Title = $"FPS = {_fps}";
+            Value = _fps;
             _fps = 0;
         }
     }

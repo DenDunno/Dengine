@@ -3,7 +3,7 @@ using OpenTK.Mathematics;
 
 public class Demo2D : WorldFactory
 {
-    public Demo2D(Window window) : base(window)
+    public Demo2D(PlayerInput playerInput) : base(playerInput)
     {
     }
 
@@ -51,7 +51,7 @@ public class Demo2D : WorldFactory
 
         if (isControlling)
         {
-            components.Add(new ObjectControlling(transform, KeyboardState));
+            components.Add(new ObjectControlling(transform, Input.Keyboard));
         }
         else
         {

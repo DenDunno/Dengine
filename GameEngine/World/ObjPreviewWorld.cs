@@ -2,7 +2,7 @@
 
 public class ObjPreviewWorld : WorldFactory
 {
-    public ObjPreviewWorld(Window window) : base(window)
+    public ObjPreviewWorld(PlayerInput playerInput) : base(playerInput)
     {
     }
 

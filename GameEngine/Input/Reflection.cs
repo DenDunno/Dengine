@@ -9,17 +9,17 @@ public class Reflection
         _world = world;
     }
 
-    public void EnableComponent<T>(string gameObjectName) where T : TogglingComponent
+    public void EnableComponent<T>(string gameObjectName) where T : GameComponent
     {
         FindComponent<T>(gameObjectName).Enable();
     }
     
-    public void DisableComponent<T>(string gameObjectName) where T : TogglingComponent
+    public void DisableComponent<T>(string gameObjectName) where T : GameComponent
     {
         FindComponent<T>(gameObjectName).Disable();
     }
 
-    private TogglingComponent FindComponent<T>(string gameObjectName) where T : TogglingComponent
+    private GameComponent FindComponent<T>(string gameObjectName) where T : GameComponent
     {
         List<GameObject> gameObjects = (List<GameObject>)GetField<IReadOnlyCollection<GameObject>, World>(_world);
         GameObjectData data = FindGameObject(gameObjectName, gameObjects);
@@ -56,7 +56,7 @@ public class Reflection
         return null!;
     }
 
-    private TogglingComponent FindComponent<T>(GameObjectData data) where T : TogglingComponent
+    private GameComponent FindComponent<T>(GameObjectData data) where T : GameComponent
     {
         foreach (IUpdatable updatable in data.Components)
         {

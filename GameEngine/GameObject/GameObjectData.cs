@@ -11,14 +11,16 @@ public class GameObjectData
     }
     
     public IModel Model { get; init; } = new Point();
-    public object[] Dependencies { set => SetDependencies(value); }
 
-    private void SetDependencies(object[] dependencies)
+    public object[] Dependencies
     {
-        foreach (object dependency in dependencies)
+        set
         {
-            TryAddComponentToCollection(dependency, Initializables);
-            TryAddComponentToCollection(dependency, Components);
+            foreach (object dependency in value)
+            {
+                TryAddComponentToCollection(dependency, Initializables);
+                TryAddComponentToCollection(dependency, Components);
+            }
         }
     }
 

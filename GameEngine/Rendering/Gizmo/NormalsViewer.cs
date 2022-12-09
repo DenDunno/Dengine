@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using OpenTK.Mathematics;
 
-public class NormalsViewer : TogglingComponent
+public class NormalsViewer : GameComponent
 {
     private readonly List<MeshWorldView> _meshs = new();
 

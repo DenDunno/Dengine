@@ -11,11 +11,11 @@ public class WindowCommands
 
     public void EnableWireframeMode()
     {
-        _window.SetPolygonMode(PolygonMode.Line);
+        //_window.SetPolygonMode(PolygonMode.Line);
     }
 
     public void EnableShadedMode()
     {
-        _window.SetPolygonMode(PolygonMode.Fill);
+        //_window.SetPolygonMode(PolygonMode.Fill);
     }
 }
