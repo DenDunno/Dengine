@@ -1,6 +1,6 @@
 ﻿using OpenTK.Windowing.Common;
 
-public class World 
+public class World : IEngineComponent
 {
     public readonly IReadOnlyCollection<GameObject> GameObjects;
     private readonly Camera _camera;
@@ -21,7 +21,7 @@ public class World
         GameObjects.ForEach(gameObject => gameObject.Update((float)args.Time));
     }
 
-    public void Draw(FrameEventArgs obj)
+    public void Draw(FrameEventArgs args)
     {
         GameObjects.ForEach(gameObject => gameObject.Draw(_camera.ProjectionMatrix, _camera.ViewMatrix));
     }

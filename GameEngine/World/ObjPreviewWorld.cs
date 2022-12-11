@@ -29,7 +29,7 @@ public class ObjPreviewWorld : WorldFactory
 
         NormalsViewer.Add(transform, mesh);
         
-        return new GameObject(new GameObjectData("Model")
+        return new GameObject(new GameObjectData("Model", transform)
         {
             Model = new Model(renderData),
         });

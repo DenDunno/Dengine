@@ -15,21 +15,21 @@ public class Engine
     public void Initialize()
     {
         Initialize(_world);
+        Initialize(_ui as IEngineComponent);
         Initialize(_ui);
     }
 
-    private void Initialize(World world)
+    private void Initialize(IEngineComponent engineComponent)
     {
-        _window.Load += world.Initialize;
-        _window.UpdateFrame += world.Update;
-        _window.RenderFrame += world.Draw;
+        _window.Load += engineComponent.Initialize;
+        _window.UpdateFrame += engineComponent.Update;
+        _window.RenderFrame += engineComponent.Draw;
     }
     
     private void Initialize(UI ui)
     {
         _window.MouseWheel += ui.OnMouseWheel;
-        _window.UpdateFrame += ui.Update;
-        _window.RenderFrame += ui.Draw;
+        _window.Resize += ui.OnWindowResize;
     }
 
     public void Run()

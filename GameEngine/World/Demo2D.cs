@@ -31,7 +31,7 @@ public class Demo2D : WorldFactory
 
         NormalsViewer.Add(transform, mesh);
         
-        return new GameObject(new GameObjectData(name)
+        return new GameObject(new GameObjectData(name, transform)
         {
             Model = new Model(new RenderData
             {

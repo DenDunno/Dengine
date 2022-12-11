@@ -23,4 +23,17 @@ public class WorldBrowser
 
         throw new Exception($"No component with type {typeof(T)}");
     }
+
+    public GameObject FindGameObject(int id)
+    {
+        foreach (GameObject gameObject in _world.GameObjects)
+        {
+            if (gameObject.Data.Id == id)
+            {
+                return gameObject;
+            }
+        }
+        
+        throw new Exception($"No gameObject with id {id}");
+    }
 }

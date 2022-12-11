@@ -2,12 +2,19 @@
 public class GameObjectData
 {
     public readonly string Name;
+    public readonly Transform Transform;
     public readonly List<IInitializable> Initializables = new();
     public readonly List<IUpdatable> Components = new();
-
-    public GameObjectData(string name)
+    public readonly int Id = GameObjectId.Evaluate();
+    
+    public GameObjectData(string name) : this(name, new Transform())
+    {
+    }
+    
+    public GameObjectData(string name, Transform transform)
     {
         Name = name;
+        Transform = transform;
     }
     
     public IModel Model { get; init; } = new Point();

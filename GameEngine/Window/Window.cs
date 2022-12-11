@@ -12,6 +12,9 @@ public class Window : GameWindow
         Input = new PlayerInput(MouseState, KeyboardState);
     }
 
+    public float Width => Size.X;
+    public float Height => Size.Y;
+
     protected override void OnUpdateFrame(FrameEventArgs args)
     {
         base.OnUpdateFrame(args);

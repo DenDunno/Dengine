@@ -26,7 +26,7 @@ public abstract class WorldFactory
 
     private GameObject CreateStaticPoint()
     {
-        return new GameObject(new GameObjectData("Static point")
+        return new GameObject(new GameObjectData("Camera", CameraTransform)
         {
             Dependencies = new object[]
             {

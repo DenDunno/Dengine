@@ -40,7 +40,7 @@ public class Demo3D : WorldFactory
 
         NormalsViewer.Add(meshWorldView);
         
-        return new GameObject(new GameObjectData(name)
+        return new GameObject(new GameObjectData(name, transform)
         {
             Model = new Model(renderData),
             Dependencies = GetComponents(isControlling, transform)
@@ -79,7 +79,7 @@ public class Demo3D : WorldFactory
             ShaderProgram = new ShaderProgramWithTexture(new Cubemap(paths), "Shaders/skyboxVert.glsl", "Shaders/skyboxFrag.glsl"),
         };
 
-        return new GameObject(new GameObjectData("Skybox")
+        return new GameObject(new GameObjectData("Skybox", transform)
         {
             Model = new Model(renderData),
             Dependencies = new object[]
