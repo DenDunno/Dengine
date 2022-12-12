@@ -1,27 +1,28 @@
-﻿
-public class World : IUpdatable, IInitializable
+﻿using OpenTK.Windowing.Common;
+
+public class World : IEngineComponent
 {
-    private readonly IReadOnlyCollection<GameObject> _gameObjects;
+    public readonly IReadOnlyCollection<GameObject> GameObjects;
     private readonly Camera _camera;
 
     public World(Camera camera, IReadOnlyCollection<GameObject> gameObjects)
     {
-        _gameObjects = gameObjects;
+        GameObjects = gameObjects;
         _camera = camera;
     }
 
     public void Initialize()
     {
-        _gameObjects.ForEach(gameObject => gameObject.Initialize());
-    }
-    
-    public void Update(float deltaTime)
-    {
-        _gameObjects.ForEach(gameObject => gameObject.Update(deltaTime));
+        GameObjects.ForEach(gameObject => gameObject.Initialize());
     }
 
-    public void Draw()
+    public void Update(FrameEventArgs args)
     {
-        _gameObjects.ForEach(gameObject => gameObject.Draw(_camera.ProjectionMatrix, _camera.ViewMatrix));
+        GameObjects.ForEach(gameObject => gameObject.Update((float)args.Time));
+    }
+
+    public void Draw(FrameEventArgs args)
+    {
+        GameObjects.ForEach(gameObject => gameObject.Draw(_camera.ProjectionMatrix, _camera.ViewMatrix));
     }
 }

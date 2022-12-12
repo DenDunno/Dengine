@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using OpenTK.Mathematics;
 
-public class NormalsViewer : TogglingComponent
+public class NormalsViewer : GameComponent
 {
     private readonly List<MeshWorldView> _meshs = new();
 
@@ -29,7 +29,7 @@ public class NormalsViewer : TogglingComponent
                 {
                     Vector3 first = worldVertex.Position + normal * 0.2f;
                     Vector3 second = worldVertex.Position;
-                
+
                     Gizmo.Instance.DrawLine(first, second, Color.Fuchsia);    
                 }
             }

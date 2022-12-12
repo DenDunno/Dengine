@@ -1,5 +1,5 @@
 ﻿
-public class Skybox : IUpdatable
+public class Skybox : GameComponent
 {
     private readonly Transform _camera;
     private readonly Transform _transform;
@@ -9,8 +9,8 @@ public class Skybox : IUpdatable
         _camera = camera;
         _transform = transform;
     }
-    
-    public void Update(float deltaTime)
+
+    protected override void OnUpdate(float deltaTime)
     {
         _transform.Position = _camera.Position;
     }

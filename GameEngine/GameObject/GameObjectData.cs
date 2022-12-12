@@ -2,23 +2,28 @@
 public class GameObjectData
 {
     public readonly string Name;
+    public readonly Transform Transform;
     public readonly List<IInitializable> Initializables = new();
     public readonly List<IUpdatable> Components = new();
+    public readonly int Id = GameObjectId.Value;
 
-    public GameObjectData(string name)
+    public GameObjectData(string name, Transform transform)
     {
         Name = name;
+        Transform = transform;
     }
     
     public IModel Model { get; init; } = new Point();
-    public object[] Dependencies { set => SetDependencies(value); }
 
-    private void SetDependencies(object[] dependencies)
+    public object[] Dependencies
     {
-        foreach (object dependency in dependencies)
+        set
         {
-            TryAddComponentToCollection(dependency, Initializables);
-            TryAddComponentToCollection(dependency, Components);
+            foreach (object dependency in value)
+            {
+                TryAddComponentToCollection(dependency, Initializables);
+                TryAddComponentToCollection(dependency, Components);
+            }
         }
     }
 

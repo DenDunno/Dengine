@@ -3,26 +3,15 @@ using GameEngine.Rendering.Gizmo;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
-// Debugging rendering tool
+// Debug rendering tool
 public class Gizmo : IModel
 {
     public static Gizmo Instance;
     private readonly List<GizmoDrawable> _drawables = new();
-    private bool _rendering = true;
 
     public void Initialize()
     {
         Instance = this;
-    }
-
-    public void Enable()
-    {
-        _rendering = true;
-    }
-    
-    public void Disable()
-    {
-        _rendering = false;
     }
 
     public void DrawPoint(Vector3 point, Color color)
@@ -47,9 +36,6 @@ public class Gizmo : IModel
 
     void IModel.Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
     {
-        if (_rendering == false)
-            return;
-        
         GL.UseProgram(0);
         
         foreach (GizmoDrawable gizmoDrawable in _drawables)

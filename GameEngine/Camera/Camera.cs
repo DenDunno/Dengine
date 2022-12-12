@@ -3,14 +3,13 @@ using OpenTK.Mathematics;
 
 public class Camera : IUpdatable
 {
-    private readonly float _nearClipPlaneDepth = 0.01f;
-    private readonly float _farClipPlaneDepth = 100f;
-    private readonly float _aspectRatio;
+    private readonly float _nearClipPlane = 0.01f;
+    private readonly float _farClipPlane = 1000f;
+    private readonly int[] _viewport = new int[4];
     private readonly Transform _transform;
 
-    public Camera(float aspectRatio, Transform transform)
+    public Camera(Transform transform)
     {
-        _aspectRatio = aspectRatio;
         _transform = transform;
     }
 
@@ -24,8 +23,15 @@ public class Camera : IUpdatable
         }
     }
 
-    public Matrix4 ProjectionMatrix => 
-        Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2, _aspectRatio, _nearClipPlaneDepth, _farClipPlaneDepth);
+    public Matrix4 ProjectionMatrix
+    {
+        get
+        {
+            GL.GetInteger(GetPName.Viewport, _viewport);
+            float aspectRatio = (float)_viewport[2] / _viewport[3];
+            return Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2, aspectRatio, _nearClipPlane, _farClipPlane);    
+        }
+    }
 
     void IUpdatable.Update(float deltaTime)
     {

@@ -17,6 +17,16 @@ public static class VectorExtensions
         return -vector3;
     }
 
+    public static System.Numerics.Vector3 ToNumeric(this Vector3 vector3)
+    {
+        return new System.Numerics.Vector3(vector3.X, vector3.Y, vector3.Z);
+    }
+    
+    public static Vector3 ToOpenTk(this System.Numerics.Vector3 vector3)
+    {
+        return new Vector3(vector3.X, vector3.Y, vector3.Z);
+    }
+
     public static float[] ToFloatArray(this Vector3[] array)
     {
         float[] result = new float[array.Length * 3];

@@ -9,19 +9,15 @@ public class WindowFactory
         Size = new Vector2i(1536, 864),
         Location = new Vector2i(1536/8, 864/8),
         Title = "Game engine",
-        WindowBorder = WindowBorder.Fixed,
-        Flags = ContextFlags.Default,
-        Profile = ContextProfile.Compatability,
         API = ContextAPI.OpenGL,
     };
 
     public Window Create()
     {
         Window window = new(_nativeWindowSettings);
-        
-        window.CursorState = CursorState.Grabbed;
         window.VSync = VSyncMode.On;
-
+        window.CursorState = CursorState.Grabbed;
+        
         return window;
     }
 }

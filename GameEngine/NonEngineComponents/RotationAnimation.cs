@@ -1,10 +1,10 @@
 ﻿using OpenTK.Mathematics;
 
-public class RotationAnimation : IUpdatable
+public class RotationAnimation : GameComponent
 {
+    [EditorField] private readonly float _rotationSpeed;
     private readonly Transform _transform;
     private readonly Vector3 _rotationVector;
-    private readonly float _rotationSpeed;
 
     public RotationAnimation(Transform transform, Vector3 rotationVector, float rotationSpeed)
     {
@@ -13,7 +13,7 @@ public class RotationAnimation : IUpdatable
         _rotationSpeed = rotationSpeed;
     }
 
-    public void Update(float deltaTime)
+    protected override void OnUpdate(float deltaTime)
     {
         _transform.Rotate(_rotationVector * deltaTime * _rotationSpeed);
     }

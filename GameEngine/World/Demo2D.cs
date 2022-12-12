@@ -3,7 +3,7 @@ using OpenTK.Mathematics;
 
 public class Demo2D : WorldFactory
 {
-    public Demo2D(Window window) : base(window)
+    public Demo2D(PlayerInput playerInput) : base(playerInput)
     {
     }
 
@@ -13,9 +13,18 @@ public class Demo2D : WorldFactory
         {
             CreateObstacle("Controlling Quad", true, MeshBuilder.Quad(1f), Vector3.Zero, 0),
             CreateObstacle("Quad", false, MeshBuilder.Quad(1.5f), new Vector3(-1.75f, 1f, 0), 45),
-            CreateObstacle("Triangle", false, MeshBuilder.Triangle(1.5f), new Vector3(1.75f, -1f, 0), 45),
+            CreateTriangle(),
             CreateObstacle("Hexagon", false, MeshBuilder.Hexagon(1.15f), new Vector3(-1.75f, -1f, 0), 45),
         };
+    }
+
+    private GameObject CreateTriangle()
+    {
+        GameObject triangle = CreateObstacle("Triangle", false, MeshBuilder.Triangle(1.5f), new Vector3(1.75f, -1f, 0), 45);
+        Transform transform = triangle.Data.Transform;
+        triangle.Data.Components.Add(new MovementAnimation(transform, Vector3.UnitX));
+
+        return triangle;
     }
     
     private GameObject CreateObstacle(string name, bool isControlling, Mesh mesh, Vector3 position, float rotation)
@@ -31,7 +40,7 @@ public class Demo2D : WorldFactory
 
         NormalsViewer.Add(transform, mesh);
         
-        return new GameObject(new GameObjectData(name)
+        return new GameObject(new GameObjectData(name, transform)
         {
             Model = new Model(new RenderData
             {
@@ -51,7 +60,7 @@ public class Demo2D : WorldFactory
 
         if (isControlling)
         {
-            components.Add(new ObjectControlling(transform, KeyboardState));
+            components.Add(new ObjectControlling(transform, Input.Keyboard));
         }
         else
         {
