@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using System.Reflection;
 using Quaternion = OpenTK.Mathematics.Quaternion;
 using ImGuiNET;
 
@@ -21,6 +22,7 @@ public class Inspector
         if (_gameObjectToBeShown != null)
         {
             MapTransform();
+            DrawComponents();
         }
 
         ImGui.End();
@@ -40,5 +42,47 @@ public class Inspector
         _gameObjectToBeShown.Transform.Position = position.ToOpenTk();
         _gameObjectToBeShown.Transform.Rotation = Quaternion.FromEulerAngles(rotation.ToOpenTk());
         _gameObjectToBeShown.Transform.Scale = scale.ToOpenTk();
+    }
+
+    private void DrawComponents()
+    {
+        foreach (IUpdatable component in _gameObjectToBeShown!.Components)
+        {
+            ShowHeader(component);
+            ShowProperties(component);
+            ImGui.Spacing();
+        }
+    }
+
+    private void ShowHeader(IUpdatable component)
+    {
+        string name = component.GetType().Name;
+        
+        if (component is GameComponent gameComponent)
+        {
+            ImGui.Checkbox(name, ref gameComponent.Enabled);
+        }
+        else
+        {
+            ImGui.Text(name);
+        }
+    }
+
+    private void ShowProperties(IUpdatable component)
+    {
+        FieldInfo[] fields = component.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+
+        foreach (FieldInfo fieldInfo in fields)
+        {
+            if (fieldInfo.IsDefined(typeof(EditorField), false))
+            {
+                float value = (float)fieldInfo.GetValue(component)!;
+                
+                ImGui.PushItemWidth(100);
+                ImGui.DragFloat(fieldInfo.Name, ref value, _draggingSpeed);
+                
+                fieldInfo.SetValue(component, value);
+            }
+        }
     }
 }

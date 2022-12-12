@@ -29,7 +29,7 @@ public class NormalsViewer : GameComponent
                 {
                     Vector3 first = worldVertex.Position + normal * 0.2f;
                     Vector3 second = worldVertex.Position;
-                
+
                     Gizmo.Instance.DrawLine(first, second, Color.Fuchsia);    
                 }
             }

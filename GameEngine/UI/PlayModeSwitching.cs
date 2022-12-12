@@ -1,4 +1,5 @@
-﻿using OpenTK.Windowing.Common;
+﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
 public class PlayModeSwitching : IUpdatable
@@ -14,7 +15,7 @@ public class PlayModeSwitching : IUpdatable
         _cameraControlling = cameraControlling;
     }
 
-    public bool IsPlayMode { get; private set; }
+    public bool IsPlayMode { get; private set; } = true;
     
     public void Update(float deltaTime)
     {
@@ -22,7 +23,7 @@ public class PlayModeSwitching : IUpdatable
         {
             IsPlayMode = !IsPlayMode;
             
-            _cameraControlling.Toggle();
+            _cameraControlling.Enabled = IsPlayMode;
             _window.CursorState = IsPlayMode ? CursorState.Grabbed : CursorState.Normal;
         }
     }
