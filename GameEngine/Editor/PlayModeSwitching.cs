@@ -1,5 +1,4 @@
-﻿using OpenTK.Graphics.OpenGL;
-using OpenTK.Windowing.Common;
+﻿using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
 public class PlayModeSwitching : IUpdatable
@@ -8,23 +7,23 @@ public class PlayModeSwitching : IUpdatable
     private readonly CameraControlling _cameraControlling;
     private readonly Window _window;
 
-    public PlayModeSwitching(Window window, CameraControlling cameraControlling)
+    public PlayModeSwitching(Window window, World world)
     {
         _window = window;
         _keyboardState = window.KeyboardState;
-        _cameraControlling = cameraControlling;
+        _cameraControlling = new WorldBrowser(world).FindFirst<CameraControlling>();
     }
 
-    public bool IsPlayMode { get; private set; } = true;
+    public bool IsEditorMode { get; private set; }
     
     public void Update(float deltaTime)
     {
         if (_keyboardState.IsKeyPressed(Keys.Enter))
         {
-            IsPlayMode = !IsPlayMode;
+            IsEditorMode = !IsEditorMode;
             
-            _cameraControlling.Enabled = IsPlayMode;
-            _window.CursorState = IsPlayMode ? CursorState.Grabbed : CursorState.Normal;
+            _cameraControlling.Enabled = !IsEditorMode;
+            _window.CursorState = IsEditorMode ? CursorState.Normal : CursorState.Grabbed;
         }
     }
 }

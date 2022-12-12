@@ -1,5 +1,4 @@
 ﻿using OpenTK.Graphics.OpenGL;
-using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
@@ -12,9 +11,6 @@ public class Window : GameWindow
     {
         Input = new PlayerInput(MouseState, KeyboardState);
     }
-
-    public float Width => Size.X;
-    public float Height => Size.Y;
 
     protected override void OnUpdateFrame(FrameEventArgs args)
     {

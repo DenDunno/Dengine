@@ -5,12 +5,8 @@ public class GameObjectData
     public readonly Transform Transform;
     public readonly List<IInitializable> Initializables = new();
     public readonly List<IUpdatable> Components = new();
-    public readonly int Id = GameObjectId.Evaluate();
-    
-    public GameObjectData(string name) : this(name, new Transform())
-    {
-    }
-    
+    public readonly int Id = GameObjectId.Value;
+
     public GameObjectData(string name, Transform transform)
     {
         Name = name;

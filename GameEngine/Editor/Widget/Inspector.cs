@@ -3,29 +3,30 @@ using System.Reflection;
 using Quaternion = OpenTK.Mathematics.Quaternion;
 using ImGuiNET;
 
-public class Inspector
+public class Inspector : Widget
 {
     private GameObjectData? _gameObjectToBeShown;
     private readonly float _draggingSpeed = 0.05f;
+
+    public Inspector(Window window) : base("Inspector", window)
+    {
+    }
+
+    protected override Vector2 Size => new(UIData.InspectorWidth, WindowHeight);
+    protected override Vector2 Position => new(WindowWidth - UIData.InspectorWidth, 0);
 
     public void InspectGameObject(GameObjectData data)
     {
         _gameObjectToBeShown = data;
     }
-    
-    public void DrawInspector(Window window, float width)
-    {
-        ImGui.Begin("Inspector", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize);
-        ImGui.SetWindowPos(new Vector2(window.Width - width, 0));
-        ImGui.SetWindowSize(new Vector2(width, window.Height));
 
+    protected override void OnDraw()
+    {
         if (_gameObjectToBeShown != null)
         {
             MapTransform();
             DrawComponents();
         }
-
-        ImGui.End();
     }
 
     private void MapTransform()

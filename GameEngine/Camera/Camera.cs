@@ -4,7 +4,7 @@ using OpenTK.Mathematics;
 public class Camera : IUpdatable
 {
     private readonly float _nearClipPlane = 0.01f;
-    private readonly float _farClipPlane = 100f;
+    private readonly float _farClipPlane = 1000f;
     private readonly int[] _viewport = new int[4];
     private readonly Transform _transform;
 

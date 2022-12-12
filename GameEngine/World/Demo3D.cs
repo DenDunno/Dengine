@@ -11,6 +11,7 @@ public class Demo3D : WorldFactory
     {
         return new List<GameObject>()
         {
+            CreateSkybox(),
             CreateCube("Controlling cube", new Vector3(-2, 2, 0), true, Vector3.Zero),
             CreateCube("Cube1", new Vector3(2, 2, 0), false, new Vector3(0, 45, 45)),
         };
@@ -74,7 +75,7 @@ public class Demo3D : WorldFactory
         RenderData renderData = new()
         {
             Transform = transform,
-            Mesh = MeshBuilder.Cube(50f),
+            Mesh = MeshBuilder.Cube(50),
             BufferUsageHint = BufferUsageHint.StaticDraw,
             ShaderProgram = new ShaderProgramWithTexture(new Cubemap(paths), "Shaders/skyboxVert.glsl", "Shaders/skyboxFrag.glsl"),
         };

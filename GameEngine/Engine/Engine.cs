@@ -3,20 +3,20 @@ public class Engine
 {
     private readonly Window _window;
     private readonly World _world;
-    private readonly UI _ui;
+    private readonly Editor _editor;
 
-    public Engine(Window window, World world, UI ui)
+    public Engine(Window window, World world, Editor editor)
     {
         _window = window;
         _world = world;
-        _ui = ui;
+        _editor = editor;
     }
 
     public void Initialize()
     {
         Initialize(_world);
-        Initialize(_ui as IEngineComponent);
-        Initialize(_ui);
+        Initialize(_editor as IEngineComponent);
+        Initialize(_editor);
     }
 
     private void Initialize(IEngineComponent engineComponent)
@@ -26,10 +26,10 @@ public class Engine
         _window.RenderFrame += engineComponent.Draw;
     }
     
-    private void Initialize(UI ui)
+    private void Initialize(Editor editor)
     {
-        _window.MouseWheel += ui.OnMouseWheel;
-        _window.Resize += ui.OnWindowResize;
+        _window.MouseWheel += editor.OnMouseWheel;
+        _window.Resize += editor.OnWindowResize;
     }
 
     public void Run()
