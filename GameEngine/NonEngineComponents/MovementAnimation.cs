@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-public class MovementAnimation : GameComponent
+public class MovementAnimation : TogglingComponent
 {
     private readonly Transform _transform;
     private readonly Vector3 _target;

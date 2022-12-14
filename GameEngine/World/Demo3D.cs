@@ -44,20 +44,20 @@ public class Demo3D : WorldFactory
         return new GameObject(new GameObjectData(name, transform)
         {
             Model = new Model(renderData),
-            Dependencies = GetComponents(isControlling, transform)
+            Components = GetComponents(isControlling, transform)
         });
     }
     
-    private object[] GetComponents(bool isControlling, Transform transform)
+    private List<IGameComponent> GetComponents(bool isControlling, Transform transform)
     {
-        List<object> components = new();
+        List<IGameComponent> components = new();
 
         if (isControlling)
         {
             components.Add(new ObjectControlling(transform, Input.Keyboard));
         }
 
-        return components.ToArray();
+        return components;
     }
     
     private GameObject CreateSkybox()
@@ -83,7 +83,7 @@ public class Demo3D : WorldFactory
         return new GameObject(new GameObjectData("Skybox", transform)
         {
             Model = new Model(renderData),
-            Dependencies = new object[]
+            Components = new List<IGameComponent>
             {
                 new Skybox(CameraTransform, transform),
             }

@@ -8,11 +8,11 @@ public class WorldBrowser
         _world = world;
     }
 
-    public T FindFirst<T>() where T : GameComponent
+    public T FindFirst<T>() where T : TogglingComponent
     {
         foreach (GameObject gameObject in _world.GameObjects)
         {
-            foreach (IUpdatable component in gameObject.Data.Components)
+            foreach (IGameComponent component in gameObject.Data.Components)
             {
                 if (component is T result)
                 {

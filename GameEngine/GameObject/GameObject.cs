@@ -12,7 +12,7 @@ public class GameObject
     public void Initialize()
     {
         Data.Model.Initialize();
-        Data.Initializables.ForEach(initializables => initializables.Initialize());
+        Data.Components.ForEach(initializables => initializables.Initialize());
     }
 
     public void Update(float deltaTime)

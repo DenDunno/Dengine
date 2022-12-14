@@ -28,7 +28,7 @@ public abstract class WorldFactory
     {
         return new GameObject(new GameObjectData("Camera", CameraTransform)
         {
-            Dependencies = new object[]
+            Components = new List<IGameComponent>
             {
                 new Timer(),
                 new CameraControlling(CameraTransform, Input),

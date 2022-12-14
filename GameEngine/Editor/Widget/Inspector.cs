@@ -47,7 +47,7 @@ public class Inspector : Widget
 
     private void DrawComponents()
     {
-        foreach (IUpdatable component in _gameObjectToBeShown!.Components)
+        foreach (IGameComponent component in _gameObjectToBeShown!.Components)
         {
             ShowHeader(component);
             ShowProperties(component);
@@ -55,11 +55,11 @@ public class Inspector : Widget
         }
     }
 
-    private void ShowHeader(IUpdatable component)
+    private void ShowHeader(IGameComponent component)
     {
         string name = component.GetType().Name;
         
-        if (component is GameComponent gameComponent)
+        if (component is TogglingComponent gameComponent)
         {
             ImGui.Checkbox(name, ref gameComponent.Enabled);
         }
@@ -69,7 +69,7 @@ public class Inspector : Widget
         }
     }
 
-    private void ShowProperties(IUpdatable component)
+    private void ShowProperties(IGameComponent component)
     {
         FieldInfo[] fields = component.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
 

@@ -50,13 +50,13 @@ public class Demo2D : WorldFactory
                 ShaderProgram = shaderProgram,
             }),
             
-            Dependencies = GetComponents(isControlling, transform)
+            Components = GetComponents(isControlling, transform)
         });
     }
 
-    private object[] GetComponents(bool isControlling, Transform transform)
+    private List<IGameComponent> GetComponents(bool isControlling, Transform transform)
     {
-        List<object> components = new();
+        List<IGameComponent> components = new();
 
         if (isControlling)
         {
@@ -67,6 +67,6 @@ public class Demo2D : WorldFactory
             components.Add(new RotationAnimation(transform, Vector3.UnitZ, 1f));
         }
 
-        return components.ToArray();
+        return components;
     }
 }
