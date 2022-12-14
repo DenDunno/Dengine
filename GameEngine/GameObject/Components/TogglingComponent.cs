@@ -1,9 +1,9 @@
 ﻿
-public abstract class GameComponent : IUpdatable
+public abstract class TogglingComponent : IGameComponent
 {
     public bool Enabled = true;
 
-    void IUpdatable.Update(float deltaTime)
+    void IGameComponent.Update(float deltaTime)
     {
         if (Enabled)
         {

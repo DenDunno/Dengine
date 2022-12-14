@@ -1,5 +1,5 @@
 ﻿
-public class Skybox : GameComponent
+public class Skybox : TogglingComponent
 {
     private readonly Transform _camera;
     private readonly Transform _transform;

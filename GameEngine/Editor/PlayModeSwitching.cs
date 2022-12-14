@@ -1,7 +1,7 @@
 ﻿using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
-public class PlayModeSwitching : IUpdatable
+public class PlayModeSwitching 
 {
     private readonly KeyboardState _keyboardState;
     private readonly CameraControlling _cameraControlling;

@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-public class RotationAnimation : GameComponent
+public class RotationAnimation : TogglingComponent
 {
     [EditorField] private readonly float _rotationSpeed;
     private readonly Transform _transform;

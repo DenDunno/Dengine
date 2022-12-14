@@ -1,5 +1,5 @@
 ﻿
-public class PhysicsSimulation : IUpdatable, IInitializable
+public class PhysicsSimulation : IGameComponent
 {
     private readonly CollisionResolution _collisionResolution;
     private readonly Dynamics _dynamics;

@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
-public class ObjectControlling : IUpdatable
+public class ObjectControlling : IGameComponent
 {
     private readonly Transform _transform;
     private readonly KeyboardState _keyboardState;
@@ -22,7 +22,7 @@ public class ObjectControlling : IUpdatable
         _keyboardState = keyboardState;
     }
 
-    void IUpdatable.Update(float deltaTime)
+    void IGameComponent.Update(float deltaTime)
     {
         foreach (Keys directionsKey in _directions.Keys)
         {

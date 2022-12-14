@@ -18,7 +18,7 @@ public class Model : IModel
         _glRenderer = new GLRenderer(renderData.Mesh.Data.Indices.Length);
     }
 
-    void IInitializable.Initialize()
+    void IModel.Initialize()
     {
         _shader.Init();
         _vertexArrayObject.Init();

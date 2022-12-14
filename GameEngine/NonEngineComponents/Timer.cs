@@ -1,9 +1,9 @@
 ﻿
-public class Timer : IUpdatable
+public class Timer : IGameComponent
 {
     public static float Time { get; private set; }
         
-    void IUpdatable.Update(float deltaTime)
+    void IGameComponent.Update(float deltaTime)
     {
         Time += deltaTime;
     }

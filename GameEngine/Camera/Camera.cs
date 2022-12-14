@@ -1,7 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
-public class Camera : IUpdatable
+public class Camera : IGameComponent
 {
     private readonly float _nearClipPlane = 0.01f;
     private readonly float _farClipPlane = 1000f;
@@ -33,7 +33,7 @@ public class Camera : IUpdatable
         }
     }
 
-    void IUpdatable.Update(float deltaTime)
+    void IGameComponent.Update(float deltaTime)
     {
         Matrix4 projectionMatrix = ProjectionMatrix;
         Matrix4 viewMatrix = ViewMatrix;

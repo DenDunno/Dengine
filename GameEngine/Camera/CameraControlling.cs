@@ -1,6 +1,6 @@
 ﻿using OpenTK.Windowing.GraphicsLibraryFramework;
 
-public class CameraControlling : GameComponent
+public class CameraControlling : TogglingComponent
 {
     private readonly Transform _camera;
     private readonly PlayerInput _playerInput;
