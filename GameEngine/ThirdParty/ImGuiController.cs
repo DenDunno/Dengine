@@ -32,6 +32,7 @@ namespace Dear_ImGui_Sample
         {
             _mouseState = window.MouseState;
             _keyboardState = window.KeyboardState;
+            _keys = Enum.GetValues(typeof(Keys));
         }
 
         /// <summary>
@@ -235,6 +236,7 @@ void main()
         readonly List<char> _pressedChars = new();
         private readonly MouseState _mouseState;
         private readonly KeyboardState _keyboardState;
+        private readonly Array _keys;
 
         private void UpdateImGuiInput()
         {
@@ -248,7 +250,7 @@ void main()
             var point = screenPoint;//wnd.PointToClient(screenPoint);
             io.MousePos = new System.Numerics.Vector2(point.X, point.Y);
             
-            foreach (Keys key in Enum.GetValues(typeof(Keys)))
+            foreach (Keys key in _keys)
             {
                 if (key == Keys.Unknown)
                 {

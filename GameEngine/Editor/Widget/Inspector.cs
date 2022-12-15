@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using System.Reflection;
 using Quaternion = OpenTK.Mathematics.Quaternion;
 using ImGuiNET;
 
@@ -50,7 +49,7 @@ public class Inspector : Widget
         foreach (IGameComponent component in _gameObjectToBeShown!.Components)
         {
             ShowHeader(component);
-            ShowProperties(component);
+            _editorFieldSerialization.Execute(component);
             ImGui.Spacing();
         }
     }
@@ -66,23 +65,6 @@ public class Inspector : Widget
         else
         {
             ImGui.Text(name);
-        }
-    }
-
-    private void ShowProperties(IGameComponent component)
-    {
-        FieldInfo[] fields = component.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
-
-        foreach (FieldInfo fieldInfo in fields)
-        {
-            if (fieldInfo.IsDefined(typeof(EditorField), false))
-            {
-                object value = fieldInfo.GetValue(component)!;
-
-                value = _editorFieldSerialization.Execute(fieldInfo.Name, value);
-
-                fieldInfo.SetValue(component, value);
-            }
         }
     }
 }

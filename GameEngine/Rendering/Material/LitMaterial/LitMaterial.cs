@@ -1,10 +1,13 @@
 ﻿
-public class StandartMaterial : Material
+public class LitMaterial : Material
 {
-    private readonly StandartMaterialData _data;
+    [EditorField] private readonly LitMaterialData _data = new();
 
-    public StandartMaterial(string vertexShaderPath, string fragmentShaderPath, StandartMaterialData data)
-        : base(vertexShaderPath, fragmentShaderPath)
+    public LitMaterial(string vertexPath, string fragmentPath) : base(vertexPath, fragmentPath)
+    {
+    }
+    
+    public LitMaterial(string vertexPath, string fragmentPath, LitMaterialData data) : base(vertexPath, fragmentPath)
     {
         _data = data;
     }

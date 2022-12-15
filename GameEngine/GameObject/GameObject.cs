@@ -11,7 +11,7 @@ public class GameObject
 
     public void Initialize()
     {
-        Data.Model.Initialize();
+        Data.Components.Add(Data.Model);
         Data.Components.ForEach(initializables => initializables.Initialize());
     }
 

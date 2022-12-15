@@ -6,12 +6,12 @@ public abstract class Material
     private readonly Shader[] _shaders;
     private readonly int _id;
 
-    protected Material(string vertexShaderPath, string fragmentShaderPath)
+    protected Material(string vertexPath, string fragmentPath)
     {
         _shaders = new Shader[]
         {
-            new(vertexShaderPath, ShaderType.VertexShader),
-            new(fragmentShaderPath, ShaderType.FragmentShader),
+            new(vertexPath, ShaderType.VertexShader),
+            new(fragmentPath, ShaderType.FragmentShader),
         };
         _id = GL.CreateProgram();
         Bridge = new ShaderBridge(_id);

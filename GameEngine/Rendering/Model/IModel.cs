@@ -1,7 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-public interface IModel
+public interface IModel : IGameComponent
 {
-    void Initialize();
     void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix);
 }

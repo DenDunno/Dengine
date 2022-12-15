@@ -2,9 +2,9 @@
 
 public class CollisionColor : IGameComponent
 {
-    private readonly StandartMaterial _material;
+    private readonly LitMaterial _material;
 
-    public CollisionColor(StandartMaterial material)
+    public CollisionColor(LitMaterial material)
     {
         _material = material;
     }

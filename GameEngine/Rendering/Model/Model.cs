@@ -4,21 +4,21 @@ public class Model : IModel
 {
     private readonly IndexBufferObject _indexBufferObject;
     private readonly VertexArrayObject _vertexArrayObject;
-    private readonly Material _material;
-    private readonly Transform _transform;
+    [EditorField] private readonly Material _material;
     private readonly GLRenderer _glRenderer;
-    
+    private readonly Transform _transform;
+
     public Model(RenderData renderData)
     {
         VertexBufferObject vertexBufferObject = new(renderData.Mesh.GetVerticesData(), renderData.BufferUsageHint);
         _indexBufferObject = new IndexBufferObject(renderData.Mesh.Data.Indices, renderData.BufferUsageHint);
         _vertexArrayObject = new VertexArrayObject(vertexBufferObject, renderData.Mesh.AttributeGroup);
-        _material = renderData.Material;
-        _transform = renderData.Transform;
         _glRenderer = new GLRenderer(renderData.Mesh.Data.Indices.Length);
+        _transform = renderData.Transform;
+        _material = renderData.Material;
     }
 
-    void IModel.Initialize()
+    public void Initialize()
     {
         _material.Init();
         _vertexArrayObject.Init();
