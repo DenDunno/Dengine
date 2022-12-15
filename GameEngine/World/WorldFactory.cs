@@ -19,7 +19,7 @@ public abstract class WorldFactory
     public World Create()
     {
         List<GameObject> gameObjects = CreateGameObjects();
-        gameObjects.InsertFirst(CreateStaticPoint());
+        gameObjects.Add(CreateStaticPoint());
 
         return new World(_camera, gameObjects);
     }

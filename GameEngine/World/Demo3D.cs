@@ -1,8 +1,11 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using System.Drawing;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
 public class Demo3D : WorldFactory
 {
+    private Light _light = null!;
+    
     public Demo3D(PlayerInput playerInput) : base(playerInput)
     {
     }
@@ -12,39 +15,46 @@ public class Demo3D : WorldFactory
         return new List<GameObject>()
         {
             CreateSkybox(),
+            CreateLight(),
             CreateCube("Controlling cube", new Vector3(-2, 2, 0), true, Vector3.Zero),
             CreateCube("Cube1", new Vector3(2, 2, 0), false, new Vector3(0, 45, 45)),
         };
     }
-    
+
+    private GameObject CreateLight()
+    {
+        Transform transform = new();
+        _light = new Light(transform, CameraTransform, Color.White);
+        
+        return new GameObject(new GameObjectData("Light", transform)
+        {
+            Components = new List<IGameComponent>()
+            {
+                _light
+            }
+        });
+    }
+
     private GameObject CreateCube(string name, Vector3 position, bool isControlling, Vector3 rotation)
     {
-        Mesh mesh = MeshBuilder.FromObj("Models/cube.obj");
-        LightData lightData = new(new Vector3(1, 0, 0), new Texture("Resources/crate.png"), new Vector3(-4, 3, -3));
-        Transform transform = new(position, Quaternion.FromEulerAngles(rotation));
-        LightningShaderProgram shaderProgram = new(lightData, CameraTransform, "Shaders/vert.glsl", "Shaders/lightning.glsl");
-        MeshWorldView meshWorldView = new(transform, mesh);
-        meshWorldView.CalculateNormals();
-        
         RenderData renderData = new()
         {
-            Transform = transform,
-            Mesh = mesh,
+            Transform = new Transform(position, Quaternion.FromEulerAngles(rotation)),
+            Mesh = MeshBuilder.Cube(1f),
             BufferUsageHint = BufferUsageHint.StaticDraw,
-            ShaderProgram = shaderProgram
+            Material = new StandartMaterial("Shaders/standartVert.glsl", "Shaders/standartFrag.glsl", new StandartMaterialData()
+            {
+                Texture = new Texture("Resources/crate.png"),
+                Color = Color.White
+            })
         };
 
-        AddRigidbody(new Rigidbody(transform)
-        {
-            ShaderProgram = shaderProgram
-        });
-
-        NormalsViewer.Add(meshWorldView);
+        _light.Add(renderData.Material);
         
-        return new GameObject(new GameObjectData(name, transform)
+        return new GameObject(new GameObjectData(name, renderData.Transform)
         {
             Model = new Model(renderData),
-            Components = GetComponents(isControlling, transform)
+            Components = GetComponents(isControlling, renderData.Transform)
         });
     }
     
@@ -59,34 +69,6 @@ public class Demo3D : WorldFactory
 
         return components;
     }
-    
-    private GameObject CreateSkybox()
-    {
-        Transform transform = new();
-        List<string> paths = new()
-        {
-            "Resources/Storm/right.jpg",
-            "Resources/Storm/left.jpg",
-            "Resources/Storm/top.jpg",
-            "Resources/Storm/bottom.jpg",
-            "Resources/Storm/back.jpg",
-            "Resources/Storm/front.jpg",   
-        };
-        RenderData renderData = new()
-        {
-            Transform = transform,
-            Mesh = MeshBuilder.Cube(50),
-            BufferUsageHint = BufferUsageHint.StaticDraw,
-            ShaderProgram = new ShaderProgramWithTexture(new Cubemap(paths), "Shaders/skyboxVert.glsl", "Shaders/skyboxFrag.glsl"),
-        };
 
-        return new GameObject(new GameObjectData("Skybox", transform)
-        {
-            Model = new Model(renderData),
-            Components = new List<IGameComponent>
-            {
-                new Skybox(CameraTransform, transform),
-            }
-        });
-    }
+    private GameObject CreateSkybox() => new SkyboxFactory("Storm", CameraTransform).Create();
 }

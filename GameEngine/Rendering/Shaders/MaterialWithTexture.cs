@@ -1,9 +1,9 @@
 ﻿
-public class ShaderProgramWithTexture : ShaderProgram
+public class MaterialWithTexture : Material
 {
     private readonly TextureBase _texture;
 
-    public ShaderProgramWithTexture(TextureBase texture, string vertexShaderPath, string fragmentShaderPath) 
+    public MaterialWithTexture(TextureBase texture, string vertexShaderPath, string fragmentShaderPath) 
         : base(vertexShaderPath, fragmentShaderPath)
     {
         _texture = texture;

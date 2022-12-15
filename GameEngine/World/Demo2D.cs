@@ -30,14 +30,13 @@ public class Demo2D : WorldFactory
     private GameObject CreateObstacle(string name, bool isControlling, Mesh mesh, Vector3 position, float rotation)
     {
         Transform transform = new(position, Quaternion.FromEulerAngles(0, 0, rotation));
-        ColorShaderProgram shaderProgram = new("Shaders/vert.glsl", "Shaders/uv.glsl");
-
-        AddRigidbody(new Rigidbody(transform)
+        ColorMaterial material = new("Shaders/standartVert.glsl", "Shaders/uv.glsl");
+        Rigidbody rigidbody = new(transform)
         {
-            ShaderProgram = shaderProgram,
-            Collider = new MeshCollider(mesh, transform)
-        });
-
+            Collider = new MeshCollider(mesh, transform),
+        };
+        
+        AddRigidbody(rigidbody);
         NormalsViewer.Add(transform, mesh);
         
         return new GameObject(new GameObjectData(name, transform)
@@ -47,7 +46,7 @@ public class Demo2D : WorldFactory
                 Transform = transform,
                 Mesh = mesh,
                 BufferUsageHint = BufferUsageHint.StaticDraw,
-                ShaderProgram = shaderProgram,
+                Material = material,
             }),
             
             Components = GetComponents(isControlling, transform)

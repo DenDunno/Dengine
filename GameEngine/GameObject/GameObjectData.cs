@@ -7,6 +7,10 @@ public class GameObjectData
     public List<IGameComponent> Components { get; init; } = new();
     public IModel Model { get; init; } = new Point();
 
+    public GameObjectData(string name) : this(name, new Transform())
+    {
+    }
+    
     public GameObjectData(string name, Transform transform)
     {
         Name = name;

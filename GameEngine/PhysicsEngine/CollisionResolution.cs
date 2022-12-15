@@ -10,20 +10,6 @@ public class CollisionResolution
 
     public void Resolve()
     {
-        Clear();
-        ResolveCollisions();
-    }
-
-    private void Clear()
-    {
-        foreach (Rigidbody rigidbody in _rigidbodies)
-        {
-            rigidbody.ShaderProgram.SetNormalColor();
-        }
-    }
-
-    private void ResolveCollisions()
-    {
         for (int i = 0; i < _rigidbodies.Count; ++i)
         {
             for (int j = i + 1; j < _rigidbodies.Count; ++j)
@@ -41,7 +27,7 @@ public class CollisionResolution
 
     private void HandleCollision(Rigidbody objectA, Rigidbody objectB)
     {
-        objectA.ShaderProgram.SetCollisionColor();
-        objectB.ShaderProgram.SetCollisionColor();
+        objectA.TriggerStay?.Invoke();
+        objectB.TriggerStay?.Invoke();
     }
 }

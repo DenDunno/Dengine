@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL4;
+﻿using System.Drawing;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
 public class ShaderBridge
@@ -33,5 +34,11 @@ public class ShaderBridge
     {
         GL.UseProgram(_shaderProgramId);
         GL.Uniform3(_uniformLocations[name], data);
+    }
+
+    public void SetColor(string name, Color color)
+    {
+        GL.UseProgram(_shaderProgramId);
+        GL.Uniform3(_uniformLocations[name], color.ToVector());
     }
 }

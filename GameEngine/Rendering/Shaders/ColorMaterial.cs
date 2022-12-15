@@ -1,10 +1,10 @@
 ﻿using OpenTK.Mathematics;
 
-public class ColorShaderProgram : ShaderProgram, ICollisionShaderProgram
+public class ColorMaterial : Material, ICollisionShaderProgram
 {
     private Vector3 _color = Vector3.One;
 
-    public ColorShaderProgram(string vertexShaderPath, string fragmentShaderPath) : base(vertexShaderPath, fragmentShaderPath)
+    public ColorMaterial(string vertexShaderPath, string fragmentShaderPath) : base(vertexShaderPath, fragmentShaderPath)
     {
     }
 

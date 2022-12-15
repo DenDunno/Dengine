@@ -18,13 +18,13 @@ public class ObjPreviewWorld : WorldFactory
     {
         Mesh mesh = MeshBuilder.FromObj("Models/cottage_obj.obj");
         Transform transform = new();
-        ShaderProgramWithTexture shaderProgram = new(new Texture("Resources/cottage_diffuse.png"), "Shaders/vert.glsl", "Shaders/frag.glsl");
+        MaterialWithTexture material = new(new Texture("Resources/cottage_diffuse.png"), "Shaders/vert.glsl", "Shaders/frag.glsl");
         RenderData renderData = new()
         {
             Transform = transform,
             Mesh = mesh,
             BufferUsageHint = BufferUsageHint.StaticDraw,
-            ShaderProgram = shaderProgram
+            Material = material
         };
 
         NormalsViewer.Add(transform, mesh);

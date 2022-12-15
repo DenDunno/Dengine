@@ -1,12 +1,12 @@
 ﻿using OpenTK.Mathematics;
 
-public class LightningShaderProgram : ShaderProgram, ICollisionShaderProgram
+public class LightningMaterial : Material, ICollisionShaderProgram
 {
     private readonly LightData _data;
     private readonly Transform _camera;
     private Vector3 _color = Vector3.One;
     
-    public LightningShaderProgram(LightData data, Transform camera, string vertexShaderPath, string fragmentShaderPath) 
+    public LightningMaterial(LightData data, Transform camera, string vertexShaderPath, string fragmentShaderPath) 
         : base(vertexShaderPath, fragmentShaderPath)
     {
         _data = data;

@@ -3,10 +3,10 @@ using StbImageSharp;
 
 public class Cubemap : TextureBase
 {
-    private readonly List<string> _paths;
+    private readonly IReadOnlyList<string> _paths;
     private readonly TextureTarget[] _targets;
 
-    public Cubemap(List<string> paths) : base(TextureTarget.TextureCubeMap)
+    public Cubemap(IReadOnlyList<string> paths) : base(TextureTarget.TextureCubeMap)
     {
         _paths = paths;
         _targets = new[]
