@@ -41,4 +41,10 @@ public class ShaderBridge
         GL.UseProgram(_shaderProgramId);
         GL.Uniform3(_uniformLocations[name], color.ToVector());
     }
+
+    public void SetInt(string name, int value)
+    {
+        GL.UseProgram(_shaderProgramId);
+        GL.Uniform1(_uniformLocations[name], value);
+    }
 }

@@ -1,9 +1,9 @@
 ﻿
-public class MaterialWithTexture : Material
+public class SkyboxMaterial : Material
 {
-    private readonly TextureBase _texture;
+    private readonly Cubemap _texture;
 
-    public MaterialWithTexture(TextureBase texture, string vertexShaderPath, string fragmentShaderPath) 
+    public SkyboxMaterial(Cubemap texture, string vertexShaderPath, string fragmentShaderPath) 
         : base(vertexShaderPath, fragmentShaderPath)
     {
         _texture = texture;

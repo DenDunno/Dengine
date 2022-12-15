@@ -76,4 +76,16 @@ public static class Algorithms
 
         return to;
     }
+    
+    public static float Lerp(float firstFloat, float secondFloat, float lerp)
+    {
+        float result = firstFloat * (1 - lerp) + secondFloat * lerp;
+
+        if (result > secondFloat)
+        {
+            result = secondFloat;
+        }
+
+        return result;
+    }
 }

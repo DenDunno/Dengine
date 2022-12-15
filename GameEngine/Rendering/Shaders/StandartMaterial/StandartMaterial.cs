@@ -11,11 +11,17 @@ public class StandartMaterial : Material
 
     protected override void OnInit()
     {
+        if (_data.Texture == null)
+        {
+            Bridge.SetInt("hasTexture", 0);
+        }
+        
         _data.Texture?.Load();
     }
 
     protected override void OnUse()
     {
         _data.Texture?.Use();
+        Bridge.SetColor("baseColor", _data.Color);
     }
 }

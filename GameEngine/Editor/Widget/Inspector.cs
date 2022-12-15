@@ -6,8 +6,8 @@ using ImGuiNET;
 public class Inspector : Widget
 {
     private GameObjectData? _gameObjectToBeShown;
-    private readonly float _draggingSpeed = 0.05f;
-
+    private readonly EditorFieldSerialization _editorFieldSerialization = new();
+    
     public Inspector(Window window) : base("Inspector", window)
     {
     }
@@ -36,9 +36,9 @@ public class Inspector : Widget
         Vector3 scale = _gameObjectToBeShown.Transform.Scale.ToNumeric();
         
         ImGui.PushItemWidth(300);
-        ImGui.DragFloat3("Position", ref position, _draggingSpeed);
-        ImGui.DragFloat3("Rotation", ref rotation, _draggingSpeed);
-        ImGui.DragFloat3("Scale", ref scale, _draggingSpeed);
+        ImGui.DragFloat3("Position", ref position, ImGuiData.DraggingSpeed);
+        ImGui.DragFloat3("Rotation", ref rotation, ImGuiData.DraggingSpeed);
+        ImGui.DragFloat3("Scale", ref scale, ImGuiData.DraggingSpeed);
 
         _gameObjectToBeShown.Transform.Position = position.ToOpenTk();
         _gameObjectToBeShown.Transform.Rotation = Quaternion.FromEulerAngles(rotation.ToOpenTk());
@@ -77,11 +77,10 @@ public class Inspector : Widget
         {
             if (fieldInfo.IsDefined(typeof(EditorField), false))
             {
-                float value = (float)fieldInfo.GetValue(component)!;
-                
-                ImGui.PushItemWidth(100);
-                ImGui.DragFloat(fieldInfo.Name, ref value, _draggingSpeed);
-                
+                object value = fieldInfo.GetValue(component)!;
+
+                value = _editorFieldSerialization.Execute(fieldInfo.Name, value);
+
                 fieldInfo.SetValue(component, value);
             }
         }

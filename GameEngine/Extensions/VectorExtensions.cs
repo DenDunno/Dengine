@@ -6,15 +6,20 @@ public static class VectorExtensions
     {
         return Vector3.Dot(first, second);
     }
-    
-    public static void Negate(this Vector3 vector3)
-    {
-        vector3 = -vector3;
-    }
-    
+
     public static Vector3 Negated(this Vector3 vector3)
     {
         return -vector3;
+    }
+
+    public static System.Numerics.Vector3 LerpByAxis(this System.Numerics.Vector3 vector3, float first, float second)
+    {
+        return new System.Numerics.Vector3()
+        {
+            X = Algorithms.Lerp(first, second, vector3.X),
+            Y = Algorithms.Lerp(first, second, vector3.Y),
+            Z = Algorithms.Lerp(first, second, vector3.Z)
+        };
     }
 
     public static System.Numerics.Vector3 ToNumeric(this Vector3 vector3)

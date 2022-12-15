@@ -1,9 +1,11 @@
 #version 330 core
 out vec4 outputColor;
 
+uniform vec3 baseColor;
 uniform vec3 lightColor;
 uniform vec3 lightPosition; 
 uniform vec3 viewPosition; 
+uniform int hasTexture = 1;
 uniform sampler2D tex;
 in vec3 normal;
 in vec3 fragmentPosition; 
@@ -26,6 +28,13 @@ void main()
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
     vec3 specular = specularStrength * spec * lightColor;
 
-    vec3 result = (ambient + diffuse + specular) * vec3(texture(tex, textureCoordinates));
+    vec3 base = baseColor;
+     
+    if (hasTexture == 1)
+    {
+        base *= vec3(texture(tex, textureCoordinates));
+    }
+    
+    vec3 result = (ambient + diffuse + specular) * base;
     outputColor = vec4(result, 1.0);      
 }

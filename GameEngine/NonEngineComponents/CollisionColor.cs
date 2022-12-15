@@ -11,7 +11,7 @@ public class CollisionColor : IGameComponent
     
     void IGameComponent.Update(float deltaTime)
     {
-        _material.Bridge.SetColor("lightColor", Color.White);
+        //_material.Bridge.SetColor("lightColor", Color.White);
     }
 
     public void OnTriggerStay()

@@ -27,7 +27,7 @@ public class SkyboxFactory
             Transform = transform,
             Mesh = MeshBuilder.Cube(50),
             BufferUsageHint = BufferUsageHint.StaticDraw,
-            Material = new MaterialWithTexture(new Cubemap(_paths), "Shaders/skyboxVert.glsl", "Shaders/skyboxFrag.glsl"),
+            Material = new SkyboxMaterial(new Cubemap(_paths), "Shaders/skyboxVert.glsl", "Shaders/skyboxFrag.glsl"),
         };
 
         return new GameObject(new GameObjectData("Skybox", transform)

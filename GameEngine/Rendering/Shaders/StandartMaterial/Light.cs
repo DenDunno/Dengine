@@ -2,10 +2,10 @@
 
 public class Light : IGameComponent
 {
+    [EditorField] private readonly Color _color;
+    private readonly List<StandartMaterial> _materials = new();
     private readonly Transform _transform;
     private readonly Transform _camera;
-    private readonly Color _color;
-    private readonly List<StandartMaterial> _materials = new();
 
     public Light(Transform transform, Transform camera, Color color)
     {
