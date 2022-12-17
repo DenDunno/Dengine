@@ -20,7 +20,6 @@
       <Content Include="bin\Debug\net6.0\Shaders\flatFrag.glsl" />
       <Content Include="bin\Debug\net6.0\Shaders\flatVert.glsl" />
       <Content Include="bin\Debug\net6.0\Shaders\frag.glsl" />
-      <Content Include="bin\Debug\net6.0\Shaders\standartFrag.glsl" />
       <Content Include="bin\Debug\net6.0\Shaders\lit.glsl" />
       <Content Include="bin\Debug\net6.0\Shaders\skybox.glsl" />
       <Content Include="bin\Debug\net6.0\Shaders\skyboxFrag.glsl" />
