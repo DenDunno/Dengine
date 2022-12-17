@@ -45,7 +45,7 @@ public class Demo2D : WorldFactory
                 Transform = transform,
                 Mesh = mesh,
                 BufferUsageHint = BufferUsageHint.StaticDraw,
-                Material = new UnlitMaterial("Shaders/standartVert.glsl", "Shaders/uv.glsl")
+                Material = new UnlitMaterial()
             }),
             
             Components = GetComponents(isControlling, transform)

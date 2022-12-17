@@ -3,8 +3,7 @@ public class SkyboxMaterial : Material
 {
     private readonly Cubemap _texture;
 
-    public SkyboxMaterial(Cubemap texture, string vertexPath, string fragmentPath) 
-        : base(vertexPath, fragmentPath)
+    public SkyboxMaterial(Cubemap texture) : base("Shaders/skyboxVert.glsl", "Shaders/skyboxFrag.glsl")
     {
         _texture = texture;
     }

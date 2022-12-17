@@ -4,7 +4,7 @@ public class UnlitMaterial : Material
 {
     [EditorField] private readonly Color _color = Color.White;
 
-    public UnlitMaterial(string vertexPath, string fragmentPath) : base(vertexPath, fragmentPath)
+    public UnlitMaterial() : base("Shaders/vert.glsl", "Shaders/unlit.glsl")
     {
     }
 

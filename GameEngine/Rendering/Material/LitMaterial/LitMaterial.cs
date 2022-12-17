@@ -1,13 +1,9 @@
 ﻿
 public class LitMaterial : Material
 {
-    [EditorField] private readonly LitMaterialData _data = new();
+    [EditorField] private readonly LitMaterialData _data;
 
-    public LitMaterial(string vertexPath, string fragmentPath) : base(vertexPath, fragmentPath)
-    {
-    }
-    
-    public LitMaterial(string vertexPath, string fragmentPath, LitMaterialData data) : base(vertexPath, fragmentPath)
+    public LitMaterial(LitMaterialData data) : base("Shaders/vert.glsl", "Shaders/lit.glsl")
     {
         _data = data;
     }
@@ -16,7 +12,7 @@ public class LitMaterial : Material
     {
         if (_data.Texture == null)
         {
-            Bridge.SetInt("hasTexture", 0);
+            Bridge.SetFloat("hasTexture", 0);
         }
         
         _data.Texture?.Load();

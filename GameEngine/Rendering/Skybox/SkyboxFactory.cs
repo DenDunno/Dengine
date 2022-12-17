@@ -5,17 +5,17 @@ public class SkyboxFactory
     private readonly IReadOnlyList<string> _paths;
     private readonly Transform _cameraTransform;
 
-    public SkyboxFactory(string path, Transform cameraTransform)
+    public SkyboxFactory(string name, Transform cameraTransform)
     {
         _cameraTransform = cameraTransform;
         _paths = new List<string>()
         {
-            $"Resources/{path}/right.jpg",
-            $"Resources/{path}/left.jpg",
-            $"Resources/{path}/top.jpg",
-            $"Resources/{path}/bottom.jpg",
-            $"Resources/{path}/back.jpg",
-            $"Resources/{path}/front.jpg",
+            $"Resources/{name}/right.jpg",
+            $"Resources/{name}/left.jpg",
+            $"Resources/{name}/top.jpg",
+            $"Resources/{name}/bottom.jpg",
+            $"Resources/{name}/back.jpg",
+            $"Resources/{name}/front.jpg",
         };
     }
     
@@ -27,7 +27,7 @@ public class SkyboxFactory
             Transform = transform,
             Mesh = MeshBuilder.Cube(50),
             BufferUsageHint = BufferUsageHint.StaticDraw,
-            Material = new SkyboxMaterial(new Cubemap(_paths), "Shaders/skyboxVert.glsl", "Shaders/skyboxFrag.glsl"),
+            Material = new SkyboxMaterial(new Cubemap(_paths)),
         };
 
         return new GameObject(new GameObjectData("Skybox", transform)

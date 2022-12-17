@@ -38,11 +38,10 @@ public class ShaderBridge
 
     public void SetColor(string name, Color color)
     {
-        GL.UseProgram(_shaderProgramId);
-        GL.Uniform3(_uniformLocations[name], color.ToVector());
+        SetVector3(name, color.ToVector());
     }
 
-    public void SetInt(string name, int value)
+    public void SetFloat(string name, float value)
     {
         GL.UseProgram(_shaderProgramId);
         GL.Uniform1(_uniformLocations[name], value);

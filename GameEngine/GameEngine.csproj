@@ -21,11 +21,12 @@
       <Content Include="bin\Debug\net6.0\Shaders\flatVert.glsl" />
       <Content Include="bin\Debug\net6.0\Shaders\frag.glsl" />
       <Content Include="bin\Debug\net6.0\Shaders\standartFrag.glsl" />
+      <Content Include="bin\Debug\net6.0\Shaders\lit.glsl" />
       <Content Include="bin\Debug\net6.0\Shaders\skybox.glsl" />
       <Content Include="bin\Debug\net6.0\Shaders\skyboxFrag.glsl" />
       <Content Include="bin\Debug\net6.0\Shaders\skyboxVert.glsl" />
-      <Content Include="bin\Debug\net6.0\Shaders\uv.glsl" />
-      <Content Include="bin\Debug\net6.0\Shaders\standartVert.glsl" />
+      <Content Include="bin\Debug\net6.0\Shaders\unlit.glsl" />
+      <Content Include="bin\Debug\net6.0\Shaders\vert.glsl" />
     </ItemGroup>
 
 </Project>
