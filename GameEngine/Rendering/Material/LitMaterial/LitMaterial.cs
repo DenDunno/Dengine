@@ -12,7 +12,7 @@ public class LitMaterial : Material
     {
         if (_data.Texture == null)
         {
-            Bridge.SetFloat("hasTexture", 0);
+            Bridge.SetInt("hasTexture", 0);
         }
         
         _data.Texture?.Load();
