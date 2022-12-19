@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using GameEngine.Rendering.Gizmo;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 

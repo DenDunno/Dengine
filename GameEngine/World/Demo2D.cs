@@ -34,10 +34,7 @@ public class Demo2D : WorldFactory
         {
             Collider = new MeshCollider(mesh, transform),
         };
-        
-        AddRigidbody(rigidbody);
-        NormalsViewer.Add(transform, mesh);
-        
+
         return new GameObject(new GameObjectData(name, transform)
         {
             Model = new Model(new RenderData

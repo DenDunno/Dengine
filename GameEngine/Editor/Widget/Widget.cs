@@ -18,11 +18,13 @@ public abstract class Widget
     protected abstract Vector2 Size { get; }
     protected abstract Vector2 Position { get; }
 
+    public virtual void Update(float deltaTime) { }
+
     public void Draw()
     {
-        ImGui.Begin(_name, ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize);
-        ImGui.SetWindowPos(Position);
-        ImGui.SetWindowSize(Size);
+        ImGui.Begin(_name);
+        // ImGui.SetWindowPos(Position);
+        // ImGui.SetWindowSize(Size);
 
         OnDraw();
         

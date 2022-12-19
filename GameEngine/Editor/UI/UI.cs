@@ -15,7 +15,8 @@ public class UI
         {
             inspector,
             hierarchy,
-            controlPanel
+            controlPanel,
+            new Stats(window),
         };
     }
 
@@ -28,6 +29,11 @@ public class UI
         ImGui.GetFont().Scale = 2;
     }
 
+    public void Update(float deltaTime)
+    {
+        _main.ForEach(widget => widget.Update(deltaTime));
+    }
+    
     public void DrawMain()
     {
         _main.ForEach(widget => widget.Draw());

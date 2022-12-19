@@ -46,25 +46,17 @@ public class Inspector : Widget
 
     private void DrawComponents()
     {
+        ImGui.BeginListBox(string.Empty, new Vector2(UIData.InspectorWidth - 8, WindowHeight));
+        
         foreach (IGameComponent component in _gameObjectToBeShown!.Components)
         {
-            ShowHeader(component);
-            _editorFieldSerialization.Execute(component);
-            ImGui.Spacing();
+            if (ImGui.TreeNode(component.GetType().Name))
+            {
+                _editorFieldSerialization.Execute(component);
+                ImGui.TreePop();
+            }
         }
-    }
-
-    private void ShowHeader(IGameComponent component)
-    {
-        string name = component.GetType().Name;
         
-        if (component is TogglingComponent gameComponent)
-        {
-            ImGui.Checkbox(name, ref gameComponent.Enabled);
-        }
-        else
-        {
-            ImGui.Text(name);
-        }
+        ImGui.EndListBox();
     }
 }

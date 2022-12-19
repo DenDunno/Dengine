@@ -1,7 +1,7 @@
 ﻿
 public abstract class TogglingComponent : IGameComponent
 {
-    public bool Enabled = true;
+    [EditorField] public bool Enabled = true;
 
     void IGameComponent.Update(float deltaTime)
     {

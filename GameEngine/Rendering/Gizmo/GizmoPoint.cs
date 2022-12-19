@@ -2,8 +2,6 @@
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
-namespace GameEngine.Rendering.Gizmo;
-
 public class GizmoPoint : GizmoDrawable
 {
     private readonly Vector3 _position;

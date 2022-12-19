@@ -60,7 +60,10 @@ public class Demo3D : WorldFactory
     
     private List<IGameComponent> GetComponents(bool isControlling, Transform transform)
     {
-        List<IGameComponent> components = new();
+        List<IGameComponent> components = new()
+        {
+            new Rigidbody(transform)
+        };
 
         if (isControlling)
         {

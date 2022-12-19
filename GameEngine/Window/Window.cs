@@ -6,7 +6,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 public class Window : GameWindow
 {
     public readonly PlayerInput Input;
-    
+
     public Window(NativeWindowSettings nativeWindowSettings) : base(GameWindowSettings.Default, nativeWindowSettings)
     {
         Input = new PlayerInput(MouseState, KeyboardState);
@@ -14,8 +14,8 @@ public class Window : GameWindow
 
     protected override void OnUpdateFrame(FrameEventArgs args)
     {
-        base.OnUpdateFrame(args);
-        
+        Benchmark.Instance.AddUpdateTime(()=> base.OnUpdateFrame(args));
+
         if (KeyboardState.IsKeyDown(Keys.Escape))
         {
             Close();
@@ -28,10 +28,10 @@ public class Window : GameWindow
         GL.Enable(EnableCap.DepthTest);
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.Enable(EnableCap.Blend);
+        
+        Benchmark.Instance.AddRenderTime(()=> base.OnRenderFrame(args));
 
-        base.OnRenderFrame(args);
-
-        SwapBuffers();
+        Benchmark.Instance.AddSwapBufferTime(SwapBuffers);
     }
 
     protected override void OnResize(ResizeEventArgs e)
