@@ -5,7 +5,7 @@ using OpenTK.Mathematics;
 // Debug rendering tool
 public class Gizmo : IModel
 {
-    public static Gizmo Instance;
+    public static Gizmo Instance = null!;
     private readonly List<GizmoDrawable> _drawables = new();
 
     public void Initialize()

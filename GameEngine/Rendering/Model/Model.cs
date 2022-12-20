@@ -2,7 +2,6 @@
 
 public class Model : IModel
 {
-    private readonly IndexBufferObject _indexBufferObject;
     private readonly VertexArrayObject _vertexArrayObject;
     [EditorField] private readonly Material _material;
     private readonly GLRenderer _glRenderer;
@@ -10,9 +9,7 @@ public class Model : IModel
 
     public Model(RenderData renderData)
     {
-        VertexBufferObject vertexBufferObject = new(renderData.Mesh.GetVerticesData(), renderData.BufferUsageHint);
-        _indexBufferObject = new IndexBufferObject(renderData.Mesh.Data.Indices, renderData.BufferUsageHint);
-        _vertexArrayObject = new VertexArrayObject(vertexBufferObject, renderData.Mesh.AttributeGroup);
+        _vertexArrayObject = new VertexArrayObject(renderData);
         _glRenderer = new GLRenderer(renderData.Mesh.Data.Indices.Length);
         _transform = renderData.Transform;
         _material = renderData.Material;
@@ -22,7 +19,6 @@ public class Model : IModel
     {
         _material.Init();
         _vertexArrayObject.Init();
-        _indexBufferObject.Init();
     }
 
     public void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)

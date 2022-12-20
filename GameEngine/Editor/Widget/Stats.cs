@@ -37,6 +37,7 @@ public class Stats : Widget
         ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(0, 1, 0, 1));
         
         ImGui.Text($"FPS = {_viewData.FPS}");
+        ImGui.Text($"Draw calls = {_viewData.DrawCalls}");
         ImGui.Text($"Render mls = {_viewData.Render}");
         ImGui.Text($"Update mls = {_viewData.Update}");
         ImGui.Text($"Swap buffer mls = {_viewData.SwapBuffer}");

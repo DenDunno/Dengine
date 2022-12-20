@@ -22,7 +22,8 @@ public class Hierarchy : Widget
     protected override void OnDraw()
     {
         ImGui.BeginListBox(string.Empty, ListBoxSize);
-
+        ImGui.PushItemWidth(-1);
+        
         ShowAllGameObjects();
 
         ImGui.EndListBox();

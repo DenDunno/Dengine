@@ -28,9 +28,9 @@ public class Window : GameWindow
         GL.Enable(EnableCap.DepthTest);
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.Enable(EnableCap.Blend);
-        
-        Benchmark.Instance.AddRenderTime(()=> base.OnRenderFrame(args));
 
+        Benchmark.Instance.DrawCalls = 0;
+        Benchmark.Instance.AddRenderTime(()=> base.OnRenderFrame(args));
         Benchmark.Instance.AddSwapBufferTime(SwapBuffers);
     }
 

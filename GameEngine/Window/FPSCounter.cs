@@ -12,10 +12,10 @@ public class FPSCounter : IGameComponent
     public int GetValue()
     {
         int temp = _fps;
-        float tempClock = _clock;
+        float coolDown = Timer.Time - _clock;
+        _clock = Timer.Time;
         _fps = 0;
-        _clock = 0;
-        
-        return (int)(temp / 0.25f);
+
+        return (int)(temp / coolDown);
     }
 }

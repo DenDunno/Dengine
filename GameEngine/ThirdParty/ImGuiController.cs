@@ -28,20 +28,17 @@ namespace Dear_ImGui_Sample
 
         private static bool _khrDebugAvailable;
 
-        public ImGuiController(Window window) : this(window.ClientSize.X, window.ClientSize.Y)
+        /// <summary>
+        /// Constructs a new ImGuiController.
+        /// </summary>
+        public ImGuiController(Window window)
         {
             _mouseState = window.MouseState;
             _keyboardState = window.KeyboardState;
             _keys = Enum.GetValues(typeof(Keys));
-        }
-
-        /// <summary>
-        /// Constructs a new ImGuiController.
-        /// </summary>
-        public ImGuiController(int width, int height)
-        {
-            _windowWidth = width;
-            _windowHeight = height;
+            
+            _windowWidth = window.Size.X;
+            _windowHeight = window.Size.Y;
 
             int major = GL.GetInteger(GetPName.MajorVersion);
             int minor = GL.GetInteger(GetPName.MinorVersion);

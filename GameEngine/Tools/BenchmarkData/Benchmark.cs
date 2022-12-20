@@ -2,6 +2,7 @@
 
 public class Benchmark : Singlton<Benchmark>
 {
+    public int DrawCalls;
     private readonly Stopwatch _stopwatch = new();
     private readonly FPSCounter _fpsCounter = new();
     private BenchmarkStats _stats;
@@ -20,6 +21,7 @@ public class Benchmark : Singlton<Benchmark>
             Render = MathF.Round(_stats.Render.Value, 2),
             Update = MathF.Round(_stats.Update.Value, 2),
             SwapBuffer = MathF.Round(_stats.SwapBuffer.Value, 2),
+            DrawCalls = DrawCalls
         };
     }
 
