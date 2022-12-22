@@ -1,31 +1,30 @@
 ﻿
-public struct BenchmarkMeanStat
+public class BenchmarkMeanStat
 {
-    private float _value;
+    public readonly string Name;
+    private double _value;
     private int _count;
 
-    public float Value
+    public BenchmarkMeanStat(string name)
     {
-        get
-        {
-            float mean = _value / _count;
-            Reset();
-            
-            return mean;
-        }
+        Name = name;
+        _count = 0;
+        _value = 0;
     }
 
-    public void AddDelta(float delta)
+    public double Value => _value / _count;
+
+    public void AddDelta(double delta)
     {
         SetValue(_value + delta, _count + 1);
     }
 
-    private void Reset()
+    public void Reset()
     {
         SetValue(0, 0);
     }
 
-    private void SetValue(float value, int count)
+    private void SetValue(double value, int count)
     {
         _value = value;
         _count = count;

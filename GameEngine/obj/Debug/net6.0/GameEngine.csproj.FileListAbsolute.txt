@@ -111,3 +111,4 @@ D:\Business\GameEngine\GameEngine\GameEngine\bin\Debug\net6.0\runtimes\linux-x64
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Debug\net6.0\runtimes\osx\native\libcimgui.dylib
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Debug\net6.0\runtimes\win-x64\native\cimgui.dll
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Debug\net6.0\runtimes\win-x86\native\cimgui.dll
+D:\Business\GameEngine\GameEngine\GameEngine\bin\Debug\net6.0\ConsoleTables.dll

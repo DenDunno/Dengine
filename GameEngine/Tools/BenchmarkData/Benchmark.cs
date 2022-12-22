@@ -2,41 +2,36 @@
 
 public class Benchmark : Singlton<Benchmark>
 {
-    public int DrawCalls;
-    private readonly Stopwatch _stopwatch = new();
-    private readonly FPSCounter _fpsCounter = new();
-    private BenchmarkStats _stats;
+    private readonly Dictionary<string, BenchmarkMeanStat> _stats = new();
+    private readonly Dictionary<string, Stopwatch> _stopwatches = new();
 
-    public void AddUpdateTime(Action update) => MeasureFunctionTime(ref _stats.Update, update);
-
-    public void AddRenderTime(Action render) => MeasureFunctionTime(ref _stats.Render, render);
-
-    public void AddSwapBufferTime(Action swapBuffer) => MeasureFunctionTime(ref _stats.SwapBuffer, swapBuffer);
-
-    public BenchmarkViewData GetData()
+    public void Start(string profilingName)
     {
-        return new BenchmarkViewData()
-        {
-            FPS = _fpsCounter.GetValue(),
-            Render = MathF.Round(_stats.Render.Value, 2),
-            Update = MathF.Round(_stats.Update.Value, 2),
-            SwapBuffer = MathF.Round(_stats.SwapBuffer.Value, 2),
-            DrawCalls = DrawCalls
-        };
-    }
-
-    public void Update(float deltaTime)
-    {
-        _fpsCounter.Update(deltaTime);
-    }
-    
-    private void MeasureFunctionTime(ref BenchmarkMeanStat benchmarkMeanStat, Action actionToMeasure)
-    {
-        _stopwatch.Reset();
-        _stopwatch.Start();
-        actionToMeasure();
-        _stopwatch.Stop();
+        _stats.TryAdd(profilingName, new BenchmarkMeanStat(profilingName));
+        _stopwatches.TryAdd(profilingName, new Stopwatch());
         
-        benchmarkMeanStat.AddDelta(_stopwatch.Elapsed.Milliseconds);
+        _stopwatches[profilingName].Reset();
+        _stopwatches[profilingName].Start();
+    }
+
+    public void Stop(string profilingName)
+    {
+        _stats[profilingName].AddDelta(_stopwatches[profilingName].ElapsedMilliseconds);
+        _stopwatches[profilingName].Stop();
+    }
+
+    public BenchmarkResult[] GetData()
+    {
+        BenchmarkResult[] result = new BenchmarkResult[_stats.Count];
+
+        int i = 0;
+        foreach (BenchmarkMeanStat meanStat in _stats.Values)
+        {
+            result[i] = new BenchmarkResult(meanStat.Name, meanStat.Value);
+            meanStat.Reset();
+            ++i;
+        }
+
+        return result;
     }
 }

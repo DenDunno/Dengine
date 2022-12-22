@@ -11,7 +11,6 @@ public class GLRenderer
 
     public void Draw()
     {
-        Benchmark.Instance.DrawCalls++;
         GL.DrawElements(PrimitiveType.Triangles, _indicesLength, DrawElementsType.UnsignedInt, 0);
     }
 }

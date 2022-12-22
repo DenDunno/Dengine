@@ -46,7 +46,8 @@ public class Inspector : Widget
 
     private void DrawComponents()
     {
-        ImGui.BeginListBox(string.Empty, new Vector2(UIData.InspectorWidth - 8, WindowHeight));
+        Vector2 size = ImGui.GetWindowSize();
+        ImGui.BeginListBox(string.Empty, new Vector2(size.X - 8, size.Y - 200));
         
         foreach (IGameComponent component in _gameObjectToBeShown!.Components)
         {

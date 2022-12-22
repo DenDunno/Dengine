@@ -16,7 +16,7 @@ public class UI
             inspector,
             hierarchy,
             controlPanel,
-            new Stats(window),
+            new StatsWidget(window),
         };
     }
 

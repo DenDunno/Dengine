@@ -17,12 +17,11 @@ public class Hierarchy : Widget
 
     protected override Vector2 Size => new(UIData.HierarchyWidth, WindowHeight);
     protected override Vector2 Position => Vector2.Zero;
-    private Vector2 ListBoxSize => new(UIData.HierarchyWidth - 8, WindowHeight - 48);
-    
+
     protected override void OnDraw()
     {
-        ImGui.BeginListBox(string.Empty, ListBoxSize);
-        ImGui.PushItemWidth(-1);
+        Vector2 size = ImGui.GetWindowSize();
+        ImGui.BeginListBox(string.Empty, new Vector2(size.X - 8, size.Y - 48));
         
         ShowAllGameObjects();
 
