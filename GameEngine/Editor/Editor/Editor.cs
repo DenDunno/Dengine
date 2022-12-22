@@ -11,7 +11,7 @@ public class Editor : IEngineComponent
     
     public Editor(Window window, World world)
     {
-        _ui = new UI(window, world);
+        _ui = new UI(world);
         _imGui = new ImGuiController(window);
         _playModeSwitching = new PlayModeSwitching(window, world);
     }
@@ -34,15 +34,6 @@ public class Editor : IEngineComponent
     {
         if (_playModeSwitching.IsEditorMode)
         {
-            ImGui.Begin("Main", ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoBackground | ImGuiWindowFlags.NoCollapse |
-                                ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar | 
-                                ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoBringToFrontOnFocus | 
-                                ImGuiWindowFlags.NoNavFocus | ImGuiWindowFlags.NoDocking);
-            
-            ImGui.SetWindowPos(Vector2.Zero);
-            ImGui.SetWindowSize(ImGui.GetIO().DisplaySize);
-            ImGui.DockSpace(ImGui.GetID("Main"));
-            ImGui.End();
             _ui.DrawMain();
             _imGui.Render();
         }

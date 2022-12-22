@@ -28,9 +28,11 @@ public abstract class WorldFactory
         {
             Components = new List<IGameComponent>
             {
+                new Timer(),
                 new CameraControlling(CameraTransform, Input),
                 new PostProcessing(),
                 _camera,
+                Stats.Instance
             },
 
             Model = new Gizmo()

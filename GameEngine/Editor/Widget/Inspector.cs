@@ -7,12 +7,9 @@ public class Inspector : Widget
     private GameObjectData? _gameObjectToBeShown;
     private readonly EditorFieldSerialization _editorFieldSerialization = new();
     
-    public Inspector(Window window) : base("Inspector", window)
+    public Inspector() : base("Inspector")
     {
     }
-
-    protected override Vector2 Size => new(UIData.InspectorWidth, WindowHeight);
-    protected override Vector2 Position => new(WindowWidth - UIData.InspectorWidth, 0);
 
     public void InspectGameObject(GameObjectData data)
     {

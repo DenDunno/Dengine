@@ -8,15 +8,12 @@ public class Hierarchy : Widget
     private readonly Dictionary<int, bool> _selectables = new();
     private readonly WorldBrowser _worldBrowser;
     
-    public Hierarchy(Window window, World world, Inspector inspector) : base("Hierarchy", window)
+    public Hierarchy(World world, Inspector inspector) : base("Hierarchy")
     {
         _world = world;
         _inspector = inspector;
         _worldBrowser = new WorldBrowser(world);
     }
-
-    protected override Vector2 Size => new(UIData.HierarchyWidth, WindowHeight);
-    protected override Vector2 Position => Vector2.Zero;
 
     protected override void OnDraw()
     {

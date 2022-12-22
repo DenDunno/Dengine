@@ -5,19 +5,19 @@ public class UI
 {
     private readonly Widget[] _main;
 
-    public UI(Window window, World world)
+    public UI(World world)
     {
-        Inspector inspector = new(window);
-        Hierarchy hierarchy = new(window, world, inspector);
-        ControlPanel controlPanel = new(window);
+        Inspector inspector = new();
         
         _main = new Widget[]
         {
-            inspector,
-            hierarchy,
-            controlPanel,
-            new StatsWidget(window),
+            new DockSpace(),
+            new Hierarchy(world, inspector),
+            new ControlPanel(),
+            new StatsWidget(),
+            inspector
         };
+
     }
 
     public void InitStyle()

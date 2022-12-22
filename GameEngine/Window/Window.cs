@@ -14,10 +14,11 @@ public class Window : GameWindow
 
     protected override void OnUpdateFrame(FrameEventArgs args)
     {
-        Benchmark.Instance.Start("Frame");
-        Benchmark.Instance.Start("Update");
+        Stats.Instance.Reset();
+        Stats.Instance.Benchmark.Start("Frame");
+        Stats.Instance.Benchmark.Start("Update");
         base.OnUpdateFrame(args);
-        Benchmark.Instance.Stop("Update");
+        Stats.Instance.Benchmark.Stop("Update");
 
         if (KeyboardState.IsKeyDown(Keys.Escape))
         {
@@ -27,19 +28,18 @@ public class Window : GameWindow
 
     protected override void OnRenderFrame(FrameEventArgs args)
     {
-        Benchmark.Instance.Start("Render");
+        Stats.Instance.Benchmark.Start("Render");
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         GL.Enable(EnableCap.DepthTest);
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.Enable(EnableCap.Blend);
         base.OnRenderFrame(args);
-        Benchmark.Instance.Stop("Render");
+        Stats.Instance.Benchmark.Stop("Render");
         
-        Benchmark.Instance.Start("Swap buffers");
+        Stats.Instance.Benchmark.Start("Swap buffers");
         SwapBuffers();
-        Benchmark.Instance.Stop("Swap buffers");
-        
-        Benchmark.Instance.Stop("Frame");
+        Stats.Instance.Benchmark.Stop("Swap buffers");
+        Stats.Instance.Benchmark.Stop("Frame");
     }
 
     protected override void OnResize(ResizeEventArgs e)

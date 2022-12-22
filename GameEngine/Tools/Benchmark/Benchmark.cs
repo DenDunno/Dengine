@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-public class Benchmark : Singlton<Benchmark>
+public class Benchmark 
 {
     private readonly Dictionary<string, BenchmarkMeanStat> _stats = new();
     private readonly Dictionary<string, Stopwatch> _stopwatches = new();
