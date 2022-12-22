@@ -13,15 +13,17 @@ public class EditorFieldSerialization
         _typeSerialization = new Dictionary<Type, Action<FieldInfo, object, object>>()
         {
             {typeof(float), ShowFloat},
-            {typeof(Color), ShowColor}
+            {typeof(Color), ShowColor},
+            {typeof(bool), ShowBoolean},
+            {typeof(OpenTK.Mathematics.Vector3), ShowVector3}
         };
     }
 
-    public void Execute(IGameComponent component)
+    public void Execute(IGameComponent gameComponent)
     {
-        foreach (FieldInfo fieldInfo in component.GetType().GetFields(_bindingFlags))
+        foreach (FieldInfo fieldInfo in gameComponent.GetType().GetFields(_bindingFlags))
         {
-            Execute(fieldInfo, component);
+            Execute(fieldInfo, gameComponent);
         }
     }
 
@@ -35,7 +37,7 @@ public class EditorFieldSerialization
             TrySerializeYourself(fieldInfo, field, instance);
         }
     }
-    
+
     private void TrySerializeChildren(object field)
     {
         FieldInfo[] childFieldInfos = field.GetType().GetFields(_bindingFlags);
@@ -48,7 +50,7 @@ public class EditorFieldSerialization
             }
         }
     }
-    
+
     private void TrySerializeYourself(FieldInfo fieldInfo, object field, object instance)
     {
         if (fieldInfo.IsDefined(typeof(EditorField), false) && _typeSerialization.ContainsKey(field.GetType()))
@@ -80,5 +82,23 @@ public class EditorFieldSerialization
         Color result = Color.FromArgb((int) colorVector.X, (int) colorVector.Y, (int) colorVector.Z);
         
         fieldInfo.SetValue(instance, result);
+    }
+
+    private void ShowBoolean(FieldInfo fieldInfo, object value, object instance)
+    {
+        bool boolean = (bool)value;
+        
+        ImGui.Checkbox(fieldInfo.Name, ref boolean);
+
+        fieldInfo.SetValue(instance, boolean);
+    }
+
+    private void ShowVector3(FieldInfo fieldInfo, object value, object instance)
+    {
+        Vector3 vector3 = ((OpenTK.Mathematics.Vector3)value).ToNumeric();
+
+        ImGui.DragFloat3(fieldInfo.Name, ref vector3, ImGuiData.DraggingSpeed);
+
+        fieldInfo.SetValue(instance, vector3.ToOpenTk());
     }
 }

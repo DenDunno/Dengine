@@ -1,28 +1,21 @@
-﻿using System.Numerics;
-using ImGuiNET;
+﻿using ImGuiNET;
 
 public abstract class Widget
 {
     private readonly string _name;
-    private readonly Window _window;
+    private readonly ImGuiWindowFlags _flags;
 
-    protected Widget(string name, Window window)
+    protected Widget(string name, ImGuiWindowFlags flags = ImGuiWindowFlags.None)
     {
         _name = name;
-        _window = window;
+        _flags = flags;
     }
 
-    protected float WindowWidth => _window.Size.X;
-    protected float WindowHeight => _window.Size.Y;
-    
-    protected abstract Vector2 Size { get; }
-    protected abstract Vector2 Position { get; }
+    public virtual void Update(float deltaTime) { }
 
     public void Draw()
     {
-        ImGui.Begin(_name, ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize);
-        ImGui.SetWindowPos(Position);
-        ImGui.SetWindowSize(Size);
+        ImGui.Begin(_name, _flags);
 
         OnDraw();
         

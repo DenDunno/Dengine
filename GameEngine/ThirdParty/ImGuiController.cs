@@ -28,20 +28,17 @@ namespace Dear_ImGui_Sample
 
         private static bool _khrDebugAvailable;
 
-        public ImGuiController(Window window) : this(window.ClientSize.X, window.ClientSize.Y)
-        {
-            _mouseState = window.MouseState;
-            _keyboardState = window.KeyboardState;
-            _keys = Enum.GetValues(typeof(Keys));
-        }
-
         /// <summary>
         /// Constructs a new ImGuiController.
         /// </summary>
-        public ImGuiController(int width, int height)
+        public ImGuiController(Window window)
         {
-            _windowWidth = width;
-            _windowHeight = height;
+            _mouseState = window.MouseState;
+            _keyboardState = window.KeyboardState;
+            _keys = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToArray();
+            
+            _windowWidth = window.Size.X;
+            _windowHeight = window.Size.Y;
 
             int major = GL.GetInteger(GetPName.MajorVersion);
             int minor = GL.GetInteger(GetPName.MinorVersion);
@@ -236,7 +233,7 @@ void main()
         readonly List<char> _pressedChars = new();
         private readonly MouseState _mouseState;
         private readonly KeyboardState _keyboardState;
-        private readonly Array _keys;
+        private readonly Keys[] _keys;
 
         private void UpdateImGuiInput()
         {
@@ -249,14 +246,14 @@ void main()
             var screenPoint = new Vector2i((int)_mouseState.X, (int)_mouseState.Y);
             var point = screenPoint;//wnd.PointToClient(screenPoint);
             io.MousePos = new System.Numerics.Vector2(point.X, point.Y);
-            
-            foreach (Keys key in _keys)
+
+            for (int i = 0; i < _keys.Length; i++)
             {
-                if (key == Keys.Unknown)
+                if (_keys[i] == Keys.Unknown)
                 {
                     continue;
                 }
-                io.KeysDown[(int)key] = _keyboardState.IsKeyDown(key);
+                io.KeysDown[(int)_keys[i]] = _keyboardState.IsKeyDown(_keys[i]);
             }
 
             foreach (var c in _pressedChars)

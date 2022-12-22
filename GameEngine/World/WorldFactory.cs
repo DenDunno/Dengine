@@ -2,7 +2,6 @@
 
 public abstract class WorldFactory
 {
-    private readonly List<Rigidbody> _rigidbodies = new();
     private readonly Camera _camera;
     
     protected WorldFactory(PlayerInput playerInput)
@@ -14,17 +13,16 @@ public abstract class WorldFactory
 
     protected PlayerInput Input { get; }
     protected Transform CameraTransform { get; }
-    protected NormalsViewer NormalsViewer { get; } = new();
 
     public World Create()
     {
         List<GameObject> gameObjects = CreateGameObjects();
-        gameObjects.Add(CreateStaticPoint());
+        gameObjects.Add(CreateCamera());
 
         return new World(_camera, gameObjects);
     }
 
-    private GameObject CreateStaticPoint()
+    private GameObject CreateCamera()
     {
         return new GameObject(new GameObjectData("Camera", CameraTransform)
         {
@@ -32,19 +30,14 @@ public abstract class WorldFactory
             {
                 new Timer(),
                 new CameraControlling(CameraTransform, Input),
-                new PhysicsSimulation(1 / 60f, _rigidbodies),
-                NormalsViewer,
+                new PostProcessing(),
                 _camera,
+                Stats.Instance
             },
 
             Model = new Gizmo()
         });
     }
 
-    protected void AddRigidbody(Rigidbody rigidbody)
-    {
-        _rigidbodies.Add(rigidbody);
-    }
-    
     protected abstract List<GameObject> CreateGameObjects();
 }

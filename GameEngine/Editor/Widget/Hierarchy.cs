@@ -8,21 +8,18 @@ public class Hierarchy : Widget
     private readonly Dictionary<int, bool> _selectables = new();
     private readonly WorldBrowser _worldBrowser;
     
-    public Hierarchy(Window window, World world, Inspector inspector) : base("Hierarchy", window)
+    public Hierarchy(World world, Inspector inspector) : base("Hierarchy")
     {
         _world = world;
         _inspector = inspector;
         _worldBrowser = new WorldBrowser(world);
     }
 
-    protected override Vector2 Size => new(UIData.HierarchyWidth, WindowHeight);
-    protected override Vector2 Position => Vector2.Zero;
-    private Vector2 ListBoxSize => new(UIData.HierarchyWidth - 8, WindowHeight - 48);
-    
     protected override void OnDraw()
     {
-        ImGui.BeginListBox(string.Empty, ListBoxSize);
-
+        Vector2 size = ImGui.GetWindowSize();
+        ImGui.BeginListBox(string.Empty, new Vector2(size.X - 8, size.Y - 48));
+        
         ShowAllGameObjects();
 
         ImGui.EndListBox();

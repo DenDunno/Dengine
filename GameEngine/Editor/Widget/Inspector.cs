@@ -7,12 +7,9 @@ public class Inspector : Widget
     private GameObjectData? _gameObjectToBeShown;
     private readonly EditorFieldSerialization _editorFieldSerialization = new();
     
-    public Inspector(Window window) : base("Inspector", window)
+    public Inspector() : base("Inspector")
     {
     }
-
-    protected override Vector2 Size => new(UIData.InspectorWidth, WindowHeight);
-    protected override Vector2 Position => new(WindowWidth - UIData.InspectorWidth, 0);
 
     public void InspectGameObject(GameObjectData data)
     {
@@ -46,25 +43,18 @@ public class Inspector : Widget
 
     private void DrawComponents()
     {
+        Vector2 size = ImGui.GetWindowSize();
+        ImGui.BeginListBox(string.Empty, new Vector2(size.X - 8, size.Y - 200));
+        
         foreach (IGameComponent component in _gameObjectToBeShown!.Components)
         {
-            ShowHeader(component);
-            _editorFieldSerialization.Execute(component);
-            ImGui.Spacing();
+            if (ImGui.TreeNode(component.GetType().Name))
+            {
+                _editorFieldSerialization.Execute(component);
+                ImGui.TreePop();
+            }
         }
-    }
-
-    private void ShowHeader(IGameComponent component)
-    {
-        string name = component.GetType().Name;
         
-        if (component is TogglingComponent gameComponent)
-        {
-            ImGui.Checkbox(name, ref gameComponent.Enabled);
-        }
-        else
-        {
-            ImGui.Text(name);
-        }
+        ImGui.EndListBox();
     }
 }

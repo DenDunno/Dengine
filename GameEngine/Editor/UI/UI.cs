@@ -5,18 +5,19 @@ public class UI
 {
     private readonly Widget[] _main;
 
-    public UI(Window window, World world)
+    public UI(World world)
     {
-        Inspector inspector = new(window);
-        Hierarchy hierarchy = new(window, world, inspector);
-        ControlPanel controlPanel = new(window);
+        Inspector inspector = new();
         
         _main = new Widget[]
         {
-            inspector,
-            hierarchy,
-            controlPanel
+            new DockSpace(),
+            new Hierarchy(world, inspector),
+            new ControlPanel(),
+            new StatsWidget(),
+            inspector
         };
+
     }
 
     public void InitStyle()
@@ -26,8 +27,14 @@ public class UI
         style.WindowTitleAlign = Vector2.One * 0.5f;
         style.ItemInnerSpacing = new Vector2(15, 15);
         ImGui.GetFont().Scale = 2;
+        ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable;
     }
 
+    public void Update(float deltaTime)
+    {
+        _main.ForEach(widget => widget.Update(deltaTime));
+    }
+    
     public void DrawMain()
     {
         _main.ForEach(widget => widget.Draw());

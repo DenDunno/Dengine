@@ -1,4 +1,6 @@
-﻿using Dear_ImGui_Sample;
+﻿using System.Numerics;
+using Dear_ImGui_Sample;
+using ImGuiNET;
 using OpenTK.Windowing.Common;
 
 public class Editor : IEngineComponent
@@ -9,7 +11,7 @@ public class Editor : IEngineComponent
     
     public Editor(Window window, World world)
     {
-        _ui = new UI(window, world);
+        _ui = new UI(world);
         _imGui = new ImGuiController(window);
         _playModeSwitching = new PlayModeSwitching(window, world);
     }
@@ -21,8 +23,11 @@ public class Editor : IEngineComponent
 
     public void Update(FrameEventArgs args)
     {
-        _imGui.Update((float)args.Time);
-        _playModeSwitching.Update((float)args.Time);
+        float deltaTime = (float) args.Time;
+        
+        _imGui.Update(deltaTime);
+        _playModeSwitching.Update(deltaTime);
+        _ui.Update(deltaTime);
     }
 
     public void Draw(FrameEventArgs obj)

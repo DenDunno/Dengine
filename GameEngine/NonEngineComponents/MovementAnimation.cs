@@ -2,10 +2,10 @@
 
 public class MovementAnimation : TogglingComponent
 {
+    [EditorField] private readonly float _movementSpeed = 1f;
     private readonly Transform _transform;
     private readonly Vector3 _target;
     private readonly Vector3 _start;
-    [EditorField] private readonly float _movementSpeed = 1f;
     private float _time;
 
     public MovementAnimation(Transform transform, Vector3 movementVector)
