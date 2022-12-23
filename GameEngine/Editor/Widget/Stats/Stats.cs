@@ -3,7 +3,9 @@ public class Stats : Singlton<Stats>, IGameComponent
 {
     public readonly Benchmark Benchmark = new();
     public int DrawCalls;
-    
+    public int Vertices;
+    public int Tris;
+
     private readonly FPSCounter _fpsCounter = new();
     private readonly float _coolDown = 0.5f;
     private float _clock;
@@ -27,5 +29,7 @@ public class Stats : Singlton<Stats>, IGameComponent
     public void Reset()
     {
         DrawCalls = 0;
+        Tris = 0;
+        Vertices = 0;
     }
 }

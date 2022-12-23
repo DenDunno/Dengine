@@ -4,12 +4,12 @@ public class UnlitMaterial : Material
 {
     [EditorField] private readonly Color _color = Color.White;
 
-    public UnlitMaterial() : base("Shaders/vert.glsl", "Shaders/unlit.glsl")
+    public UnlitMaterial() : base(Paths.GetShader("vert"), Paths.GetShader("unlit"))
     {
     }
 
     protected override void OnUse()
     {
-        Bridge.SetColor("color", _color);
+        Bridge.SetColor("baseColor", _color);
     }
 }

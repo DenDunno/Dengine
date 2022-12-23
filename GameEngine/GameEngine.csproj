@@ -10,18 +10,22 @@
 
     <ItemGroup>
       <PackageReference Include="ConsoleTables" Version="2.4.2" />
-      <PackageReference Include="ImGui.NET" Version="1.88.0" />
+      <PackageReference Include="ImGui.NET" Version="1.89.1" />
       <PackageReference Include="OpenTK" Version="4.7.4" />
       <PackageReference Include="StbImageSharp" Version="2.27.11" />
       <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="bin\Debug\net6.0\Shaders\lit.glsl" />
-      <Content Include="bin\Debug\net6.0\Shaders\skyboxFrag.glsl" />
-      <Content Include="bin\Debug\net6.0\Shaders\skyboxVert.glsl" />
-      <Content Include="bin\Debug\net6.0\Shaders\unlit.glsl" />
-      <Content Include="bin\Debug\net6.0\Shaders\vert.glsl" />
+      <Compile Remove="bin\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="bin\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="bin\**" />
     </ItemGroup>
 
 </Project>

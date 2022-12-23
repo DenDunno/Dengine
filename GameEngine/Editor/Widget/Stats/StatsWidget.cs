@@ -15,21 +15,23 @@ public class StatsWidget : Widget
     protected override void OnDraw()
     {
         ImGui.SetWindowPos(Vector2.Zero);
-        ImGui.SetWindowSize(new Vector2(425, 300));
+        ImGui.SetWindowSize(new Vector2(425, 375));
         
         ImGui.PushStyleColor(ImGuiCol.Text, _statsColor);
         
         ImGui.Text(GetBenchmarkTable());
         ImGui.Text($"FPS = {_stats.FPS}");
         ImGui.Text($"Draw calls = {_stats.DrawCalls}");
+        ImGui.Text($"Tris = {_stats.Tris}");
+        ImGui.Text($"Vertices = {_stats.Vertices}");
         
         ImGui.PopStyleColor();
     }
 
+
     private string GetBenchmarkTable()
     {
-        ConsoleTable consoleTable = new();
-        consoleTable.AddColumn(new[] {string.Empty, "Time mls", string.Empty});
+        ConsoleTable consoleTable = new(string.Empty, "Time mls", string.Empty);
 
         foreach (BenchmarkResult result in _stats.BenchmarkResults)
         {

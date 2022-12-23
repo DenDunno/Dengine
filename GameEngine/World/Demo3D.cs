@@ -42,9 +42,9 @@ public class Demo3D : WorldFactory
             Transform = new Transform(position, Quaternion.FromEulerAngles(rotation)),
             Mesh = MeshBuilder.Cube(1f),
             BufferUsageHint = BufferUsageHint.StaticDraw,
-            Material = new LitMaterial(new LitMaterialData
+            Material = new LitMaterial(new LitMaterialData()
             {
-                Texture = new Texture("Resources/crate.png"),
+                Texture = new Texture(Paths.GetTexture("crate.png")),
                 Color = Color.White
             })
         };

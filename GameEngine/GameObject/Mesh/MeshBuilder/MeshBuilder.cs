@@ -9,7 +9,7 @@ public static class MeshBuilder
     
     public static Mesh Cube(float size) => BuildMesh(new CubeMeshData(size));
 
-    public static Mesh FromObj(string path) => BuildMesh(new MeshFromObj(path));
+    public static Mesh FromObj(string path) => BuildMesh(new MeshFromObj(Paths.GetModel(path)));
 
     private static Mesh BuildMesh(IMeshDataSource meshDataSource)
     {

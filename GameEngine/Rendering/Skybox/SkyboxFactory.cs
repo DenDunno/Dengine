@@ -8,15 +8,7 @@ public class SkyboxFactory
     public SkyboxFactory(string name, Transform cameraTransform)
     {
         _cameraTransform = cameraTransform;
-        _paths = new List<string>()
-        {
-            $"Resources/{name}/right.jpg",
-            $"Resources/{name}/left.jpg",
-            $"Resources/{name}/top.jpg",
-            $"Resources/{name}/bottom.jpg",
-            $"Resources/{name}/back.jpg",
-            $"Resources/{name}/front.jpg",
-        };
+        _paths = Paths.GetSkybox(name);
     }
     
     public GameObject Create()

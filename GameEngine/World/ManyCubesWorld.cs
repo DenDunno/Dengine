@@ -6,14 +6,14 @@ public class ManyCubesWorld : WorldFactory
 {
     private Light _light = null!;
     private readonly Transform _parent = new();
-    private readonly int _cubeDimensionSize = 20;
+    private readonly int _cubeDimensionSize = 10;
     private readonly RenderData _cubeCachedRenderData = new()
     {
         Mesh = MeshBuilder.Cube(1f),
         BufferUsageHint = BufferUsageHint.StaticDraw,
-        Material = new LitMaterial(new LitMaterialData
+        Material = new LitMaterial(new LitMaterialData()
         {
-            Texture = new Texture("Resources/crate.png"),
+            Texture = new Texture(Paths.GetTexture("crate.png")),
             Color = Color.White
         })
     };
@@ -37,7 +37,7 @@ public class ManyCubesWorld : WorldFactory
             {
                 for (int k = 0; k < _cubeDimensionSize; ++k)
                 {
-                    result.Add(CreateCube($"Cube{i}", new Vector3(i, j, k) * 4f));
+                    result.Add(CreateCube("Cube", new Vector3(i, j, k) * 4f));
                 }
             }
         }
@@ -82,7 +82,7 @@ public class ManyCubesWorld : WorldFactory
         {
             Components = new List<IGameComponent>()
             {
-                new RotationAnimation(_parent, Vector3.One, 0.2f)
+                new RotationAnimation(_parent, Vector3.One, 0.2f),
             }
         });
     }

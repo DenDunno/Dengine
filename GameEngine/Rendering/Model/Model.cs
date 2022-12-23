@@ -10,7 +10,7 @@ public class Model : IModel
     public Model(RenderData renderData)
     {
         _vertexArrayObject = new VertexArrayObject(renderData);
-        _glRenderer = new GLRenderer(renderData.Mesh.Data.Indices.Length);
+        _glRenderer = new GLRenderer(renderData.Mesh.Data);
         _transform = renderData.Transform;
         _material = renderData.Material;
     }

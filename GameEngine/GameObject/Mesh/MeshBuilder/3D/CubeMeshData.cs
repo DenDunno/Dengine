@@ -136,6 +136,5 @@ public class CubeMeshData : IMeshDataSource
                 21, 22, 23
             }
         };
-        
     }
 }

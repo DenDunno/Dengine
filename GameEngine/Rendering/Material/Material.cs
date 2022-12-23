@@ -5,7 +5,7 @@ public abstract class Material
     public readonly ShaderBridge Bridge;
     private readonly Shader[] _shaders;
     private readonly int _id;
-    private bool _wasInited = false;
+    private bool _wasInited;
     
     protected Material(string vertexPath, string fragmentPath)
     {

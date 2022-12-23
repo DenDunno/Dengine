@@ -12,6 +12,9 @@ public abstract class Widget
     }
 
     public virtual void Update(float deltaTime) { }
+    
+    public virtual void PreDraw() {}
+    public virtual void AfterDraw() {}
 
     public void Draw()
     {

@@ -3,7 +3,7 @@ public class SkyboxMaterial : Material
 {
     private readonly Cubemap _texture;
 
-    public SkyboxMaterial(Cubemap texture) : base("Shaders/skyboxVert.glsl", "Shaders/skyboxFrag.glsl")
+    public SkyboxMaterial(Cubemap texture) : base(Paths.GetShader("skyboxVert"), Paths.GetShader("skyboxFrag"))
     {
         _texture = texture;
     }

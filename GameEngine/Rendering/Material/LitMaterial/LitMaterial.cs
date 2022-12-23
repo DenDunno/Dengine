@@ -3,7 +3,7 @@ public class LitMaterial : Material
 {
     [EditorField] private readonly LitMaterialData _data;
 
-    public LitMaterial(LitMaterialData data) : base("Shaders/vert.glsl", "Shaders/lit.glsl")
+    public LitMaterial(LitMaterialData data) : base(Paths.GetShader("vert"), Paths.GetShader("lit"))
     {
         _data = data;
     }

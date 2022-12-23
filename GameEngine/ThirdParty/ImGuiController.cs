@@ -198,6 +198,20 @@ void main()
                 RenderImDrawData(ImGui.GetDrawData());
             }
         }
+        
+        public virtual IntPtr BindTexture(Texture texture)
+        {
+            var id = new IntPtr(_textureId++);
+
+            _loadedTextures.Add(id, texture);
+
+            return id;
+        }
+        
+        public virtual void UnbindTexture(IntPtr textureId)
+        {
+            _loadedTextures.Remove(textureId);
+        }
 
         /// <summary>
         /// Updates ImGui input and IO configuration state.
@@ -234,6 +248,8 @@ void main()
         private readonly MouseState _mouseState;
         private readonly KeyboardState _keyboardState;
         private readonly Keys[] _keys;
+        private int _textureId;
+        private Dictionary<IntPtr, Texture> _loadedTextures = new();
 
         private void UpdateImGuiInput()
         {
