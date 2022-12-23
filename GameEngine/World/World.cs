@@ -2,10 +2,10 @@
 
 public class World : IEngineComponent
 {
-    public readonly IReadOnlyCollection<GameObject> GameObjects;
+    public readonly IReadOnlyList<GameObject> GameObjects;
     private readonly Camera _camera;
 
-    public World(Camera camera, IReadOnlyCollection<GameObject> gameObjects)
+    public World(Camera camera, IReadOnlyList<GameObject> gameObjects)
     {
         GameObjects = gameObjects;
         _camera = camera;
@@ -18,11 +18,19 @@ public class World : IEngineComponent
 
     public void Update(FrameEventArgs args)
     {
-        GameObjects.ForEach(gameObject => gameObject.Update((float)args.Time));
+        float deltaTime = (float)args.Time;
+        
+        for (int i = 0; i < GameObjects.Count; ++i)
+        {
+            GameObjects[i].Update(deltaTime);
+        }
     }
 
     public void Draw(FrameEventArgs args)
     {
-        GameObjects.ForEach(gameObject => gameObject.Draw(_camera.ProjectionMatrix, _camera.ViewMatrix));
+        for (int i = 0; i < GameObjects.Count; ++i)
+        {
+            GameObjects[i].Draw(_camera.ProjectionMatrix, _camera.ViewMatrix);
+        }
     }
 }

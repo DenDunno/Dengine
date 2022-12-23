@@ -35,8 +35,13 @@ public class Editor : IEngineComponent
         if (_playModeSwitching.IsEditorMode)
         {
             _ui.DrawMain();
-            _imGui.Render();
         }
+        else if (_playModeSwitching.IsStats)
+        {
+            _ui.DrawStats();
+        }
+        
+        _imGui.Render();
     }
 
     public void OnMouseWheel(MouseWheelEventArgs args)

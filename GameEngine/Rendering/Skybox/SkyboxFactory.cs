@@ -25,7 +25,7 @@ public class SkyboxFactory
         RenderData renderData = new()
         {
             Transform = transform,
-            Mesh = MeshBuilder.Cube(50),
+            Mesh = MeshBuilder.Cube(1000),
             BufferUsageHint = BufferUsageHint.StaticDraw,
             Material = new SkyboxMaterial(new Cubemap(_paths)),
         };

@@ -39,5 +39,10 @@ public abstract class WorldFactory
         });
     }
 
+    protected GameObject CreateSkybox(string name)
+    {
+        return new SkyboxFactory(name, CameraTransform).Create();
+    }
+    
     protected abstract List<GameObject> CreateGameObjects();
 }

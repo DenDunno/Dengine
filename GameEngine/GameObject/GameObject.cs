@@ -17,7 +17,10 @@ public class GameObject
 
     public void Update(float deltaTime)
     {
-        Data.Components.ForEach(component => component.Update(deltaTime));
+        for (int i = 0; i < Data.Components.Count; ++i)
+        {
+            Data.Components[i].Update(deltaTime);
+        }
     }
 
     public void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)

@@ -88,4 +88,11 @@ public static class Algorithms
 
         return result;
     }
+
+    public static float RandomSign()
+    {
+        Random random = new();
+
+        return random.Next(0, 2) * 2 - 1;
+    }
 }

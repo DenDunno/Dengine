@@ -4,17 +4,18 @@ using ImGuiNET;
 public class UI
 {
     private readonly Widget[] _main;
-
+    private StatsWidget _stats;
+    
     public UI(World world)
     {
         Inspector inspector = new();
+        _stats = new StatsWidget();
         
         _main = new Widget[]
         {
             new DockSpace(),
             new Hierarchy(world, inspector),
             new ControlPanel(),
-            new StatsWidget(),
             inspector
         };
 
@@ -38,5 +39,10 @@ public class UI
     public void DrawMain()
     {
         _main.ForEach(widget => widget.Draw());
+    }
+
+    public void DrawStats()
+    {
+        _stats.Draw();
     }
 }

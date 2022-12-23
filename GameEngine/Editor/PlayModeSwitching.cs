@@ -15,6 +15,7 @@ public class PlayModeSwitching
     }
 
     public bool IsEditorMode { get; private set; }
+    public bool IsStats { get; private set; }
     
     public void Update(float deltaTime)
     {
@@ -24,6 +25,11 @@ public class PlayModeSwitching
             
             _cameraControlling.Enabled = !IsEditorMode;
             _window.CursorState = IsEditorMode ? CursorState.Normal : CursorState.Grabbed;
+        }
+        
+        if (_keyboardState.IsKeyPressed(Keys.T))
+        {
+            IsStats = !IsStats;
         }
     }
 }

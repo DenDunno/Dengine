@@ -5,7 +5,8 @@ public abstract class Material
     public readonly ShaderBridge Bridge;
     private readonly Shader[] _shaders;
     private readonly int _id;
-
+    private bool _wasInited = false;
+    
     protected Material(string vertexPath, string fragmentPath)
     {
         _shaders = new Shader[]
@@ -19,15 +20,19 @@ public abstract class Material
 
     public void Init()
     {
-        foreach (Shader shader in _shaders)
+        if (_wasInited == false) // shared material
         {
-            shader.Load();
-            GL.AttachShader(_id, shader.Address);
-        }
+            _wasInited = true;
+            foreach (Shader shader in _shaders)
+            {
+                shader.Load();
+                GL.AttachShader(_id, shader.Address);
+            }
         
-        GL.LinkProgram(_id);
-        Bridge.LoadUniforms();
-        OnInit();
+            GL.LinkProgram(_id);
+            Bridge.LoadUniforms();
+            OnInit();
+        }
     }
 
     public void Use()
