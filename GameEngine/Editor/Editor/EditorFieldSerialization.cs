@@ -15,7 +15,8 @@ public class EditorFieldSerialization
             {typeof(float), ShowFloat},
             {typeof(Color), ShowColor},
             {typeof(bool), ShowBoolean},
-            {typeof(OpenTK.Mathematics.Vector3), ShowVector3}
+            {typeof(OpenTK.Mathematics.Vector3), ShowVector3},
+            {typeof(Texture), ShowTexture}
         };
     }
 
@@ -100,5 +101,15 @@ public class EditorFieldSerialization
         ImGui.DragFloat3(fieldInfo.Name, ref vector3, ImGuiData.DraggingSpeed);
 
         fieldInfo.SetValue(instance, vector3.ToOpenTk());
+    }
+
+    private void ShowTexture(FieldInfo fieldInfo, object value, object instance)
+    {
+        TextureBase textureBase = (TextureBase)value;
+
+        if (ImGui.ImageButton("Texture", (IntPtr) textureBase.Id, Vector2.One * 100))
+        {
+            textureBase.Dispose();
+        }
     }
 }

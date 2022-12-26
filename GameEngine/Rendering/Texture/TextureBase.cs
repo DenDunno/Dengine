@@ -1,6 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 
-public abstract class TextureBase
+public abstract class TextureBase : IDisposable
 {
     private readonly TextureTarget _textureTarget;
     public readonly int Id;
@@ -18,4 +18,9 @@ public abstract class TextureBase
     }
 
     public abstract void Load();
+
+    public void Dispose()
+    {
+        GL.DeleteTexture(Id);
+    }
 }
