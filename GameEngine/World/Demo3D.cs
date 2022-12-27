@@ -44,7 +44,7 @@ public class Demo3D : WorldFactory
             BufferUsageHint = BufferUsageHint.StaticDraw,
             Material = new LitMaterial(new LitMaterialData()
             {
-                Texture = new Texture(Paths.GetTexture("crate.png")),
+                Base = new Texture(Paths.GetTexture("crate.png")),
                 Color = Color.White
             })
         };

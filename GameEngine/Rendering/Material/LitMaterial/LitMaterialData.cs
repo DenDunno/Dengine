@@ -3,5 +3,5 @@
 public class LitMaterialData
 {
     [EditorField] public Color Color = Color.White;
-    [EditorField] public TextureBase? Texture;
+    [EditorField] public TextureBase? Base;
 }

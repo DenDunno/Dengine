@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-using Dear_ImGui_Sample;
-using ImGuiNET;
+﻿using Dear_ImGui_Sample;
 using OpenTK.Windowing.Common;
 
 public class Editor : IEngineComponent
@@ -18,7 +16,8 @@ public class Editor : IEngineComponent
 
     public void Initialize()
     {
-        _ui.InitStyle();
+        TexturesViewer.Instance.Init();
+        ImGuiTheme.Load();
     }
 
     public void Update(FrameEventArgs args)
@@ -40,7 +39,7 @@ public class Editor : IEngineComponent
         {
             _ui.DrawStats();
         }
-        
+
         _imGui.Render();
     }
 

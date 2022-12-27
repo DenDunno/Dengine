@@ -10,17 +10,17 @@ public class LitMaterial : Material
 
     protected override void OnInit()
     {
-        if (_data.Texture == null)
+        if (_data.Base == null)
         {
             Bridge.SetInt("hasTexture", 0);
         }
         
-        _data.Texture?.Load();
+        _data.Base?.Load();
     }
 
     protected override void OnUse()
     {
-        _data.Texture?.Use();
+        _data.Base?.Use();
         Bridge.SetColor("baseColor", _data.Color);
     }
 }

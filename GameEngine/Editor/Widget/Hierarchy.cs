@@ -7,6 +7,7 @@ public class Hierarchy : Widget
     private readonly Inspector _inspector;
     private readonly Dictionary<int, bool> _selectables = new();
     private readonly WorldBrowser _worldBrowser;
+    private int _currentSelectedGameObject;
     
     public Hierarchy(World world, Inspector inspector) : base("Hierarchy")
     {
@@ -31,7 +32,7 @@ public class Hierarchy : Widget
         {
             int id = gameObject.Data.Id;
             _selectables.TryAdd(id, false);
-            
+
             if (ImGui.Selectable(gameObject.Data.Name, _selectables[id]))
             {
                 SelectGameObject(id);
@@ -41,14 +42,11 @@ public class Hierarchy : Widget
 
     private void SelectGameObject(int id)
     {
-        foreach (int key in _selectables.Keys.ToList())
-        {
-            _selectables[key] = false;
-        }
-
+        _selectables[_currentSelectedGameObject] = false;
+        _selectables[id] = true;
+        _currentSelectedGameObject = id;
+        
         GameObjectData gameObjectToBeShown = _worldBrowser.FindGameObject(id).Data;
         _inspector.InspectGameObject(gameObjectToBeShown);
-                
-        _selectables[id] = true;
     }
 }

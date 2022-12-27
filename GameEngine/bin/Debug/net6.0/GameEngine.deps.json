@@ -9,7 +9,7 @@
       "GameEngine/1.0.0": {
         "dependencies": {
           "ConsoleTables": "2.4.2",
-          "ImGui.NET": "1.88.0",
+          "ImGui.NET": "1.89.1",
           "OpenTK": "4.7.4",
           "StbImageSharp": "2.27.11",
           "System.Drawing.Common": "6.0.0"
@@ -29,7 +29,7 @@
           }
         }
       },
-      "ImGui.NET/1.88.0": {
+      "ImGui.NET/1.89.1": {
         "dependencies": {
           "System.Buffers": "4.4.0",
           "System.Numerics.Vectors": "4.4.0",
@@ -37,8 +37,8 @@
         },
         "runtime": {
           "lib/net6.0/ImGui.NET.dll": {
-            "assemblyVersion": "1.88.0.0",
-            "fileVersion": "1.88.0.0"
+            "assemblyVersion": "1.89.1.0",
+            "fileVersion": "1.89.1.0"
           }
         },
         "runtimeTargets": {
@@ -323,12 +323,12 @@
       "path": "consoletables/2.4.2",
       "hashPath": "consoletables.2.4.2.nupkg.sha512"
     },
-    "ImGui.NET/1.88.0": {
+    "ImGui.NET/1.89.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-5pYlZ4juw1+HaWD8sM8aPqUFcS3b1SHDCXBxfZ02ID96SKHp1icAKKiS0VJA9MbSATQGQd9lAAkY5p8JZGzomA==",
-      "path": "imgui.net/1.88.0",
-      "hashPath": "imgui.net.1.88.0.nupkg.sha512"
+      "sha512": "sha512-89l8XcF3Yd3OXhcQbZdRcbDH4NRQhjz5zGJpUu5KQQV9NWy9zHhVRjemC0JrzAiEowt3ZCH2wyQ1qjqMOLy02g==",
+      "path": "imgui.net/1.89.1",
+      "hashPath": "imgui.net.1.89.1.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",
