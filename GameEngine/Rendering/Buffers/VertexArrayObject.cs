@@ -1,18 +1,16 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-public class VertexArrayObject
+public class VertexArrayObject : GLObject
 {
     private readonly VertexAttributeGroup _vertexAttributeGroup;
     private readonly VertexBufferObject _vertexBufferObject;
     private readonly IndexBufferObject _indexBufferObject;
-    private readonly int _id;
 
-    public VertexArrayObject(RenderData renderData)
+    public VertexArrayObject(RenderData renderData) : base(GL.GenVertexArray())
     {
         _vertexBufferObject = new VertexBufferObject(renderData.Mesh.GetVerticesData(), renderData.BufferUsageHint);
         _indexBufferObject = new IndexBufferObject(renderData.Mesh.Data.Indices, renderData.BufferUsageHint);
         _vertexAttributeGroup = renderData.Mesh.AttributeGroup;
-        _id = GL.GenVertexArray();
     }
 
     public void Init()
@@ -25,6 +23,6 @@ public class VertexArrayObject
     
     public void Bind()
     {
-        GL.BindVertexArray(_id);
+        GL.BindVertexArray(Id);
     }
 }

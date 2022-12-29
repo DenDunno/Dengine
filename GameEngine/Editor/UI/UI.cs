@@ -14,6 +14,7 @@ public class UI
             new DockSpace(),
             new Hierarchy(world, inspector),
             new ControlPanel(),
+            new Viewport(),
             inspector
         };
     }

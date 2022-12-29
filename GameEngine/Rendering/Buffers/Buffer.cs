@@ -1,20 +1,19 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-public abstract class Buffer<T> : IDisposable where T : struct
+public abstract class Buffer<T> : GLObject, IDisposable where T : struct
 {
     private readonly BufferUsageHint _bufferUsageHint;
     private readonly BufferTarget _bufferTarget;
     private readonly int _typeSize;
     private readonly T[] _data;
-    private readonly int _id;
 
-    protected Buffer(BufferUsageHint bufferUsageHint, BufferTarget bufferTarget, int typeSize, T[] data)
+    protected Buffer(BufferUsageHint bufferUsageHint, BufferTarget bufferTarget, int typeSize, T[] data) 
+        : base(GL.GenBuffer())
     {
         _bufferUsageHint = bufferUsageHint;
         _bufferTarget = bufferTarget;
         _typeSize = typeSize;
         _data = data;
-        _id = GL.GenBuffer();
     }
 
     public void Init()
@@ -25,7 +24,7 @@ public abstract class Buffer<T> : IDisposable where T : struct
 
     private void Bind()
     {
-        GL.BindBuffer(_bufferTarget, _id);
+        GL.BindBuffer(_bufferTarget, Id);
     }
     
     private void SendData()
@@ -36,6 +35,6 @@ public abstract class Buffer<T> : IDisposable where T : struct
     public void Dispose()
     {
         GL.BindBuffer(_bufferTarget, 0);
-        GL.DeleteBuffer(_id);
+        GL.DeleteBuffer(Id);
     }
 }

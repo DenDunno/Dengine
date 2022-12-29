@@ -1,29 +1,42 @@
 ﻿using System.Numerics;
 using ImGuiNET;
 
-public class TextureSerialization : FieldSerialization<Texture>
+public class TextureSerialization : FieldSerialization<Texture?>
 {
-    protected override object OnSerialize(string fieldInfoName, Texture value)
+    protected override object OnSerialize(string fieldInfoName, Texture? texture)
     {
         ImGui.Text(fieldInfoName);
+
+        IntPtr id = (IntPtr)(texture?.Id ?? 0);
         
-        if (ImGui.ImageButton("Texture", (IntPtr) value.Id, Vector2.One * 100))
+        if (ImGui.ImageButton("Texture", id, Vector2.One * 100))
         {
             ImGui.OpenPopup("TexturesPopUp");
         }
 
         if (TryGetNewTexturePath(out string newTexturePath))
         {
-            Texture newTexture = new(newTexturePath);
-            newTexture.Load();
-            value.Dispose();
-
-            return newTexture;
+            SetupTexture(ref texture, newTexturePath);
         }
 
-        return value;
+        return texture!;
     }
-    
+
+    private void SetupTexture(ref Texture? texture, string path)
+    {
+        texture?.Dispose();
+            
+        if (path == "NONE")
+        {
+            texture = null;
+        }
+        else
+        {
+            texture = new Texture(path);
+            texture.Load();
+        }
+    }
+
     private bool TryGetNewTexturePath(out string newTexturePath)
     {
         newTexturePath = string.Empty;
@@ -32,19 +45,23 @@ public class TextureSerialization : FieldSerialization<Texture>
         {
             ImGui.Text("Textures");
             ImGui.Separator();
+
+            if (ImGui.Selectable("NONE"))
+            {
+                newTexturePath = "NONE";
+            }
             
             foreach (string texturePath in TexturesViewer.Instance.Textures)
             {
                 if (ImGui.Selectable(Path.GetFileNameWithoutExtension(texturePath)))
                 {
                     newTexturePath = texturePath;
-                    return true;
                 }
             }
 
             ImGui.EndPopup();
         }
 
-        return false;
+        return newTexturePath != string.Empty;
     }
 }

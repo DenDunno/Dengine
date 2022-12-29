@@ -2,10 +2,10 @@
 
 public class BooleanSerialization : FieldSerialization<bool>
 {
-    protected override object OnSerialize(string fieldInfoName, bool value)
+    protected override object OnSerialize(string fieldInfoName, bool texture)
     {
-        ImGui.Checkbox(fieldInfoName, ref value);
+        ImGui.Checkbox(fieldInfoName, ref texture);
 
-        return value;
+        return texture;
     }
 }

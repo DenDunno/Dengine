@@ -4,9 +4,9 @@ using ImGuiNET;
 
 public class ColorSerialization : FieldSerialization<Color>
 {
-    protected override object OnSerialize(string fieldInfoName, Color value)
+    protected override object OnSerialize(string fieldInfoName, Color texture)
     {
-        Vector3 colorVector = new Vector3(value.R, value.G, value.B) / 255f;
+        Vector3 colorVector = new Vector3(texture.R, texture.G, texture.B) / 255f;
 
         ImGui.PushItemWidth(350);
         ImGui.ColorEdit3(fieldInfoName, ref colorVector);

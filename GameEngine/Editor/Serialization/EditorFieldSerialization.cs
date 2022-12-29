@@ -15,7 +15,7 @@ public class EditorFieldSerialization
             {typeof(Color), new ColorSerialization()},
             {typeof(bool), new BooleanSerialization()},
             {typeof(Vector3), new Vector3Serialization()},
-            {typeof(Texture), new TextureSerialization()}
+            {typeof(TextureBase), new TextureSerialization()}
         };
     }
 
@@ -29,33 +29,33 @@ public class EditorFieldSerialization
 
     private void Execute(FieldInfo fieldInfo, object instance)
     {
-        object? field = fieldInfo.GetValue(instance);
+        object field = fieldInfo.GetValue(instance)!;
 
-        if (field != null)
-        {
-            TrySerializeChildren(field);
-            TrySerializeYourself(fieldInfo, field, instance);
-        }
+        TrySerializeChildren(field);
+        TrySerializeYourself(fieldInfo, field, instance);
     }
 
-    private void TrySerializeChildren(object field)
+    private void TrySerializeChildren(object? field)
     {
-        FieldInfo[] childFieldInfos = field.GetType().GetFields(_bindingFlags);
-
-        foreach (FieldInfo childFieldInfo in childFieldInfos)
+        if (field != null)
         {
-            if (childFieldInfo.IsDefined(typeof(EditorField), false))
+            FieldInfo[] childFieldInfos = field.GetType().GetFields(_bindingFlags);
+
+            foreach (FieldInfo childFieldInfo in childFieldInfos)
             {
-                Execute(childFieldInfo, field);
+                if (childFieldInfo.IsDefined(typeof(EditorField), false))
+                {
+                    Execute(childFieldInfo, field);
+                }
             }
         }
     }
 
     private void TrySerializeYourself(FieldInfo fieldInfo, object field, object instance)
     {
-        if (fieldInfo.IsDefined(typeof(EditorField), false) && _typeSerialization.ContainsKey(field.GetType()))
+        if (fieldInfo.IsDefined(typeof(EditorField), false) && _typeSerialization.ContainsKey(fieldInfo.FieldType))
         {
-            IFieldSerialization fieldSerialization = _typeSerialization[field.GetType()];
+            IFieldSerialization fieldSerialization = _typeSerialization[fieldInfo.FieldType];
             fieldSerialization.Serialize(fieldInfo, field, instance);
         }
     }

@@ -12,5 +12,5 @@ public abstract class FieldSerialization<T> : IFieldSerialization
         }
     }
 
-    protected abstract object OnSerialize(string fieldInfoName, T value);
+    protected abstract object OnSerialize(string fieldInfoName, T texture);
 }

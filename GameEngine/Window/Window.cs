@@ -6,10 +6,17 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 public class Window : GameWindow
 {
     public readonly PlayerInput Input;
+    //private Framebuffer _framebuffer;
     
     public Window(NativeWindowSettings nativeWindowSettings) : base(GameWindowSettings.Default, nativeWindowSettings)
     {
         Input = new PlayerInput(MouseState, KeyboardState);
+    }
+
+    protected override void OnLoad()
+    {
+        // _framebuffer = new Framebuffer();
+        // _framebuffer.Init();
     }
 
     protected override void OnUpdateFrame(FrameEventArgs args)
@@ -33,6 +40,7 @@ public class Window : GameWindow
         GL.Enable(EnableCap.DepthTest);
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.Enable(EnableCap.Blend);
+        //_framebuffer.Bind();
         base.OnRenderFrame(args);
         Stats.Instance.Benchmark.Stop("Render");
         

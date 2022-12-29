@@ -1,21 +1,20 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-public abstract class Material 
+public abstract class Material : GLObject
 {
     public readonly ShaderBridge Bridge;
     private readonly Shader[] _shaders;
-    private readonly int _id;
     private bool _wasInited;
     
-    protected Material(string vertexPath, string fragmentPath)
+    protected Material(string vertexPath, string fragmentPath) : base(GL.CreateProgram())
     {
         _shaders = new Shader[]
         {
             new(vertexPath, ShaderType.VertexShader),
             new(fragmentPath, ShaderType.FragmentShader),
         };
-        _id = GL.CreateProgram();
-        Bridge = new ShaderBridge(_id);
+        
+        Bridge = new ShaderBridge(Id);
     }
 
     public void Init()
@@ -26,10 +25,10 @@ public abstract class Material
             foreach (Shader shader in _shaders)
             {
                 shader.Load();
-                GL.AttachShader(_id, shader.Address);
+                GL.AttachShader(Id, shader.Address);
             }
         
-            GL.LinkProgram(_id);
+            GL.LinkProgram(Id);
             Bridge.LoadUniforms();
             OnInit();
         }
@@ -38,7 +37,7 @@ public abstract class Material
     public void Use()
     {
         OnUse();
-        GL.UseProgram(_id);
+        GL.UseProgram(Id);
     }
 
     protected virtual void OnInit() { }

@@ -1,14 +1,12 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 
-public abstract class TextureBase : IDisposable
+public abstract class TextureBase : GLObject, IDisposable
 {
     private readonly TextureTarget _textureTarget;
-    public readonly int Id;
 
-    protected TextureBase(TextureTarget textureTarget)
+    protected TextureBase(TextureTarget textureTarget) : base(GL.GenTexture())
     {
         _textureTarget = textureTarget;
-        Id = GL.GenTexture();
     }
 
     public void Use(TextureUnit unit = TextureUnit.Texture0)

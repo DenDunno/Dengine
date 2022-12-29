@@ -2,11 +2,11 @@
 
 public class FloatSerialization : FieldSerialization<float>
 {
-    protected override object OnSerialize(string fieldInfoName, float value)
+    protected override object OnSerialize(string fieldInfoName, float texture)
     {
         ImGui.PushItemWidth(100);
-        ImGui.DragFloat(fieldInfoName, ref value, ImGuiData.DraggingSpeed);
+        ImGui.DragFloat(fieldInfoName, ref texture, ImGuiData.DraggingSpeed);
 
-        return value;
+        return texture;
     }
 }
