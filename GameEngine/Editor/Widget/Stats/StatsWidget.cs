@@ -15,7 +15,7 @@ public class StatsWidget : WidgetBase
     protected override void OnDraw()
     {
         ImGui.SetWindowPos(Vector2.Zero);
-        ImGui.SetWindowSize(new Vector2(425, 375));
+        ImGui.SetWindowSize(new Vector2(300, 375));
         
         ImGui.PushStyleColor(ImGuiCol.Text, _statsColor);
         

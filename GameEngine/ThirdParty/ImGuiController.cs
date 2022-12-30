@@ -4,12 +4,9 @@
 //
 
 using ImGuiNET;
-using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
-using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using System.Diagnostics;
 using ErrorCode = OpenTK.Graphics.OpenGL4.ErrorCode;
@@ -347,7 +344,7 @@ public class ImGuiController : IDisposable
                     GL.BufferData(BufferTarget.ArrayBuffer, newSize, IntPtr.Zero, BufferUsageHint.DynamicDraw);
                     _vertexBufferSize = newSize;
 
-                    Console.WriteLine($"Resized dear imgui vertex buffer to new size {_vertexBufferSize}");
+                    //Console.WriteLine($"Resized dear imgui vertex buffer to new size {_vertexBufferSize}");
                 }
 
                 int indexSize = cmd_list.IdxBuffer.Size * sizeof(ushort);
@@ -357,7 +354,7 @@ public class ImGuiController : IDisposable
                     GL.BufferData(BufferTarget.ElementArrayBuffer, newSize, IntPtr.Zero, BufferUsageHint.DynamicDraw);
                     _indexBufferSize = newSize;
 
-                    Console.WriteLine($"Resized dear imgui index buffer to new size {_indexBufferSize}");
+                    //Console.WriteLine($"Resized dear imgui index buffer to new size {_indexBufferSize}");
                 }
             }
 

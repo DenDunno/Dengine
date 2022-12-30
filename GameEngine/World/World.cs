@@ -19,18 +19,18 @@ public class World : IEngineComponent
     public void Update(FrameEventArgs args)
     {
         float deltaTime = (float)args.Time;
-        
-        for (int i = 0; i < GameObjects.Count; ++i)
+
+        foreach (GameObject gameObject in GameObjects)
         {
-            GameObjects[i].Update(deltaTime);
+            gameObject.Update(deltaTime);
         }
     }
 
     public void Draw(FrameEventArgs args)
     {
-        for (int i = 0; i < GameObjects.Count; ++i)
+        foreach (GameObject gameObject in GameObjects)
         {
-            GameObjects[i].Draw(_camera.ProjectionMatrix, _camera.ViewMatrix);
+            gameObject.Draw(_camera.ProjectionMatrix, _camera.ViewMatrix);
         }
     }
 }

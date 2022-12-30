@@ -15,7 +15,7 @@ public class Editor : IEngineComponent
 
     public void Initialize()
     {
-        ImGuiTheme.Load();
+        GrayOrangeTheme.Load();
     }
 
     public void Update(FrameEventArgs args)
@@ -27,11 +27,15 @@ public class Editor : IEngineComponent
         _ui.Update(deltaTime);
     }
 
-    public void Draw(FrameEventArgs obj)
+    public void Draw(FrameEventArgs args)
     {
         if (_playModeSwitching.IsEditorMode)
         {
             _ui.DrawMain();
+        }
+        else if (_playModeSwitching.IsStats)
+        {
+            _ui.DrawStats();
         }
 
         _imGui.Render();

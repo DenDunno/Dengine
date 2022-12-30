@@ -19,7 +19,7 @@ public class Hierarchy : WidgetBase
     protected override void OnDraw()
     {
         Vector2 size = ImGui.GetWindowSize();
-        ImGui.BeginListBox(string.Empty, new Vector2(size.X - 8, size.Y - 48));
+        ImGui.BeginListBox(string.Empty, new Vector2(size.X - 12, size.Y - 48));
         
         ShowAllGameObjects();
 

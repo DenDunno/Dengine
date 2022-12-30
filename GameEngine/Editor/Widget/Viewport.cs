@@ -15,7 +15,7 @@ public class Viewport : WidgetBase
         _framebuffer.Bind();
         
         Vector2 size = ImGui.GetWindowSize();
-        size.Y -= 40;
+        size.Y -= 48;
         
         ImGui.Image((IntPtr)_framebuffer.framebufferTexture, size);
     }
