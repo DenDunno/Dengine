@@ -14,7 +14,7 @@ public class PlayModeSwitching
         _cameraControlling = new WorldBrowser(world).FindFirst<CameraControlling>();
     }
 
-    public bool IsEditorMode { get; private set; }
+    public bool IsEditorMode { get; private set; } = true;
     public bool IsStats { get; private set; }
     
     public void Update(float deltaTime)

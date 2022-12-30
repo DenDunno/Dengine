@@ -15,7 +15,6 @@ public class Engine
     public void Initialize()
     {
         Initialize(_world);
-        Initialize(_editor as IEngineComponent);
         Initialize(_editor);
     }
 
@@ -24,12 +23,6 @@ public class Engine
         _window.Load += engineComponent.Initialize;
         _window.UpdateFrame += engineComponent.Update;
         _window.RenderFrame += engineComponent.Draw;
-    }
-    
-    private void Initialize(Editor editor)
-    {
-        _window.MouseWheel += editor.OnMouseWheel;
-        _window.Resize += editor.OnWindowResize;
     }
 
     public void Run()

@@ -1,14 +1,12 @@
 ﻿using System.Numerics;
 using ImGuiNET;
-using OpenTK.Graphics.OpenGL;
 
-public class Viewport : Widget
+public class Viewport : WidgetBase
 {
     private readonly Framebuffer _framebuffer = new();
     
     public Viewport() : base("Viewport")
     {
-        Console.WriteLine(Timer.Time);
         _framebuffer.Init();
     }
 

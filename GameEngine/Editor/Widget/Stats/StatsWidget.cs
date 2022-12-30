@@ -2,7 +2,7 @@
 using ConsoleTables;
 using ImGuiNET;
 
-public class StatsWidget : Widget
+public class StatsWidget : WidgetBase
 {
     private readonly Vector4 _statsColor = new(0, 1, 0, 1);
     private readonly Stats _stats;

@@ -2,7 +2,7 @@
 using Quaternion = OpenTK.Mathematics.Quaternion;
 using ImGuiNET;
 
-public class Inspector : Widget
+public class Inspector : WidgetBase
 {
     private GameObjectData? _gameObjectToBeShown;
     private readonly EditorFieldSerialization _editorFieldSerialization = new();

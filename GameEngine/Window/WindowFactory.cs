@@ -16,8 +16,7 @@ public class WindowFactory
     {
         Window window = new(_nativeWindowSettings);
         window.VSync = VSyncMode.On;
-        window.CursorState = CursorState.Grabbed;
-        
+
         return window;
     }
 }

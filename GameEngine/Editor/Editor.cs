@@ -1,5 +1,4 @@
-﻿using Dear_ImGui_Sample;
-using OpenTK.Windowing.Common;
+﻿using OpenTK.Windowing.Common;
 
 public class Editor : IEngineComponent
 {
@@ -34,21 +33,7 @@ public class Editor : IEngineComponent
         {
             _ui.DrawMain();
         }
-        else if (_playModeSwitching.IsStats)
-        {
-            _ui.DrawStats();
-        }
 
         _imGui.Render();
-    }
-
-    public void OnMouseWheel(MouseWheelEventArgs args)
-    {
-        _imGui.MouseScroll(args.Offset);
-    }
-
-    public void OnWindowResize(ResizeEventArgs args)
-    {
-        _imGui.WindowResized(args.Width, args.Height);
     }
 }

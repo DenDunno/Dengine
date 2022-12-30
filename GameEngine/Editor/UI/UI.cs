@@ -1,7 +1,7 @@
 ﻿
 public class UI
 {
-    private readonly Widget[] _main;
+    private readonly IWidget[] _main;
     private readonly StatsWidget _stats;
     
     public UI(World world)
@@ -9,7 +9,7 @@ public class UI
         Inspector inspector = new();
         _stats = new StatsWidget();
         
-        _main = new Widget[]
+        _main = new IWidget[]
         {
             new DockSpace(),
             new Hierarchy(world, inspector),

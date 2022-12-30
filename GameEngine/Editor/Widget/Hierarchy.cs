@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using ImGuiNET;
 
-public class Hierarchy : Widget
+public class Hierarchy : WidgetBase
 {
     private readonly World _world;
     private readonly Inspector _inspector;

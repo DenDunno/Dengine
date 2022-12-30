@@ -1,5 +1,5 @@
 ﻿
-public class ControlPanel : Widget
+public class ControlPanel : WidgetBase
 {
     public ControlPanel() : base("Control panel")
     {

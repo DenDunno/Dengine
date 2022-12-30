@@ -16,7 +16,7 @@ public class TextureSerialization : FieldSerialization<Texture?>
 
         IntPtr id = (IntPtr)(texture?.Id ?? 0);
         
-        if (ImGui.ImageButton("Texture", id, Vector2.One * 100))
+        if (ImGui.ImageButton(id, Vector2.One * 100))
         {
             ImGui.OpenPopup("TexturesPopUp");
         }

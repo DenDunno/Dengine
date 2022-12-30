@@ -3,7 +3,6 @@ D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\GameEngine.deps.
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\GameEngine.runtimeconfig.json
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\GameEngine.dll
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\GameEngine.pdb
-D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\Microsoft.Win32.SystemEvents.dll
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\OpenTK.Compute.dll
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\OpenTK.Core.dll
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\OpenTK.Graphics.dll
@@ -14,15 +13,11 @@ D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\OpenTK.Windowing
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\OpenTK.Windowing.Desktop.dll
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\OpenTK.Windowing.GraphicsLibraryFramework.dll
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\StbImageSharp.dll
-D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\System.Drawing.Common.dll
-D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\runtimes\linux-x64\native\libglfw.so.3.3
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\runtimes\osx-arm64\native\libglfw.3.dylib
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\runtimes\osx-x64\native\libglfw.3.dylib
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\runtimes\win-x64\native\glfw3.dll
 D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\runtimes\win-x86\native\glfw3.dll
-D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
-D:\Business\GameEngine\GameEngine\GameEngine\bin\Release\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 D:\Business\GameEngine\GameEngine\GameEngine\obj\Release\net6.0\GameEngine.csproj.AssemblyReference.cache
 D:\Business\GameEngine\GameEngine\GameEngine\obj\Release\net6.0\GameEngine.GeneratedMSBuildEditorConfig.editorconfig
 D:\Business\GameEngine\GameEngine\GameEngine\obj\Release\net6.0\GameEngine.AssemblyInfoInputs.cache

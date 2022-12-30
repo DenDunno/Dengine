@@ -10,6 +10,12 @@ public abstract class TogglingComponent : IGameComponent
             OnUpdate(deltaTime);
         }
     }
+    
+    void IGameComponent.Initialize()
+    {
+        OnInitialize();
+    }
 
+    protected virtual void OnInitialize() {}
     protected abstract void OnUpdate(float deltaTime);
 }
