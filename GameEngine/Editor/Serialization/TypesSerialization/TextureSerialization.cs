@@ -3,6 +3,13 @@ using ImGuiNET;
 
 public class TextureSerialization : FieldSerialization<Texture?>
 {
+    private readonly TexturesViewer _texturesViewer = new();
+
+    public TextureSerialization()
+    {
+        _texturesViewer.Init();
+    }
+    
     protected override object OnSerialize(string fieldInfoName, Texture? texture)
     {
         ImGui.Text(fieldInfoName);
@@ -51,7 +58,7 @@ public class TextureSerialization : FieldSerialization<Texture?>
                 newTexturePath = "NONE";
             }
             
-            foreach (string texturePath in TexturesViewer.Instance.Textures)
+            foreach (string texturePath in _texturesViewer.Textures)
             {
                 if (ImGui.Selectable(Path.GetFileNameWithoutExtension(texturePath)))
                 {

@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
 public class ManyCubesWorld : WorldFactory
@@ -10,7 +9,6 @@ public class ManyCubesWorld : WorldFactory
     private readonly RenderData _cubeCachedRenderData = new()
     {
         Mesh = MeshBuilder.Cube(1f),
-        BufferUsageHint = BufferUsageHint.StaticDraw,
         Material = new LitMaterial(new LitMaterialData()
         {
             Base = new Texture(Paths.GetTexture("crate.png")),

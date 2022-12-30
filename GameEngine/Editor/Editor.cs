@@ -16,7 +16,6 @@ public class Editor : IEngineComponent
 
     public void Initialize()
     {
-        TexturesViewer.Instance.Init();
         ImGuiTheme.Load();
     }
 

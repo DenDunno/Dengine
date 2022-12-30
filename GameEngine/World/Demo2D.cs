@@ -41,7 +41,6 @@ public class Demo2D : WorldFactory
             {
                 Transform = transform,
                 Mesh = mesh,
-                BufferUsageHint = BufferUsageHint.StaticDraw,
                 Material = new UnlitMaterial()
             }),
             

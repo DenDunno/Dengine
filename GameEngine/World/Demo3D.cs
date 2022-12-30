@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
 public class Demo3D : WorldFactory
@@ -41,10 +40,9 @@ public class Demo3D : WorldFactory
         {
             Transform = new Transform(position, Quaternion.FromEulerAngles(rotation)),
             Mesh = MeshBuilder.Cube(1f),
-            BufferUsageHint = BufferUsageHint.StaticDraw,
             Material = new LitMaterial(new LitMaterialData()
             {
-                //Base = new Texture(Paths.GetTexture("crate.png")),
+                Base = new Texture(Paths.GetTexture("crate.png")),
                 Color = Color.White
             })
         };

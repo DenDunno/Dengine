@@ -1,5 +1,5 @@
 ﻿
-public class TexturesViewer : Singlton<TexturesViewer>
+public class TexturesViewer 
 {
     private readonly IReadOnlyCollection<string> _extensions = new[] { "jpg", "png" };
     private readonly string _textureFolderPath = Paths.GetTexture(string.Empty);

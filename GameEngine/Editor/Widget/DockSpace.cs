@@ -18,9 +18,8 @@ public class DockSpace : Widget
 
     protected override void OnDraw()
     {
-        ImGui.SetWindowPos(Vector2.Zero, ImGuiCond.Always);
-        ImGui.SetWindowSize(ImGui.GetIO().DisplaySize);
-        ImGui.DockSpace(ImGui.GetID("Main"));
+        
+        ImGui.DockSpace(ImGui.GetID("Dock"), Vector2.Zero);
     }
 
     public override void AfterDraw()
