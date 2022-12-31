@@ -8,7 +8,7 @@ public class Editor : IEngineComponent
 
     public Editor(Window window, World world)
     {
-        _ui = new UI(world);
+        _ui = new UI(world, window);
         _imGui = new ImGuiController(window);
         _playModeSwitching = new PlayModeSwitching(window, world);
     }

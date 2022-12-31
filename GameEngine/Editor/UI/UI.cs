@@ -4,7 +4,7 @@ public class UI
     private readonly IWidget[] _main;
     private readonly StatsWidget _stats;
     
-    public UI(World world)
+    public UI(World world, Window window)
     {
         Inspector inspector = new();
         _stats = new StatsWidget();
@@ -14,7 +14,7 @@ public class UI
             new DockSpace(),
             new Hierarchy(world, inspector),
             new ControlPanel(),
-            new Viewport(),
+            new Viewport(window, new WorldBrowser(world).FindFirst<CameraControlling>()),
             inspector
         };
     }

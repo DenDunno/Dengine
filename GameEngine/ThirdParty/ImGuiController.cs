@@ -9,6 +9,7 @@ using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using System.Diagnostics;
+using OpenTK.Windowing.Common;
 using ErrorCode = OpenTK.Graphics.OpenGL4.ErrorCode;
 
 public class ImGuiController : IDisposable
@@ -39,7 +40,8 @@ public class ImGuiController : IDisposable
         public ImGuiController(Window window)
         {
             _window = window;
-
+            _window.KeyDown += PressChar;
+            
             int major = GL.GetInteger(GetPName.MajorVersion);
             int minor = GL.GetInteger(GetPName.MinorVersion);
 
@@ -228,7 +230,7 @@ public class ImGuiController : IDisposable
             KeyboardState KeyboardState = _window.KeyboardState;
 
             MouseScroll();
-            
+
             io.MouseDown[0] = MouseState[MouseButton.Left];
             io.MouseDown[1] = MouseState[MouseButton.Right];
             io.MouseDown[2] = MouseState[MouseButton.Middle];
@@ -258,9 +260,9 @@ public class ImGuiController : IDisposable
             io.KeySuper = KeyboardState.IsKeyDown(Keys.LeftSuper) || KeyboardState.IsKeyDown(Keys.RightSuper);
         }
 
-        internal void PressChar(char keyChar)
+        internal void PressChar(KeyboardKeyEventArgs keyboardKeyEventArgs)
         {
-            PressedChars.Add(keyChar);
+            PressedChars.Add((char) keyboardKeyEventArgs.Key);
         }
 
         internal void MouseScroll()

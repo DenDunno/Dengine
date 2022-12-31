@@ -1,56 +1,47 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-public class Framebuffer : GLObject
+public class Framebuffer : Singlton<Framebuffer>
 {
-    public int FBO;
-    public int framebufferTexture;
-    private int depthTexture;
+    public int FramebufferTexture;
+    private int _fbo;
+    private int _depthTexture;
     private int width = 1536;
     private int height = 864;
-    public Framebuffer() : base(0)
-    {
-    }
 
     public void Init()
     {
-        FBO = GL.GenFramebuffer();
-        GL.BindFramebuffer(FramebufferTarget.Framebuffer, FBO);
-
-        // Color Texture
-        framebufferTexture = GL.GenTexture();
-        GL.BindTexture(TextureTarget.Texture2D, framebufferTexture);
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb16f, width, height, 0, PixelFormat.Rgb, PixelType.UnsignedByte, IntPtr.Zero);
-        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
-        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMinFilter.Nearest);
-        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
-        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
-        // Attach color to FBO
-        GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, framebufferTexture, 0);
-
-        // Depth Texture
-        depthTexture = GL.GenTexture();
-        GL.BindTexture(TextureTarget.Texture2D, depthTexture);
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Depth24Stencil8, width, height, 0, PixelFormat.DepthComponent, PixelType.UnsignedByte, IntPtr.Zero);
-        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
-        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMinFilter.Nearest);
-        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
-        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
-        // Attach Depth to FBO
-        GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, TextureTarget.Texture2D, depthTexture, 0);
-
+        GL.CreateFramebuffers(1, out _fbo);
+        GL.BindFramebuffer(FramebufferTarget.Framebuffer, _fbo);
+        
+        GL.CreateTextures(TextureTarget.Texture2D, 1, out FramebufferTexture);
+        GL.BindTexture(TextureTarget.Texture2D, FramebufferTexture);
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba8, width, height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, IntPtr.Zero);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMagFilter.Linear);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+        
+        GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, FramebufferTexture, 0);
+        
+        GL.CreateTextures(TextureTarget.Texture2D, 1, out _depthTexture);
+        GL.BindTexture(TextureTarget.Texture2D, _depthTexture);
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Depth24Stencil8, width, height, 0, PixelFormat.DepthStencil, PixelType.UnsignedInt248, IntPtr.Zero);
+        
+        GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthStencilAttachment, TextureTarget.Texture2D, _depthTexture, 0);
+        
         GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
     }
 
     public void Bind()
     {
-        GL.BindFramebuffer(FramebufferTarget.Framebuffer, FBO);
-        
-        GL.BindTexture(TextureTarget.Texture2D, framebufferTexture);
-        GL.BindTexture(TextureTarget.Texture2D, depthTexture);
+        Bind(_fbo);
+    }
 
-        GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, framebufferTexture, 0);
-        GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, TextureTarget.Texture2D, depthTexture, 0);
-        
-        GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
+    public void UnBind()
+    {
+        Bind(0);
+    }
+
+    private void Bind(int id)
+    {
+        GL.BindFramebuffer(FramebufferTarget.Framebuffer, id);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Numerics;
+﻿using System.Numerics;
 using ImGuiNET;
 
 public static class GrayOrangeTheme
@@ -13,8 +12,6 @@ public static class GrayOrangeTheme
         style.WindowPadding = Vector2.One * 8;
         style.WindowMenuButtonPosition = ImGuiDir.None;
 
-        Color color = Color.FromArgb(92, 66, 91);
-        
         style.Colors[(int)ImGuiCol.Text]                  = new Vector4(1.00f, 1.00f, 1.00f, 1.00f);
         style.Colors[(int)ImGuiCol.TextDisabled]          = new Vector4(0.50f, 0.50f, 0.50f, 1.00f);
         style.Colors[(int)ImGuiCol.WindowBg]              = new Vector4(0.13f, 0.14f, 0.15f, 1.00f);

@@ -26,7 +26,6 @@ public class CameraControlling : TogglingComponent
 
     protected override void OnInitialize()
     {
-        Enabled = false;
     }
 
     protected override void OnUpdate(float deltaTime)
