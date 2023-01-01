@@ -8,14 +8,13 @@ public class UI
     {
         Inspector inspector = new();
         _stats = new StatsWidget();
-        
         _main = new IWidget[]
         {
             new DockSpace(),
+            inspector,
             new Hierarchy(world, inspector),
             new ControlPanel(),
             new Viewport(window, new WorldBrowser(world).FindFirst<CameraControlling>()),
-            inspector
         };
     }
 

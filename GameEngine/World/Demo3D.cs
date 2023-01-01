@@ -67,6 +67,10 @@ public class Demo3D : WorldFactory
         {
             components.Add(new ObjectControlling(transform, Input.Keyboard));
         }
+        else
+        {
+            components.Add(new RotationAnimation(transform, Vector3.One, 0.5f));
+        }
 
         return components;
     }
