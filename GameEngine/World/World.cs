@@ -14,7 +14,7 @@ public class World : EngineComponent
     public override void Initialize()
     {
         GameObjects.ForEach(gameObject => gameObject.Initialize());
-        Stop();
+        Enabled = false;
     }
 
     public override void Update(FrameEventArgs args)

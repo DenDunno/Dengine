@@ -1,5 +1,5 @@
 ﻿
-public abstract class Button : IWidget
+public abstract class Button : UIElement
 {
     private readonly ButtonView _view;
 
@@ -10,7 +10,7 @@ public abstract class Button : IWidget
 
     public event Action? OnClick;
 
-    public void Draw()
+    protected override void OnDraw()
     {
         _view.Draw();
         

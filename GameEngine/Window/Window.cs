@@ -15,7 +15,7 @@ public class Window : GameWindow
     protected override void OnLoad()
     {
         base.OnLoad();
-        Framebuffer.Instance.Init();
+        //Framebuffer.Instance.Init();
     }
 
     protected override void OnUpdateFrame(FrameEventArgs args)

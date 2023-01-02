@@ -1,28 +1,32 @@
 ﻿
 public class UI
 {
-    private readonly IWidget[] _main;
-    private readonly StatsWidget _stats;
-    
+    private readonly List<UIElement> _elements;
+
     public UI(World world, Window window)
     {
         Inspector inspector = new();
-        _stats = new StatsWidget();
-        _main = new IWidget[]
+
+        _elements = new List<UIElement>
         {
             new DockSpace(),
+            new StatsPanel(),
             inspector,
             new Hierarchy(world, inspector),
             new ControlPanel(),
-            new Viewport(window, new WorldBrowser(world).FindFirst<Camera>()),
+            //new Viewport(window, new WorldBrowser(world).FindFirst<Camera>()),
         };
+
+        PanelsMenuItem panelsMenuItem = new(_elements);
+        
+        _elements.Insert(3, panelsMenuItem);
     }
 
-    public T GetWidget<T>() where T : IWidget
+    public T GetWidget<T>() where T : UIElement
     {
         T result = default!;
         
-        foreach (IWidget widget in _main)
+        foreach (UIElement widget in _elements)
         {
             if (widget is T castedT)
             {
@@ -35,16 +39,11 @@ public class UI
 
     public void Update(float deltaTime)
     {
-        _main.ForEach(widget => widget.Update(deltaTime));
+        _elements.ForEach(widget => widget.Update(deltaTime));
     }
     
-    public void DrawMain()
+    public void Draw()
     {
-        _main.ForEach(widget => widget.Draw());
-    }
-
-    public void DrawStats()
-    {
-        _stats.Draw();
+        _elements.ForEach(widget => widget.Draw());
     }
 }

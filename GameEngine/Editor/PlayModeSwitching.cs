@@ -3,37 +3,41 @@
 public class PlayModeSwitching 
 {
     private readonly KeyboardState _keyboardState;
-    private readonly Window _window;
     private readonly World _world;
+    private readonly ControlPanel _controlPanel;
 
     public PlayModeSwitching(Window window, World world, ControlPanel controlPanel)
     {
-        _window = window;
         _world = world;
+        _controlPanel = controlPanel;
         _keyboardState = window.KeyboardState;
         controlPanel.PlayButton.OnClick += OnPlay;
         controlPanel.StopButton.OnClick += OnStop;
     }
 
-    public bool IsEditorMode { get; private set; } = true;
-    private bool IsPlaymode { get; set; }
-    public bool IsStats { get; private set; }
+    private bool _isPlaymode;
 
     private void OnStop()
     {
-        IsPlaymode = false;
-        _world.Stop();
+        ToggleEngineState(false);
     }
 
     private void OnPlay()
     {
-        IsPlaymode = true;
-        _world.Resume();
+        ToggleEngineState(true);
+    }
+
+    private void ToggleEngineState(bool isPlaymode)
+    {
+        _isPlaymode = isPlaymode;
+        _world.Enabled = isPlaymode;
+        _controlPanel.StopButton.Enabled = isPlaymode;
+        _controlPanel.PlayButton.Enabled = isPlaymode == false;
     }
 
     public void Update(float deltaTime)
     {
-        if (IsPlaymode && _keyboardState.IsKeyPressed(Keys.H))
+        if (_isPlaymode && _keyboardState.IsKeyPressed(Keys.H))
         {
             OnStop();
         }

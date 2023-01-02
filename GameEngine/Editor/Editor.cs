@@ -29,10 +29,7 @@ public class Editor : EngineComponent
 
     public override void Draw(FrameEventArgs args)
     {
-        if (_playModeSwitching.IsEditorMode)
-        {
-            _ui.DrawMain();
-            _imGui.Render();
-        }
+        _ui.Draw();
+        _imGui.Render();
     }
 }
