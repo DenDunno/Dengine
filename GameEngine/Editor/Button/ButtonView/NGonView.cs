@@ -18,6 +18,6 @@ public class NGonView : ButtonView
         Vector2 size = rectMax - rectMin;
         Vector2 position = new(rectMin.X + size.X * 0.37f, rectMin.Y + size.Y * 0.5f);
         
-        drawList.AddNgonFilled(position, _radius, Color, _segments);
+        drawList.AddNgon(position, _radius, Color, _segments, 4f);
     }
 }

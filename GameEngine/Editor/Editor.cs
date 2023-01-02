@@ -1,7 +1,6 @@
-﻿using ImGuiNET;
-using OpenTK.Windowing.Common;
+﻿using OpenTK.Windowing.Common;
 
-public class Editor : IEngineComponent
+public class Editor : EngineComponent
 {
     private readonly ImGuiController _imGui;
     private readonly PlayModeSwitching _playModeSwitching;
@@ -11,15 +10,15 @@ public class Editor : IEngineComponent
     {
         _ui = new UI(world, window);
         _imGui = new ImGuiController(window);
-        _playModeSwitching = new PlayModeSwitching(window, world);
+        _playModeSwitching = new PlayModeSwitching(window, world, _ui.GetWidget<ControlPanel>());
     }
 
-    public void Initialize()
+    public override void Initialize()
     {
         GrayOrangeTheme.Load();
     }
 
-    public void Update(FrameEventArgs args)
+    public override void Update(FrameEventArgs args)
     {
         float deltaTime = (float) args.Time;
         
@@ -28,18 +27,12 @@ public class Editor : IEngineComponent
         _ui.Update(deltaTime);
     }
 
-    public void Draw(FrameEventArgs args)
+    public override void Draw(FrameEventArgs args)
     {
         if (_playModeSwitching.IsEditorMode)
         {
             _ui.DrawMain();
+            _imGui.Render();
         }
-        else if (_playModeSwitching.IsStats)
-        {
-            _ui.DrawStats();
-        }
-
-        ImGui.ShowDemoWindow();
-        _imGui.Render();
     }
 }

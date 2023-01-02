@@ -3,22 +3,22 @@ using OpenTK.Mathematics;
 
 public class Camera : IGameComponent
 {
+    public readonly Transform Transform;
     private readonly float _nearClipPlane = 0.01f;
     private readonly float _farClipPlane = 10000f;
     private readonly int[] _viewport = new int[4];
-    private readonly Transform _transform;
 
     public Camera(Transform transform)
     {
-        _transform = transform;
+        Transform = transform;
     }
 
     public Matrix4 ViewMatrix
     {
         get
         {
-            Vector3 position = _transform.Position;
-            TransformOrientation orientation = _transform.Orientation;
+            Vector3 position = Transform.Position;
+            TransformOrientation orientation = Transform.Orientation;
             return Matrix4.LookAt(position, position + orientation.Front, orientation.Up);
         }
     }

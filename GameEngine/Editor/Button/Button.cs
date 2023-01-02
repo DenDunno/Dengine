@@ -7,16 +7,16 @@ public abstract class Button : IWidget
     {
         _view = view;
     }
-    
+
+    public event Action? OnClick;
+
     public void Draw()
     {
         _view.Draw();
         
         if (_view.WasClicked)
         {
-            OnClick();
+            OnClick?.Invoke();
         }
     }
-
-    protected abstract void OnClick();
 }

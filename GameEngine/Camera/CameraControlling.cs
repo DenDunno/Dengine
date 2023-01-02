@@ -1,6 +1,6 @@
 ﻿using OpenTK.Windowing.GraphicsLibraryFramework;
 
-public class CameraControlling : TogglingComponent
+public class CameraControlling : IGameComponent
 {
     private readonly Transform _camera;
     private readonly PlayerInput _playerInput;
@@ -24,11 +24,7 @@ public class CameraControlling : TogglingComponent
         };
     }
 
-    protected override void OnInitialize()
-    {
-    }
-
-    protected override void OnUpdate(float deltaTime)
+    public void Update(float deltaTime)
     {
         Move(deltaTime);
         Rotate(deltaTime);

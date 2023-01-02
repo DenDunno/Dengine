@@ -12,9 +12,6 @@ public abstract class WidgetBase : IWidget
     }
 
     public virtual void Update(float deltaTime) { }
-    
-    public virtual void PreDraw() {}
-    public virtual void AfterDraw() {}
 
     public void Draw()
     {

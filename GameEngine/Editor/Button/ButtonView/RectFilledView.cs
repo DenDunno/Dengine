@@ -10,6 +10,6 @@ public class RectFilledView : ButtonView
 
     protected override void OnDraw(Vector2 rectMin, Vector2 rectMax, ImDrawListPtr drawList)
     {
-        drawList.AddRectFilled(rectMin, rectMax, Color);
+        drawList.AddRect(rectMin, rectMax, Color, 0, ImDrawFlags.None, 4f);
     }
 }

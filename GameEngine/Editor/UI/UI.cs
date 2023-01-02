@@ -14,8 +14,23 @@ public class UI
             inspector,
             new Hierarchy(world, inspector),
             new ControlPanel(),
-            new Viewport(window, new WorldBrowser(world).FindFirst<CameraControlling>()),
+            new Viewport(window, new WorldBrowser(world).FindFirst<Camera>()),
         };
+    }
+
+    public T GetWidget<T>() where T : IWidget
+    {
+        T result = default!;
+        
+        foreach (IWidget widget in _main)
+        {
+            if (widget is T castedT)
+            {
+                result = castedT;
+            }
+        }
+
+        return result;
     }
 
     public void Update(float deltaTime)

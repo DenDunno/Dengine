@@ -18,7 +18,7 @@ public class Engine
         Initialize(_editor);
     }
 
-    private void Initialize(IEngineComponent engineComponent)
+    private void Initialize(EngineComponent engineComponent)
     {
         _window.Load += engineComponent.Initialize;
         _window.UpdateFrame += engineComponent.Update;

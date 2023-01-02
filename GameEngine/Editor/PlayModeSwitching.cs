@@ -1,35 +1,41 @@
-﻿using OpenTK.Windowing.Common;
-using OpenTK.Windowing.GraphicsLibraryFramework;
+﻿using OpenTK.Windowing.GraphicsLibraryFramework;
 
 public class PlayModeSwitching 
 {
     private readonly KeyboardState _keyboardState;
-    private readonly CameraControlling _cameraControlling;
     private readonly Window _window;
+    private readonly World _world;
 
-    public PlayModeSwitching(Window window, World world)
+    public PlayModeSwitching(Window window, World world, ControlPanel controlPanel)
     {
         _window = window;
+        _world = world;
         _keyboardState = window.KeyboardState;
-        _cameraControlling = new WorldBrowser(world).FindFirst<CameraControlling>();
+        controlPanel.PlayButton.OnClick += OnPlay;
+        controlPanel.StopButton.OnClick += OnStop;
     }
 
     public bool IsEditorMode { get; private set; } = true;
+    private bool IsPlaymode { get; set; }
     public bool IsStats { get; private set; }
-    
+
+    private void OnStop()
+    {
+        IsPlaymode = false;
+        _world.Stop();
+    }
+
+    private void OnPlay()
+    {
+        IsPlaymode = true;
+        _world.Resume();
+    }
+
     public void Update(float deltaTime)
     {
-        if (_keyboardState.IsKeyPressed(Keys.Enter))
+        if (IsPlaymode && _keyboardState.IsKeyPressed(Keys.H))
         {
-            IsEditorMode = !IsEditorMode;
-            
-            _cameraControlling.Enabled = !IsEditorMode;
-            _window.CursorState = IsEditorMode ? CursorState.Normal : CursorState.Grabbed;
-        }
-        
-        if (_keyboardState.IsKeyPressed(Keys.T))
-        {
-            IsStats = !IsStats;
+            OnStop();
         }
     }
 }

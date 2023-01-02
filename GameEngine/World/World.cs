@@ -1,6 +1,6 @@
 ﻿using OpenTK.Windowing.Common;
 
-public class World : IEngineComponent
+public class World : EngineComponent
 {
     public readonly IReadOnlyList<GameObject> GameObjects;
     private readonly Camera _camera;
@@ -11,22 +11,24 @@ public class World : IEngineComponent
         _camera = camera;
     }
 
-    public void Initialize()
+    public override void Initialize()
     {
         GameObjects.ForEach(gameObject => gameObject.Initialize());
+        Stop();
     }
 
-    public void Update(FrameEventArgs args)
+    public override void Update(FrameEventArgs args)
     {
-        float deltaTime = (float)args.Time;
-
-        foreach (GameObject gameObject in GameObjects)
+        if (Enabled)
         {
-            gameObject.Update(deltaTime);
+            foreach (GameObject gameObject in GameObjects)
+            {
+                gameObject.Update((float)args.Time);
+            }
         }
     }
 
-    public void Draw(FrameEventArgs args)
+    public override void Draw(FrameEventArgs args)
     {
         foreach (GameObject gameObject in GameObjects)
         {

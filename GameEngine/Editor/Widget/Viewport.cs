@@ -9,15 +9,30 @@ public class Viewport : WidgetBase
     private readonly Vector2 _offset = new(16, 48);
     private bool _isCameraControlling;
 
-    public Viewport(Window window, CameraControlling cameraControlling) : base("Viewport")
+    public Viewport(Window window, Camera camera) : base("Viewport")
     {
         _window = window;
-        _cameraControlling = cameraControlling;
+        _cameraControlling = new CameraControlling(camera.Transform, window.Input);
+    }
+
+    public override void Update(float deltaTime)
+    {
+        TryControlCamera(deltaTime);
+    }
+
+    private void TryControlCamera(float deltaTime)
+    {
+        _window.CursorState = _isCameraControlling ? CursorState.Grabbed : CursorState.Normal;
+
+        if (_isCameraControlling)
+        {
+            _cameraControlling.Update(deltaTime);
+        }
     }
 
     protected override void OnDraw()
     {
-        TryControlCamera();
+        UpdateCameraControllingState();
         
         Framebuffer.Instance.Bind();
         Vector2 size = ImGui.GetWindowSize() - _offset;
@@ -26,7 +41,7 @@ public class Viewport : WidgetBase
         Framebuffer.Instance.UnBind();
     }
 
-    private void TryControlCamera()
+    private void UpdateCameraControllingState()
     {
         if (_isCameraControlling)
         {
@@ -36,8 +51,5 @@ public class Viewport : WidgetBase
         {
             _isCameraControlling = ImGui.IsWindowHovered() && ImGui.IsMouseDown(ImGuiMouseButton.Right);
         }
-        
-        _window.CursorState = _isCameraControlling ? CursorState.Grabbed : CursorState.Normal;
-        _cameraControlling.Enabled = _isCameraControlling;
     }
 }
