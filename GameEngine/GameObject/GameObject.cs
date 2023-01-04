@@ -17,9 +17,9 @@ public class GameObject
 
     public void Update(float deltaTime)
     {
-        for (int i = 0; i < Data.Components.Count; ++i)
+        foreach (IGameComponent gameComponent in Data.Components)
         {
-            Data.Components[i].Update(deltaTime);
+            gameComponent.Update(deltaTime);
         }
     }
 

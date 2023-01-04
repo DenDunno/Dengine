@@ -3,8 +3,8 @@
 public class PlayModeSwitching 
 {
     private readonly KeyboardState _keyboardState;
-    private readonly World _world;
     private readonly ControlPanel _controlPanel;
+    private readonly World _world;
 
     public PlayModeSwitching(Window window, World world, ControlPanel controlPanel)
     {

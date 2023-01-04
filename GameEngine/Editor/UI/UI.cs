@@ -14,12 +14,8 @@ public class UI
             inspector,
             new Hierarchy(world, inspector),
             new ControlPanel(),
-            //new Viewport(window, new WorldBrowser(world).FindFirst<Camera>()),
+            new Viewport(window, new WorldBrowser(world).FindFirst<Camera>()),
         };
-
-        PanelsMenuItem panelsMenuItem = new(_elements);
-        
-        _elements.Insert(3, panelsMenuItem);
     }
 
     public T GetWidget<T>() where T : UIElement

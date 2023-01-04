@@ -1,9 +1,9 @@
 ﻿using System.Numerics;
 using ImGuiNET;
 
-public static class GrayOrangeTheme
+public class GrayOrangeTheme : IEditorTheme
 {
-    public static void Load()
+    public void Load()
     {
         ImGuiStylePtr style = ImGui.GetStyle();
         style.ItemSpacing = new Vector2(3, 15);

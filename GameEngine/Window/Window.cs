@@ -10,12 +10,7 @@ public class Window : GameWindow
     public Window(NativeWindowSettings nativeWindowSettings) : base(GameWindowSettings.Default, nativeWindowSettings)
     {
         Input = new PlayerInput(MouseState, KeyboardState);
-    }
-
-    protected override void OnLoad()
-    {
-        base.OnLoad();
-        //Framebuffer.Instance.Init();
+        Framebuffer.Instance.Init();
     }
 
     protected override void OnUpdateFrame(FrameEventArgs args)

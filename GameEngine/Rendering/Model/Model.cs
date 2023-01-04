@@ -2,8 +2,8 @@
 
 public class Model : IModel
 {
-    private readonly VertexArrayObject _vertexArrayObject;
     [EditorField] private readonly Material _material;
+    private readonly VertexArrayObject _vertexArrayObject;
     private readonly GLRenderer _glRenderer;
     private readonly Transform _transform;
 

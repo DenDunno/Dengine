@@ -6,5 +6,5 @@ public interface ICollider // Visitor pattern
     bool CheckCollision(MeshCollider meshCollider);
     bool CheckCollision(SphereCollider sphereCollider);
     
-    public virtual void Init() {}
+    public void Init() {}
 }
