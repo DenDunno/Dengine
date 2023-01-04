@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using System.Drawing;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
@@ -43,6 +44,9 @@ public class Window : GameWindow
 
     private void Render(FrameEventArgs args)
     {
+        GL.Clear(ClearBufferMask.ColorBufferBit);
+        GL.ClearColor(Color.Aquamarine);
+        
         Framebuffer.Instance.Bind();
         
         GL.Viewport(0, 0, Size.X, Size.Y);
@@ -51,8 +55,6 @@ public class Window : GameWindow
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.Enable(EnableCap.Blend);
         base.OnRenderFrame(args);
-        
-        Framebuffer.Instance.UnBind();
     }
 
     protected override void OnResize(ResizeEventArgs e)

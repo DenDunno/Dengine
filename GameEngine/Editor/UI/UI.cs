@@ -9,7 +9,7 @@ public class UI
 
         _elements = new List<UIElement>
         {
-            new DockSpace(),
+            //new DockSpace(),
             new StatsPanel(),
             inspector,
             new Hierarchy(world, inspector),

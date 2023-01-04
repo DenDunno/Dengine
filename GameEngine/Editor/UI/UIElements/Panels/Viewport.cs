@@ -34,11 +34,9 @@ public class Viewport : Panel
     {
         UpdateCameraControllingState();
         
-        Framebuffer.Instance.Bind();
         Vector2 size = ImGui.GetWindowSize() - _offset;
 
         ImGui.Image((IntPtr) Framebuffer.Instance.FramebufferTexture, size, Vector2.UnitY, Vector2.UnitX);
-        Framebuffer.Instance.UnBind();
     }
 
     private void UpdateCameraControllingState()

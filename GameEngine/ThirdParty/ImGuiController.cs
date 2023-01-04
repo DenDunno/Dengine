@@ -184,6 +184,7 @@ public class ImGuiController : IDisposable
             if (_frameBegun)
             {
                 _frameBegun = false;
+                GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
                 ImGui.Render();
                 RenderImDrawData(ImGui.GetDrawData());
             }
