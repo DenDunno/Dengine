@@ -10,7 +10,6 @@
 
     <ItemGroup>
       <PackageReference Include="ConsoleTables" Version="2.4.2" />
-      <PackageReference Include="ImGui.NET" Version="1.88.0" />
       <PackageReference Include="OpenTK" Version="4.7.5" />
       <PackageReference Include="StbImageSharp" Version="2.27.11" />
     </ItemGroup>
@@ -25,6 +24,10 @@
 
     <ItemGroup>
       <None Remove="bin\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ImGui\ImGui.NET\ImGui.NET.csproj" />
     </ItemGroup>
 
 </Project>

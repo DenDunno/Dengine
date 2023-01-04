@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+	<Description>A .NET wrapper for the Dear ImGui library.</Description>
+	<AssemblyVersion>1.84.0</AssemblyVersion>
+	<Authors>Eric Mellino</Authors>
+	<TargetFramework>net6.0</TargetFramework>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<AssemblyName>ImGui.NET</AssemblyName>
+	<PackageId>ImGui.NET</PackageId>
+	<PackageVersion>$(AssemblyVersion)$(PackagePrereleaseIdentifier)</PackageVersion>
+	<RootNamespace>ImGuiNET</RootNamespace>
+	<Platforms>x64</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+	<DefineConstants>RELEASE;</DefineConstants>
+	<DebugType>none</DebugType>
+	<Optimize>true</Optimize>
+	<CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+	<DefineConstants>TRACE;DEBUG</DefineConstants>
+	<DebugType>portable</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<Content Include="..\dependencies\win-x64\cimgui.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="..\dependencies\linux-x64\cimgui.so">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="..\dependencies\osx-x64\cimgui.dylib">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+  </ItemGroup>
+
+  <ItemGroup>
+	<Folder Include="Generated\" />
+  </ItemGroup>
+</Project>
