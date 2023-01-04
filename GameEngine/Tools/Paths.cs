@@ -2,7 +2,6 @@
 public static class Paths
 {
     private static readonly string _resourcesPath = Path.GetFullPath(@"..\..\..\..\Resources\");
-    private static readonly string _shadersPath = Path.GetFullPath(@"..\..\..\Shaders\");
 
     public static string GetModel(string modelName)
     {
@@ -16,7 +15,7 @@ public static class Paths
     
     public static string GetShader(string shaderName)
     {
-        return $"{_shadersPath}{shaderName}.glsl";
+        return $"{_resourcesPath}Shaders\\{shaderName}.glsl";
     }
     
     public static List<string> GetSkybox(string skyboxName)
