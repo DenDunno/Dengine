@@ -4,18 +4,18 @@ public abstract class WorldFactory
 {
     private readonly Camera _camera;
     
-    protected WorldFactory(PlayerInput playerInput)
+    protected WorldFactory()
     {
-        Input = playerInput;
         CameraTransform = new Transform(new Vector3(0, 0, 3));
         _camera = new Camera(CameraTransform);
     }
 
-    protected PlayerInput Input { get; }
+    protected PlayerInput Input { get; private set; } = null!;
     protected Transform CameraTransform { get; }
 
-    public World Create()
+    public World Create(PlayerInput playerInput)
     {
+        Input = playerInput;
         List<GameObject> gameObjects = CreateGameObjects();
         gameObjects.Add(CreateCamera());
 

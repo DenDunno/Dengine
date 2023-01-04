@@ -2,6 +2,7 @@
 
 public class Model : IModel
 {
+    [EditorField] private readonly bool _visible = true;
     [EditorField] private readonly Material _material;
     private readonly VertexArrayObject _vertexArrayObject;
     private readonly GLRenderer _glRenderer;
@@ -23,11 +24,14 @@ public class Model : IModel
 
     public void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
     {
-        _material.Bridge.SetMatrix4("model", _transform.ModelMatrix);
-        _material.Bridge.SetMatrix4("view", viewMatrix);
-        _material.Bridge.SetMatrix4("projection", projectionMatrix);
-        _vertexArrayObject.Bind();
-        _material.Use();
-        _glRenderer.Draw();
+        if (_visible)
+        {
+            _material.Bridge.SetMatrix4("model", _transform.ModelMatrix);
+            _material.Bridge.SetMatrix4("view", viewMatrix);
+            _material.Bridge.SetMatrix4("projection", projectionMatrix);
+            _vertexArrayObject.Bind();
+            _material.Use();
+            _glRenderer.Draw();
+        }
     }
 }

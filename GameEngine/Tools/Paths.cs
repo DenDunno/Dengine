@@ -13,6 +13,11 @@ public static class Paths
         return $"{_resourcesPath}Textures\\{textureName}";
     }
     
+    public static string[] GetTexturesInFolder(string folderName)
+    {
+        return Directory.GetFiles($"{_resourcesPath}Textures\\{folderName}");
+    }
+    
     public static string GetShader(string shaderName)
     {
         return $"{_resourcesPath}Shaders\\{shaderName}.glsl";

@@ -4,10 +4,6 @@ using OpenTK.Mathematics;
 public class Demo3D : WorldFactory
 {
     private Light _light = null!;
-    
-    public Demo3D(PlayerInput playerInput) : base(playerInput)
-    {
-    }
 
     protected override List<GameObject> CreateGameObjects()
     {

@@ -1,24 +1,24 @@
 ﻿
 public class LitMaterial : Material
 {
-    [EditorField] private readonly LitMaterialData _data;
+    [EditorField] public readonly LitMaterialData Data;
 
     public LitMaterial(LitMaterialData data) : base(Paths.GetShader("vert"), Paths.GetShader("lit"))
     {
-        _data = data;
+        Data = data;
     }
 
     protected override void OnInit()
     {
-        _data.Base?.Load();
+        Data.Base?.Load();
     }
 
     protected override void OnUse()
     {
-        int hasTexture = Convert.ToInt32(_data.Base != null);
+        int hasTexture = Convert.ToInt32(Data.Base != null);
         Bridge.SetInt("hasTexture", hasTexture);
 
-        _data.Base?.Use();
-        Bridge.SetColor("baseColor", _data.Color);
+        Data.Base?.Use();
+        Bridge.SetColor("baseColor", Data.Color);
     }
 }

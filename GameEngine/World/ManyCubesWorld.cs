@@ -15,10 +15,6 @@ public class ManyCubesWorld : WorldFactory
             Color = Color.White
         })
     };
-    
-    public ManyCubesWorld(PlayerInput playerInput) : base(playerInput)
-    {
-    }
 
     protected override List<GameObject> CreateGameObjects()
     {

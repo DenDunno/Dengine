@@ -1,15 +1,15 @@
 ﻿using System.Drawing;
 
-public class UnlitMaterial : Material
+public class UnlitMaterial : LitMaterial
 {
-    [EditorField] private readonly Color _color = Color.White;
-
-    public UnlitMaterial() : base(Paths.GetShader("vert"), Paths.GetShader("unlit"))
+    public UnlitMaterial(LitMaterialData data) : base(data)
     {
     }
 
-    protected override void OnUse()
+    protected override void OnInit()
     {
-        Bridge.SetColor("baseColor", _color);
+        base.OnInit();
+        Bridge.SetColor("lightColor", Color.White);
+        Bridge.SetFloat("ambientValue", 1);
     }
 }

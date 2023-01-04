@@ -2,10 +2,6 @@
 
 public class Demo2D : WorldFactory
 {
-    public Demo2D(PlayerInput playerInput) : base(playerInput)
-    {
-    }
-
     protected override List<GameObject> CreateGameObjects()
     {
         return new List<GameObject>()
@@ -40,7 +36,10 @@ public class Demo2D : WorldFactory
             {
                 Transform = transform,
                 Mesh = mesh,
-                Material = new UnlitMaterial()
+                Material = new UnlitMaterial(new LitMaterialData()
+                {
+                    Base = new Texture(Paths.GetTexture("crate.png"))
+                })
             }),
             
             Components = GetComponents(isControlling, transform)
