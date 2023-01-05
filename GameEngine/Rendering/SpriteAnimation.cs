@@ -1,8 +1,8 @@
 ﻿
-public class SpriteAnimation : IGameComponent
+public class SpriteAnimation : TogglingComponent
 {
+    [EditorField] private readonly float _rate;
     private readonly Texture[] _frames;
-    private readonly float _rate;
     private readonly LitMaterial _material;
     private float _clock;
     private int _currentFrame;
@@ -26,7 +26,7 @@ public class SpriteAnimation : IGameComponent
         return result;
     }
 
-    void IGameComponent.Initialize()
+    protected override void OnInitialize()
     {
         foreach (Texture frame in _frames)
         {
@@ -34,7 +34,7 @@ public class SpriteAnimation : IGameComponent
         }
     }
 
-    void IGameComponent.Update(float deltaTime)
+    protected override void OnUpdate(float deltaTime)
     {
         if (Timer.Time >= _clock + _rate)
         {

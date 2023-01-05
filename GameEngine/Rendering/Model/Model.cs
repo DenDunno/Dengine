@@ -2,8 +2,8 @@
 
 public class Model : IModel
 {
+    [EditorField] public readonly Material Material;
     [EditorField] private readonly bool _visible = true;
-    [EditorField] private readonly Material _material;
     private readonly VertexArrayObject _vertexArrayObject;
     private readonly GLRenderer _glRenderer;
     private readonly Transform _transform;
@@ -13,12 +13,12 @@ public class Model : IModel
         _vertexArrayObject = new VertexArrayObject(renderData);
         _glRenderer = new GLRenderer(renderData.Mesh.Data);
         _transform = renderData.Transform;
-        _material = renderData.Material;
+        Material = renderData.Material;
     }
 
     public void Initialize()
     {
-        _material.Init();
+        Material.Init();
         _vertexArrayObject.Init();
     }
 
@@ -26,11 +26,11 @@ public class Model : IModel
     {
         if (_visible)
         {
-            _material.Bridge.SetMatrix4("model", _transform.ModelMatrix);
-            _material.Bridge.SetMatrix4("view", viewMatrix);
-            _material.Bridge.SetMatrix4("projection", projectionMatrix);
+            Material.Bridge.SetMatrix4("model", _transform.ModelMatrix);
+            Material.Bridge.SetMatrix4("view", viewMatrix);
+            Material.Bridge.SetMatrix4("projection", projectionMatrix);
             _vertexArrayObject.Bind();
-            _material.Use();
+            Material.Use();
             _glRenderer.Draw();
         }
     }

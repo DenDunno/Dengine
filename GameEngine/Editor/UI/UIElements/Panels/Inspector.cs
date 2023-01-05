@@ -5,7 +5,8 @@ using ImGuiNET;
 public class Inspector : Panel
 {
     private GameObjectData? _gameObjectToBeShown;
-    private readonly EditorFieldSerialization _editorFieldSerialization = new();
+    private readonly DataSerialization _dataSerialization = new();
+    private readonly ButtonsSerialization _buttonsSerialization = new();
     
     public Inspector() : base("Inspector")
     {
@@ -50,7 +51,14 @@ public class Inspector : Panel
         {
             if (ImGui.TreeNode(component.GetType().Name))
             {
-                _editorFieldSerialization.Execute(component);
+                ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(155 / 255f, 120 / 255f, 68 / 255f, 1));
+                ImGui.PushStyleColor(ImGuiCol.FrameBg, new Vector4(155 / 255f, 120 / 255f, 68 / 255f, 1));
+                
+                _dataSerialization.Execute(component);
+                _buttonsSerialization.Execute(component);
+                
+                ImGui.PopStyleColor();
+                ImGui.PopStyleColor();
                 ImGui.TreePop();
             }
         }

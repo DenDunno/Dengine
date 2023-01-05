@@ -2,12 +2,12 @@
 using System.Reflection;
 using OpenTK.Mathematics;
 
-public class EditorFieldSerialization
+public class DataSerialization
 {
     private readonly Dictionary<Type, IFieldSerialization> _typeSerialization;
-    private readonly BindingFlags _bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
+    private readonly BindingFlags _bindingFlags = BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public;
     
-    public EditorFieldSerialization()
+    public DataSerialization()
     {
         _typeSerialization = new Dictionary<Type, IFieldSerialization>()
         {
@@ -31,8 +31,11 @@ public class EditorFieldSerialization
     {
         object field = fieldInfo.GetValue(instance)!;
 
-        TrySerializeChildren(field);
-        TrySerializeYourself(fieldInfo, field, instance);
+        if (fieldInfo.IsDefined(typeof(EditorField), false))
+        {
+            TrySerializeChildren(field);
+            TrySerializeYourself(fieldInfo, field, instance);    
+        }
     }
 
     private void TrySerializeChildren(object? field)
@@ -53,7 +56,7 @@ public class EditorFieldSerialization
 
     private void TrySerializeYourself(FieldInfo fieldInfo, object field, object instance)
     {
-        if (fieldInfo.IsDefined(typeof(EditorField), false) && _typeSerialization.ContainsKey(fieldInfo.FieldType))
+        if (_typeSerialization.ContainsKey(fieldInfo.FieldType))
         {
             IFieldSerialization fieldSerialization = _typeSerialization[fieldInfo.FieldType];
             fieldSerialization.Serialize(fieldInfo, field, instance);
