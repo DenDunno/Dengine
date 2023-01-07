@@ -1,4 +1,5 @@
 ﻿
+[HideInInspector]
 public class Timer : IGameComponent
 {
     public static float Time { get; private set; }

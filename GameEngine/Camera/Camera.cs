@@ -4,8 +4,8 @@ using OpenTK.Mathematics;
 public class Camera : IGameComponent
 {
     public readonly Transform Transform;
-    private readonly float _nearClipPlane = 0.01f;
-    private readonly float _farClipPlane = 10000f;
+    [EditorField] private readonly float _nearClipPlane = 0.01f;
+    [EditorField] private readonly float _farClipPlane = 10000f;
     private readonly int[] _viewport = new int[4];
 
     public Camera(Transform transform)
@@ -13,15 +13,7 @@ public class Camera : IGameComponent
         Transform = transform;
     }
 
-    public Matrix4 ViewMatrix
-    {
-        get
-        {
-            Vector3 position = Transform.Position;
-            TransformOrientation orientation = Transform.Orientation;
-            return Matrix4.LookAt(position, position + orientation.Front, orientation.Up);
-        }
-    }
+    public Matrix4 ViewMatrix => Matrix4.LookAt(Transform.Position, Transform.Position + Transform.Front, Transform.Up);
 
     public Matrix4 ProjectionMatrix
     {

@@ -3,6 +3,7 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
 // Debug rendering tool
+[HideInInspector]
 public class Gizmo : Singlton<Gizmo>, IModel
 {
     private readonly List<GizmoDrawable> _drawables = new();

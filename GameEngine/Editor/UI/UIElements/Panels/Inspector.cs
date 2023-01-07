@@ -49,20 +49,38 @@ public class Inspector : Panel
         
         foreach (IGameComponent component in _gameObjectToBeShown!.Components)
         {
-            if (ImGui.TreeNode(component.GetType().Name))
+            if (IsSerializableComponent(component))
             {
-                ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(155 / 255f, 120 / 255f, 68 / 255f, 1));
-                ImGui.PushStyleColor(ImGuiCol.FrameBg, new Vector4(155 / 255f, 120 / 255f, 68 / 255f, 1));
-                
-                _dataSerialization.Execute(component);
-                _buttonsSerialization.Execute(component);
-                
-                ImGui.PopStyleColor();
-                ImGui.PopStyleColor();
-                ImGui.TreePop();
+                if (ImGui.TreeNode(component.GetType().Name))
+                {
+                    EnableInspectorStyle();
+                    
+                    _dataSerialization.Execute(component);
+                    _buttonsSerialization.Execute(component);
+                    
+                    DisableStyle();
+                }
             }
         }
         
         ImGui.EndListBox();
+    }
+
+    private bool IsSerializableComponent(IGameComponent component)
+    {
+        return component.GetType().IsDefined(typeof(HideInInspector), true) == false;
+    }
+    
+    private void EnableInspectorStyle()
+    {
+        ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(155 / 255f, 120 / 255f, 68 / 255f, 1));
+        ImGui.PushStyleColor(ImGuiCol.FrameBg, new Vector4(155 / 255f, 120 / 255f, 68 / 255f, 1));
+    }
+
+    private void DisableStyle()
+    {
+        ImGui.PopStyleColor();
+        ImGui.PopStyleColor();
+        ImGui.TreePop();
     }
 }

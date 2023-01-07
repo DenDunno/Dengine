@@ -1,4 +1,5 @@
 ﻿
+[HideInInspector]
 public class Stats : Singlton<Stats>, IGameComponent
 {
     public readonly Benchmark Benchmark = new();

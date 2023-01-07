@@ -15,12 +15,12 @@ public class CameraControlling : IGameComponent
         _playerInput = playerInput;
         _movementKeys = new List<MovementKey>
         {
-            new(Keys.W, ()=> _camera.Orientation.Front),
-            new(Keys.S, ()=> -_camera.Orientation.Front),
-            new(Keys.D, ()=> _camera.Orientation.Right),
-            new(Keys.A, ()=> -_camera.Orientation.Right),
-            new(Keys.Space, ()=> _camera.Orientation.Up),
-            new(Keys.LeftControl, ()=> -_camera.Orientation.Up),
+            new(Keys.W, ()=> _camera.Front),
+            new(Keys.S, ()=> -_camera.Front),
+            new(Keys.D, ()=> _camera.Right),
+            new(Keys.A, ()=> -_camera.Right),
+            new(Keys.Space, ()=> _camera.Up),
+            new(Keys.LeftControl, ()=> -_camera.Up),
         };
     }
 
@@ -45,7 +45,7 @@ public class CameraControlling : IGameComponent
 
     private void Rotate(float deltaTime)
     {
-        _camera.Orientation.Yaw += _playerInput.Mouse.Delta.X * _rotationSpeed * deltaTime;
-        _camera.Orientation.Pitch -= _playerInput.Mouse.Delta.Y * _rotationSpeed * deltaTime;
+        _camera.Yaw += _playerInput.Mouse.Delta.X * _rotationSpeed * deltaTime;
+        _camera.Pitch -= _playerInput.Mouse.Delta.Y * _rotationSpeed * deltaTime;
     }
 }
