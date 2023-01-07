@@ -2,10 +2,10 @@
 
 public class World : EngineComponent
 {
-    public readonly IReadOnlyList<GameObject> GameObjects;
+    public readonly List<GameObject> GameObjects;
     private readonly Camera _camera;
 
-    public World(Camera camera, IReadOnlyList<GameObject> gameObjects)
+    public World(Camera camera, List<GameObject> gameObjects)
     {
         GameObjects = gameObjects;
         _camera = camera;
@@ -13,7 +13,11 @@ public class World : EngineComponent
 
     public override void Initialize()
     {
-        GameObjects.ForEach(gameObject => gameObject.Initialize());
+        for (int i = 0; i < GameObjects.Count; i++)
+        {
+            GameObjects[i].Initialize();
+        }
+        
         Enabled = false;
     }
 

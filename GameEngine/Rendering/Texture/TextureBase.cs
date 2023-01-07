@@ -3,7 +3,8 @@
 public abstract class TextureBase : GLObject, IDisposable
 {
     private readonly TextureTarget _textureTarget;
-
+    private bool _wasLoaded;
+    
     protected TextureBase(TextureTarget textureTarget) : base(GL.GenTexture())
     {
         _textureTarget = textureTarget;
@@ -15,7 +16,16 @@ public abstract class TextureBase : GLObject, IDisposable
         GL.BindTexture(_textureTarget, Id);
     }
 
-    public abstract void Load();
+    public void Load()
+    {
+        if (_wasLoaded == false)
+        {
+            _wasLoaded = true;
+            OnLoad();
+        }
+    }
+
+    protected abstract void OnLoad();
 
     public void Dispose()
     {

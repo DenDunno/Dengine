@@ -10,7 +10,7 @@ public class Texture : TextureBase
         _path = path;
     }
 
-    public override void Load()
+    protected override void OnLoad()
     {
         Use();
         using (Stream stream = File.OpenRead(_path))

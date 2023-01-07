@@ -32,6 +32,31 @@ public static class VectorExtensions
         return new Vector3(vector3.X, vector3.Y, vector3.Z);
     }
 
+    public static Vector2i ToVector2I(this Vector3 vector3)
+    {
+        return new Vector2i((int)vector3.X, (int)vector3.Y);
+    }
+    
+    public static Vector3 ToVector3(this Vector2i vector2I)
+    {
+        return new Vector3(vector2I.X, vector2I.Y, 0);
+    }
+
+    public static void MoveTowards(this ref Vector3 start, Vector3 target, float maxDistanceDelta)
+    {
+        Vector3 direction = target - start;
+        float magnitude = direction.Length;
+
+        if (magnitude <= maxDistanceDelta || magnitude == 0f)
+        {
+            start = target;
+        }
+        else
+        {
+            start += direction / magnitude * maxDistanceDelta; 
+        }
+    }
+
     public static float[] ToFloatArray(this Vector3[] array)
     {
         float[] result = new float[array.Length * 3];

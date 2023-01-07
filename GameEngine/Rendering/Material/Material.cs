@@ -1,6 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-public abstract class Material : GLObject
+public abstract class Material : GLObject, IDisposable
 {
     public readonly ShaderBridge Bridge;
     private readonly Shader[] _shaders;
@@ -22,15 +22,27 @@ public abstract class Material : GLObject
         if (_wasInited == false) // shared material
         {
             _wasInited = true;
-            foreach (Shader shader in _shaders)
-            {
-                shader.Load();
-                GL.AttachShader(Id, shader.Address);
-            }
-        
-            GL.LinkProgram(Id);
+            
+            LoadShaders();
             Bridge.LoadUniforms();
             OnInit();
+        }
+    }
+
+    private void LoadShaders()
+    {
+        foreach (Shader shader in _shaders)
+        {
+            shader.Load();
+            GL.AttachShader(Id, shader.Id);
+        }
+            
+        GL.LinkProgram(Id);
+            
+        foreach (Shader shader in _shaders)
+        {
+            GL.DetachShader(Id, shader.Id);
+            GL.DeleteShader(shader.Id);
         }
     }
 
@@ -43,4 +55,6 @@ public abstract class Material : GLObject
     protected virtual void OnInit() { }
 
     protected virtual void OnUse() { }
+
+    public virtual void Dispose() { }
 }

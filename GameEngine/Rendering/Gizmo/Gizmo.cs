@@ -3,15 +3,9 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
 // Debug rendering tool
-public class Gizmo : IModel
+public class Gizmo : Singlton<Gizmo>, IModel
 {
-    public static Gizmo Instance = null!;
     private readonly List<GizmoDrawable> _drawables = new();
-
-    public void Initialize()
-    {
-        Instance = this;
-    }
 
     public void DrawPoint(Vector3 point, Color color)
     {
@@ -43,5 +37,9 @@ public class Gizmo : IModel
         }
 
         _drawables.Clear();
+    }
+
+    public void Dispose()
+    {
     }
 }

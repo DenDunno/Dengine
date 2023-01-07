@@ -20,7 +20,7 @@ public class Cubemap : TextureBase
         };
     }
 
-    public override void Load()
+    protected override void OnLoad()
     {
         Use();
         for (int i = 0; i < _paths.Count; ++i)

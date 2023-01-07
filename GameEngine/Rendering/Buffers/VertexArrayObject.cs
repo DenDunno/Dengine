@@ -1,6 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-public class VertexArrayObject : GLObject
+public class VertexArrayObject : GLObject, IDisposable
 {
     private readonly VertexAttributeGroup _vertexAttributeGroup;
     private readonly VertexBufferObject _vertexBufferObject;
@@ -24,5 +24,13 @@ public class VertexArrayObject : GLObject
     public void Bind()
     {
         GL.BindVertexArray(Id);
+    }
+
+    public void Dispose()
+    {
+        _vertexBufferObject.Dispose();
+        _indexBufferObject.Dispose();
+        _vertexAttributeGroup.Disable();
+        GL.DeleteVertexArray(Id);
     }
 }

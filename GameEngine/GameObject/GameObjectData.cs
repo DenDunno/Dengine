@@ -1,7 +1,7 @@
 ﻿
 public class GameObjectData
 {
-    public readonly string Name;
+    public string Name;
     public readonly Transform Transform;
     public readonly int Id = GameObjectId.Value;
     public List<IGameComponent> Components { get; init; } = new();

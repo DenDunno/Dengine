@@ -7,7 +7,8 @@ public static class Dengine
         Window window = windowFactory.Create();
         
         World world = worldFactory.Create(window.Input);
-
+        WorldBrowser worldBrowser = new(world);
+        
         Engine engine = new(window, world, new Editor(window, world));
         engine.Initialize();
         engine.Run();

@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-public class GameObject
+public class GameObject : IDisposable
 {
     public readonly GameObjectData Data;
 
@@ -26,5 +26,10 @@ public class GameObject
     public void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
     {
         Data.Model.Draw(in projectionMatrix, in viewMatrix);
+    }
+
+    public void Dispose()
+    {
+        Data.Model.Dispose();
     }
 }

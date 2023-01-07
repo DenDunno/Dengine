@@ -1,48 +1,38 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-public class Shader
+public class Shader : GLObject
 {
     private readonly string _filename;
-    private readonly ShaderType _type;
 
-    public Shader(string filename, ShaderType type)
+    public Shader(string filename, ShaderType type) : base(GL.CreateShader(type))
     {
         _filename = filename;
-        _type = type;
     }
-    
-    public int Address { get; private set; }
 
     public void Load()
     {
-        Create();
         Read();
         Compile();
         CheckErrors();
-    }
-
-    private void Create()
-    {
-        Address = GL.CreateShader(_type);
     }
 
     private void Read()
     {
         using StreamReader streamReader = new(_filename);
         
-        GL.ShaderSource(Address, streamReader.ReadToEnd());
+        GL.ShaderSource(Id, streamReader.ReadToEnd());
     }
 
     private void Compile()
     {
-        GL.CompileShader(Address);
+        GL.CompileShader(Id);
     }
 
     private void CheckErrors()
     {
-        GL.GetShader(Address, ShaderParameter.CompileStatus, out int status);
+        GL.GetShader(Id, ShaderParameter.CompileStatus, out int status);
         
         if (status == 0)
-            throw new Exception($"Error compiling shader: {GL.GetShaderInfoLog(Address)}");
+            throw new Exception($"Error compiling shader: {GL.GetShaderInfoLog(Id)}");
     }
 }

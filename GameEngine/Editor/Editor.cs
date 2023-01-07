@@ -1,4 +1,5 @@
-﻿using OpenTK.Windowing.Common;
+﻿using ImGuiNET;
+using OpenTK.Windowing.Common;
 
 public class Editor : EngineComponent
 {

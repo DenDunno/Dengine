@@ -34,4 +34,10 @@ public class Model : IModel
             _glRenderer.Draw();
         }
     }
+
+    public void Dispose()
+    {
+        _vertexArrayObject.Dispose();
+        Material.Dispose();
+    }
 }

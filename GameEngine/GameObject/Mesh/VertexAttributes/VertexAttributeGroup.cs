@@ -19,4 +19,12 @@ public class VertexAttributeGroup
             GL.EnableVertexAttribArray(attribute.Index);
         }
     }
+
+    public void Disable()
+    {
+        foreach (VertexAttribute attribute in _vertexAttributes)
+        {
+            GL.DisableVertexAttribArray(attribute.Index);
+        }
+    }
 }

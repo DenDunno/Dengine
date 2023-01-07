@@ -221,7 +221,8 @@ public class ImGuiController : IDisposable
         }
 
         readonly List<char> PressedChars = new List<char>();
-
+        private readonly Array _keys = Enum.GetValues(typeof(Keys));
+        
         private void UpdateImGuiInput()
         {
             ImGuiIOPtr io = ImGui.GetIO();
@@ -239,7 +240,7 @@ public class ImGuiController : IDisposable
             var point = screenPoint;//wnd.PointToClient(screenPoint);
             io.MousePos = new System.Numerics.Vector2(point.X, point.Y);
 
-            foreach (Keys key in Enum.GetValues(typeof(Keys)))
+            foreach (Keys key in _keys)
             {
                 if (key == Keys.Unknown)
                 {
