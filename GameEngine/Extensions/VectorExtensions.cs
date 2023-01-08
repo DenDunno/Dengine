@@ -56,6 +56,15 @@ public static class VectorExtensions
             start += direction / magnitude * maxDistanceDelta; 
         }
     }
+    
+    public static void MoveTowards2D(this ref Vector3 start, Vector3 target, float maxDistanceDelta)
+    {
+        float z = start.Z;
+        
+        MoveTowards(ref start, target, maxDistanceDelta);
+        
+        start.Z = z;
+    }
 
     public static float[] ToFloatArray(this Vector3[] array)
     {

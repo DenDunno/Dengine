@@ -34,7 +34,7 @@ public abstract class WorldFactory
                 Stats.Instance
             },
 
-            Model = new Gizmo()
+            Model = Gizmo.Instance
         });
     }
 
