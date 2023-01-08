@@ -10,6 +10,7 @@ public class WindowFactory
         Location = new Vector2i(1536/8, 864/8),
         Title = "Game engine",
         API = ContextAPI.OpenGL,
+        Profile = ContextProfile.Compatability,
     };
 
     public Window Create()

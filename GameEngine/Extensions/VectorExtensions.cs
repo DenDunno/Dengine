@@ -34,12 +34,12 @@ public static class VectorExtensions
 
     public static Vector2i ToVector2I(this Vector3 vector3)
     {
-        return new Vector2i((int)vector3.X, (int)vector3.Y);
+        return new Vector2i((int)Math.Round(vector3.X), (int)Math.Round(vector3.Y));
     }
-    
-    public static Vector3 ToVector3(this Vector2i vector2I)
+
+    public static Vector3 ToVector3(this Vector2i vector2I, float z = 0)
     {
-        return new Vector3(vector2I.X, vector2I.Y, 0);
+        return new Vector3(vector2I.X, vector2I.Y, z);
     }
 
     public static void MoveTowards(this ref Vector3 start, Vector3 target, float maxDistanceDelta)

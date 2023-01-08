@@ -23,6 +23,11 @@ public class Gizmo : Singlton<Gizmo>, IModel
         _drawables.Add(new GizmoVector(first, second, color));
     }
 
+    public void DrawPath(List<Vector2i> path, Color color, float z = 0)
+    {
+        _drawables.Add(new GizmoPath(path, color, z));
+    }
+    
     public void DrawPlane(Vector3 centre, Vector3 normal, Color color)
     {
         _drawables.Add(new GizmoPlane(centre, normal, color));

@@ -15,15 +15,15 @@ public class GizmoLine : GizmoDrawable
 
     protected Vector3 First => _first;
     protected Vector3 Second => _second;
-    
-    protected override void OnDraw()
-    {
-        GL.Vertex3(_first);
-        GL.Vertex3(_second);
-    }
 
     protected override void OnPreDraw()
     {
         GL.LineWidth(5);
+    }
+
+    protected override void OnDraw()
+    {
+        GL.Vertex3(_first);
+        GL.Vertex3(_second);
     }
 }

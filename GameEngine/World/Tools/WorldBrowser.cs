@@ -4,10 +4,14 @@ public class WorldBrowser
     public static WorldBrowser Instance = null!;
     private readonly World _world;
 
-    public WorldBrowser(World world)
+    public static void Setup(World world)
+    {
+        Instance = new WorldBrowser(world);
+    }
+
+    private WorldBrowser(World world)
     {
         _world = world;
-        Instance = this;
     }
 
     public T FindObjectOfType<T>() where T : IGameComponent

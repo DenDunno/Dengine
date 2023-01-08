@@ -17,7 +17,7 @@ public abstract class Material : GLObject, IDisposable
         Bridge = new ShaderBridge(Id);
     }
 
-    public void Init()
+    public void Initialize()
     {
         if (_wasInited == false) // shared material
         {
