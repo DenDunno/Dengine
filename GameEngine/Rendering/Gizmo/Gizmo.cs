@@ -6,13 +6,19 @@ using OpenTK.Mathematics;
 [HideInInspector]
 public class Gizmo : Singlton<Gizmo>, IModel
 {
+    public bool Enabled = true;
     private readonly List<GizmoDrawable> _drawables = new();
 
     public void DrawPoint(Vector3 point, Color color)
     {
         _drawables.Add(new GizmoPoint(point, color));
     }
-    
+
+    public void DrawPoint(Vector2i freeCell, Color color)
+    {
+        DrawPoint(freeCell.ToVector3(), color);
+    }
+
     public void DrawLine(Vector3 first, Vector3 second, Color color)
     {
         _drawables.Add(new GizmoLine(first, second, color));
@@ -27,7 +33,7 @@ public class Gizmo : Singlton<Gizmo>, IModel
     {
         _drawables.Add(new GizmoPath(path, color, z));
     }
-    
+
     public void DrawPlane(Vector3 centre, Vector3 normal, Color color)
     {
         _drawables.Add(new GizmoPlane(centre, normal, color));
@@ -39,7 +45,10 @@ public class Gizmo : Singlton<Gizmo>, IModel
         
         foreach (GizmoDrawable gizmoDrawable in _drawables)
         {
-            gizmoDrawable.Draw();
+            if (Enabled)
+            {
+                gizmoDrawable.Draw();
+            }
         }
 
         _drawables.Clear();

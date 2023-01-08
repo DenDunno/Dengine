@@ -1,4 +1,5 @@
-﻿
+﻿using ImGuiNET;
+
 public class ControlPanel : Panel
 {
     public readonly PlayButton PlayButton = new();
@@ -12,5 +13,6 @@ public class ControlPanel : Panel
     {
         PlayButton.Draw();
         StopButton.Draw();
+        ImGui.Checkbox("Gizmo", ref Gizmo.Instance.Enabled);
     }
 }

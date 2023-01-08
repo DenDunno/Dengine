@@ -42,11 +42,14 @@ public class Hierarchy : Panel
 
     private void ShowGameObject(GameObject gameObject)
     {
+        ImGui.PushID(gameObject.Data.Id);
         
         if (ImGui.Selectable(gameObject.Data.Name, _selectables[gameObject.Data.Id]))
         {
             SelectGameObject(gameObject.Data.Id);
         }
+        
+        ImGui.PopID();
     }
 
     private void SelectGameObject(int id)

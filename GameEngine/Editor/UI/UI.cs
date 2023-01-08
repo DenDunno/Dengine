@@ -13,6 +13,7 @@ public class UI
             new StatsPanel(),
             inspector,
             new Hierarchy(world, inspector),
+            new DengineConsole(),
             new ControlPanel(),
             new Viewport(window, WorldBrowser.Instance.FindObjectOfType<Camera>()),
         };

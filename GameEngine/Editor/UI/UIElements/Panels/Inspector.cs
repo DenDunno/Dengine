@@ -49,17 +49,15 @@ public class Inspector : Panel
         
         foreach (IGameComponent component in _gameObjectToBeShown!.Components)
         {
-            if (IsSerializableComponent(component))
+            if (IsSerializableComponent(component) && ImGui.TreeNode(component.GetType().Name))
             {
-                if (ImGui.TreeNode(component.GetType().Name))
-                {
-                    EnableInspectorStyle();
+                ImGui.PushStyleColor(ImGuiCol.FrameBg, new Vector4(155 / 255f, 120 / 255f, 68 / 255f, 1));
                     
-                    _dataSerialization.Execute(component);
-                    _buttonsSerialization.Execute(component);
+                _dataSerialization.Execute(component);
+                _buttonsSerialization.Execute(component);
                     
-                    DisableStyle();
-                }
+                ImGui.PopStyleColor();
+                ImGui.TreePop();
             }
         }
         
@@ -69,18 +67,5 @@ public class Inspector : Panel
     private bool IsSerializableComponent(IGameComponent component)
     {
         return component.GetType().IsDefined(typeof(HideInInspector), true) == false;
-    }
-    
-    private void EnableInspectorStyle()
-    {
-        ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(155 / 255f, 120 / 255f, 68 / 255f, 1));
-        ImGui.PushStyleColor(ImGuiCol.FrameBg, new Vector4(155 / 255f, 120 / 255f, 68 / 255f, 1));
-    }
-
-    private void DisableStyle()
-    {
-        ImGui.PopStyleColor();
-        ImGui.PopStyleColor();
-        ImGui.TreePop();
     }
 }
