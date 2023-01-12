@@ -33,12 +33,18 @@ public class ImGuiController : IDisposable
         private System.Numerics.Vector2 _scaleFactor = System.Numerics.Vector2.One;
 
         private static bool KHRDebugAvailable = false;
-
+        private readonly Keys[] _keys;
+        
         /// <summary>
         /// Constructs a new ImGuiController.
         /// </summary>
+        /// 
         public ImGuiController(Window window)
         {
+            Array keys = Enum.GetValues(typeof(Keys));
+            _keys = new Keys[keys.Length];
+            Array.Copy(keys, _keys, keys.Length);
+            
             _window = window;
             _window.KeyDown += PressChar;
             
@@ -221,7 +227,7 @@ public class ImGuiController : IDisposable
         }
 
         readonly List<char> PressedChars = new List<char>();
-        private readonly Array _keys = Enum.GetValues(typeof(Keys));
+        
         
         private void UpdateImGuiInput()
         {
@@ -240,13 +246,13 @@ public class ImGuiController : IDisposable
             var point = screenPoint;//wnd.PointToClient(screenPoint);
             io.MousePos = new System.Numerics.Vector2(point.X, point.Y);
 
-            foreach (Keys key in _keys)
+            for (int i = 0; i < _keys.Length; i++)
             {
-                if (key == Keys.Unknown)
+                if (_keys[i] == Keys.Unknown)
                 {
                     continue;
                 }
-                io.KeysDown[(int)key] = KeyboardState.IsKeyDown(key);
+                io.KeysDown[(int)_keys[i]] = KeyboardState.IsKeyDown(_keys[i]);   
             }
 
             foreach (var c in PressedChars)

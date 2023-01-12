@@ -30,10 +30,8 @@ public static class GameObjectFactory
         });
     }
 
-    public static GameObject WithRenderData(RenderData renderData, Transform transform)
+    public static GameObject WithRenderData(RenderData renderData)
     {
-        renderData.Transform = transform;
-        
         return new GameObject(new GameObjectData("Default name", renderData.Transform)
         {
             Model = new Model(renderData)

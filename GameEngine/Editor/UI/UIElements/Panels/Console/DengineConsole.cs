@@ -9,9 +9,9 @@ public class DengineConsole : Panel
     {
     }
 
-    public static void Log(string text)
+    public static void Log(object value)
     {
-        _logs.Add(new Log(text));
+        _logs.Add(new Log(value.ToString()!));
     }
 
     protected override void OnPanelDraw()
