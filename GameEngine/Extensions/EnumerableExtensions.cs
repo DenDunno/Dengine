@@ -14,11 +14,18 @@ public static class EnumerableExtensions
         collection.Insert(0, element);
     }
 
-    public static T GetRandom<T>(this HashSet<T> collection)
+    public static T GetRandomElement<T>(this HashSet<T> hashSet)
+    {
+        int randomIndex = new Random().Next(hashSet.Count);
+
+        return hashSet.ElementAt(randomIndex);
+    }
+    
+    public static T GetRandomElement<T>(this IReadOnlyList<T> collection)
     {
         int randomIndex = new Random().Next(collection.Count);
 
-        return collection.ElementAt(randomIndex);
+        return collection[randomIndex];
     }
     
     public static bool IsNotEmpty<T>(this IEnumerable<T> collection)

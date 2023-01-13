@@ -4,27 +4,22 @@ public class AutoTiling
     private readonly Dictionary<int, UnlitMaterial> _tiles = new();
     private int _result;
     
-    public AutoTiling(Dictionary<int, Texture> tiles)
+    public AutoTiling(IEnumerable<AutoTile> autoTiles)
     {
-        foreach (KeyValuePair<int,Texture> valuePair in tiles)
+        Dictionary<string, Texture> textures = new();
+
+        foreach (AutoTile autoTile in autoTiles)
         {
-            _tiles[valuePair.Key] = new UnlitMaterial(new LitMaterialData()
+            textures.TryAdd(autoTile.Path, new Texture(autoTile.Path));
+            
+            _tiles[autoTile.BitmapIndex] = new UnlitMaterial(new LitMaterialData()
             {
-                Base = valuePair.Value
+                Base = textures[autoTile.Path]
             });
         }
     }
 
-    public void Initialize()
-    {
-    }
-
     public UnlitMaterial GetMaterial(TileNeighbours neighbours)
-    {
-        return _tiles[GetIndex(neighbours)];
-    }
-
-    public int GetIndex(TileNeighbours neighbours)
     {
         _result = 0;
         
@@ -42,8 +37,8 @@ public class AutoTiling
         TryAdd(neighbours.BottomLeft, 5);
         TryAdd(neighbours.Left, 6);
         TryAdd(neighbours.TopLeft, 7);
-
-        return _result;
+        
+        return _tiles[_result];
     }
 
     private void TryAdd(bool side, int mask)
