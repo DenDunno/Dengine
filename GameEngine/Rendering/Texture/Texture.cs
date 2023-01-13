@@ -3,17 +3,17 @@ using StbImageSharp;
 
 public class Texture : TextureBase
 {
-    private readonly string _path;
+    public readonly string Path;
 
     public Texture(string path) : base(TextureTarget.Texture2D)
     {
-        _path = path;
+        Path = path;
     }
 
     protected override void OnLoad()
     {
         Use();
-        using (Stream stream = File.OpenRead(_path))
+        using (Stream stream = File.OpenRead(Path))
         {
             ImageResult image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha); 
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, image.Data);

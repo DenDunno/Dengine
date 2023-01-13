@@ -1,23 +1,30 @@
 ﻿
 public class AutoTiling
 {
-    private readonly Dictionary<int, Texture> _tiles;
+    private readonly Dictionary<int, UnlitMaterial> _tiles = new();
     private int _result;
     
     public AutoTiling(Dictionary<int, Texture> tiles)
     {
-        _tiles = tiles;
+        foreach (KeyValuePair<int,Texture> valuePair in tiles)
+        {
+            _tiles[valuePair.Key] = new UnlitMaterial(new LitMaterialData()
+            {
+                Base = valuePair.Value
+            });
+        }
     }
 
     public void Initialize()
     {
-        foreach (KeyValuePair<int,Texture> texture in _tiles)
-        {
-            texture.Value.Load();
-        }
     }
 
-    public Texture GetTexture(TileNeighbours neighbours)
+    public UnlitMaterial GetMaterial(TileNeighbours neighbours)
+    {
+        return _tiles[GetIndex(neighbours)];
+    }
+
+    public int GetIndex(TileNeighbours neighbours)
     {
         _result = 0;
         
@@ -36,7 +43,7 @@ public class AutoTiling
         TryAdd(neighbours.Left, 6);
         TryAdd(neighbours.TopLeft, 7);
 
-        return _tiles[_result];
+        return _result;
     }
 
     private void TryAdd(bool side, int mask)
