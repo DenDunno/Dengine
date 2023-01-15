@@ -17,6 +17,9 @@ public class UI
             new ControlPanel(),
             new Viewport(window, WorldBrowser.Instance.FindObjectOfType<Camera>()),
         };
+
+        PanelsMenuItem panelsMenuItem = new(_elements);
+        _elements.Add(panelsMenuItem);
     }
 
     public T GetWidget<T>() where T : UIElement

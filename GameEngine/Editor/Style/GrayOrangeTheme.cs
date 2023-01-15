@@ -64,5 +64,6 @@ public class GrayOrangeTheme : IEditorTheme
         style.Colors[(int)ImGuiCol.ModalWindowDimBg]      = new Vector4(0.80f, 0.80f, 0.80f, 0.35f);
         style.Colors[(int)ImGuiCol.Button]                = new Vector4(155 / 255f, 120 / 255f, 68 / 255f, 1);
         style.GrabRounding                           = style.FrameRounding = 2.3f;
+        style.Colors[(int)ImGuiCol.MenuBarBg] = new Vector4(0.13f, 0.14f, 0.15f, 1.00f);
     }
 }

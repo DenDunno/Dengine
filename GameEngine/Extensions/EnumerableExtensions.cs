@@ -32,4 +32,20 @@ public static class EnumerableExtensions
     {
         return collection.Count() != 0;
     }
+
+    public static T Find<T>(this IEnumerable<GameObject> gameObjects) where T : IGameComponent
+    {
+        foreach (GameObject gameObject in gameObjects)
+        {
+            foreach (IGameComponent component in gameObject.Data.Components)
+            {
+                if (component is T result)
+                {
+                    return result;
+                }
+            }
+        }
+
+        throw new Exception($"No component with type {typeof(T)}");
+    }
 }

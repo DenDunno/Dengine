@@ -36,7 +36,7 @@ public class World : EngineComponent
     {
         foreach (GameObject gameObject in GameObjects)
         {
-            gameObject.Draw(_camera.ProjectionMatrix, _camera.ViewMatrix);
+            gameObject.Draw(_camera.Projection.Value, _camera.ViewMatrix);
         }
     }
 }

@@ -20,7 +20,7 @@ public class ManyCubesWorld : WorldFactory
     {
         List<GameObject> result =  new()
         {
-            CreateSkybox("Storm"),
+            //GameObjectFactory.CreateSkybox("Storm"),
             CreateLight(),
             CreateParent(),
         };
@@ -42,7 +42,7 @@ public class ManyCubesWorld : WorldFactory
     private GameObject CreateLight()
     {
         Transform transform = new();
-        _light = new Light(transform, CameraTransform, Color.White);
+        //_light = new Light(transform, CameraTransform, Color.White);
         
         return new GameObject(new GameObjectData("Light", transform)
         {

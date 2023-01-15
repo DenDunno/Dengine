@@ -4,9 +4,10 @@ using OpenTK.Mathematics;
 
 public class DataSerialization
 {
+    private readonly EnumSerialization _enumSerialization = new();
     private readonly Dictionary<Type, IFieldSerialization> _typeSerialization;
     private readonly BindingFlags _bindingFlags = BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public;
-    
+
     public DataSerialization()
     {
         _typeSerialization = new Dictionary<Type, IFieldSerialization>()
@@ -16,7 +17,7 @@ public class DataSerialization
             {typeof(bool), new BooleanSerialization()},
             {typeof(Vector3), new Vector3Serialization()},
             {typeof(TextureBase), new TextureSerialization()},
-            {typeof(int), new IntSerialization()}
+            {typeof(int), new IntSerialization()},
         };
     }
 
@@ -57,10 +58,13 @@ public class DataSerialization
 
     private void TrySerializeYourself(FieldInfo fieldInfo, object field, object instance)
     {
-        if (_typeSerialization.ContainsKey(fieldInfo.FieldType))
+        _typeSerialization.TryGetValue(fieldInfo.FieldType, out IFieldSerialization? serialization);
+        
+        if (fieldInfo.FieldType.IsEnum)
         {
-            IFieldSerialization fieldSerialization = _typeSerialization[fieldInfo.FieldType];
-            fieldSerialization.Serialize(fieldInfo, field, instance);
+            serialization = _enumSerialization;
         }
+        
+        serialization?.Serialize(fieldInfo, field, instance);
     }
 }

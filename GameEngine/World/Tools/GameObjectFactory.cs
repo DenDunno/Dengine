@@ -12,7 +12,7 @@ public static class GameObjectFactory
         });
     }
 
-    public static GameObject Sprite(Texture sprite, Transform transform)
+    private static GameObject Sprite(Texture sprite, Transform transform)
     {
         RenderData renderData = new()
         {
@@ -38,7 +38,7 @@ public static class GameObjectFactory
         });
     }
 
-    public static GameObject Sprite(string sprite, Transform transform)
+    private static GameObject Sprite(string sprite, Transform transform)
     {
         return Sprite(new Texture(sprite), transform);
     }
@@ -61,5 +61,30 @@ public static class GameObjectFactory
                 tag
             }
         });
+    }
+
+    public static GameObject CreateCamera(CameraProjection projection)
+    {
+        return CreateCamera(new Camera(projection));
+    }
+
+    public static GameObject CreateCamera(Camera camera)
+    {
+        return new GameObject(new GameObjectData("Camera", camera.Transform)
+        {
+            Components = new List<IGameComponent>
+            {
+                new Timer(),
+                camera,
+                Stats.Instance
+            },
+
+            Model = Gizmo.Instance
+        });
+    }
+
+    public static GameObject CreateSkybox(string name, Camera camera)
+    {
+        return new SkyboxFactory(name, camera.Transform).Create();
     }
 }

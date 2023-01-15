@@ -9,7 +9,7 @@ public class Demo3D : WorldFactory
     {
         return new List<GameObject>()
         {
-            CreateSkybox("Storm"),
+            //CreateSkybox("Storm"),
             CreateLight(),
             CreateCube("Controlling cube", new Vector3(-2, 2, 0), true, Vector3.Zero),
             CreateCube("Cube1", new Vector3(2, 2, 0), false, new Vector3(0, 45, 45)),
@@ -19,7 +19,7 @@ public class Demo3D : WorldFactory
     private GameObject CreateLight()
     {
         Transform transform = new();
-        _light = new Light(transform, CameraTransform, Color.White);
+        //_light = new Light(transform, CameraTransform, Color.White);
         
         return new GameObject(new GameObjectData("Light", transform)
         {

@@ -20,10 +20,12 @@ public class DengineConsole : Panel
         {
             _logs.Clear();
         }
-        
+         
         foreach (Log log in _logs)
         {
-            ImGui.TextDisabled($"{log.Time:H:mm:ss}: "); 
+            ImGui.TextDisabled(log.Time.ToString("H:mm:ss"));
+            ImGui.SameLine();
+            ImGui.Dummy(new Vector2(10, 0));
             ImGui.SameLine();
             ImGui.TextColored(new Vector4(255 / 255f, 167 / 255f, 32 / 255f, 1.00f), log.Text);
         }

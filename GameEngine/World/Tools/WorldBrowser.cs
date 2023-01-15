@@ -16,18 +16,7 @@ public class WorldBrowser
 
     public T FindObjectOfType<T>() where T : IGameComponent
     {
-        foreach (GameObject gameObject in _world.GameObjects)
-        {
-            foreach (IGameComponent component in gameObject.Data.Components)
-            {
-                if (component is T result)
-                {
-                    return result;
-                }
-            }
-        }
-
-        throw new Exception($"No component with type {typeof(T)}");
+        return _world.GameObjects.Find<T>();
     }
 
     public GameObject FindGameObject(int id)

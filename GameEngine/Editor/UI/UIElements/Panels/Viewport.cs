@@ -8,11 +8,12 @@ public class Viewport : Panel
     private readonly CameraControlling _cameraControlling;
     private readonly Vector2 _offset = new(16, 48);
     private bool _isCameraControlling;
+    private bool _isHovered;
 
     public Viewport(Window window, Camera camera) : base("Viewport")
     {
         _window = window;
-        _cameraControlling = new CameraControlling(camera.Transform, window.Input);
+        _cameraControlling = new CameraControlling(camera, window.Input);
     }
 
     public override void Update(float deltaTime)
@@ -26,7 +27,13 @@ public class Viewport : Panel
 
         if (_isCameraControlling)
         {
-            _cameraControlling.Update(deltaTime);
+            _cameraControlling.Move(deltaTime);
+            _cameraControlling.Rotate(deltaTime);
+        }
+
+        if (_isHovered)
+        {
+            _cameraControlling.TryZoom(deltaTime);
         }
     }
 
@@ -43,13 +50,15 @@ public class Viewport : Panel
 
     private void UpdateCameraControllingState()
     {
+        _isHovered = ImGui.IsWindowHovered();
+        
         if (_isCameraControlling)
         {
             _isCameraControlling = ImGui.IsMouseDown(ImGuiMouseButton.Right);
         }
         else
         {
-            _isCameraControlling = ImGui.IsWindowHovered() && ImGui.IsMouseDown(ImGuiMouseButton.Right);
+            _isCameraControlling = _isHovered && ImGui.IsMouseDown(ImGuiMouseButton.Right);
         }
     }
 }
