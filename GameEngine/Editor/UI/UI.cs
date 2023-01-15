@@ -15,7 +15,7 @@ public class UI
             new Hierarchy(world, inspector),
             new DengineConsole(),
             new ControlPanel(),
-            new Viewport(window, WorldBrowser.Instance.FindObjectOfType<Camera>()),
+            new ViewportPanel(window, WorldBrowser.Instance.FindObjectOfType<Camera>()),
         };
 
         PanelsMenuItem panelsMenuItem = new(_elements);

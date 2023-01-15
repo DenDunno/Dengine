@@ -6,7 +6,7 @@ public class PanelsMenuItem : UIElement
     
     public PanelsMenuItem(IReadOnlyCollection<UIElement> elements)
     {
-        _panels = elements.OfType<Panel>().Where(panel => panel is Viewport == false);
+        _panels = elements.OfType<Panel>().Where(panel => panel is ViewportPanel == false);
     }
 
     protected override void OnDraw()

@@ -2,7 +2,7 @@
 using ImGuiNET;
 using OpenTK.Windowing.Common;
 
-public class Viewport : Panel
+public class ViewportPanel : Panel
 {
     private readonly Window _window;
     private readonly CameraControlling _cameraControlling;
@@ -10,7 +10,7 @@ public class Viewport : Panel
     private bool _isCameraControlling;
     private bool _isHovered;
 
-    public Viewport(Window window, Camera camera) : base("Viewport")
+    public ViewportPanel(Window window, Camera camera) : base("Viewport")
     {
         _window = window;
         _cameraControlling = new CameraControlling(camera, window.Input);
@@ -43,7 +43,8 @@ public class Viewport : Panel
         
         Framebuffer.Instance.Bind();
         Vector2 size = ImGui.GetWindowSize() - _offset;
-
+        Viewport.Set(size);
+        
         ImGui.Image((IntPtr) Framebuffer.Instance.FramebufferTexture, size, Vector2.UnitY, Vector2.UnitX);
         Framebuffer.Instance.UnBind();
     }

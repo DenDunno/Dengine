@@ -23,7 +23,7 @@ public class DengineConsole : Panel
          
         foreach (Log log in _logs)
         {
-            ImGui.TextDisabled(log.Time.ToString("H:mm:ss"));
+            ImGui.TextDisabled(log.Time);
             ImGui.SameLine();
             ImGui.Dummy(new Vector2(10, 0));
             ImGui.SameLine();

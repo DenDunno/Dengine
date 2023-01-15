@@ -10,8 +10,6 @@ public class OrthographicProjection : CameraProjection
         _size += delta * _zoomingSpeed;
     }
 
-    protected override Matrix4 GetProjectionMatrix(float aspectRatio)
-    {
-        return Matrix4.CreateOrthographic(aspectRatio * _size, _size, NearClipPlane, FarClipPlane);
-    }
+    public override Matrix4 Value =>
+        Matrix4.CreateOrthographic(Viewport.AspectRatio * _size, _size, NearClipPlane, FarClipPlane);
 }

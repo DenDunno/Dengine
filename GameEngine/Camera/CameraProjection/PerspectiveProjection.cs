@@ -2,8 +2,6 @@
 
 public class PerspectiveProjection : CameraProjection
 {
-    protected override Matrix4 GetProjectionMatrix(float aspectRatio)
-    {
-        return Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2, aspectRatio, NearClipPlane, FarClipPlane);
-    }
+    public override Matrix4 Value =>
+        Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2, Viewport.AspectRatio, NearClipPlane, FarClipPlane);
 }
