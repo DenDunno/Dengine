@@ -8,9 +8,8 @@ public abstract class WorldFactory
         Input = playerInput;
         
         List<GameObject> gameObjects = CreateGameObjects();
-        Camera camera = gameObjects.Find<Camera>();
-        
-        return new World(camera, gameObjects);
+
+        return new World(gameObjects);
     }
     
     protected abstract List<GameObject> CreateGameObjects();

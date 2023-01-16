@@ -5,10 +5,10 @@ public class World : EngineComponent
     public readonly List<GameObject> GameObjects;
     private readonly Camera _camera;
 
-    public World(Camera camera, List<GameObject> gameObjects)
+    public World(List<GameObject> gameObjects)
     {
         GameObjects = gameObjects;
-        _camera = camera;
+        _camera = gameObjects.Find<Camera>();
     }
 
     public override void Initialize()

@@ -7,27 +7,17 @@ public class Demo3D : WorldFactory
 
     protected override List<GameObject> CreateGameObjects()
     {
+        Camera camera = new(new PerspectiveProjection());
+        _light = new Light(new Transform(), camera.Transform, Color.Aqua);
+        
         return new List<GameObject>()
         {
-            //CreateSkybox("Storm"),
-            CreateLight(),
             CreateCube("Controlling cube", new Vector3(-2, 2, 0), true, Vector3.Zero),
             CreateCube("Cube1", new Vector3(2, 2, 0), false, new Vector3(0, 45, 45)),
+            GameObjectFactory.CreateCamera(camera),
+            GameObjectFactory.CreateSkybox("Storm", camera),
+            GameObjectFactory.Point(_light, _light.Transform)
         };
-    }
-
-    private GameObject CreateLight()
-    {
-        Transform transform = new();
-        //_light = new Light(transform, CameraTransform, Color.White);
-        
-        return new GameObject(new GameObjectData("Light", transform)
-        {
-            Components = new List<IGameComponent>()
-            {
-                _light
-            }
-        });
     }
 
     private GameObject CreateCube(string name, Vector3 position, bool isControlling, Vector3 rotation)

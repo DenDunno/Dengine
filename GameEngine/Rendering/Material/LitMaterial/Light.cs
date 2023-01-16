@@ -2,17 +2,17 @@
 
 public class Light : IGameComponent
 {
+    public readonly Transform Transform;
     [EditorField] private readonly Color _color;
     [EditorField] private readonly float _specular = 0.75f;
     [EditorField] private readonly float _diffuse = 1.65f;
     [EditorField] private readonly float _ambient = 0.4f;
     private readonly List<LitMaterial> _materials = new();
-    private readonly Transform _transform;
     private readonly Transform _camera;
 
     public Light(Transform transform, Transform camera, Color color)
     {
-        _transform = transform;
+        Transform = transform;
         _camera = camera;
         _color = color;
     }
@@ -26,7 +26,7 @@ public class Light : IGameComponent
     {
         foreach (LitMaterial litMaterial in _materials)
         {
-            litMaterial.Bridge.SetVector3("lightPosition", _transform.Position);
+            litMaterial.Bridge.SetVector3("lightPosition", Transform.Position);
             litMaterial.Bridge.SetVector3("viewPosition", _camera.Position);
             litMaterial.Bridge.SetColor("lightColor", _color);
             litMaterial.Bridge.SetFloat("specularValue", _specular);
