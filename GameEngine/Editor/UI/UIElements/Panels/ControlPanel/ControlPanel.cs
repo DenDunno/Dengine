@@ -4,7 +4,7 @@ public class ControlPanel : Panel
 {
     public readonly PlayButton PlayButton = new();
     public readonly StopButton StopButton = new();
-
+    
     public ControlPanel() : base("Control panel")
     {
     }

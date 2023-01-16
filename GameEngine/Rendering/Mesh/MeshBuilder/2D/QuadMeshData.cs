@@ -2,23 +2,29 @@
 
 public class QuadMeshData : IMeshDataSource
 {
+    private readonly Vector3 _offset;
     private readonly float _size;
 
-    public QuadMeshData(float size)
+    public QuadMeshData(float size) : this(size, Vector3.Zero)
     {
+    }
+
+    public QuadMeshData(float size, Vector3 offset)
+    {
+        _offset = offset;
         _size = size / 2f;
     }
-    
-    MeshData IMeshDataSource.GetMeshData()
+
+    public MeshData GetMeshData()
     {
         return new MeshData()
         {
-            Positions = new Vector3[]
+            Positions = new[]
             {
-                new(_size, _size, 0.0f),
-                new(_size, -_size, 0.0f),
-                new(-_size, -_size, 0.0f),
-                new(-_size, _size, 0.0f),
+                new Vector3(_size, _size, 0.0f) + _offset,
+                new Vector3(_size, -_size, 0.0f) + _offset,
+                new Vector3(-_size, -_size, 0.0f) + _offset,
+                new Vector3(-_size, _size, 0.0f) + _offset,
             },
             Normals = new Vector3[]
             {

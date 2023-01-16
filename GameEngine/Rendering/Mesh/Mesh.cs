@@ -44,7 +44,17 @@ public class Mesh
             }    
         }
 
+        Release();
+
         return verticesData;
+    }
+
+    public void Release()
+    {
+        foreach (VertexAttribute vertexAttribute in _attributes)
+        {
+            vertexAttribute.Release();
+        }
     }
 
     private void TryAddAttribute(Vector3[]? positions)

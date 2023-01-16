@@ -190,6 +190,7 @@ public class ImGuiController : IDisposable
             if (_frameBegun)
             {
                 _frameBegun = false;
+                GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
                 ImGui.Render();
                 RenderImDrawData(ImGui.GetDrawData());
             }

@@ -2,54 +2,60 @@
 
 public class CubeMeshData : IMeshDataSource
 {
+    private readonly Vector3 _offset;
     private readonly float _size;
 
-    public CubeMeshData(float size)
+    public CubeMeshData(float size) : this(size, Vector3.Zero)
     {
+    }
+
+    public CubeMeshData(float size, Vector3 offset)
+    {
+        _offset = offset;
         _size = size;
     }
     
-    MeshData IMeshDataSource.GetMeshData()
+    public MeshData GetMeshData()
     {
         return new MeshData()
         {
-            Positions = new Vector3[]
+            Positions = new[]
             {
                 // front
-                new(_size, _size, -_size),
-                new(_size, -_size, -_size),
-                new(-_size, -_size, -_size),
-                new(-_size, _size, -_size),
+                new Vector3(_size, _size, -_size) + _offset,
+                new Vector3(_size, -_size, -_size) + _offset,
+                new Vector3(-_size, -_size, -_size) + _offset,
+                new Vector3(-_size, _size, -_size) + _offset,
 
                 //back
-                new(_size, _size, _size),
-                new(_size, -_size, _size),
-                new(-_size, -_size, _size),
-                new(-_size, _size, _size),
+                new Vector3(_size, _size, _size) + _offset,
+                new Vector3(_size, -_size, _size) + _offset,
+                new Vector3(-_size, -_size, _size) + _offset,
+                new Vector3(-_size, _size, _size) + _offset,
             
                 //left
-                new(-_size, _size, -_size),
-                new(-_size, -_size, -_size),
-                new(-_size, -_size, _size),
-                new(-_size, _size, _size),
+                new Vector3(-_size, _size, -_size) + _offset,
+                new Vector3(-_size, -_size, -_size) + _offset,
+                new Vector3(-_size, -_size, _size) + _offset,
+                new Vector3(-_size, _size, _size) + _offset,
             
                 //right
-                new(_size, _size, -_size),
-                new(_size, -_size, -_size),
-                new(_size, -_size, _size),
-                new(_size, _size, _size),
+                new Vector3(_size, _size, -_size) + _offset,
+                new Vector3(_size, -_size, -_size) + _offset,
+                new Vector3(_size, -_size, _size) + _offset,
+                new Vector3(_size, _size, _size) + _offset,
             
                 //up
-                new(_size, _size, _size),
-                new(_size, _size, -_size),
-                new(-_size, _size, -_size),
-                new(-_size, _size, _size),
+                new Vector3(_size, _size, _size) + _offset,
+                new Vector3(_size, _size, -_size) + _offset,
+                new Vector3(-_size, _size, -_size) + _offset,
+                new Vector3(-_size, _size, _size) + _offset,
             
                 //down
-                new(_size, -_size, _size),
-                new(_size, -_size, -_size),
-                new(-_size, -_size, -_size),
-                new(-_size, -_size, _size),
+                new Vector3(_size, -_size, _size) + _offset,
+                new Vector3(_size, -_size, -_size) + _offset,
+                new Vector3(-_size, -_size, -_size) + _offset,
+                new Vector3(-_size, -_size, _size) + _offset,
             },
             TextureCoordinates = new Vector2[]
             {

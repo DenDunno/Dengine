@@ -20,10 +20,13 @@ public class TextureSerialization : FieldSerialization<Texture?>
         {
             ImGui.OpenPopup("TexturesPopUp");
         }
-
-        ImGui.SameLine();
-        ImGui.Text(Path.GetFileName(texture?.Path));
         
+        if (texture != null)
+        {
+            ImGui.SameLine();
+            ImGui.Text(Path.GetFileName(texture?.Path));
+        }
+
         if (TryGetNewTexturePath(out string newTexturePath))
         {
             SetupTexture(ref texture, newTexturePath);
