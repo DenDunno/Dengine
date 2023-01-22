@@ -1,6 +1,11 @@
 ﻿
 public static class GameObjectFactory
 {
+    public static GameObject Point(string name)
+    {
+        return new GameObject(new GameObjectData(name, new Transform()));
+    }
+
     public static GameObject Point(IGameComponent tag)
     {
         return new GameObject(new GameObjectData(tag.GetType().Name, new Transform())

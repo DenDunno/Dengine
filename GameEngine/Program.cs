@@ -1,2 +1,2 @@
 ﻿
-Dengine.Run(new BatchingWorld());
+Dengine.Run(new BatchingScene());

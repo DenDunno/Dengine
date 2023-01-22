@@ -20,7 +20,7 @@ public abstract class Buffer<T> : GLObject, IDisposable where T : struct
     {
         Bind();
         SendData();
-        Release();
+        //Release();
     }
 
     private void Bind()

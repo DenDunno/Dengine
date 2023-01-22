@@ -27,4 +27,25 @@
       <None Remove="bin\**" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="..\Resources\Shaders\lit.glsl">
+        <Link>Shaders\lit.glsl</Link>
+      </Content>
+      <Content Include="..\Resources\Shaders\skyboxFrag.glsl">
+        <Link>Shaders\skyboxFrag.glsl</Link>
+      </Content>
+      <Content Include="..\Resources\Shaders\skyboxVert.glsl">
+        <Link>Shaders\skyboxVert.glsl</Link>
+      </Content>
+      <Content Include="..\Resources\Shaders\unlit.glsl">
+        <Link>Shaders\unlit.glsl</Link>
+      </Content>
+      <Content Include="..\Resources\Shaders\uv.glsl">
+        <Link>Shaders\uv.glsl</Link>
+      </Content>
+      <Content Include="..\Resources\Shaders\vert.glsl">
+        <Link>Shaders\vert.glsl</Link>
+      </Content>
+    </ItemGroup>
+
 </Project>

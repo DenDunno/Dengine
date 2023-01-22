@@ -5,6 +5,10 @@ public class UnlitMaterial : LitMaterial
     public UnlitMaterial(LitMaterialData data) : base(data)
     {
     }
+    
+    public UnlitMaterial(string texturePath) : base(new LitMaterialData() { Base = new Texture(texturePath)})
+    {
+    }
 
     protected override void OnInit()
     {

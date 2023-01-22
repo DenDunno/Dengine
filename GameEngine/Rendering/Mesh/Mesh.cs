@@ -44,7 +44,7 @@ public class Mesh
             }    
         }
 
-        Release();
+        //Release();
 
         return verticesData;
     }

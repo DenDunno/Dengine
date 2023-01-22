@@ -1,12 +1,12 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-public abstract class Material : GLObject, IDisposable
+public class Material : GLObject, IDisposable
 {
     public readonly ShaderBridge Bridge;
     private readonly Shader[] _shaders;
     private bool _wasInited;
     
-    protected Material(string vertexPath, string fragmentPath) : base(GL.CreateProgram())
+    public Material(string vertexPath, string fragmentPath) : base(GL.CreateProgram())
     {
         _shaders = new Shader[]
         {

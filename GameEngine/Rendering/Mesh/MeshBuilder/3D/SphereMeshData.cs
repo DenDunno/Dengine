@@ -5,12 +5,18 @@ public class SphereMeshData : IMeshDataSource
     private readonly float _radius;
     private readonly uint _sectorCount;
     private readonly uint _stackCount;
+    private readonly Vector3 _offset;
 
-    public SphereMeshData(float radius, uint sectorCount, uint stackCount)
+    public SphereMeshData(float radius, uint sectorCount, uint stackCount) : this(radius, sectorCount, stackCount, Vector3.Zero)
+    {
+    }
+    
+    public SphereMeshData(float radius, uint sectorCount, uint stackCount, Vector3 offset)
     {
         _radius = radius;
         _sectorCount = sectorCount;
         _stackCount = stackCount;
+        _offset = offset;
     }
     
     public MeshData GetMeshData()
@@ -49,7 +55,7 @@ public class SphereMeshData : IMeshDataSource
                 float ny = y * lengthInv;
                 float nz = z * lengthInv;
 
-                positions[i * (_sectorCount + 1) + j] = new Vector3(x, y, z);
+                positions[i * (_sectorCount + 1) + j] = new Vector3(x, y, z) + _offset;
                 normals[i * (_sectorCount + 1) + j] = new Vector3(nx, ny, nz);
             }
         }
