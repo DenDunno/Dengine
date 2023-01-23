@@ -2,7 +2,7 @@
 
 public static class StaticBatching
 {
-    public static MeshData Concatenate(MeshData[] objects)
+    public static MeshData Concatenate(IList<MeshData> objects)
     {
         return new MeshData
         {
@@ -13,7 +13,7 @@ public static class StaticBatching
         };
     }
 
-    private static Vector3[] ConcatenatePositions(MeshData[] objects)
+    private static Vector3[] ConcatenatePositions(IList<MeshData> objects)
     {
         int count = objects.Sum(meshData => meshData.Positions.Length);
         Vector3[] buffer = new Vector3[count];
@@ -30,7 +30,7 @@ public static class StaticBatching
         return buffer;
     }
 
-    private static uint[] ConcatenateIndices(MeshData[] objects)
+    private static uint[] ConcatenateIndices(IList<MeshData> objects)
     {
         int count = objects.Sum(meshData => meshData.Indices.Length);
         uint[] buffer = new uint[count];
@@ -50,7 +50,7 @@ public static class StaticBatching
         return buffer;
     }
 
-    private static Vector3[]? ConcatenateNormals(MeshData[] objects)
+    private static Vector3[]? ConcatenateNormals(IList<MeshData> objects)
     {
         if (objects.First().Normals == null)
             return null;
@@ -70,7 +70,7 @@ public static class StaticBatching
         return buffer;
     }
 
-    private static Vector2[]? ConcatenateTextureCoordinates(MeshData[] objects)
+    private static Vector2[]? ConcatenateTextureCoordinates(IList<MeshData> objects)
     {
         if (objects.First().TextureCoordinates == null)
             return null;

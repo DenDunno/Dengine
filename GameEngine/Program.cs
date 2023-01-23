@@ -1,2 +1,2 @@
 ﻿
-Dengine.Run(new BatchingScene());
+Dengine.Run(new TextureBatchingScene());

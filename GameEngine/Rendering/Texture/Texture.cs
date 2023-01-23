@@ -10,13 +10,20 @@ public class Texture : TextureBase
         Path = path;
     }
 
+    public int Width { get; private set; }
+    public int Height { get; private set; }
+
     protected override void OnLoad()
     {
         Use();
+        
         using (Stream stream = File.OpenRead(Path))
         {
             ImageResult image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha); 
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, image.Data);
+            
+            Width = image.Width;
+            Height = image.Height;
         }
 
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.LinearMipmapNearest);

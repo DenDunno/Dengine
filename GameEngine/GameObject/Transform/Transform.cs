@@ -17,10 +17,14 @@ public class Transform
     {
     }
 
+    public Transform(Transform transform) : this(Vector3.One, Quaternion.Identity, Vector3.Zero, transform)
+    {
+    }
+
     public Transform(Vector3 position) : this(Vector3.One, Quaternion.Identity, position, null)
     {
     }
-    
+
     public Transform(Vector3 position, Quaternion rotation) : this(Vector3.One, rotation, position, null)
     {
     }

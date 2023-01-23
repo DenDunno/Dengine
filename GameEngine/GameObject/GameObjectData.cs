@@ -5,7 +5,7 @@ public class GameObjectData
     public readonly Transform Transform;
     public readonly int Id = GameObjectId.Value;
     public List<IGameComponent> Components { get; init; } = new();
-    public IModel Model { get; init; } = new Point();
+    public IModel Model { get; set; } = new Point();
 
     public GameObjectData(string name, Transform transform)
     {

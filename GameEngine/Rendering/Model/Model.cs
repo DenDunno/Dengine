@@ -18,7 +18,7 @@ public class Model : IModel
 
     public void Initialize()
     {
-        
+        Material.Initialize();
         _vertexArrayObject.Init();
     }
 

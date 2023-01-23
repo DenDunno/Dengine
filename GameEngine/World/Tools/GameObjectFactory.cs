@@ -68,6 +68,11 @@ public static class GameObjectFactory
         });
     }
 
+    public static GameObject CreateCamera()
+    {
+        return CreateCamera(new PerspectiveProjection());
+    }
+    
     public static GameObject CreateCamera(CameraProjection projection)
     {
         return CreateCamera(new Camera(projection));

@@ -38,9 +38,16 @@ public class WorldBrowser
         _world.GameObjects.Add(gameObject);
     }
     
-    public void Destroy(GameObject gameObject)
+    public void Destroy(GameObject? gameObject)
     {
-        gameObject.Dispose();
-        _world.GameObjects.Remove(gameObject);
+        if (gameObject == null)
+        {
+            DengineConsole.LogWarning("You tried to destroy null gameObject");
+        }
+        else
+        {
+            gameObject.Dispose();
+            _world.GameObjects.Remove(gameObject);
+        }
     }
 }

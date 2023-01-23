@@ -13,6 +13,11 @@ public class DengineConsole : Panel
     {
         _logs.Add(new Log(value.ToString()!));
     }
+    
+    public static void LogWarning(object value)
+    {
+        _logs.Add(new Log(value.ToString()!, new Vector4(246, 243, 76, 255)));
+    }
 
     protected override void OnPanelDraw()
     {
@@ -27,7 +32,7 @@ public class DengineConsole : Panel
             ImGui.SameLine();
             ImGui.Dummy(new Vector2(10, 0));
             ImGui.SameLine();
-            ImGui.TextColored(new Vector4(255 / 255f, 167 / 255f, 32 / 255f, 1.00f), log.Text);
+            ImGui.TextColored(log.Color, log.Text);
         }
     }
 }

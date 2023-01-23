@@ -1,10 +1,10 @@
 ﻿using OpenTK.Mathematics;
 
-public class BatchingScene : WorldFactory
+public class BatchingScene : IWorldFactory
 {
     private GameObject _origin = null!;
     
-    protected override List<GameObject> CreateGameObjects()
+    public List<GameObject> CreateGameObjects(PlayerInput input)
     {
         Camera camera = new(new PerspectiveProjection());
         BigObjectData[] data = GetDataForObjects();

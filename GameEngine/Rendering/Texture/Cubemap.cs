@@ -23,6 +23,7 @@ public class Cubemap : TextureBase
     protected override void OnLoad()
     {
         Use();
+        
         for (int i = 0; i < _paths.Count; ++i)
         {
             using Stream stream = File.OpenRead(_paths[i]);
