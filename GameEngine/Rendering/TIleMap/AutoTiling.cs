@@ -1,55 +1,40 @@
 ﻿
 public class AutoTiling
 {
-    private readonly Dictionary<int, UnlitMaterial> _tiles = new();
-    private int _result;
-    
-    public AutoTiling(IEnumerable<AutoTile> autoTiles)
+    public static int GetBitmapIndex(ref TileNeighbours neighbours)
     {
-        Dictionary<string, Texture> textures = new();
-
-        foreach (AutoTile autoTile in autoTiles)
-        {
-            textures.TryAdd(autoTile.Path, new Texture(autoTile.Path));
-            
-            _tiles[autoTile.BitmapIndex] = new UnlitMaterial(new LitMaterialData()
-            {
-                Base = textures[autoTile.Path]
-            });
-        }
-    }
-
-    public UnlitMaterial GetMaterial(TileNeighbours neighbours)
-    {
-        _result = 0;
+        int result = 0;
         
         TryEraseCorner(ref neighbours.TopLeft, neighbours.Top, neighbours.Left);
         TryEraseCorner(ref neighbours.TopRight, neighbours.Top, neighbours.Right);
         TryEraseCorner(ref neighbours.BottomLeft, neighbours.Bottom, neighbours.Left);
         TryEraseCorner(ref neighbours.BottomRight, neighbours.Bottom, neighbours.Right);
 
-        TryAdd(neighbours.Top, 0);
-        TryAdd(neighbours.TopRight, 1);
-        TryAdd(neighbours.Right, 2);
-        TryAdd(neighbours.BottomRight, 3);
-        
-        TryAdd(neighbours.Bottom, 4);
-        TryAdd(neighbours.BottomLeft, 5);
-        TryAdd(neighbours.Left, 6);
-        TryAdd(neighbours.TopLeft, 7);
-        
-        return _tiles[_result];
+        result += GetSideValue(neighbours.Top, 0);
+        result += GetSideValue(neighbours.TopRight, 1);
+        result += GetSideValue(neighbours.Right, 2);
+        result += GetSideValue(neighbours.BottomRight, 3);
+        result += GetSideValue(neighbours.Bottom, 4);
+        result += GetSideValue(neighbours.BottomLeft, 5);
+        result += GetSideValue(neighbours.Left, 6);
+        result += GetSideValue(neighbours.TopLeft, 7);
+
+        return result;
     }
 
-    private void TryAdd(bool side, int mask)
+    private static int GetSideValue(bool side, int mask)
     {
+        int result = 0;
+        
         if (side)
         {
-            _result += (1 << mask);
+            result += (1 << mask);
         }
+
+        return result;
     }
 
-    private void TryEraseCorner(ref bool corner, bool firstSide, bool secondSide)
+    private static void TryEraseCorner(ref bool corner, bool firstSide, bool secondSide)
     {
         if (!(firstSide && secondSide))
         {

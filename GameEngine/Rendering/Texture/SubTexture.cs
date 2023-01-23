@@ -2,10 +2,10 @@
 
 public static class SubTexture
 {
-    public static Vector2[] FromLocationSize(Texture texture, Vector2 location, Vector2 size)
+    public static Vector2[] FromLocationSize(Vector2i textureSize, Vector2 location, Vector2 size)
     {
-        location = MapCoordinatesToTexels(texture, location);
-        size = MapCoordinatesToTexels(texture, size);
+        location = MapCoordinatesToTexels(textureSize, location);
+        size = MapCoordinatesToTexels(textureSize, size);
         
         return new[]
         {
@@ -16,13 +16,18 @@ public static class SubTexture
         };
     }
 
-    private static Vector2 MapCoordinatesToTexels(Texture texture, Vector2 coordinates)
+    public static Vector2[] FromLocationSize(Texture texture, Vector2 location, Vector2 size)
     {
-        return new Vector2(coordinates.X / texture.Width, coordinates.Y / texture.Height);
+        return FromLocationSize(new Vector2i(texture.Width, texture.Height), location, size);
     }
-    
-    public static Vector2[] FromLocationSize(Texture texture, Vector2 location, float size)
+
+    public static Vector2[] FromLocationSize(Vector2i textureSize, Vector2 location, float size)
     {
-        return FromLocationSize(texture, location, Vector2.One * size);
+        return FromLocationSize(textureSize, location, Vector2.One * size);
+    }
+
+    private static Vector2 MapCoordinatesToTexels(Vector2i textureSize, Vector2 coordinates)
+    {
+        return new Vector2(coordinates.X / textureSize.X, coordinates.Y / textureSize.Y);
     }
 }
