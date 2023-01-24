@@ -31,7 +31,7 @@ public static class GameObjectFactory
 
         return new GameObject(new GameObjectData("Default name", renderData.Transform)
         {
-            Model = new Model(renderData)
+            Drawable = new Drawable(renderData)
         });
     }
 
@@ -39,7 +39,7 @@ public static class GameObjectFactory
     {
         return new GameObject(new GameObjectData("Default name", renderData.Transform)
         {
-            Model = new Model(renderData)
+            Drawable = new Drawable(renderData)
         });
     }
 
@@ -89,7 +89,7 @@ public static class GameObjectFactory
                 Stats.Instance
             },
 
-            Model = Gizmo.Instance
+            Drawable = Gizmo.Instance
         });
     }
 

@@ -14,13 +14,16 @@ public class Camera : IGameComponent
     {
     }
 
-    public Camera(Transform transform, CameraProjection projection)
+    private Camera(Transform transform, CameraProjection projection)
     {
         Transform = transform;
         Projection = projection;
     }
 
     public Matrix4 ViewMatrix => Matrix4.LookAt(Transform.Position, Transform.Position + Transform.Front, Transform.Up);
+
+    public Vector2 ScreenToWorldCoordinates(Vector2 screenPosition) =>
+        CameraUtils.ScreenToWorldCoordinates(ViewMatrix, Projection.Value, screenPosition);
 
     void IGameComponent.Update(float deltaTime)
     {

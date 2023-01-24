@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-public class BatchingScene : IWorldFactory
+public class StaticBatchingDemo : IWorldFactory
 {
     private GameObject _origin = null!;
     
@@ -63,7 +63,7 @@ public class BatchingScene : IWorldFactory
                 new RotationAnimation(transform, Vector3.One, 0.2f)
             },
             
-            Model = new Model(new RenderData()
+            Drawable = new Drawable(new RenderData()
             {
                 Transform = transform,
                 Mesh = data.Mesh,

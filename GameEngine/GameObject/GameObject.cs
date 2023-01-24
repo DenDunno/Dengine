@@ -11,7 +11,7 @@ public class GameObject : IDisposable
 
     public void Initialize()
     {
-        Data.Components.Add(Data.Model);
+        Data.Components.Add(Data.Drawable);
         Data.Components.ForEach(initializables => initializables.Initialize());
     }
 
@@ -25,11 +25,11 @@ public class GameObject : IDisposable
 
     public void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
     {
-        Data.Model.Draw(in projectionMatrix, in viewMatrix);
+        Data.Drawable.Draw(in projectionMatrix, in viewMatrix);
     }
 
     public void Dispose()
     {
-        Data.Model.Dispose();
+        Data.Drawable.Dispose();
     }
 }

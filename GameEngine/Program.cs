@@ -1,2 +1,2 @@
 ﻿
-Dengine.Run(new Demo3D());
+Dengine.Run(new ParticleSystemDemo());

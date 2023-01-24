@@ -37,7 +37,7 @@ public class Demo3D : IWorldFactory
         
         return new GameObject(new GameObjectData(name, renderData.Transform)
         {
-            Model = new Model(renderData),
+            Drawable = new Drawable(renderData),
             Components = new List<IGameComponent>()
             {
                 new RotationAnimation(renderData.Transform, Vector3.UnitZ, 1f)

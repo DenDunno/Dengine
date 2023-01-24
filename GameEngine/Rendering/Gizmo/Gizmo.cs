@@ -4,7 +4,7 @@ using OpenTK.Mathematics;
 
 // Debug rendering tool
 [HideInInspector]
-public class Gizmo : Singlton<Gizmo>, IModel
+public class Gizmo : Singlton<Gizmo>, IDrawable
 {
     public bool Enabled = true;
     private readonly List<GizmoDrawable> _drawables = new();
@@ -39,7 +39,7 @@ public class Gizmo : Singlton<Gizmo>, IModel
         _drawables.Add(new GizmoPlane(centre, normal, color));
     }
 
-    void IModel.Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
+    void IDrawable.Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
     {
         GL.UseProgram(0);
         

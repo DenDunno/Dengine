@@ -36,19 +36,21 @@ public class CameraControlling : IGameComponent
     public void Move(float deltaTime)
     {
         float speed = _playerInput.Keyboard.IsKeyDown(Keys.LeftShift) ? _acceleratedTranslationSpeed : _translationSpeed;
-        
-        foreach (MovementKey movementKey in _movementKeys)
-        {
-            if (_playerInput.Keyboard.IsKeyDown(movementKey.Key))
-            {
-                _camera.Transform.Position += movementKey.Direction() * speed * deltaTime;
-            }
-        }
-        
+
         if (_camera.Projection is OrthographicProjection)
         {
             Vector2 delta = new(-_playerInput.Mouse.Delta.X, _playerInput.Mouse.Delta.Y);
             _camera.Transform.Position.Xy += delta * deltaTime * _draggingSpeed;
+        }
+        else
+        {
+            foreach (MovementKey movementKey in _movementKeys)
+            {
+                if (_playerInput.Keyboard.IsKeyDown(movementKey.Key))
+                {
+                    _camera.Transform.Position += movementKey.Direction() * speed * deltaTime;
+                }
+            }
         }
     }
 

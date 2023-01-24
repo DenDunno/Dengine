@@ -29,7 +29,7 @@ public class Demo2D : IWorldFactory
 
         return new GameObject(new GameObjectData(name, transform)
         {
-            Model = new Model(new RenderData
+            Drawable = new Drawable(new RenderData
             {
                 Transform = transform,
                 Mesh = mesh,

@@ -2,14 +2,16 @@
 
 public class Viewport
 {
-    public static float Width { get; private set; }
-    public static float Height { get; private set; }
-
-    public static float AspectRatio => Width / Height;
+    public static Vector2 Size { get; private set; }
+    public static Vector2 Position { get; private set; }
     
-    public static void Set(Vector2 size)
+    public static float AspectRatio => Size.X / Size.Y;
+    public static float Width => Size.X;
+    public static float Height => Size.Y;
+    
+    public static void Set(Vector2 size, Vector2 position)
     {
-        Width = size.X;
-        Height = size.Y;
+        Size = size;
+        Position = position;
     }
 }
