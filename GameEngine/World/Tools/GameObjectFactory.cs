@@ -31,7 +31,7 @@ public static class GameObjectFactory
 
         return new GameObject(new GameObjectData("Default name", renderData.Transform)
         {
-            Drawable = new Drawable(renderData)
+            Drawable = new Model(renderData)
         });
     }
 
@@ -39,7 +39,7 @@ public static class GameObjectFactory
     {
         return new GameObject(new GameObjectData("Default name", renderData.Transform)
         {
-            Drawable = new Drawable(renderData)
+            Drawable = new Model(renderData)
         });
     }
 

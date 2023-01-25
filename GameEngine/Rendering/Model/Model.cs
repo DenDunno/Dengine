@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-public class Drawable : IDrawable
+public class Model : IDrawable
 {
     [EditorField] public readonly Material Material;
     [EditorField] private readonly bool _visible = true;
@@ -8,7 +8,7 @@ public class Drawable : IDrawable
     private readonly GLRenderer _glRenderer;
     private readonly Transform _transform;
 
-    public Drawable(RenderData renderData)
+    public Model(RenderData renderData)
     {
         _vertexArrayObject = new VertexArrayObject(renderData);
         _glRenderer = new GLRenderer(renderData.Mesh.Data);

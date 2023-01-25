@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
@@ -14,6 +15,8 @@ public class Window : GameWindow
         Framebuffer.Instance.Init();
     }
 
+    public static Vector2 WindowSize { get; private set; }
+
     protected override void OnUpdateFrame(FrameEventArgs args)
     {
         Stats.Instance.Reset();
@@ -22,11 +25,6 @@ public class Window : GameWindow
         Stats.Instance.Benchmark.Start("Update");
         base.OnUpdateFrame(args);
         Stats.Instance.Benchmark.Stop("Update");
-
-        if (KeyboardState.IsKeyDown(Keys.Escape))
-        {
-            Close();
-        }
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
@@ -53,13 +51,12 @@ public class Window : GameWindow
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.Enable(EnableCap.Blend);
         base.OnRenderFrame(args);
-        
-        Framebuffer.Instance.UnBind();
     }
 
     protected override void OnResize(ResizeEventArgs e)
     {
         base.OnResize(e);
         GL.Viewport(0, 0, Size.X, Size.Y);
+        WindowSize = Size;
     }
 }

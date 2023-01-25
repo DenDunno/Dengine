@@ -63,7 +63,7 @@ public class StaticBatchingDemo : IWorldFactory
                 new RotationAnimation(transform, Vector3.One, 0.2f)
             },
             
-            Drawable = new Drawable(new RenderData()
+            Drawable = new Model(new RenderData()
             {
                 Transform = transform,
                 Mesh = data.Mesh,

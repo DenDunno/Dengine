@@ -95,4 +95,25 @@ public static class Algorithms
 
         return random.Next(0, 2) * 2 - 1;
     }
+
+    public static float InverseLerp(float start, float end, float value)
+    {
+        return (value - start) / (end - start);
+    }
+
+    public static float Clamp(int start, int end, float value)
+    {
+        if (value < start)
+            value = start;
+
+        if (value > end)
+            value = end;
+        
+        return value;
+    }
+
+    public static void Swap(ref float first, ref float second)
+    {
+        (first, second) = (second, first);
+    }
 }

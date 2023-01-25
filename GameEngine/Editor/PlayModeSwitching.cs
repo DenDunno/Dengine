@@ -1,13 +1,16 @@
-﻿using OpenTK.Windowing.GraphicsLibraryFramework;
+﻿using OpenTK.Windowing.Common;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 public class PlayModeSwitching 
 {
     private readonly KeyboardState _keyboardState;
     private readonly ControlPanel _controlPanel;
+    private readonly Window _window;
     private readonly World _world;
 
     public PlayModeSwitching(Window window, World world, ControlPanel controlPanel)
     {
+        _window = window;
         _world = world;
         _controlPanel = controlPanel;
         _keyboardState = window.KeyboardState;
@@ -29,6 +32,7 @@ public class PlayModeSwitching
 
     private void ToggleEngineState(bool isPlaymode)
     {
+        //_window.WindowState = isPlaymode ? WindowState.Fullscreen : WindowState.Normal;
         _isPlaymode = isPlaymode;
         _world.Enabled = isPlaymode;
         _controlPanel.StopButton.Enabled = isPlaymode;
@@ -37,7 +41,7 @@ public class PlayModeSwitching
 
     public void Update(float deltaTime)
     {
-        if (_isPlaymode && _keyboardState.IsKeyPressed(Keys.H))
+        if (_isPlaymode && _keyboardState.IsKeyPressed(Keys.Escape))
         {
             OnStop();
         }

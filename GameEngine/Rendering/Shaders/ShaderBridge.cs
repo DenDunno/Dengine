@@ -38,7 +38,7 @@ public class ShaderBridge
 
     public void SetColor(string name, Color color)
     {
-        SetVector3(name, color.ToVector());
+        SetVector3(name, color.ToVector3());
     }
 
     public void SetFloat(string name, float value)

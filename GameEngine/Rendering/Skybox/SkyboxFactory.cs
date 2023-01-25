@@ -24,7 +24,7 @@ public class SkyboxFactory
 
         return new GameObject(new GameObjectData("Skybox", transform)
         {
-            Drawable = new Drawable(renderData),
+            Drawable = new Model(renderData),
             Components = new List<IGameComponent>
             {
                 new Skybox(_cameraTransform, transform),

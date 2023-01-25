@@ -1,4 +1,5 @@
-﻿using OpenTK.Mathematics;
+﻿using System.Drawing;
+using OpenTK.Mathematics;
 
 public static class VectorExtensions
 {
@@ -22,6 +23,11 @@ public static class VectorExtensions
         };
     }
 
+    public static Color ToColor(this Vector4 vector4)
+    {
+        return Color.FromArgb((int)vector4.W, (int)vector4.X, (int)vector4.Y, (int)vector4.Z);
+    }
+    
     public static System.Numerics.Vector3 ToNumeric(this Vector3 vector3)
     {
         return new System.Numerics.Vector3(vector3.X, vector3.Y, vector3.Z);
