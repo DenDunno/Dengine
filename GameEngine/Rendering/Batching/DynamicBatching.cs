@@ -2,13 +2,19 @@
 
 public class DynamicBatching : IDrawable
 {
-    private readonly MeshData[] _data;
+    private float[] _rawData;
 
     public DynamicBatching(MeshData[] data)
     {
-        _data = data;
+        MeshData meshData = StaticBatching.Concatenate(data);
+        _rawData = MeshBuilder.BuildMesh(meshData).GetVerticesData();
     }
 
+    public (int start, int end) GetSubData(int index, string attribute)
+    {
+        return (1, 2);
+    }
+    
     void IGameComponent.Initialize()
     {
     }

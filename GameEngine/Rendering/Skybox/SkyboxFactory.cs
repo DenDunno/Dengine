@@ -1,5 +1,4 @@
-﻿using OpenTK.Graphics.OpenGL;
-
+﻿
 public class SkyboxFactory
 {
     private readonly IReadOnlyList<string> _paths;
@@ -18,7 +17,6 @@ public class SkyboxFactory
         {
             Transform = transform,
             Mesh = MeshBuilder.Cube(1000),
-            BufferUsageHint = BufferUsageHint.StaticDraw,
             Material = new SkyboxMaterial(new Cubemap(_paths)),
         };
 
