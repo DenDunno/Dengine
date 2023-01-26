@@ -3,7 +3,7 @@
 public class Editor : EngineComponent
 {
     private readonly ImGuiController _imGui;
-    private readonly PlayModeSwitching _playModeSwitching;
+    private readonly PlayMode _playMode;
     private readonly EditorStyle _editorStyle;
     private readonly UI _ui;
 
@@ -11,7 +11,7 @@ public class Editor : EngineComponent
     {
         _ui = new UI(world, window);
         _imGui = new ImGuiController(window);
-        _playModeSwitching = new PlayModeSwitching(window, world, _ui.GetWidget<ControlPanel>());
+        _playMode = new PlayMode(window, world, _ui.GetWidget<ControlPanel>());
         _editorStyle = new EditorStyle(new Icon("Icon.png", window), new GrayOrangeTheme());
     }
 
@@ -25,13 +25,29 @@ public class Editor : EngineComponent
         float deltaTime = (float) args.Time;
         
         _imGui.Update(deltaTime);
-        _playModeSwitching.Update(deltaTime);
+        _playMode.Update(deltaTime);
         _ui.Update(deltaTime);
     }
 
     public override void Draw(FrameEventArgs args)
     {
-        _ui.Draw();
-        _imGui.Render();
+        if (UIEnabled)
+        {
+            _ui.Draw();
+            _imGui.Render();    
+        }
+    }
+
+    private bool UIEnabled
+    {
+        get
+        {
+            if (PlayMode.IsActive)
+            {
+                return ControlPanel.IsFullscreen == false;
+            }
+
+            return true;
+        }
     }
 }

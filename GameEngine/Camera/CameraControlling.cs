@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
-public class CameraControlling : IGameComponent
+public class CameraControlling : TogglingComponent
 {
     private readonly Camera _camera;
     private readonly PlayerInput _playerInput;
@@ -25,8 +25,8 @@ public class CameraControlling : IGameComponent
             new(Keys.LeftControl, ()=> -_camera.Transform.Up),
         };
     }
-
-    public void Update(float deltaTime)
+    
+    protected override void OnUpdate(float deltaTime)
     {
         Move(deltaTime);
         Rotate(deltaTime);

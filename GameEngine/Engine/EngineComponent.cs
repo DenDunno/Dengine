@@ -6,4 +6,5 @@ public abstract class EngineComponent
     public abstract void Initialize();
     public abstract void Update(FrameEventArgs args);
     public abstract void Draw(FrameEventArgs args);
+    public virtual void OnResize(ResizeEventArgs obj) { }
 }

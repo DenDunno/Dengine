@@ -1,15 +1,19 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-public class Framebuffer : Singlton<Framebuffer>
+public class Framebuffer
 {
-    public int FramebufferTexture;
+    public static int FramebufferTexture;
     private int _fbo;
     private int _depthTexture;
-    private readonly int _width = 1536;
-    private readonly int _height = 864;
+    private int _width = 1536;
+    private int _height = 864;
 
     public void Init()
     {
+        GL.DeleteFramebuffer(_fbo);
+        GL.DeleteTexture(FramebufferTexture);
+        GL.DeleteTexture(_depthTexture);
+        
         GL.CreateFramebuffers(1, out _fbo);
         GL.BindFramebuffer(FramebufferTarget.Framebuffer, _fbo);
         
@@ -32,16 +36,21 @@ public class Framebuffer : Singlton<Framebuffer>
 
     public void Bind()
     {
-        Bind(_fbo);
-    }
-
-    public void UnBind()
-    {
-        Bind(0);
+        int id = PlayMode.IsActive && ControlPanel.IsFullscreen ? 0 : _fbo;
+        Bind(id);
     }
 
     private void Bind(int id)
     {
         GL.BindFramebuffer(FramebufferTarget.Framebuffer, id);
+    }
+
+    public void Resize(int width, int height)
+    {
+        Console.WriteLine($"Frame buffer was resized to {width}, {height}");
+        
+        _width = width;
+        _height = height;
+        Init();
     }
 }

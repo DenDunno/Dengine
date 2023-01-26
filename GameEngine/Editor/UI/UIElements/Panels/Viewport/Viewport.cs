@@ -2,16 +2,23 @@
 
 public class Viewport
 {
-    public static Vector2 Size { get; private set; }
-    public static Vector2 Position { get; private set; }
-    
-    public static float AspectRatio => Size.X / Size.Y;
-    public static float Width => Size.X;
-    public static float Height => Size.Y;
-    
-    public static void Set(Vector2 size, Vector2 position)
+    private static Vector2 _viewportPanelSize;
+
+    public static float AspectRatio
     {
-        Size = size;
-        Position = position;
+        get
+        {
+            if (PlayMode.IsActive && ControlPanel.IsFullscreen)
+            {
+                return (float)Window.WindowSize.X / Window.WindowSize.Y;
+            }
+
+            return _viewportPanelSize.X / _viewportPanelSize.Y;
+        }
+    }
+
+    public static void Set(Vector2 size)
+    {
+        _viewportPanelSize = size;
     }
 }

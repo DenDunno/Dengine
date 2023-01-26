@@ -1,2 +1,2 @@
 ﻿
-Dengine.Run(new GradientDemo());
+Dengine.Run(new Demo3D());

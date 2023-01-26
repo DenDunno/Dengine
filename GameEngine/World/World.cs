@@ -3,12 +3,12 @@
 public class World : EngineComponent
 {
     public readonly List<GameObject> GameObjects;
-    private readonly Camera _camera;
+    private readonly RenderQueue _renderQueue;
 
     public World(List<GameObject> gameObjects)
     {
+        _renderQueue = new RenderQueue(gameObjects);
         GameObjects = gameObjects;
-        _camera = gameObjects.Find<Camera>();
     }
 
     public override void Initialize()
@@ -17,7 +17,8 @@ public class World : EngineComponent
         {
             GameObjects[i].Initialize();
         }
-        
+
+        _renderQueue.Initialize();
         Enabled = false;
     }
 
@@ -34,9 +35,11 @@ public class World : EngineComponent
 
     public override void Draw(FrameEventArgs args)
     {
-        foreach (GameObject gameObject in GameObjects)
-        {
-            gameObject.Draw(_camera.Projection.Value, _camera.ViewMatrix);
-        }
+        _renderQueue.Draw();
+    }
+
+    public override void OnResize(ResizeEventArgs obj)
+    {
+        _renderQueue.ResizeFrameBuffer(obj.Width, obj.Height);
     }
 }

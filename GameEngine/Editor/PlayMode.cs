@@ -1,14 +1,14 @@
 ﻿using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
-public class PlayModeSwitching 
+public class PlayMode 
 {
     private readonly KeyboardState _keyboardState;
     private readonly ControlPanel _controlPanel;
     private readonly Window _window;
     private readonly World _world;
 
-    public PlayModeSwitching(Window window, World world, ControlPanel controlPanel)
+    public PlayMode(Window window, World world, ControlPanel controlPanel)
     {
         _window = window;
         _world = world;
@@ -18,30 +18,35 @@ public class PlayModeSwitching
         controlPanel.StopButton.OnClick += OnStop;
     }
 
-    private bool _isPlaymode;
+    public static bool IsActive { get; private set; }
 
     private void OnStop()
     {
-        ToggleEngineState(false);
+        ToggleState(false);
     }
 
     private void OnPlay()
     {
-        ToggleEngineState(true);
+        ToggleState(true);
     }
 
-    private void ToggleEngineState(bool isPlaymode)
+    private void ToggleState(bool isPlaymode)
     {
-        //_window.WindowState = isPlaymode ? WindowState.Fullscreen : WindowState.Normal;
-        _isPlaymode = isPlaymode;
+        IsActive = isPlaymode;
         _world.Enabled = isPlaymode;
         _controlPanel.StopButton.Enabled = isPlaymode;
         _controlPanel.PlayButton.Enabled = isPlaymode == false;
+        
+        if (ControlPanel.IsFullscreen)
+        {
+            _window.WindowState = isPlaymode ? WindowState.Fullscreen : WindowState.Normal;
+            _window.CursorState = isPlaymode ? CursorState.Grabbed : CursorState.Normal;
+        }
     }
 
     public void Update(float deltaTime)
     {
-        if (_isPlaymode && _keyboardState.IsKeyPressed(Keys.Escape))
+        if (IsActive && _keyboardState.IsKeyPressed(Keys.Escape))
         {
             OnStop();
         }

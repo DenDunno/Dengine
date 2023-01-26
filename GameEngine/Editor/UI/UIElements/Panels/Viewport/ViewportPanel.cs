@@ -18,13 +18,16 @@ public class ViewportPanel : Panel
 
     public override void Update(float deltaTime)
     {
-        TryControlCamera(deltaTime);
+        if (PlayMode.IsActive == false)
+        {
+            TryControlCamera(deltaTime);
+        }
     }
 
     private void TryControlCamera(float deltaTime)
     {
         _window.CursorState = _isCameraControlling ? CursorState.Grabbed : CursorState.Normal;
-
+        
         if (_isCameraControlling)
         {
             _cameraControlling.Move(deltaTime);
@@ -42,9 +45,9 @@ public class ViewportPanel : Panel
         UpdateCameraControllingState();
         
         Vector2 size = ImGui.GetWindowSize() - _offset;
-        Viewport.Set(size, ImGui.GetWindowPos());
+        Viewport.Set(size);
         
-        ImGui.Image((IntPtr) Framebuffer.Instance.FramebufferTexture, size, Vector2.UnitY, Vector2.UnitX);
+        ImGui.Image((IntPtr) Framebuffer.FramebufferTexture, size, Vector2.UnitY, Vector2.UnitX);
     }
 
     private void UpdateCameraControllingState()

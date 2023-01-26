@@ -48,4 +48,17 @@ public static class EnumerableExtensions
 
         throw new Exception($"No component with type {typeof(T)}");
     }
+    
+    public static T GetComponent<T>(this GameObject gameObject) where T : IGameComponent
+    {
+        foreach (IGameComponent component in gameObject.Data.Components)
+        {
+            if (component is T result)
+            {
+                return result;
+            }
+        }
+
+        throw new Exception($"No component with type {typeof(T)}");
+    }
 }

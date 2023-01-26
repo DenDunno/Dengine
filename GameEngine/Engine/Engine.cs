@@ -23,6 +23,7 @@ public class Engine
         _window.Load += engineComponent.Initialize;
         _window.UpdateFrame += engineComponent.Update;
         _window.RenderFrame += engineComponent.Draw;
+        _window.Resize += engineComponent.OnResize;
     }
 
     public void Run()
