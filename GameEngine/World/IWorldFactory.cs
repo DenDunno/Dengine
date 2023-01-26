@@ -1,5 +1,5 @@
 ﻿
 public interface IWorldFactory
 {
-    List<GameObject> CreateGameObjects(PlayerInput playerInput);
+    List<GameObject> CreateGameObjects();
 }

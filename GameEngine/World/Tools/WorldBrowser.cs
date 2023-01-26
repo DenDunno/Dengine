@@ -1,25 +1,19 @@
 ﻿
-public class WorldBrowser
+public static class WorldBrowser
 {
-    public static WorldBrowser Instance = null!;
-    private readonly World _world;
+    private static World _world = null!;
 
     public static void Setup(World world)
-    {
-        Instance = new WorldBrowser(world);
-    }
-
-    private WorldBrowser(World world)
     {
         _world = world;
     }
 
-    public T FindObjectOfType<T>() where T : IGameComponent
+    public static T FindObjectOfType<T>() where T : IGameComponent
     {
         return _world.GameObjects.Find<T>();
     }
 
-    public GameObject FindGameObject(int id)
+    public static GameObject FindGameObject(int id)
     {
         foreach (GameObject gameObject in _world.GameObjects)
         {
@@ -32,13 +26,13 @@ public class WorldBrowser
         throw new Exception($"No gameObject with id {id}");
     }
 
-    public void Add(GameObject gameObject)
+    public static void Add(GameObject gameObject)
     {
         gameObject.Initialize();
         _world.GameObjects.Add(gameObject);
     }
     
-    public void Destroy(GameObject? gameObject)
+    public static void Destroy(GameObject? gameObject)
     {
         if (gameObject == null)
         {

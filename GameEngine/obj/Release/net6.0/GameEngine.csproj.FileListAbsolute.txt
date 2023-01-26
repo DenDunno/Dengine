@@ -72,3 +72,5 @@ C:\Natalya\Denis\Pacman\GameEngine\GameEngine\obj\Release\net6.0\refint\GameEngi
 C:\Natalya\Denis\Pacman\GameEngine\GameEngine\obj\Release\net6.0\GameEngine.pdb
 C:\Natalya\Denis\Pacman\GameEngine\GameEngine\obj\Release\net6.0\GameEngine.genruntimeconfig.cache
 C:\Natalya\Denis\Pacman\GameEngine\GameEngine\obj\Release\net6.0\ref\GameEngine.dll
+C:\Natalya\Denis\Pacman\GameEngine\GameEngine\obj\Release\net6.0\GameEngine.csproj.Fody.CopyLocal.cache
+C:\Natalya\Denis\Pacman\GameEngine\GameEngine\obj\Release\net6.0\GameEngine.csproj.Fody.RuntimeCopyLocal.cache

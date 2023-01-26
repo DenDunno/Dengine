@@ -2,6 +2,6 @@
 
 public struct Particle
 {
-    public readonly AnimationCurve<float> Size;
-    public readonly AnimationCurve<Vector4> Color;
+    public Vector3 Velocity;
+    public Vector3 ElapsedTime;
 }

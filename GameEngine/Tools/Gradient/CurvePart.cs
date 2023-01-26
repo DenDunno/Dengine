@@ -9,7 +9,7 @@ public class CurvePart<T>
     {
         if (FirstKey.Lerp >= SecondKey.Lerp)
         {
-            throw new Exception($"Bad gradient was created. {FirstKey.Lerp} must be greater than {SecondKey.Lerp}");
+            throw new Exception($"Bad curve was created. {FirstKey.Lerp} must be greater than {SecondKey.Lerp}");
         }
         
         return lerp >= FirstKey.Lerp && lerp <= SecondKey.Lerp;

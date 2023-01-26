@@ -2,7 +2,7 @@
 
 public class Demo2D : IWorldFactory
 {
-    public List<GameObject> CreateGameObjects(PlayerInput playerInput)
+    public List<GameObject> CreateGameObjects()
     {
         return new List<GameObject>()
         {

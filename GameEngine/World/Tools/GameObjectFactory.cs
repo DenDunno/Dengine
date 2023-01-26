@@ -98,21 +98,8 @@ public static class GameObjectFactory
         return new SkyboxFactory(name, camera.Transform).Create();
     }
 
-    public static GameObject CreateCamera(OrthographicProjection projection, PlayerInput playerInput)
+    private static GameObject AddCameraControlling(GameObject camera)
     {
-        return AddCameraControlling(CreateCamera(projection), playerInput);
-    }
-
-    public static GameObject CreateCamera(Camera camera, PlayerInput playerInput)
-    {
-        return AddCameraControlling(CreateCamera(camera), playerInput);
-    }
-
-    private static GameObject AddCameraControlling(GameObject camera, PlayerInput input)
-    {
-        Camera cameraComponent = camera.GetComponent<Camera>(); 
-        camera.Data.Components.Add(new CameraControlling(cameraComponent, input));
-
         return camera;
     }
 }

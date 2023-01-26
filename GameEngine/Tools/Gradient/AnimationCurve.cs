@@ -3,6 +3,10 @@ public class AnimationCurve<T>
 {
     private readonly IReadOnlyList<CurvePart<T>> _parts;
 
+    public AnimationCurve(T constant) : this(constant, constant, EasingFunctions.Linear)
+    {
+    }
+    
     public AnimationCurve(T first, T second) : this(first, second, EasingFunctions.Linear)
     {
     }
@@ -40,6 +44,6 @@ public class AnimationCurve<T>
             }
         }
 
-        throw new ArgumentException ("Bad gradient created");
+        throw new ArgumentException ("Bad curve was created");
     }
 }

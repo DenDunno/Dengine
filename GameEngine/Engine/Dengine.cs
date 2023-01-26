@@ -5,8 +5,9 @@ public static class Dengine
     {
         WindowFactory windowFactory = new();
         Window window = windowFactory.Create();
+        WindowSettings.Setup(window);
         
-        List<GameObject> gameObjects = worldFactory.CreateGameObjects(window.Input);
+        List<GameObject> gameObjects = worldFactory.CreateGameObjects();
         World world = new(gameObjects);
         WorldBrowser.Setup(world);
 

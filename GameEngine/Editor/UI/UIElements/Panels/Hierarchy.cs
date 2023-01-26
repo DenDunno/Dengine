@@ -58,7 +58,7 @@ public class Hierarchy : Panel
         _selectables[id] = true;
         _currentSelectedGameObject = id;
         
-        GameObjectData gameObjectToBeShown = WorldBrowser.Instance.FindGameObject(id).Data;
+        GameObjectData gameObjectToBeShown = WorldBrowser.FindGameObject(id).Data;
         _inspector.InspectGameObject(gameObjectToBeShown);
     }
 }

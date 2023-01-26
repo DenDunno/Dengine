@@ -1,26 +1,28 @@
-﻿using System.Drawing;
-using OpenTK.Mathematics;
-using OpenTK.Windowing.GraphicsLibraryFramework;
+﻿using OpenTK.Mathematics;
 
 public class ParticleSpawner : IGameComponent
 {
-    private readonly MouseState _mouseInput;
     private readonly Camera _camera;
+    private readonly float _rate = 0.1f;
+    private double _clock;
 
-    public ParticleSpawner(MouseState mouseInput, Camera camera)
+    public ParticleSpawner(Camera camera)
     {
-        _mouseInput = mouseInput;
         _camera = camera;
     }
 
     void IGameComponent.Update(float deltaTime)
     {
-        if (_mouseInput.IsAnyButtonDown)
+        if (WindowSettings.Mouse.IsAnyButtonDown && Timer.Time >= _clock + _rate)
         {
-            Vector2 worldPosition = _camera.ScreenToWorldCoordinates(_mouseInput.Position);
-            Vector3 point = new(worldPosition.X, worldPosition.Y, 0);
-            
-            Gizmo.Instance.DrawLine(Vector3.Zero, point, Color.Aqua);
+            _clock = Timer.Time;
+            SpawnParticle();
         }
+    }
+
+    private void SpawnParticle()
+    {
+        Vector2 worldPosition = _camera.ScreenToWorldCoordinates(WindowSettings.Mouse.Position);
+        Vector3 point = new(worldPosition.X, worldPosition.Y, 0);
     }
 }

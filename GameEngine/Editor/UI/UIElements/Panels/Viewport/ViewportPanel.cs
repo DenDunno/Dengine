@@ -13,7 +13,7 @@ public class ViewportPanel : Panel
     public ViewportPanel(Window window, Camera camera) : base("Viewport")
     {
         _window = window;
-        _cameraControlling = new CameraControlling(camera, window.Input);
+        _cameraControlling = new CameraControlling(camera);
     }
 
     public override void Update(float deltaTime)

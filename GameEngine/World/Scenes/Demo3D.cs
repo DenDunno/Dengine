@@ -5,7 +5,7 @@ public class Demo3D : IWorldFactory
 {
     private Light _light = null!;
 
-    public List<GameObject> CreateGameObjects(PlayerInput playerInput)
+    public List<GameObject> CreateGameObjects()
     {
         Camera camera = new(new PerspectiveProjection());
         _light = new Light(new Transform(), camera.Transform, Color.Aqua);
@@ -14,7 +14,7 @@ public class Demo3D : IWorldFactory
         {
             CreateCube("Controlling cube", new Vector3(-2, 2, 0), Vector3.Zero),
             CreateCube("Cube1", new Vector3(2, 2, 0), new Vector3(0, 45, 45)),
-            GameObjectFactory.CreateCamera(camera, playerInput),
+            GameObjectFactory.CreateCamera(camera),
             GameObjectFactory.CreateSkybox("Storm", camera),
             GameObjectFactory.Point(_light, _light.Transform)
         };

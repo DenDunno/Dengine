@@ -34,7 +34,7 @@ public class RenderQueue
     private void ResetFrame()
     {
         GL.ClearColor(Color.Black);
-        GL.Viewport(0, 0, Window.WindowSize.X, Window.WindowSize.Y);
+        GL.Viewport(0, 0, WindowSettings.Width, WindowSettings.Height);
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         GL.Enable(EnableCap.DepthTest);
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);

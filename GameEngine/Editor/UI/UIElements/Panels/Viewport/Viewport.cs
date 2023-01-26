@@ -10,7 +10,7 @@ public class Viewport
         {
             if (PlayMode.IsActive && ControlPanel.IsFullscreen)
             {
-                return (float)Window.WindowSize.X / Window.WindowSize.Y;
+                return (float)WindowSettings.Width /WindowSettings.Height;
             }
 
             return _viewportPanelSize.X / _viewportPanelSize.Y;

@@ -4,7 +4,7 @@ public class StaticBatchingDemo : IWorldFactory
 {
     private GameObject _origin = null!;
     
-    public List<GameObject> CreateGameObjects(PlayerInput input)
+    public List<GameObject> CreateGameObjects()
     {
         Camera camera = new(new PerspectiveProjection());
         BigObjectData[] data = GetDataForObjects();
@@ -13,7 +13,7 @@ public class StaticBatchingDemo : IWorldFactory
         return new List<GameObject>()
         {
             GameObjectFactory.CreateSkybox("Storm", camera),
-            GameObjectFactory.CreateCamera(camera, input),
+            GameObjectFactory.CreateCamera(camera),
             CreateBigObject(data[0]),
             CreateBigObject(data[1]),
             CreateBigObject(data[2]),

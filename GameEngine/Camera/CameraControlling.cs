@@ -4,17 +4,15 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 public class CameraControlling : TogglingComponent
 {
     private readonly Camera _camera;
-    private readonly PlayerInput _playerInput;
     private readonly IEnumerable<MovementKey> _movementKeys;
     private readonly float _translationSpeed = 4f;
     private readonly float _acceleratedTranslationSpeed = 12f;
     private readonly float _rotationSpeed = 7f;
     private readonly float _draggingSpeed = 2f;
     
-    public CameraControlling(Camera camera, PlayerInput playerInput)
+    public CameraControlling(Camera camera)
     {
         _camera = camera;
-        _playerInput = playerInput;
         _movementKeys = new List<MovementKey>
         {
             new(Keys.W, ()=> _camera.Transform.Front),
@@ -25,7 +23,7 @@ public class CameraControlling : TogglingComponent
             new(Keys.LeftControl, ()=> -_camera.Transform.Up),
         };
     }
-    
+
     protected override void OnUpdate(float deltaTime)
     {
         Move(deltaTime);
@@ -35,18 +33,18 @@ public class CameraControlling : TogglingComponent
 
     public void Move(float deltaTime)
     {
-        float speed = _playerInput.Keyboard.IsKeyDown(Keys.LeftShift) ? _acceleratedTranslationSpeed : _translationSpeed;
+        float speed = WindowSettings.Keyboard.IsKeyDown(Keys.LeftShift) ? _acceleratedTranslationSpeed : _translationSpeed;
 
         if (_camera.Projection is OrthographicProjection)
         {
-            Vector2 delta = new(-_playerInput.Mouse.Delta.X, _playerInput.Mouse.Delta.Y);
+            Vector2 delta = new(-WindowSettings.Mouse.Delta.X, WindowSettings.Mouse.Delta.Y);
             _camera.Transform.Position.Xy += delta * deltaTime * _draggingSpeed;
         }
         else
         {
             foreach (MovementKey movementKey in _movementKeys)
             {
-                if (_playerInput.Keyboard.IsKeyDown(movementKey.Key))
+                if (WindowSettings.Keyboard.IsKeyDown(movementKey.Key))
                 {
                     _camera.Transform.Position += movementKey.Direction() * speed * deltaTime;
                 }
@@ -58,8 +56,8 @@ public class CameraControlling : TogglingComponent
     {
         if (_camera.Projection is PerspectiveProjection)
         {
-            _camera.Transform.Yaw += _playerInput.Mouse.Delta.X * _rotationSpeed * deltaTime;
-            _camera.Transform.Pitch -= _playerInput.Mouse.Delta.Y * _rotationSpeed * deltaTime;
+            _camera.Transform.Yaw += WindowSettings.Mouse.Delta.X * _rotationSpeed * deltaTime;
+            _camera.Transform.Pitch -= WindowSettings.Mouse.Delta.Y * _rotationSpeed * deltaTime;
         }
     }
 
@@ -67,7 +65,7 @@ public class CameraControlling : TogglingComponent
     {
         if (_camera.Projection is OrthographicProjection orthographicProjection)
         {
-            orthographicProjection.Zoom(-_playerInput.Mouse.ScrollDelta.Y * deltaTime);
+            orthographicProjection.Zoom(-WindowSettings.Mouse.ScrollDelta.Y * deltaTime);
         }
     }
 }
