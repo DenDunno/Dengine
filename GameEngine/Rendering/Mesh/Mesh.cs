@@ -3,11 +3,12 @@ public class Mesh
 {
     public readonly Dictionary<string, VertexAttribute> Attributes = new();
 
-    public Mesh(List<VertexAttributeData> attributes)
+    public Mesh(List<VertexAttribute> attributes)
     {
-        foreach (VertexAttributeData attribute in attributes)
+        foreach (VertexAttribute attribute in attributes)
         {
-            Attributes[attribute.Name] = new VertexAttribute(Attributes.Count, attribute.Size, Stride, attribute.Data);
+            attribute.Offset = Stride;
+            Attributes[attribute.Name] = attribute;
         }
     }
 

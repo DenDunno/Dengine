@@ -9,9 +9,9 @@ public static class StaticBatching
         };
     }
 
-    private static List<VertexAttributeData> ConcatenateAttributes(IList<Mesh> objects)
+    private static List<VertexAttribute> ConcatenateAttributes(IList<Mesh> objects)
     {
-        List<VertexAttributeData> result = new();
+        List<VertexAttribute> result = new();
         int verticesCount = objects.Sum(mesh => mesh.VerticesCount);
         
         foreach (KeyValuePair<string, VertexAttribute> attribute in objects.First().Attributes)
@@ -27,7 +27,7 @@ public static class StaticBatching
                 destinationIndex += subData.Length;
             }
             
-            result.Add(new VertexAttributeData(attributeName, attribute.Value.Size, buffer));
+            result.Add(new VertexAttribute(attributeName, attribute.Value.Index, attribute.Value.Size, buffer));
         }
 
         return result;

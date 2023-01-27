@@ -22,9 +22,7 @@ public class Material : GLObject, IDisposable
         if (_wasInited == false) // shared material
         {
             _wasInited = true;
-            
             LoadShaders();
-            Bridge.LoadUniforms();
             OnInit();
         }
     }

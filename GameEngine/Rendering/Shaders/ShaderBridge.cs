@@ -6,50 +6,39 @@ public class ShaderBridge
 {
     private readonly int _shaderProgramId;
     private readonly Dictionary<string, int> _uniformLocations = new();
-
+    private readonly Dictionary<Type, IUniformWrapper> _uniforms = new()
+    {
+        {typeof(Matrix4), new Matrix4Uniform()},
+        {typeof(Vector3), new Vector3Uniform()},
+        {typeof(Color), new ColorUniform()},
+        {typeof(float), new FloatUniform()},
+        {typeof(int), new IntUniform()},
+    };
+    
     public ShaderBridge(int shaderProgramId)
     {
         _shaderProgramId = shaderProgramId;
     }
 
-    public void LoadUniforms()
+    public void SetValue<T>(string name, T value)
     {
-        GL.GetProgram(_shaderProgramId, GetProgramParameterName.ActiveUniforms, out int numberOfUniforms); 
-        
-        for (int i = 0; i < numberOfUniforms; i++)
+        GL.UseProgram(_shaderProgramId);
+        TryAddUniformId(name);
+        SetValue(_uniformLocations[name], value);
+    }
+
+    private void TryAddUniformId(string name)
+    {
+        if (_uniformLocations.ContainsKey(name) == false)
         {
-            string? key = GL.GetActiveUniform(_shaderProgramId, i, out _, out _);
-            int location = GL.GetUniformLocation(_shaderProgramId, key);
-            _uniformLocations.Add(key, location);
+            _uniformLocations[name] = GL.GetUniformLocation(_shaderProgramId, name);
         }
     }
-    
-    public void SetMatrix4(string name, Matrix4 data)
-    {
-        GL.UseProgram(_shaderProgramId);
-        GL.UniformMatrix4(_uniformLocations[name], true, ref data);
-    }
-   
-    public void SetVector3(string name, Vector3 data)
-    {
-        GL.UseProgram(_shaderProgramId);
-        GL.Uniform3(_uniformLocations[name], data);
-    }
 
-    public void SetColor(string name, Color color)
+    private void SetValue<T>(int id, T value)
     {
-        SetVector3(name, color.ToVector3());
-    }
-
-    public void SetFloat(string name, float value)
-    {
-        GL.UseProgram(_shaderProgramId);
-        GL.Uniform1(_uniformLocations[name], value);
-    }
-    
-    public void SetInt(string name, int value)
-    {
-        GL.UseProgram(_shaderProgramId);
-        GL.Uniform1(_uniformLocations[name], value);
+        IUniform<T> uniform = (IUniform<T>)_uniforms[typeof(T)];
+        
+        uniform.SetValue(id, value);
     }
 }

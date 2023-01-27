@@ -15,9 +15,9 @@ public class QuadMeshData : IMeshDataSource
         _size = size / 2f;
     }
 
-    private List<VertexAttributeData> VerticesData => new()
+    private List<VertexAttribute> VerticesData => new()
     {
-        new VertexAttributeData("Position", 3, new[]
+        new VertexAttribute("Position", 0, 3, new[]
         {
             _size + _offset.X, _size + _offset.Y, _offset.Z,
             _size + _offset.X, -_size + _offset.Y, _offset.Z,
@@ -25,7 +25,7 @@ public class QuadMeshData : IMeshDataSource
             -_size + _offset.X, _size + _offset.Y, _offset.Z,
         }),
             
-        new VertexAttributeData("Normals", 3, new float[]
+        new VertexAttribute("Normals", 1, 3, new float[]
         {
             1,  0, 0,
             0, -1, 0,
@@ -33,7 +33,7 @@ public class QuadMeshData : IMeshDataSource
             0,  1, 0,
         }),
             
-        new VertexAttributeData("TexCoord", 2, new float[]
+        new VertexAttribute("TexCoord", 2, 2, new float[]
         {
             1, 1,
             1, 0,
