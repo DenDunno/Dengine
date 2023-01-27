@@ -9,22 +9,9 @@ public class HexagonMeshData : IMeshDataSource
         _size = size;
     }
     
-    public MeshData GetMeshData()
+    public Mesh Build()
     {
-        (Vector3[] positions, Vector3[] normals) = EvaluateTriangle(_size);
-        
-        return new MeshData()
-        {
-            Positions = positions,
-            Normals = normals,
-            Indices = new uint[]
-            {
-                0, 1, 2,
-                2, 0, 5,
-                5, 2, 3,
-                3, 4, 5
-            }
-        };
+        throw new NotImplementedException();
     }
 
     private (Vector3[], Vector3[]) EvaluateTriangle(float size)

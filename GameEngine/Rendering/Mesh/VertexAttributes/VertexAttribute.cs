@@ -6,7 +6,7 @@ public class VertexAttribute
     public readonly int Offset;
     public float[] Data;
 
-    public VertexAttribute(int index, float[] data, int size, int offset)
+    public VertexAttribute(int index, int size, int offset, float[] data)
     {
         Index = index;
         Data = data;

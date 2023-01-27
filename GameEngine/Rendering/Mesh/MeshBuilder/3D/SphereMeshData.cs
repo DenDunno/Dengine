@@ -19,16 +19,9 @@ public class SphereMeshData : IMeshDataSource
         _offset = offset;
     }
     
-    public MeshData GetMeshData()
+    public Mesh Build()
     {
-        GetSphereVertices(out Vector3[] positions, out Vector3[] normals);
-        
-        return new MeshData()
-        {
-            Positions = positions,
-            Normals = normals,
-            Indices = GetIndices()
-        };
+        throw new NotImplementedException();
     }
     
     private void GetSphereVertices(out Vector3[] positions, out Vector3[] normals)

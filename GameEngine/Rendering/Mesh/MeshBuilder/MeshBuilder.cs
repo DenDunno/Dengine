@@ -13,13 +13,5 @@ public static class MeshBuilder
     
     public static Mesh Sphere(float radius, uint sectors, uint stacks) => BuildMesh(new SphereMeshData(radius, sectors, stacks));
 
-    private static Mesh BuildMesh(IMeshDataSource meshDataSource) => BuildMesh(meshDataSource.GetMeshData());
-
-    public static Mesh BuildMesh(MeshData meshData)
-    {
-        Mesh mesh = new(meshData);
-        mesh.Init();
-
-        return mesh;
-    }
+    private static Mesh BuildMesh(IMeshDataSource meshDataSource) => meshDataSource.Build();
 }

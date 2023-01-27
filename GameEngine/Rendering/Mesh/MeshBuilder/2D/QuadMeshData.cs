@@ -15,36 +15,42 @@ public class QuadMeshData : IMeshDataSource
         _size = size / 2f;
     }
 
-    public MeshData GetMeshData()
+    private List<VertexAttributeData> VerticesData => new()
     {
-        return new MeshData()
+        new VertexAttributeData("Position", 3, new[]
         {
-            Positions = new[]
-            {
-                new Vector3(_size, _size, 0.0f) + _offset,
-                new Vector3(_size, -_size, 0.0f) + _offset,
-                new Vector3(-_size, -_size, 0.0f) + _offset,
-                new Vector3(-_size, _size, 0.0f) + _offset,
-            },
-            Normals = new Vector3[]
-            {
-                new(1, 0, 0),
-                new(0, -1, 0),
-                new(-1, 0, 0),
-                new(0, 1, 0),
-            },
-            TextureCoordinates = new Vector2[]
-            {
-                new(1, 1),
-                new(1, 0),
-                new(0, 0),
-                new(0, 1),
-            },
+            _size + _offset.X, _size + _offset.Y, _offset.Z,
+            _size + _offset.X, -_size + _offset.Y, _offset.Z,
+            -_size + _offset.X, -_size + _offset.Y, _offset.Z,
+            -_size + _offset.X, _size + _offset.Y, _offset.Z,
+        }),
+            
+        new VertexAttributeData("Normals", 3, new float[]
+        {
+            1,  0, 0,
+            0, -1, 0,
+            -1, 0, 0,
+            0,  1, 0,
+        }),
+            
+        new VertexAttributeData("TexCoord", 2, new float[]
+        {
+            1, 1,
+            1, 0,
+            0, 0,
+            0, 1,
+        }),
+    };
+    
+    public Mesh Build()
+    {
+        return new Mesh(VerticesData)
+        {
             Indices = new uint[]
             {
                 0, 1, 3,
                 1, 2, 3,
-            }
+            }, 
         };
     }
 }

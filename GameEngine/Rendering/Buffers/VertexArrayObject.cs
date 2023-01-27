@@ -8,8 +8,8 @@ public class VertexArrayObject : GLObject, IDisposable
 
     public VertexArrayObject(RenderData renderData) : base(GL.GenVertexArray())
     {
-        _vertexBufferObject = new VertexBufferObject(renderData.Mesh.GetVerticesData(), renderData.VertexBufferUsage);
-        _indexBufferObject = new IndexBufferObject(renderData.Mesh.Data.Indices, renderData.IndexBufferUsage);
+        _vertexBufferObject = new VertexBufferObject(renderData.Mesh.GetRawData(), renderData.VertexBufferUsage);
+        _indexBufferObject = new IndexBufferObject(renderData.Mesh.Indices, renderData.IndexBufferUsage);
         _vertexAttributeGroup = renderData.Mesh.AttributeGroup;
     }
 

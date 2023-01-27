@@ -9,18 +9,9 @@ public class MeshFromObj : IMeshDataSource
         _objParser = new ObjParser(pathToModel);
     }
     
-    MeshData IMeshDataSource.GetMeshData()
+    Mesh IMeshDataSource.Build()
     {
-        IReadOnlyList<ObjVertex> vertices = _objParser.Parse();
-        IReadOnlyList<ObjVertex> optimizedVertices = OptimizeVertices(vertices);
-
-        return new MeshData()
-        {
-            Positions = optimizedVertices.Select(vertex => vertex.Position).ToArray(),
-            Normals = optimizedVertices.Select(vertex => vertex.Normal).ToArray(),
-            TextureCoordinates = optimizedVertices.Select(vertex => vertex.TextureCoordinate).ToArray(),
-            Indices = CreateIndices(vertices),
-        };
+        throw new NotImplementedException();
     }
 
     private IReadOnlyList<ObjVertex> OptimizeVertices(IReadOnlyList<ObjVertex> vertices)

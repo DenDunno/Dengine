@@ -11,7 +11,7 @@ public class Model : IDrawable
     public Model(RenderData renderData)
     {
         _vertexArrayObject = new VertexArrayObject(renderData);
-        _glRenderer = new GLRenderer(renderData.Mesh.Data);
+        _glRenderer = new GLRenderer(renderData.Mesh);
         _transform = renderData.Transform;
         Material = renderData.Material;
     }

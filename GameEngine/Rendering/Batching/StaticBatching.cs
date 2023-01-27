@@ -1,90 +1,53 @@
-﻿using OpenTK.Mathematics;
-
+﻿
 public static class StaticBatching
 {
-    public static MeshData Concatenate(IList<MeshData> objects)
+    public static Mesh Concatenate(IList<Mesh> objects)
     {
-        return new MeshData
+        return new Mesh(ConcatenateAttributes(objects))
         {
-            Positions = ConcatenatePositions(objects),
             Indices = ConcatenateIndices(objects),
-            TextureCoordinates = ConcatenateTextureCoordinates(objects),
-            Normals = ConcatenateNormals(objects)
         };
     }
 
-    private static Vector3[] ConcatenatePositions(IList<MeshData> objects)
+    private static List<VertexAttributeData> ConcatenateAttributes(IList<Mesh> objects)
     {
-        int count = objects.Sum(meshData => meshData.Positions.Length);
-        Vector3[] buffer = new Vector3[count];
-        int index = 0;
+        List<VertexAttributeData> result = new();
+        int verticesCount = objects.Sum(mesh => mesh.VerticesCount);
         
-        foreach (MeshData meshData in objects)
+        foreach (KeyValuePair<string, VertexAttribute> attribute in objects.First().Attributes)
         {
-            for (int i = 0; i < meshData.Positions.Length; ++i, ++index)
+            float[] buffer = new float[verticesCount * attribute.Value.Size];
+            string attributeName = attribute.Key;
+            int destinationIndex = 0;
+            
+            foreach (Mesh mesh in objects)
             {
-                buffer[index] = meshData.Positions[i];
+                float[] subData = mesh.Attributes[attributeName].Data;
+                Array.Copy(subData, 0, buffer, destinationIndex, subData.Length);
+                destinationIndex += subData.Length;
             }
+            
+            result.Add(new VertexAttributeData(attributeName, attribute.Value.Size, buffer));
         }
 
-        return buffer;
+        return result;
     }
 
-    private static uint[] ConcatenateIndices(IList<MeshData> objects)
+    private static uint[] ConcatenateIndices(IList<Mesh> objects)
     {
         int count = objects.Sum(meshData => meshData.Indices.Length);
         uint[] buffer = new uint[count];
         int index = 0;
         uint offset = 0;
         
-        foreach (MeshData meshData in objects)
+        foreach (Mesh meshData in objects)
         {
             for (int i = 0; i < meshData.Indices.Length; ++i, ++index)
             {
                 buffer[index] = meshData.Indices[i] + offset;
             }
 
-            offset += (uint)meshData.Positions.Length;
-        }
-
-        return buffer;
-    }
-
-    private static Vector3[]? ConcatenateNormals(IList<MeshData> objects)
-    {
-        if (objects.First().Normals == null)
-            return null;
-        
-        int count = objects.Sum(meshData => meshData.Normals!.Length);
-        Vector3[] buffer = new Vector3[count];
-        int index = 0;
-        
-        foreach (MeshData meshData in objects)
-        {
-            for (int i = 0; i < meshData.Normals!.Length; ++i, ++index)
-            {
-                buffer[index] = meshData.Normals[i];
-            }
-        }
-
-        return buffer;
-    }
-
-    private static Vector2[]? ConcatenateTextureCoordinates(IList<MeshData> objects)
-    {
-        if (objects.First().TextureCoordinates == null)
-            return null;
-        
-        int count = objects.Sum(meshData => meshData.TextureCoordinates!.Length);
-        Vector2[] buffer = new Vector2[count];
-        int index = 0;
-        
-        foreach (MeshData meshData in objects)
-        {
-            for (int i = 0; i < meshData.TextureCoordinates!.Length; ++i, ++index)
-            {
-                buffer[index] = meshData.TextureCoordinates[i];
-            }
+            offset += (uint)meshData.VerticesCount;
         }
 
         return buffer;

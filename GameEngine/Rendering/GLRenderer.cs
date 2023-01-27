@@ -3,12 +3,12 @@
 public class GLRenderer
 {
     private readonly int _indicesLength;
-    private readonly int _verticesLength;
+    private readonly int _verticesCount;
 
-    public GLRenderer(MeshData meshData)
+    public GLRenderer(Mesh mesh)
     {
-        _indicesLength = meshData.Indices.Length;
-        _verticesLength = meshData.Positions.Length;
+        _indicesLength = mesh.Indices.Length;
+        _verticesCount = mesh.VerticesCount;
     }
 
     public void Draw()
@@ -16,6 +16,6 @@ public class GLRenderer
         GL.DrawElements(PrimitiveType.Triangles, _indicesLength, DrawElementsType.UnsignedInt, 0);
         Stats.Instance.DrawCalls++;
         Stats.Instance.Tris += _indicesLength / 3;
-        Stats.Instance.Vertices += _verticesLength;
+        Stats.Instance.Vertices += _verticesCount;
     }
 }

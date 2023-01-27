@@ -9,20 +9,9 @@ public class TriangleMeshData : IMeshDataSource
         _size = size;
     }
     
-    public MeshData GetMeshData()
+    public Mesh Build()
     {
-        (Vector3[] positions, Vector3[] normals) = EvaluateTriangle();
-        
-        return new MeshData()
-        {
-            Positions = positions,
-            Normals = normals,
-            TextureCoordinates = new Vector2[] {new(0, 0), new(0.5f, 1), new(1, 0)},
-            Indices = new uint[]
-            {
-                0, 1, 2,
-            }
-        };
+        throw new NotImplementedException();
     }
 
     private (Vector3[], Vector3[]) EvaluateTriangle()

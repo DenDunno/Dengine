@@ -4,10 +4,9 @@ public class DynamicBatching : IDrawable
 {
     private float[] _rawData;
 
-    public DynamicBatching(MeshData[] data)
+    public DynamicBatching(Mesh[] data)
     {
-        MeshData meshData = StaticBatching.Concatenate(data);
-        _rawData = MeshBuilder.BuildMesh(meshData).GetVerticesData();
+        _rawData = StaticBatching.Concatenate(data).GetRawData();
     }
 
     public (int start, int end) GetSubData(int index, string attribute)
