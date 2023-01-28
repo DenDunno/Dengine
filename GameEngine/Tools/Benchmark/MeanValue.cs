@@ -1,13 +1,11 @@
 ﻿
-public class BenchmarkMeanStat
+public class MeanValue
 {
-    public readonly string Name;
     private double _value;
     private int _count;
 
-    public BenchmarkMeanStat(string name)
+    public MeanValue()
     {
-        Name = name;
         _count = 0;
         _value = 0;
     }

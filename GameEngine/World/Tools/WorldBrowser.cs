@@ -28,7 +28,6 @@ public static class WorldBrowser
 
     public static void Add(GameObject gameObject)
     {
-        gameObject.Initialize();
         _world.GameObjects.Add(gameObject);
     }
     

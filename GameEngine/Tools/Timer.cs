@@ -1,10 +1,9 @@
 ﻿
-[HideInInspector]
-public class Timer : IGameComponent
+public class Timer
 {
     public static float Time { get; private set; }
         
-    public void Update(float deltaTime)
+    public static void Update(float deltaTime)
     {
         Time += deltaTime;
     }

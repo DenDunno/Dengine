@@ -16,8 +16,8 @@ public class VertexArrayObject : GLObject, IDisposable
     public void Init()
     {
         Bind();
-        _indexBufferObject.Init();
-        _vertexBufferObject.Init();
+        _indexBufferObject.SendAndRelease();
+        _vertexBufferObject.SendAndRelease();
         _vertexAttributeGroup.Enable();
     }
     

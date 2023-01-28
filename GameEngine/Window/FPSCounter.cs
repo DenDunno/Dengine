@@ -1,5 +1,5 @@
 ﻿
-public class FPSCounter : IGameComponent
+public class FPSCounter 
 {
     private int _fps;
     private float _clock;

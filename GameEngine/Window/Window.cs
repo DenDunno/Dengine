@@ -9,20 +9,20 @@ public class Window : GameWindow
     {
     }
 
-    [Time]
+    [Time("Update")]
     protected override void OnUpdateFrame(FrameEventArgs args)
     {
         base.OnUpdateFrame(args);
     }
 
-    [Time]
+    [Time("Render")]
     protected override void OnRenderFrame(FrameEventArgs args)
     {
         base.OnRenderFrame(args);
         SwapBuffers();
     }
 
-    [Time]
+    [Time("Swap")]
     public override void SwapBuffers()
     {
         base.SwapBuffers();

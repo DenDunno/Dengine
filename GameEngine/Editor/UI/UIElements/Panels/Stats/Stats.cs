@@ -12,9 +12,9 @@ public class Stats : Singlton<Stats>, IGameComponent
     private float _clock;
 
     public BenchmarkResult[] BenchmarkResults { get; private set; } = Array.Empty<BenchmarkResult>();
-    public double FrameTime => BenchmarkResults[0].Value;
+    public double FrameTime => (double)1 / FPS * 1000;
     public int FPS => _fpsCounter.Value;
-
+    
     public void Update(float deltaTime)
     {
         _fpsCounter.Update(deltaTime);

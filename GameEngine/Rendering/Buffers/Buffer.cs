@@ -4,19 +4,17 @@ public abstract class Buffer<T> : GLObject, IDisposable where T : struct
 {
     private readonly BufferUsageHint _bufferUsageHint;
     private readonly BufferTarget _bufferTarget;
-    private readonly int _typeSize;
     private T[] _data;
 
-    protected Buffer(BufferUsageHint bufferUsageHint, BufferTarget bufferTarget, int typeSize, T[] data) 
+    protected Buffer(BufferUsageHint bufferUsageHint, BufferTarget bufferTarget, T[] data) 
         : base(GL.GenBuffer())
     {
         _bufferUsageHint = bufferUsageHint;
         _bufferTarget = bufferTarget;
-        _typeSize = typeSize;
         _data = data;
     }
 
-    public void Init()
+    public void SendAndRelease()
     {
         Bind();
         SendData();
@@ -30,7 +28,7 @@ public abstract class Buffer<T> : GLObject, IDisposable where T : struct
 
     private void SendData()
     {
-        GL.BufferData(_bufferTarget, _data.Length * _typeSize, _data, _bufferUsageHint);
+        GL.BufferData(_bufferTarget, _data.Length * GenericSize.Evaluate<T>(), _data, _bufferUsageHint);
     }
 
     private void Release()

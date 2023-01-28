@@ -84,9 +84,7 @@ public static class GameObjectFactory
         {
             Components = new List<IGameComponent>
             {
-                new Timer(),
                 camera,
-                Stats.Instance
             },
 
             Drawable = Gizmo.Instance
@@ -98,8 +96,13 @@ public static class GameObjectFactory
         return new SkyboxFactory(name, camera.Transform).Create();
     }
 
-    private static GameObject AddCameraControlling(GameObject camera)
+    public static GameObject CreateParticleSystem(ParticleSystemData particleSystemData)
     {
-        return camera;
+        Transform transform = new();
+        
+        return new GameObject(new GameObjectData("Particle system", transform)
+        {
+            Drawable = new ParticleSystem(transform, particleSystemData)
+        });
     }
 }

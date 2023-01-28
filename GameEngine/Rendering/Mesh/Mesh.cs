@@ -7,17 +7,22 @@ public class Mesh
     {
         foreach (VertexAttribute attribute in attributes)
         {
-            attribute.Offset = Stride;
-            Attributes[attribute.Name] = attribute;
+            PushAttribute(attribute);   
         }
     }
 
     public VertexAttributeGroup AttributeGroup => new(Attributes.Values, Stride);
     public uint[] Indices { get; init; } = Array.Empty<uint>();
-    
+
     public int VerticesCount => Attributes.Values.First().Data.Length / Attributes.Values.First().Size;
     private int Stride => Attributes.Values.Sum(attribute => attribute.Size);
 
+    public void PushAttribute(VertexAttribute attribute)
+    {
+        attribute.Offset = Stride;
+        Attributes[attribute.Name] = attribute;
+    }
+    
     public float[] GetRawData()
     {
         float[] verticesData = new float[Stride * VerticesCount];

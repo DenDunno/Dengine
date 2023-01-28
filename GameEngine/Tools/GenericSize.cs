@@ -8,22 +8,12 @@ public static class GenericSize
         {typeof(Vector2), 8},
         {typeof(uint), 4},
         {typeof(int), 4},
+        {typeof(float), 4},
+        {typeof(byte), 1},
     };
 
-    private static int GetSize<T>()
+    public static int Evaluate<T>()
     {
         return _sizes[typeof(T)];
-    }
-
-    public static int GetSize<T>(T[]? collection)
-    {
-        int result = 0;
-        
-        if (collection != null)
-        {
-            result = GetSize<T>();
-        }
-
-        return result;
     }
 }

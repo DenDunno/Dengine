@@ -32,6 +32,12 @@
       <Content Include="..\Resources\Shaders\lit.glsl">
         <Link>Shaders\lit.glsl</Link>
       </Content>
+      <Content Include="..\Resources\Shaders\particleSystemFrag.glsl">
+        <Link>Shaders\particleSystemFrag.glsl</Link>
+      </Content>
+      <Content Include="..\Resources\Shaders\particleSystemVert.glsl">
+        <Link>Shaders\particleSystemVert.glsl</Link>
+      </Content>
       <Content Include="..\Resources\Shaders\skyboxFrag.glsl">
         <Link>Shaders\skyboxFrag.glsl</Link>
       </Content>

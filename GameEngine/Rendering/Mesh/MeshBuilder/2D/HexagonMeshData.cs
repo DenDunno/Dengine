@@ -3,10 +3,16 @@
 public class HexagonMeshData : IMeshDataSource
 {
     private readonly float _size;
+    private readonly Vector3 _offset;
 
-    public HexagonMeshData(float size)
+    public HexagonMeshData(float size) : this(size, Vector3.Zero)
     {
-        _size = size;
+    }
+
+    public HexagonMeshData(float size, Vector3 offset)
+    {
+        _offset = offset;
+        _size = size / 2f;
     }
     
     public Mesh Build()
@@ -52,12 +58,12 @@ public class HexagonMeshData : IMeshDataSource
     {
         Vector3[] positions = 
         {
-            new(-_size / 2f, _size * MathF.Sqrt(3) / 2f, 0),
-            new(-_size, 0, 0),
-            new(-_size / 2f, -_size * MathF.Sqrt(3) / 2f, 0),
-            new(_size / 2f, -_size * MathF.Sqrt(3) / 2f, 0),
-            new(_size, 0, 0),
-            new(_size / 2f, _size * MathF.Sqrt(3) / 2f, 0),
+            new Vector3(-_size / 2f, _size * MathF.Sqrt(3) / 2f, 0) + _offset,
+            new Vector3(-_size, 0, 0) + _offset,
+            new Vector3(-_size / 2f, -_size * MathF.Sqrt(3) / 2f, 0) + _offset,
+            new Vector3(_size / 2f, -_size * MathF.Sqrt(3) / 2f, 0) + _offset,
+            new Vector3(_size, 0, 0) + _offset,
+            new Vector3(_size / 2f, _size * MathF.Sqrt(3) / 2f, 0) + _offset,
         };
 
         Vector3[] normals = 

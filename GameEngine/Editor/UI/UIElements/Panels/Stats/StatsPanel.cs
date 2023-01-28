@@ -13,6 +13,11 @@ public class StatsPanel : Panel
         _stats = Stats.Instance;
     }
 
+    public override void Update(float deltaTime)
+    {
+        Stats.Instance.Update(deltaTime);
+    }
+
     protected override void OnPanelDraw()
     {
         ImGui.SetWindowSize(new Vector2(300, 375));
@@ -28,17 +33,24 @@ public class StatsPanel : Panel
         ImGui.PopStyleColor();
     }
 
-
     private string GetBenchmarkTable()
     {
-        ConsoleTable consoleTable = new(string.Empty, "Time mls", string.Empty);
+        ConsoleTable table = new(string.Empty, "Time mls", string.Empty);
+
+        AddRow(table, "Frame", _stats.FrameTime);
 
         foreach (BenchmarkResult result in _stats.BenchmarkResults)
         {
-            int percentage = (int)(result.Value / _stats.FrameTime * 100);
-            consoleTable.AddRow(result.Name, Math.Round(result.Value, 2), $"{percentage}%%");
+            AddRow(table, result.Name, result.Value);
         }
 
-        return consoleTable.ToMinimalString();
+        return table.ToMinimalString();
+    }
+
+    private void AddRow(ConsoleTable table, string name, double time)
+    {
+        int percentage = (int)(time / _stats.FrameTime * 100);
+        
+        table.AddRow($"{name}\t", Math.Round(time, 2), $"{percentage}%%");
     }
 }

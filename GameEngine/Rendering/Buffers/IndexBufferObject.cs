@@ -3,7 +3,7 @@
 public class IndexBufferObject : Buffer<uint>
 {
     public IndexBufferObject(uint[] data, BufferUsageHint bufferUsageHint) 
-        : base(bufferUsageHint, BufferTarget.ElementArrayBuffer, sizeof(uint), data)
+        : base(bufferUsageHint, BufferTarget.ElementArrayBuffer, data)
     {
     }
 }

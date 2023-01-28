@@ -1,34 +1,24 @@
-﻿using System.Diagnostics;
-
+﻿
 public class Benchmark 
 {
-    private readonly Dictionary<string, BenchmarkMeanStat> _stats = new();
-    private readonly Dictionary<string, Stopwatch> _stopwatches = new();
+    private readonly Dictionary<string, MeanValue> _stats = new();
 
-    public void Start(string profilingName)
+    public void AddDelta(string profilingName, float elapsedMilliseconds)
     {
-        _stats.TryAdd(profilingName, new BenchmarkMeanStat(profilingName));
-        _stopwatches.TryAdd(profilingName, new Stopwatch());
-        
-        _stopwatches[profilingName].Reset();
-        _stopwatches[profilingName].Start();
-    }
-
-    public void Stop(string profilingName)
-    {
-        _stats[profilingName].AddDelta(_stopwatches[profilingName].ElapsedMilliseconds);
-        _stopwatches[profilingName].Stop();
+        _stats.TryAdd(profilingName, new MeanValue());
+        _stats[profilingName].AddDelta(elapsedMilliseconds);
     }
 
     public BenchmarkResult[] GetData()
     {
         BenchmarkResult[] result = new BenchmarkResult[_stats.Count];
-
+        
         int i = 0;
-        foreach (BenchmarkMeanStat meanStat in _stats.Values)
+        
+        foreach (KeyValuePair<string,MeanValue> meanStat in _stats)
         {
-            result[i] = new BenchmarkResult(meanStat.Name, meanStat.Value);
-            meanStat.Reset();
+            result[i] = new BenchmarkResult(meanStat.Key, meanStat.Value.Value);
+            meanStat.Value.Reset();
             ++i;
         }
 

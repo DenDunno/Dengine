@@ -1,5 +1,4 @@
 ﻿using OpenTK.Graphics.OpenGL4;
-using StbImageSharp;
 
 public abstract class TextureBase : GLObject, IDisposable
 {
