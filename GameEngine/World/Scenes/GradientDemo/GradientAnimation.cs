@@ -24,7 +24,7 @@ public class GradientAnimation : IGameComponent
         
         _lerp = Algorithms.Clamp(0, 1, _lerp);
         
-        _bridge.SetValue("lightColor", _data.Color.GetValue(_lerp));
+        _bridge.SetColor("lightColor", _data.Color.GetValue(_lerp));
         _transform.Scale = _data.Size.GetValue(_lerp) * Vector3.One;
         _transform.Rotation = Quaternion.FromEulerAngles(_data.Rotation.GetValue(_lerp));
     }

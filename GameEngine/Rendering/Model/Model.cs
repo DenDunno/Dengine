@@ -26,9 +26,9 @@ public class Model : IDrawable
     {
         if (_visible)
         {
-            Material.Bridge.SetValue("model", _transform.ModelMatrix);
-            Material.Bridge.SetValue("view", viewMatrix);
-            Material.Bridge.SetValue("projection", projectionMatrix);
+            Material.Bridge.SetMatrix4("model", _transform.ModelMatrix);
+            Material.Bridge.SetMatrix4("view", viewMatrix);
+            Material.Bridge.SetMatrix4("projection", projectionMatrix);
             _vertexArrayObject.Bind();
             Material.Use();
             _glRenderer.Draw();

@@ -26,12 +26,12 @@ public class Light : IGameComponent
     {
         foreach (LitMaterial litMaterial in _materials)
         {
-            litMaterial.Bridge.SetValue("lightPosition", Transform.Position);
-            litMaterial.Bridge.SetValue("viewPosition", _camera.Position);
-            litMaterial.Bridge.SetValue("lightColor", _color);
-            litMaterial.Bridge.SetValue("specularValue", _specular);
-            litMaterial.Bridge.SetValue("diffuseValue", _diffuse);
-            litMaterial.Bridge.SetValue("ambientValue", _ambient);
+            litMaterial.Bridge.SetVector3("lightPosition", Transform.Position);
+            litMaterial.Bridge.SetVector3("viewPosition", _camera.Position);
+            litMaterial.Bridge.SetColor("lightColor", _color);
+            litMaterial.Bridge.SetFloat("specularValue", _specular);
+            litMaterial.Bridge.SetFloat("diffuseValue", _diffuse);
+            litMaterial.Bridge.SetFloat("ambientValue", _ambient);
         }
     }
 }

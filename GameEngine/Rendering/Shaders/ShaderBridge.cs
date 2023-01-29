@@ -1,44 +1,24 @@
 ﻿using System.Drawing;
-using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
 public class ShaderBridge
 {
-    private readonly int _shaderProgramId;
-    private readonly Dictionary<string, int> _uniformLocations = new();
-    private readonly Dictionary<Type, IUniformWrapper> _uniforms = new()
-    {
-        {typeof(Matrix4), new Matrix4Uniform()},
-        {typeof(Vector3), new Vector3Uniform()},
-        {typeof(Color), new ColorUniform()},
-        {typeof(float), new FloatUniform()},
-        {typeof(int), new IntUniform()},
-    };
-    
+    private readonly ShaderUniforms _uniforms;
+
     public ShaderBridge(int shaderProgramId)
     {
-        _shaderProgramId = shaderProgramId;
+        _uniforms = new ShaderUniforms(shaderProgramId);
     }
 
-    public void SetValue<T>(string name, T value)
-    {
-        GL.UseProgram(_shaderProgramId);
-        TryAddUniformId(name);
-        SetValue(_uniformLocations[name], value);
-    }
+    public void SetVector3(string name, Vector3 value) => _uniforms.SetValue(name, value, Uniforms.Uniform3);
 
-    private void TryAddUniformId(string name)
-    {
-        if (_uniformLocations.ContainsKey(name) == false)
-        {
-            _uniformLocations[name] = GL.GetUniformLocation(_shaderProgramId, name);
-        }
-    }
+    public void SetMatrix4(string name, Matrix4 value) => _uniforms.SetValue(name, value, Uniforms.Uniform4);
+    
+    public void SetColor(string name, Color value) => _uniforms.SetValue(name, value, Uniforms.Uniform3);
+    
+    public void SetFloat(string name, float value) => _uniforms.SetValue(name, value, Uniforms.Uniform1);
 
-    private void SetValue<T>(int id, T value)
-    {
-        IUniform<T> uniform = (IUniform<T>)_uniforms[typeof(T)];
-        
-        uniform.SetValue(id, value);
-    }
+    public void SetInt(string name, int value) => _uniforms.SetValue(name, value, Uniforms.Uniform1);
+
+    public void SetFloatArray(string name, float[] value) => _uniforms.SetValue(name, value, Uniforms.Uniform4);
 }

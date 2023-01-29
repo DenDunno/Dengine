@@ -1,6 +1,14 @@
 ﻿
 public static class GameObjectFactory
 {
+    public static GameObject Point(string name, IGameComponent tag)
+    {
+        GameObject point = Point(name);
+        point.Data.Components.Add(tag);
+
+        return point;
+    }
+    
     public static GameObject Point(string name)
     {
         return new GameObject(new GameObjectData(name, new Transform()));
@@ -9,6 +17,17 @@ public static class GameObjectFactory
     public static GameObject Point(IGameComponent tag)
     {
         return new GameObject(new GameObjectData(tag.GetType().Name, new Transform())
+        {
+            Components = new List<IGameComponent>()
+            {
+                tag
+            }
+        });
+    }
+
+    public static GameObject Point(IGameComponent tag, Transform transform)
+    {
+        return new GameObject(new GameObjectData(tag.GetType().Name, transform)
         {
             Components = new List<IGameComponent>()
             {
@@ -55,17 +74,6 @@ public static class GameObjectFactory
         gameObject.Data.Name = tag.GetType().Name;
         
         return gameObject;
-    }
-
-    public static GameObject Point(IGameComponent tag, Transform transform)
-    {
-        return new GameObject(new GameObjectData(tag.GetType().Name, transform)
-        {
-            Components = new List<IGameComponent>()
-            {
-                tag
-            }
-        });
     }
 
     public static GameObject CreateCamera()

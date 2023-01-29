@@ -181,3 +181,5 @@ C:\Natalya\Denis\Pacman\GameEngine\GameEngine\obj\Debug\net6.0\refint\GameEngine
 C:\Natalya\Denis\Pacman\GameEngine\GameEngine\obj\Debug\net6.0\GameEngine.pdb
 C:\Natalya\Denis\Pacman\GameEngine\GameEngine\obj\Debug\net6.0\GameEngine.genruntimeconfig.cache
 C:\Natalya\Denis\Pacman\GameEngine\GameEngine\obj\Debug\net6.0\ref\GameEngine.dll
+C:\Natalya\Denis\Pacman\GameEngine\GameEngine\obj\Debug\net6.0\GameEngine.csproj.Fody.CopyLocal.cache
+C:\Natalya\Denis\Pacman\GameEngine\GameEngine\obj\Debug\net6.0\GameEngine.csproj.Fody.RuntimeCopyLocal.cache

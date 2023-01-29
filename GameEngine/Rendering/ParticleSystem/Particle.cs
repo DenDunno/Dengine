@@ -2,6 +2,14 @@
 
 public struct Particle
 {
+    public readonly Transform Transform;
     public Vector3 Velocity;
-    public Vector3 ElapsedTime;
+    public float ElapsedTime;
+
+    public Particle()
+    {
+        Transform = new Transform();
+        Velocity = Vector3.Zero;
+        ElapsedTime = 0;
+    }
 }

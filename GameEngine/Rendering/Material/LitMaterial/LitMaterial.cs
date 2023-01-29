@@ -16,9 +16,9 @@ public class LitMaterial : Material
     protected override void OnUse()
     {
         int hasTexture = Convert.ToInt32(Data.Base != null);
-        Bridge.SetValue("hasTexture", hasTexture);
+        Bridge.SetInt("hasTexture", hasTexture);
 
         Data.Base?.Use();
-        Bridge.SetValue("baseColor", Data.Color);
+        Bridge.SetColor("baseColor", Data.Color);
     }
 }

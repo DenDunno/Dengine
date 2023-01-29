@@ -10,6 +10,7 @@
         "dependencies": {
           "ConsoleTables": "2.4.2",
           "ImGui.NET": "1.88.0",
+          "MethodTimer.Fody": "3.2.1",
           "OpenTK": "4.7.5",
           "StbImageSharp": "2.27.11"
         },
@@ -28,6 +29,7 @@
           }
         }
       },
+      "Fody/6.6.4": {},
       "ImGui.NET/1.88.0": {
         "dependencies": {
           "System.Buffers": "4.4.0",
@@ -61,6 +63,11 @@
             "assetType": "native",
             "fileVersion": "0.0.0.0"
           }
+        }
+      },
+      "MethodTimer.Fody/3.2.1": {
+        "dependencies": {
+          "Fody": "6.6.4"
         }
       },
       "Microsoft.NETCore.Platforms/1.1.0": {},
@@ -281,12 +288,26 @@
       "path": "consoletables/2.4.2",
       "hashPath": "consoletables.2.4.2.nupkg.sha512"
     },
+    "Fody/6.6.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vLZS+oa+ndUHYPlx/8n9bBTT3dHkCF0riml4paKq4D663+cZd47x1uagQo32D/gKFZ/sfmV1oqKaLmH0elxq4A==",
+      "path": "fody/6.6.4",
+      "hashPath": "fody.6.6.4.nupkg.sha512"
+    },
     "ImGui.NET/1.88.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-5pYlZ4juw1+HaWD8sM8aPqUFcS3b1SHDCXBxfZ02ID96SKHp1icAKKiS0VJA9MbSATQGQd9lAAkY5p8JZGzomA==",
       "path": "imgui.net/1.88.0",
       "hashPath": "imgui.net.1.88.0.nupkg.sha512"
+    },
+    "MethodTimer.Fody/3.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7xhZXDc9PkaNPAKSw99+GAEown4T0xOH2Y+5NNMOgGTSLcpQSk/vZIb42QErbydOnFcMNV0LjJNPum4YiDF9pg==",
+      "path": "methodtimer.fody/3.2.1",
+      "hashPath": "methodtimer.fody.3.2.1.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",

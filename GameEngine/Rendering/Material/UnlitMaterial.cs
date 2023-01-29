@@ -13,7 +13,7 @@ public class UnlitMaterial : LitMaterial
     protected override void OnInit()
     {
         base.OnInit();
-        Bridge.SetValue("lightColor", Color.White);
-        Bridge.SetValue("ambientValue", 1f);
+        Bridge.SetColor("lightColor", Color.White);
+        Bridge.SetFloat("ambientValue", 1f);
     }
 }

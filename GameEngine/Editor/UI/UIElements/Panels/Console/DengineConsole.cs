@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using ImGuiNET;
+using OpenTK.Graphics.OpenGL;
 
 public class DengineConsole : Panel
 {
@@ -17,6 +18,11 @@ public class DengineConsole : Panel
     public static void LogWarning(object value)
     {
         _logs.Add(new Log(value.ToString()!, new Vector4(246, 243, 76, 255)));
+    }
+    
+    public static void LogError(object value)
+    {
+        _logs.Add(new Log(value.ToString()!, new Vector4(255, 0, 0, 255)));
     }
 
     protected override void OnPanelDraw()
