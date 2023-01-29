@@ -89,13 +89,26 @@ public static class Algorithms
         return result;
     }
 
-    public static float RandomSign()
+    public static int RandomSign()
     {
-        Random random = new();
-
-        return random.Next(0, 2) * 2 - 1;
+        return Random.Shared.Next(0, 2) * 2 - 1;
+    }
+    
+    public static Vector2 RandomVector2()
+    {
+        return new Vector2(RandomFloat(), RandomFloat()).Normalized();
+    }
+    
+    public static Vector3 RandomVector3()
+    {
+        return new Vector3(RandomFloat(), RandomFloat(), RandomFloat()).Normalized();
     }
 
+    public static float RandomFloat()
+    {
+        return RandomSign() * Random.Shared.NextSingle();
+    }
+    
     public static float InverseLerp(float start, float end, float value)
     {
         return (value - start) / (end - start);

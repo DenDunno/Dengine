@@ -43,6 +43,11 @@ public static class VectorExtensions
         return new Vector2(vector2.X, vector2.Y);
     }
 
+    public static Vector3 ToVector3(this Vector2 vector2)
+    {
+        return new Vector3(vector2.X, vector2.Y, 0);
+    }
+    
     public static Vector2i ToVector2I(this Vector3 vector3)
     {
         return new Vector2i((int)Math.Round(vector3.X), (int)Math.Round(vector3.Y));

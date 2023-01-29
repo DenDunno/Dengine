@@ -20,6 +20,7 @@ public class Window : GameWindow
     {
         base.OnRenderFrame(args);
         SwapBuffers();
+        Stats.Instance.Reset();
     }
 
     [Time("Swap")]

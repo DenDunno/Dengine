@@ -2,7 +2,7 @@
 
 public struct Particle
 {
-    public readonly Transform Transform;
+    public Transform Transform;
     public Vector3 Velocity;
     public float ElapsedTime;
 

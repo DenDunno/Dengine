@@ -9,6 +9,10 @@ public class ShaderBridge
     {
         _uniforms = new ShaderUniforms(shaderProgramId);
     }
+    
+    public void SetMatrix4Array(string name, float[] value) => _uniforms.SetValue(name, value, Uniforms.UniformMatrixArray);
+    
+    public void SetVector4Array(string name, float[] value) => _uniforms.SetValue(name, value, Uniforms.Vector4Array);
 
     public void SetVector3(string name, Vector3 value) => _uniforms.SetValue(name, value, Uniforms.Uniform3);
 
@@ -19,6 +23,4 @@ public class ShaderBridge
     public void SetFloat(string name, float value) => _uniforms.SetValue(name, value, Uniforms.Uniform1);
 
     public void SetInt(string name, int value) => _uniforms.SetValue(name, value, Uniforms.Uniform1);
-
-    public void SetFloatArray(string name, float[] value) => _uniforms.SetValue(name, value, Uniforms.Uniform4);
 }
