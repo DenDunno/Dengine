@@ -20,7 +20,7 @@ public class StatsPanel : Panel
 
     protected override void OnPanelDraw()
     {
-        ImGui.SetWindowSize(new Vector2(300, 375));
+        ImGui.SetWindowSize(new Vector2(300, 400));
         
         ImGui.PushStyleColor(ImGuiCol.Text, _statsColor);
         

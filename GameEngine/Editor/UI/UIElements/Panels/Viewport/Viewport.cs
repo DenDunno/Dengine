@@ -13,6 +13,9 @@ public class Viewport
                 return (float)WindowSettings.Width /WindowSettings.Height;
             }
 
+            if (_viewportPanelSize.X <= 0 || _viewportPanelSize.Y <= 0) // first app launch
+                return 1;
+            
             return _viewportPanelSize.X / _viewportPanelSize.Y;
         }
     }
