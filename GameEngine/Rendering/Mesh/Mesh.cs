@@ -12,7 +12,7 @@ public class Mesh
     }
 
     public VertexAttributeGroup AttributeGroup => new(Attributes.Values, Stride);
-    public uint[] Indices { get; init; } = Array.Empty<uint>();
+    public required uint[] Indices { get; init; } = Array.Empty<uint>();
 
     public int VerticesCount => Attributes.Values.First().Data.Length / Attributes.Values.First().Size;
     private int Stride => Attributes.Values.Sum(attribute => attribute.Size);

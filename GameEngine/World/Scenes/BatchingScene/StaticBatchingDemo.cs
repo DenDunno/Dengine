@@ -16,7 +16,6 @@ public class StaticBatchingDemo : IWorldFactory
             GameObjectFactory.CreateCamera(camera),
             CreateBigObject(data[0]),
             CreateBigObject(data[1]),
-            CreateBigObject(data[2]),
             _origin
         };
     }
@@ -36,7 +35,19 @@ public class StaticBatchingDemo : IWorldFactory
 
     private BigObjectData[] GetDataForObjects()
     {
-        throw new NotImplementedException();
+        Vector3[] positions = new TriangleMeshData(100).Build().Attributes["Position"].Data.ToVectorArray();
+
+        for (int i = 0; i < positions.Length; i++)
+        {
+            positions[i].Z = -75;
+            positions[i].Y -= 10;
+        }
+
+        return new BigObjectData[]
+        {
+            new(positions[0], "Cube", GetBigCubeMesh(), new UnlitMaterial(Paths.GetTexture("wood.png"))),
+            new(positions[2], "Tetrahedron", GetBigCubeMesh(), new UnlitMaterial(Paths.GetTexture("crate.png"))),
+        };
     }
 
     private GameObject CreateBigObject(BigObjectData data)

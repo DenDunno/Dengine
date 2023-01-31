@@ -87,6 +87,20 @@ public static class VectorExtensions
         start.Z = z;
     }
 
+    public static Vector3[] ToVectorArray(this float[] array)
+    {
+        Vector3[] result = new Vector3[array.Length / 3];
+
+        for (int i = 0; i < result.Length; ++i)
+        {
+            result[i].X = array[i * 3 + 0];
+            result[i].Y = array[i * 3 + 1];
+            result[i].Z = array[i * 3 + 2];
+        }
+
+        return result;
+    }
+    
     public static float[] ToFloatArray(this Vector3[] array)
     {
         float[] result = new float[array.Length * 3];

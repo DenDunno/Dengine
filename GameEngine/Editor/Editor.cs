@@ -17,6 +17,7 @@ public class Editor : EngineComponent
 
     public override void Initialize()
     {
+        new DengineCompability().Check();
         _editorStyle.Load();
     }
 

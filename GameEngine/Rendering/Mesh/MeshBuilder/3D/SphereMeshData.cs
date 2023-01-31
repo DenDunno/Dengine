@@ -21,16 +21,27 @@ public class SphereMeshData : IMeshDataSource
     
     public Mesh Build()
     {
-        throw new NotImplementedException();
+        GetSphereVertices(out float[] positions, out float[] normals);
+
+        List<VertexAttribute> attributes = new()
+        {
+            new("Position", 0, 3, positions),
+            new("TexCoord", 2, 3, normals),
+        };
+        
+        return new Mesh(attributes)
+        {
+            Indices = GetIndices()
+        };
     }
     
-    private void GetSphereVertices(out Vector3[] positions, out Vector3[] normals)
+    private void GetSphereVertices(out float[] positions, out float[] normals)
     {
         float lengthInv = 1.0f / _radius;
         float sectorStep = 2 * MathF.PI / _sectorCount;
         float stackStep = MathF.PI / _stackCount;
-        positions = new Vector3[(_stackCount + 1) * (_sectorCount + 1)];
-        normals = new Vector3[positions.Length];
+        positions = new float[(_stackCount + 1) * (_sectorCount + 1) * 3];
+        normals = new float[positions.Length * 3];
         
         for(int i = 0; i <= _stackCount; ++i)
         {
@@ -48,8 +59,13 @@ public class SphereMeshData : IMeshDataSource
                 float ny = y * lengthInv;
                 float nz = z * lengthInv;
 
-                positions[i * (_sectorCount + 1) + j] = new Vector3(x, y, z) + _offset;
-                normals[i * (_sectorCount + 1) + j] = new Vector3(nx, ny, nz);
+                positions[i * (_sectorCount + 1) + j + 0] = x + _offset.X;
+                positions[i * (_sectorCount + 1) + j + 1] = y + _offset.Y;
+                positions[i * (_sectorCount + 1) + j + 2] = z + _offset.Z;
+
+                normals[i * (_sectorCount + 1) + j + 0] = nx;
+                normals[i * (_sectorCount + 1) + j + 1] = ny;
+                normals[i * (_sectorCount + 1) + j + 2] = nz;
             }
         }
     }

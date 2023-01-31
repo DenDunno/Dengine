@@ -4,6 +4,6 @@ public class MethodTimeLogger
 {
     public static void Log(MethodBase methodBase, TimeSpan timeSpan, string message)
     {
-        Stats.Instance.Benchmark.AddDelta(message, timeSpan.Milliseconds);
+        Stats.Instance.Table.AddDelta(message, timeSpan.Milliseconds);
     }
 }

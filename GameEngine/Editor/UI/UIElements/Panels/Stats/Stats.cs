@@ -1,20 +1,29 @@
-﻿
-[HideInInspector]
-public class Stats : Singlton<Stats>, IGameComponent
-{
-    public readonly Benchmark Benchmark = new();
-    public int DrawCalls;
-    public int Vertices;
-    public int Tris;
+﻿using OpenTK.Graphics.OpenGL;
 
+public class Stats : Singlton<Stats>
+{
+    public readonly BenchmarkTable Table = new();
     private readonly FPSCounter _fpsCounter = new();
     private readonly float _coolDown = 0.5f;
     private float _clock;
 
-    public BenchmarkResult[] BenchmarkResults { get; private set; } = Array.Empty<BenchmarkResult>();
-    public double FrameTime => (double)1 / FPS * 1000;
+    public string BenchmarkResults => Table.Value;
+    public int DrawCalls { get; private set; }
+    public int Vertices { get; private set; }
+    public int Tris { get; private set; }
     public int FPS => _fpsCounter.Value;
+    public string Renderer => GL.GetString(StringName.Renderer);
+
+    public void AddDrawCallStats(int vertices, int tris)
+    {
+        SetDrawCallStats(DrawCalls + 1, Tris + tris, Vertices + vertices);
+    }
     
+    public void Reset()
+    {
+        SetDrawCallStats(0, 0, 0);
+    }
+
     public void Update(float deltaTime)
     {
         _fpsCounter.Update(deltaTime);
@@ -22,15 +31,16 @@ public class Stats : Singlton<Stats>, IGameComponent
         if (Timer.Time >= _coolDown + _clock)
         {
             _clock = Timer.Time;
-            BenchmarkResults = Benchmark.GetData();
+            float frameTime = 1f / FPS * 1000;
+            Table.UpdateValue(frameTime);
             _fpsCounter.UpdateValue();
         }
     }
 
-    public void Reset()
+    private void SetDrawCallStats(int drawCalls, int tris, int vertices)
     {
-        DrawCalls = 0;
-        Tris = 0;
-        Vertices = 0;
+        DrawCalls = drawCalls;
+        Vertices = vertices;
+        Tris = tris;
     }
 }
