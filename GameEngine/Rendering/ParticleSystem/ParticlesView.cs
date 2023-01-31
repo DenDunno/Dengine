@@ -27,9 +27,11 @@ public class ParticlesView
     {
         Mesh[] particles = new Mesh[pool];
 
+        int width = (int)MathF.Sqrt(pool);
+
         for (int i = 0; i < particles.Length; ++i)
         {
-            particles[i] = new HexagonMeshData(1f, Vector3.UnitX * i).Build();
+            particles[i] = new HexagonMeshData(1f, new Vector3((float)i / width, (float)i % width, 0)).Build();
         }
 
         _verticesCount = particles.First().VerticesCount;

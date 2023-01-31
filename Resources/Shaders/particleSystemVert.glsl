@@ -14,7 +14,7 @@ void main(void)
     dataIndex = (gl_VertexID) / verticesCount;
     mat4 model = models[dataIndex];
     
-    if (dataIndex > 100)
+    if (dataIndex > 99)
     {
         model = mat4(1.0, 0.0, 0.0, 0.0,  // 1. column
                   0.0, 1.0, 0.0, 0.0,  // 2. column

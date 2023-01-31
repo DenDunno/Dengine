@@ -10,7 +10,7 @@ void main(void)
 { 
     vec4 result = color[dataIndex];
     
-    if (dataIndex > 100)
+    if (dataIndex > 99)
     {
         result = vec4(1,0,0,1);
     }      

@@ -96,17 +96,23 @@ public static class Algorithms
     
     public static Vector2 RandomVector2()
     {
-        return new Vector2(RandomFloat(), RandomFloat()).Normalized();
+        return RandomVector3().ToVector2();
     }
     
     public static Vector3 RandomVector3()
     {
-        return new Vector3(RandomFloat(), RandomFloat(), RandomFloat()).Normalized();
+        float z = Random.Shared.NextSingle() * 2.0f - 1.0f;
+        float a = Random.Shared.NextSingle() * 2.0f * MathF.PI;
+        float r = MathF.Sqrt(1.0f - z * z);
+        float x = r * MathF.Cos(a);
+        float y = r * MathF.Sin(a);
+
+        return new Vector3(x, y, z);
     }
 
     public static float RandomFloat()
     {
-        return RandomSign() * Random.Shared.NextSingle();
+        return Random.Shared.NextSingle() * 2.0f - 1.0f;
     }
     
     public static float InverseLerp(float start, float end, float value)
