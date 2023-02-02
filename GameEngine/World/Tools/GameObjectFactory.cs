@@ -62,7 +62,7 @@ public static class GameObjectFactory
         });
     }
 
-    private static GameObject Sprite(string sprite, Transform transform)
+    public static GameObject Sprite(string sprite, Transform transform)
     {
         return Sprite(new Texture(sprite), transform);
     }
@@ -75,12 +75,12 @@ public static class GameObjectFactory
         
         return gameObject;
     }
-
+    
     public static GameObject CreateCamera()
     {
         return CreateCamera(new PerspectiveProjection());
     }
-    
+
     public static GameObject CreateCamera(CameraProjection projection)
     {
         return CreateCamera(new Camera(projection));
