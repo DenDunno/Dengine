@@ -1,4 +1,5 @@
-﻿using OpenTK.Mathematics;
+﻿using System.Drawing;
+using OpenTK.Mathematics;
 
 public class ParticlesUpdate
 {
@@ -7,7 +8,7 @@ public class ParticlesUpdate
     private readonly Particle[] _particles;
     private int _poolIndex;
     
-    public ParticlesUpdate(ParticlesBuffer buffer, Transform parent, ParticleSystemData data)
+    public ParticlesUpdate(ParticlesBuffer buffer, ParticleSystemData data)
     {
         _data = data;
         _buffer = buffer;
@@ -18,7 +19,6 @@ public class ParticlesUpdate
             _particles[i] = new Particle()
             {
                 Velocity = Algorithms.RandomVector2().ToVector3(),
-                Transform =  new Transform(parent),
             };
         }
     }
@@ -33,13 +33,24 @@ public class ParticlesUpdate
             }
 
             _particles[i].ElapsedTime += deltaTime;
-            _particles[i].Transform.Position += _particles[i].Velocity * deltaTime;
-
+            
             if (_particles[i].ElapsedTime > _data.LifeTime)
             {
                 _particles[i].Enabled = false;
-                _particles[i].Color[3] = 0f;
+                continue;
             }
+            
+            float lerp = _particles[i].ElapsedTime / _data.LifeTime;
+            
+            _particles[i].Transform.Position += _particles[i].Velocity * deltaTime * _data.Speed;
+            _particles[i].Transform.Rotation = Quaternion.FromEulerAngles(_data.Rotation.GetValue(lerp));
+            _particles[i].Transform.Scale = Vector3.One * _data.Size.GetValue(lerp);
+            
+            Color color = _data.Color.GetValue(lerp);
+            _particles[i].Color[0] = color.R / 255f;
+            _particles[i].Color[1] = color.G / 255f;
+            _particles[i].Color[2] = color.B / 255f;
+            _particles[i].Color[3] = color.A / 255f;
         }
 
         CopyData();
@@ -66,7 +77,6 @@ public class ParticlesUpdate
         _particles[_poolIndex].Transform.Position = position;
         _particles[_poolIndex].Enabled = true;
         _particles[_poolIndex].ElapsedTime = 0;
-        _particles[_poolIndex].Color[3] = 1;
 
         MoveIndex();
     }

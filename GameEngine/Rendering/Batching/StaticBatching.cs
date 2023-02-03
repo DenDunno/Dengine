@@ -1,6 +1,19 @@
 ﻿
 public static class StaticBatching
 {
+    public static Mesh Concatenate(IMeshDataSource meshDataSource, int count)
+    {
+        Mesh[] list = new Mesh[count];
+        Mesh mesh = meshDataSource.Build();
+        
+        for (int i = 0; i < list.Length; ++i)
+        {
+            list[i] = mesh;
+        }
+
+        return Concatenate(list);
+    }
+    
     public static Mesh Concatenate(IList<Mesh> objects)
     {
         return new Mesh(ConcatenateAttributes(objects))

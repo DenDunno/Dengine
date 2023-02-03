@@ -25,6 +25,17 @@ public static class GameObjectFactory
         });
     }
 
+    public static GameObject Point(string name, IGameComponent tag, Transform transform)
+    {
+        return new GameObject(new GameObjectData(name, transform)
+        {
+            Components = new List<IGameComponent>()
+            {
+                tag
+            }
+        });
+    }
+
     public static GameObject Point(IGameComponent tag, Transform transform)
     {
         return new GameObject(new GameObjectData(tag.GetType().Name, transform)
@@ -75,7 +86,7 @@ public static class GameObjectFactory
         
         return gameObject;
     }
-    
+
     public static GameObject CreateCamera()
     {
         return CreateCamera(new PerspectiveProjection());
@@ -111,6 +122,14 @@ public static class GameObjectFactory
         return new GameObject(new GameObjectData("Particle system", transform)
         {
             Drawable = new ParticleSystem(transform, particleSystemData)
+        });
+    }
+    
+    public static GameObject CreateParticleSystem(ParticleSystem particleSystem)
+    {
+        return new GameObject(new GameObjectData("Particle system", particleSystem.Transform)
+        {
+            Drawable = particleSystem
         });
     }
 }

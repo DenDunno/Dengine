@@ -1,13 +1,44 @@
-﻿
+﻿using System.Drawing;
+using OpenTK.Mathematics;
+
 public class ParticleSystemDemo : IWorldFactory
 {
     public List<GameObject> CreateGameObjects()
     {
-        Camera camera = new(new PerspectiveProjection());
+        ParticleSystem particleSystem = new(new Transform(), Data);
+        Camera camera = new(new OrthographicProjection());
+        MouseInput mouseInput = new(camera, particleSystem);
 
         return new List<GameObject>()
         {
+            GameObjectFactory.CreateParticleSystem(particleSystem),
             GameObjectFactory.CreateCamera(camera),
+            GameObjectFactory.Point(mouseInput),
         };
     }
+
+    private ParticleSystemData Data => new()
+    {
+        Color = new AnimationCurve<Color>(Color.Red, Color.FromArgb(0, 0, 0, 255)),
+        Rotation = new AnimationCurve<Vector3>(new Vector3(0, 0, 0), new Vector3(0, 0, MathF.PI)),
+        Size = new AnimationCurve<float>(new CurvePart<float>[]
+        {
+            new()
+            {
+                FirstKey = new CurveKey<float>(1, 0),
+                SecondKey = new CurveKey<float>(2, 0.5f),
+                EasingFunction = EasingFunctions.InOutQuad
+            },
+            
+            new()
+            {
+                FirstKey = new CurveKey<float>(2, 0.5f),
+                SecondKey = new CurveKey<float>(1, 1f),
+                EasingFunction = EasingFunctions.InOutQuad
+            }
+        }),
+        Rate = 0.01f,
+        LifeTime = 1,
+        MeshDataSource = new HexagonMeshData(0.5f)
+    };
 }

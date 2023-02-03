@@ -2,19 +2,20 @@
 
 public class ParticleSystem : IDrawable
 {
+    public bool Enabled = true;
+    public readonly Transform Transform;
     private readonly ParticleSystemData _data;
     private readonly ParticlesUpdate _update;
-    private readonly Transform _transform;
     private readonly ParticlesView _view;
     private float _clock;
 
     public ParticleSystem(Transform transform, ParticleSystemData data)
     {
         _data = data;
-        _transform = transform;
+        Transform = transform;
         ParticlesBuffer buffer = new(data.Pool);
-        _view = new ParticlesView(buffer, transform, data.Pool);
-        _update = new ParticlesUpdate(buffer, transform, data);
+        _view = new ParticlesView(buffer, transform, data);
+        _update = new ParticlesUpdate(buffer, data);
     }
 
     void IGameComponent.Initialize()
@@ -27,10 +28,10 @@ public class ParticleSystem : IDrawable
     {
         _update.Update(deltaTime);
 
-        if (Timer.Time >= _clock + _data.Rate)
+        if (Enabled && Timer.Time >= _clock + _data.Rate)
         {
             _clock = Timer.Time;
-            _update.Emit(_transform.Position);
+            _update.Emit(Transform.Position);
         }
     }
 

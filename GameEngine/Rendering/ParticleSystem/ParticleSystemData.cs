@@ -9,5 +9,6 @@ public class ParticleSystemData
     public float LifeTime { get; init; } = 1f;
     public float Rate { get; init; } = 0.1f;
     public int Pool { get; init; } = 100;
+    public float Speed { get; init; } = 4f;
     public IMeshDataSource MeshDataSource { get; init; } = new QuadMeshData(1f);
 }

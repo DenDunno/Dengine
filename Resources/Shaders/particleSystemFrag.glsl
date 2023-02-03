@@ -8,12 +8,12 @@ out vec4 outputColor;
 
 void main(void)
 { 
-    vec4 result = color[dataIndex];
+    vec4 result = color[dataIndex];      
     
-    if (dataIndex > 99)
+    if (result.w < 0.001)
     {
-        result = vec4(1,0,0,1);
-    }      
+        discard;
+    }
     
     outputColor = result;         
 }

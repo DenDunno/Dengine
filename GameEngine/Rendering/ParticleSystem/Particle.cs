@@ -2,7 +2,7 @@
 
 public struct Particle
 {
-    public Transform Transform;
+    public readonly Transform Transform = new();
     public Vector3 Velocity;
     public float ElapsedTime;
     public readonly float[] Color = {1,1,1,0};

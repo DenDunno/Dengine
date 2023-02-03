@@ -96,7 +96,7 @@ public static class Algorithms
     
     public static Vector2 RandomVector2()
     {
-        return RandomVector3().ToVector2();
+        return RandomVector3().ToVector2().Normalized();
     }
     
     public static Vector3 RandomVector3()
@@ -107,7 +107,7 @@ public static class Algorithms
         float x = r * MathF.Cos(a);
         float y = r * MathF.Sin(a);
 
-        return new Vector3(x, y, z);
+        return new Vector3(x, y, z).Normalized();
     }
 
     public static float RandomFloat()
