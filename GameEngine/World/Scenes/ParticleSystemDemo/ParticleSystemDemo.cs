@@ -37,8 +37,8 @@ public class ParticleSystemDemo : IWorldFactory
                 EasingFunction = EasingFunctions.InOutQuad
             }
         }),
-        Rate = 0.01f,
-        LifeTime = 1,
+        Rate = 0.0001f,
+        LifeTime = 2,
         MeshDataSource = new HexagonMeshData(0.5f)
     };
 }

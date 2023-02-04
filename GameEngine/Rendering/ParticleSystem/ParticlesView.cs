@@ -2,17 +2,16 @@
 
 public class ParticlesView
 {
-    private readonly ParticlesBuffer _buffer;
+    private readonly int _verticesCount;
     private readonly Model _view;
-    private int _verticesCount;
-    
-    public ParticlesView(ParticlesBuffer buffer, Transform parent, ParticleSystemData data)
+
+    public ParticlesView(Transform parent, ParticleSystemData data)
     {
-        _buffer = buffer;
+        _verticesCount = data.MeshDataSource.Build().VerticesCount;
         _view = new Model(new RenderData()
         {
             Transform = parent,
-            Mesh = GetViewMesh(data),
+            Mesh = StaticBatching.Concatenate(data.MeshDataSource, data.Pool),
             Material = new ParticleSystemMaterial()
         });
     }
@@ -20,20 +19,12 @@ public class ParticlesView
     public void Initialize()
     {
         _view.Initialize();
+        _view.Material.Bridge.BindShaderStorageBlockToPoint("ParticlesData", 0);
         _view.Material.Bridge.SetInt("verticesCount", _verticesCount);
-    }
-    
-    private Mesh GetViewMesh(ParticleSystemData data)
-    {
-        _verticesCount = data.MeshDataSource.Build().VerticesCount;
-            
-        return StaticBatching.Concatenate(data.MeshDataSource, data.Pool);
     }
 
     public void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
     {
-        _view.Material.Bridge.SetVector4Array("color", _buffer.Colors);
-        _view.Material.Bridge.SetMatrix4Array("models", _buffer.Matrices);
         _view.Draw(projectionMatrix, viewMatrix);
     }
 

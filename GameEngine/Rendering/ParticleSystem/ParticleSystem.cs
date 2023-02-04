@@ -13,15 +13,14 @@ public class ParticleSystem : IDrawable
     {
         _data = data;
         Transform = transform;
-        ParticlesBuffer buffer = new(data.Pool);
-        _view = new ParticlesView(buffer, transform, data);
-        _update = new ParticlesUpdate(buffer, data);
+        _view = new ParticlesView(transform, data);
+        _update = new ParticlesUpdate(data);
     }
 
     void IGameComponent.Initialize()
     {
         _view.Initialize();
-        _update.Update(0);
+        _update.Initialize();
     }
 
     void IGameComponent.Update(float deltaTime)

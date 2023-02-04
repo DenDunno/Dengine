@@ -8,6 +8,11 @@ public static class ColorExtensions
         return new Vector3(color.R, color.G, color.B) / 255f;
     }
     
+    public static Vector4 ToVector4(this Color color)
+    {
+        return new Vector4(color.R, color.G, color.B, color.A);
+    }
+    
     public static Vector4 ToVector255(this Color color)
     {
         return new Vector4(color.R, color.G, color.B, color.A);

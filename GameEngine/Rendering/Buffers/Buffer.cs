@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using System.Runtime.CompilerServices;
+using OpenTK.Graphics.OpenGL;
 
 public abstract class Buffer<T> : GLObject, IDisposable where T : struct
 {
@@ -17,23 +18,43 @@ public abstract class Buffer<T> : GLObject, IDisposable where T : struct
     public void SendAndRelease()
     {
         Bind();
-        SendData();
-        Release();
+        BufferData();
+        ReleaseData();
     }
 
-    private void Bind()
+    public void Bind()
     {
         GL.BindBuffer(_bufferTarget, Id);
     }
 
-    private void SendData()
+    protected void UnBind()
     {
-        GL.BufferData(_bufferTarget, _data.Length * GenericSize.Evaluate<T>(), _data, _bufferUsageHint);
+        GL.BindBuffer(_bufferTarget, 0);
     }
 
-    private void Release()
+    protected void BufferData()
     {
-        _data = null!;
+        GL.BufferData(_bufferTarget, _data.Length * Unsafe.SizeOf<T>(), _data, _bufferUsageHint);
+    }
+
+    protected void BufferBase(int bindingPoint)
+    {
+        GL.BindBufferBase(BufferRangeTarget.ShaderStorageBuffer, bindingPoint, Id);
+    }
+
+    public unsafe TY* MapBuffer<TY>(BufferAccess access) where TY : unmanaged
+    {
+        return (TY*)GL.MapBuffer(_bufferTarget, access);
+    }
+
+    public void UnMapBuffer()
+    {
+        GL.UnmapBuffer(_bufferTarget);
+    }
+
+    public void ReleaseData()
+    {
+        _data = Array.Empty<T>();
     }
 
     public void Dispose()

@@ -18,10 +18,7 @@ public class ViewportPanel : Panel
 
     public override void Update(float deltaTime)
     {
-        if (PlayMode.IsActive == false)
-        {
-            TryControlCamera(deltaTime);
-        }
+        TryControlCamera(deltaTime);
     }
 
     private void TryControlCamera(float deltaTime)

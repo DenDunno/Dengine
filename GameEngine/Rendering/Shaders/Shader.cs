@@ -31,8 +31,10 @@ public class Shader : GLObject
     private void CheckErrors()
     {
         GL.GetShader(Id, ShaderParameter.CompileStatus, out int status);
-        
+
         if (status == 0)
+        {
             throw new Exception($"Error compiling shader: {GL.GetShaderInfoLog(Id)}");
+        }
     }
 }

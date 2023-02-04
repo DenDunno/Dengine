@@ -1,6 +1,18 @@
 ﻿
 public static class EnumerableExtensions
 {
+    public static T[] CreateFilledArray<T>(int count) where T : new()
+    {
+        T[] array = new T[count];
+        
+        for (int i = 0; i < array.Length; ++i)
+        {
+            array[i] = new T();
+        }
+
+        return array;
+    }
+    
     public static void ForEach<T>(this IEnumerable<T> collection, Action<T> action)
     {
         foreach (T element in collection)

@@ -2,16 +2,16 @@
 
 public struct Particle
 {
-    public readonly Transform Transform = new();
-    public Vector3 Velocity;
-    public float ElapsedTime;
-    public readonly float[] Color = {1,1,1,0};
-    public bool Enabled = false;
-
+    public Vector4 Position = Vector4.Zero;
+    public Vector4 Rotation = Vector4.Zero;
+    public Vector4 Velocity = Algorithms.RandomVector2().ToVector4();
+    public Vector4 Color = new(1, 1, 1, 0);
+    public float Scale = 1;
+    public float ElapsedTime = 0;
+    public int Enabled = 0;
+    private int _padding; // std430 layout
+    
     public Particle()
     {
-        Transform = new Transform();
-        Velocity = Vector3.Zero;
-        ElapsedTime = 0;
     }
 }

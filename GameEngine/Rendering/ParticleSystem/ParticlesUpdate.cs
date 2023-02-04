@@ -1,84 +1,70 @@
-﻿using System.Drawing;
+﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
-public class ParticlesUpdate
+public unsafe class ParticlesUpdate
 {
+    private readonly ShaderStorageBuffer<Particle> _shaderStorageBuffer;
     private readonly ParticleSystemData _data;
-    private readonly ParticlesBuffer _buffer;
-    private readonly Particle[] _particles;
+    private Particle* _particles;
     private int _poolIndex;
-    
-    public ParticlesUpdate(ParticlesBuffer buffer, ParticleSystemData data)
-    {
-        _data = data;
-        _buffer = buffer;
-        _particles = new Particle[data.Pool];
 
-        for (int i = 0; i < _particles.Length; ++i)
-        {
-            _particles[i] = new Particle()
-            {
-                Velocity = Algorithms.RandomVector2().ToVector3(),
-            };
-        }
+    public ParticlesUpdate(ParticleSystemData data)
+    {
+        Particle[] particles = EnumerableExtensions.CreateFilledArray<Particle>(data.Pool);
+        _shaderStorageBuffer = new ShaderStorageBuffer<Particle>(particles);
+        _data = data;
     }
 
+    public void Initialize()
+    {
+        _shaderStorageBuffer.BindToPoint(0);
+        _shaderStorageBuffer.ReleaseData();
+    }
+    
     public void Update(float deltaTime)
     {
-        for (int i = 0; i < _particles.Length; ++i)
-        {
-            if (_particles[i].Enabled == false)
-            {
-                continue;
-            }
+        _shaderStorageBuffer.Bind();
+        _particles = _shaderStorageBuffer.MapBuffer<Particle>(BufferAccess.WriteOnly);
 
-            _particles[i].ElapsedTime += deltaTime;
-            
-            if (_particles[i].ElapsedTime > _data.LifeTime)
-            {
-                _particles[i].Enabled = false;
-                continue;
-            }
-            
-            float lerp = _particles[i].ElapsedTime / _data.LifeTime;
-            
-            _particles[i].Transform.Position += _particles[i].Velocity * deltaTime * _data.Speed;
-            _particles[i].Transform.Rotation = Quaternion.FromEulerAngles(_data.Rotation.GetValue(lerp));
-            _particles[i].Transform.Scale = Vector3.One * _data.Size.GetValue(lerp);
-            
-            Color color = _data.Color.GetValue(lerp);
-            _particles[i].Color[0] = color.R / 255f;
-            _particles[i].Color[1] = color.G / 255f;
-            _particles[i].Color[2] = color.B / 255f;
-            _particles[i].Color[3] = color.A / 255f;
-        }
+        Parallel.For(0, _data.Pool, i => UpdateParticle(i, deltaTime));
 
-        CopyData();
+        _shaderStorageBuffer.UnMapBuffer();
     }
 
-    private void CopyData()
+    private void UpdateParticle(int index, float deltaTime)
     {
-        for (int i = 0; i < _particles.Length; ++i)
+        if (_particles[index].Enabled == 0)
         {
-            for (int j = 0; j < 4; ++j)
-            {
-                _buffer.Colors[4 * i + j] = _particles[i].Color[j];
-                
-                for (int k = 0; k < 4; ++k)
-                {
-                    _buffer.Matrices[16 * i + j * 4 + k] = _particles[i].Transform.ModelMatrix[j, k];
-                }
-            }
+            return;
         }
+            
+        _particles[index].ElapsedTime += deltaTime;
+            
+        if (_particles[index].ElapsedTime > _data.LifeTime)
+        {
+            _particles[index].Enabled = 0;
+            return;
+        }
+
+        _particles[index].Position += _particles[index].Velocity * deltaTime * _data.Speed;
+        SetParticleLerp(index, _particles[index].ElapsedTime / _data.LifeTime);
     }
 
     public void Emit(Vector3 position)
     {
-        _particles[_poolIndex].Transform.Position = position;
-        _particles[_poolIndex].Enabled = true;
+        _particles[_poolIndex].Position = position.ToVector4();
+        _particles[_poolIndex].Enabled = 1;
         _particles[_poolIndex].ElapsedTime = 0;
 
+        SetParticleLerp(_poolIndex, 0);
         MoveIndex();
+    }
+
+    private void SetParticleLerp(int particle, float lerp)
+    {
+        _particles[particle].Color = _data.Color.GetValue(lerp).ToVector4() / 255f;
+        _particles[particle].Rotation = _data.Rotation.GetValue(lerp).ToVector4();
+        _particles[particle].Scale = _data.Size.GetValue(lerp);
     }
 
     private void MoveIndex()

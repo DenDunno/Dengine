@@ -2,9 +2,12 @@
 public class Mesh
 {
     public readonly Dictionary<string, VertexAttribute> Attributes = new();
-
+    public readonly int VerticesCount;
+    
     public Mesh(List<VertexAttribute> attributes)
     {
+        VerticesCount = attributes[0].Data.Length / attributes[0].Size;
+        
         foreach (VertexAttribute attribute in attributes)
         {
             PushAttribute(attribute);   
@@ -13,8 +16,7 @@ public class Mesh
 
     public VertexAttributeGroup AttributeGroup => new(Attributes.Values, Stride);
     public required uint[] Indices { get; init; } = Array.Empty<uint>();
-
-    public int VerticesCount => Attributes.Values.First().Data.Length / Attributes.Values.First().Size;
+    
     private int Stride => Attributes.Values.Sum(attribute => attribute.Size);
 
     public void PushAttribute(VertexAttribute attribute)
