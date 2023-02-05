@@ -25,11 +25,24 @@ layout (binding = 0, std430) buffer ParticlesData
 out vec4 inputColor;
 
 mat4 build_transform(vec4 position, vec4 angles, float scale) 
-{  
+{
+    float cosA = cos(angles.x);
+    float cosB = cos(angles.y);
+    float cosC = cos(angles.z);
+    float sinA = sin(angles.x);
+    float sinB = sin(angles.y);
+    float sinC = sin(angles.z);
+       
+      
     return mat4(scale, 0.0, 0.0, 0,  
                 0.0, scale, 0.0, 0, 
                 0.0, 0.0, scale, 0, 
                 0.0, 0.0, 0.0, 1.0) * 
+                
+                mat4(cosB * cosC, -cosB * sinC, sinB, 0,  
+                sinA * sinB * cosC + cosA * sinC, -sinA * sinB * sinC + cosA * cosC, -sinA * cosB, 0, 
+                -cosA * sinB * cosC + sinA * sinC, cosA * sinB * sinC + sinA * cosC, cosA * cosB, 0, 
+                0.0, 0.0, 0.0, 1.0) *
                 
                 mat4(1.0, 0.0, 0.0, position.x,  
                 0.0, 1.0, 0.0, position.y, 

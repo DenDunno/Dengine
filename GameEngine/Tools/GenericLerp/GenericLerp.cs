@@ -12,13 +12,8 @@ public static class GenericLerp
         
     public static T Evaluate<T>(T first, T second, float lerp)
     {
-        if (_lerpFunction.TryGetValue(typeof(T), out ILerpWrapper? lerpWrapper))
-        {
-            ILerp<T> lerpFunction = (ILerp<T>)lerpWrapper;
-
-            return lerpFunction.Evaluate(first, second, lerp);
-        }
-
-        throw new ArgumentException($"Type {typeof(T)} has no lerp implementation");
+        ILerp<T> lerpFunction = (ILerp<T>)_lerpFunction[typeof(T)];
+        
+        return lerpFunction.Evaluate(first, second, lerp);
     }
 }

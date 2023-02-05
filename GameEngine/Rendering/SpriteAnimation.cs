@@ -36,9 +36,9 @@ public class SpriteAnimation : TogglingComponent
 
     protected override void OnUpdate(float deltaTime)
     {
-        if (Timer.Time >= _clock + _rate)
+        if (Clock.Time >= _clock + _rate)
         {
-            _clock = Timer.Time;
+            _clock = Clock.Time;
             MoveNextFrame();
         }
     }

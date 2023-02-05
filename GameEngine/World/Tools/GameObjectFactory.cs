@@ -104,6 +104,7 @@ public static class GameObjectFactory
             Components = new List<IGameComponent>
             {
                 camera,
+                new CameraControlling(camera),
             },
 
             Drawable = Gizmo.Instance

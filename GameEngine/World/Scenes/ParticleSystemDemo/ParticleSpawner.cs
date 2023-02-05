@@ -13,9 +13,9 @@ public class ParticleSpawner : IGameComponent
 
     void IGameComponent.Update(float deltaTime)
     {
-        if (WindowSettings.Mouse.IsAnyButtonDown && Timer.Time >= _clock + _rate)
+        if (WindowSettings.Mouse.IsAnyButtonDown && Clock.Time >= _clock + _rate)
         {
-            _clock = Timer.Time;
+            _clock = Clock.Time;
             SpawnParticle();
         }
     }

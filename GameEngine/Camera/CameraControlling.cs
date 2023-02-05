@@ -37,8 +37,11 @@ public class CameraControlling : TogglingComponent
 
         if (_camera.Projection is OrthographicProjection)
         {
-            Vector2 delta = new(-WindowSettings.Mouse.Delta.X, WindowSettings.Mouse.Delta.Y);
-            _camera.Transform.Position.Xy += delta * deltaTime * _draggingSpeed;
+            if (WindowSettings.Mouse.IsButtonDown(MouseButton.Button2))
+            {
+                Vector2 delta = new(-WindowSettings.Mouse.Delta.X, WindowSettings.Mouse.Delta.Y);
+                _camera.Transform.Position.Xy += delta * deltaTime * _draggingSpeed;
+            }
         }
         else
         {

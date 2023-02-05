@@ -28,9 +28,9 @@ public class Stats : Singlton<Stats>
     {
         _fpsCounter.Update(deltaTime);
         
-        if (Timer.Time >= _coolDown + _clock)
+        if (Clock.Time >= _coolDown + _clock)
         {
-            _clock = Timer.Time;
+            _clock = Clock.Time;
             float frameTime = 1f / FPS * 1000;
             Table.UpdateValue(frameTime);
             _fpsCounter.UpdateValue();

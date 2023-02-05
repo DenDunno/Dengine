@@ -35,12 +35,12 @@ public class AnimationCurve<T>
         {
             throw new ArgumentException ($"Lerp must be between 0 - 1. Input = {lerp}");
         }
-        
-        foreach (CurvePart<T> curvePart in _parts)
+
+        for (int i = 0; i < _parts.Count; ++i)
         {
-            if (curvePart.InRange(lerp))
+            if (_parts[i].InRange(lerp))
             {
-                return curvePart.Evaluate(lerp);
+                return _parts[i].Evaluate(lerp);
             }
         }
 

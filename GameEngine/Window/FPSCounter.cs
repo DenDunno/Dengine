@@ -15,8 +15,8 @@ public class FPSCounter
     public void UpdateValue()
     {
         int temp = _fps;
-        float coolDown = Timer.Time - _clock;
-        _clock = Timer.Time;
+        float coolDown = Clock.Time - _clock;
+        _clock = Clock.Time;
         _fps = 0;
 
         Value = (int) (temp / coolDown);

@@ -1,4 +1,5 @@
 ﻿using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 public class MouseInput : IGameComponent
 {
@@ -13,9 +14,9 @@ public class MouseInput : IGameComponent
 
     void IGameComponent.Update(float deltaTime)
     {
-        _particleSystem.Enabled = WindowSettings.Mouse.IsAnyButtonDown;
+        _particleSystem.Emitting = WindowSettings.Mouse.IsButtonDown(MouseButton.Button1);
         
-        if (_particleSystem.Enabled)
+        if (_particleSystem.Emitting)
         {
             Vector3 position = _camera.ScreenToWorldCoordinates(WindowSettings.Mouse.Position).ToVector3();
             _particleSystem.Transform.Position = position;

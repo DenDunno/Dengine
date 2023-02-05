@@ -25,7 +25,7 @@ public class Editor : EngineComponent
     {
         float deltaTime = (float) args.Time;
         
-        Timer.Update(deltaTime);
+        Clock.Update(deltaTime);
         _imGui.Update(deltaTime);
         _playMode.Update(deltaTime);
         _ui.Update(deltaTime);
