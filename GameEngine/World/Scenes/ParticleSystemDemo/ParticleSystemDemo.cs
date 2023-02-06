@@ -19,8 +19,8 @@ public class ParticleSystemDemo : IWorldFactory
 
     private ParticleSystemData Data => new()
     {
-        Color = new AnimationCurve<Color>(Color.DarkOrange, Color.FromArgb(0, 0, 0, 255)),
-        Rotation = new AnimationCurve<Vector3>(new Vector3(0, 0, 0), new Vector3(0, 0, 4 * MathF.PI)),
+        Color = new AnimationCurve<Color>(Color.Red, Color.FromArgb(0, 0, 0, 255)),
+        Rotation = new AnimationCurve<Vector3>(new Vector3(0, 0, 0), new Vector3(0, 0, 8 * MathF.PI)),
         Size = new AnimationCurve<float>(new CurvePart<float>[]
         {
             new()
@@ -37,9 +37,10 @@ public class ParticleSystemDemo : IWorldFactory
                 EasingFunction = EasingFunctions.InOutQuad
             }
         }),
-        ParticlesPerSecond = 3000,
-        Pool = 100_000,
+        ParticlesPerSecond = 10000,
+        Pool = 1_00_000,
         LifeTime = 8,
+        Speed = 4,
         MeshDataSource = new TriangleMeshData(0.5f)
     };
 }

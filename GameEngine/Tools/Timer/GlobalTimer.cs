@@ -1,7 +1,7 @@
 ﻿
 public class GlobalTimer : Timer
 {
-    public GlobalTimer(float rate) : base(rate)
+    public GlobalTimer(float rate, Action action) : base(rate, action)
     {
     }
 

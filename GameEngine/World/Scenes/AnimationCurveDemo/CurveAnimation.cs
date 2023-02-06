@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-public class GradientAnimation : IGameComponent
+public class CurveAnimation : IGameComponent
 {
     private readonly ShaderBridge _bridge;
     private readonly Transform _transform;
@@ -8,7 +8,7 @@ public class GradientAnimation : IGameComponent
     [EditorField] private float _speed = 0.6f;
     [EditorField] private float _lerp;
 
-    public GradientAnimation(ShaderBridge bridge, Transform transform, ParticleSystemData data)
+    public CurveAnimation(ShaderBridge bridge, Transform transform, ParticleSystemData data)
     {
         _bridge = bridge;
         _transform = transform;

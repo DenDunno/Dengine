@@ -2,20 +2,29 @@
 public abstract class Timer
 {
     public readonly float Rate;
+    private readonly Action _callBack;
     private float _clock;
 
-    protected Timer(float rate)
+    protected Timer(float rate, Action callBack)
     {
+        _callBack = callBack;
         Rate = rate;
     }
 
-    public bool Elapsed => Time >= Value;
-    public float Value => _clock + Rate;
+    public float Difference => Time - _clock;
+    private bool Elapsed => Time >= _clock + Rate;
     
-    public void Reset()
+    public void Update(float deltaTime)
     {
-        _clock = Time;
+        OnUpdate(deltaTime);
+        
+        if (Elapsed)
+        {
+            _callBack();
+            _clock = Time;
+        }
     }
 
+    protected virtual void OnUpdate(float deltaTime) {}
     public abstract float Time { get; }
 }

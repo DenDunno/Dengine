@@ -32,12 +32,22 @@ public abstract class Buffer<T> : GLObject, IDisposable where T : struct
         GL.BindBuffer(_bufferTarget, 0);
     }
 
-    protected void BufferData()
+    public void BufferData()
     {
         GL.BufferData(_bufferTarget, _data.Length * Unsafe.SizeOf<T>(), _data, _bufferUsageHint);
     }
+    
+    public void BufferData<TY>(TY[] data) where TY : struct
+    {
+        GL.BufferData(_bufferTarget, data.Length * Unsafe.SizeOf<T>(), data, _bufferUsageHint);
+    }
+    
+    public void AllocateMutableData(int size)
+    {
+        GL.BufferData(_bufferTarget, size * Unsafe.SizeOf<T>(), IntPtr.Zero, _bufferUsageHint);
+    }
 
-    protected void BufferBase(int bindingPoint)
+    public void BufferBase(int bindingPoint)
     {
         GL.BindBufferBase(BufferRangeTarget.ShaderStorageBuffer, bindingPoint, Id);
     }

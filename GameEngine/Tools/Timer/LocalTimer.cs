@@ -3,11 +3,11 @@ public class LocalTimer : Timer
 {
     private float _time;
     
-    public LocalTimer(float rate) : base(rate)
+    public LocalTimer(float rate, Action action) : base(rate, action)
     {
     }
 
-    public void AddDelta(float deltaTime)
+    protected override void OnUpdate(float deltaTime)
     {
         _time += deltaTime;
     }

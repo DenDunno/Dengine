@@ -10,7 +10,18 @@ public class MeanValue
         _value = 0;
     }
 
-    public double Value => _value / _count;
+    public double Value
+    {
+        get
+        {
+            if (_count == 0)
+            {
+                return 0;
+            }
+
+            return _value / _count;
+        }
+    }
 
     public void AddDelta(double delta)
     {

@@ -11,7 +11,7 @@ struct Particle
     vec4 position;  
     vec4 rotation;
     vec4 velocity;
-    vec4 color;
+    vec4 color;    
     float scale;
     float elapsedTime;
     int enabled;    

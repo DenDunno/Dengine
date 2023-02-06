@@ -1,70 +1,61 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using MethodTimer;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
-public unsafe class ParticlesUpdate
+public class ParticlesUpdate
 {
-    private readonly ShaderStorageBuffer<Particle> _shaderStorageBuffer;
+    private readonly ComputeShader _computeShader;
+    private readonly ShaderStorageBuffer<Particle> _shaderStorageBuffer = new();
     private readonly ParticleSystemData _data;
-    private Particle* _particles;
     private int _poolIndex;
 
     public ParticlesUpdate(ParticleSystemData data)
     {
-        Particle[] particles = EnumerableExtensions.CreateFilledArray<Particle>(data.Pool);
-        _shaderStorageBuffer = new ShaderStorageBuffer<Particle>(particles);
+        int batchSize = (int)MathF.Ceiling(data.Pool / 32f);
+        _computeShader = new(Paths.GetShader("Particles/update"), new Vector3i(batchSize, 1, 1));
         _data = data;
     }
 
     public void Initialize()
     {
-        _shaderStorageBuffer.BindToPoint(0);
-        _shaderStorageBuffer.ReleaseData();
+        _computeShader.Initialize();
+        _computeShader.Bridge.SetFloat("lifeTime", _data.LifeTime);
+        _computeShader.Bridge.SetFloat("speed", _data.Speed);
+        
+        _shaderStorageBuffer.Bind();
+        _shaderStorageBuffer.BufferData(EnumerableExtensions.CreateFilledArray<Particle>(_data.Pool));
+        _shaderStorageBuffer.BufferBase(0);
     }
     
     public void Update(float deltaTime)
     {
+        _computeShader.Bridge.SetFloat("deltaTime", deltaTime);
+        _computeShader.Use();
+    }
+
+    [Time("Emit")]
+    public unsafe void Emit(Vector3 position, int particlesCount = 1)
+    { 
         _shaderStorageBuffer.Bind();
-        _particles = _shaderStorageBuffer.MapBuffer<Particle>(BufferAccess.WriteOnly);
-
-        Parallel.For(0, _data.Pool, i => UpdateParticle(i, deltaTime));
-
+        Particle* particles = _shaderStorageBuffer.MapBuffer<Particle>(BufferAccess.WriteOnly);
+        
+        for (int i = 0; i < particlesCount; ++i)
+        {
+            ResetParticle(particles, position);
+            MoveIndex();
+        }
+        
         _shaderStorageBuffer.UnMapBuffer();
     }
 
-    private void UpdateParticle(int index, float deltaTime)
+    private unsafe void ResetParticle(Particle* particles, Vector3 position)
     {
-        if (_particles[index].Enabled == 0)
-        {
-            return;
-        }
-            
-        _particles[index].ElapsedTime += deltaTime;
-            
-        if (_particles[index].ElapsedTime > _data.LifeTime)
-        {
-            _particles[index].Enabled = 0;
-            return;
-        }
-
-        _particles[index].Position += _particles[index].Velocity * deltaTime * _data.Speed;
-        SetParticleLerp(index, _particles[index].ElapsedTime / _data.LifeTime);
-    }
-
-    public void Emit(Vector3 position)
-    {
-        _particles[_poolIndex].Position = position.ToVector4();
-        _particles[_poolIndex].Enabled = 1;
-        _particles[_poolIndex].ElapsedTime = 0;
-
-        SetParticleLerp(_poolIndex, 0);
-        MoveIndex();
-    }
-
-    private void SetParticleLerp(int particle, float lerp)
-    {
-        _particles[particle].Color = _data.Color.GetValue(lerp).ToVector4() / 255f;
-        _particles[particle].Rotation = _data.Rotation.GetValue(lerp).ToVector4();
-        _particles[particle].Scale = _data.Size.GetValue(lerp);
+        particles[_poolIndex].Position = position.ToVector4();
+        particles[_poolIndex].Enabled = 1;
+        particles[_poolIndex].ElapsedTime = 0;
+        particles[_poolIndex].Color = new Vector4(1, 0, 0, 1);
+        particles[_poolIndex].Rotation.Z = 0;
+        particles[_poolIndex].Scale = 1;
     }
 
     private void MoveIndex()

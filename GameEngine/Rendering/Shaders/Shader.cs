@@ -35,6 +35,6 @@ public class Shader : GLObject
         if (status == 0)
         {
             throw new Exception($"Error compiling shader: {GL.GetShaderInfoLog(Id)}");
-        }
+        }   
     }
 }

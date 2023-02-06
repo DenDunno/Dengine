@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using OpenTK.Mathematics;
 
-class GradientDemo : IWorldFactory
+class AnimationCurveDemo : IWorldFactory
 {
     public List<GameObject> CreateGameObjects()
     {
@@ -28,7 +28,7 @@ class GradientDemo : IWorldFactory
             
             Components = new List<IGameComponent>()
             {
-                new GradientAnimation(material.Bridge, transform, ParticleSystemData)
+                new CurveAnimation(material.Bridge, transform, ParticleSystemData)
             }
         });
     }

@@ -1,6 +1,5 @@
 ﻿using System.Numerics;
 using ImGuiNET;
-using OpenTK.Graphics.OpenGL;
 
 public class DengineConsole : Panel
 {
@@ -27,7 +26,7 @@ public class DengineConsole : Panel
 
     protected override void OnPanelDraw()
     {
-        if (ImGui.Button("Clear logs"))
+        if (ImGui.Button("Clear logs") || _logs.Count > 10_000)
         {
             _logs.Clear();
         }

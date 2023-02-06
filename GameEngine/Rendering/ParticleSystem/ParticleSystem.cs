@@ -6,12 +6,12 @@ public class ParticleSystem : IDrawable
     public readonly Transform Transform;
     private readonly ParticlesUpdate _update;
     private readonly ParticlesView _view;
-    private readonly LocalTimer _timer;
+    private readonly Timer _timer;
 
     public ParticleSystem(Transform transform, ParticleSystemData data)
     {
         Transform = transform;
-        _timer = new LocalTimer(1f / data.ParticlesPerSecond);
+        _timer = new LocalTimer(1f / data.ParticlesPerSecond, Emit);
         _view = new ParticlesView(transform, data);
         _update = new ParticlesUpdate(data);
     }
@@ -28,22 +28,15 @@ public class ParticleSystem : IDrawable
 
         if (Emitting)
         {
-            _timer.AddDelta(deltaTime);
-            Emit();
+            _timer.Update(deltaTime);
         }
     }
-
+    
     private void Emit()
     {
-        if (_timer.Elapsed)
-        {
-            for (float i = _timer.Value; i < _timer.Time; i += _timer.Rate)
-            {
-                _update.Emit(Transform.Position);
-            }
-
-            _timer.Reset();
-        }
+        int particlesCount = (int)(_timer.Difference / _timer.Rate);
+        
+        _update.Emit(Transform.Position, particlesCount);
     }
 
     public void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
