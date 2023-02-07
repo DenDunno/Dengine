@@ -7,4 +7,5 @@ public class RenderData
     public Mesh Mesh { get; set; } = null!;
     public BufferUsageHint VertexBufferUsage { get; init; } = BufferUsageHint.StaticDraw;
     public BufferUsageHint IndexBufferUsage { get; init; } = BufferUsageHint.StaticDraw;
+    public CullFaceMode CullingMode { get; init; } = CullFaceMode.Front;
 }

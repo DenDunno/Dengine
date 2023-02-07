@@ -5,34 +5,37 @@ public static class Paths
 
     public static string GetModel(string modelName)
     {
-        return $"{_resourcesPath}Model\\{modelName}";
+        return $"{_resourcesPath}Models/{modelName}.obj";
     }
     
     public static string GetTexture(string textureName)
     {
-        return $"{_resourcesPath}Textures\\{textureName}";
+        return $"{_resourcesPath}Textures/{textureName}";
     }
     
     public static string[] GetTexturesInFolder(string folderName)
     {
-        return Directory.GetFiles($"{_resourcesPath}Textures\\{folderName}");
+        return Directory.GetFiles($"{_resourcesPath}Textures/{folderName}");
     }
     
     public static string GetShader(string shaderName)
     {
-        return $"{_resourcesPath}Shaders\\{shaderName}.glsl";
+        return $"{_resourcesPath}Shaders/{shaderName}.glsl";
     }
     
     public static List<string> GetSkybox(string skyboxName)
     {
+        string[] files = Directory.GetFiles($"{_resourcesPath}Skyboxes/{skyboxName}");
+        string extension = Path.GetExtension(files[0]);
+            
         return new List<string>()
         {
-            $"{_resourcesPath}Skyboxes\\{skyboxName}/right.jpg",
-            $"{_resourcesPath}Skyboxes\\{skyboxName}/left.jpg",
-            $"{_resourcesPath}Skyboxes\\{skyboxName}/top.jpg",
-            $"{_resourcesPath}Skyboxes\\{skyboxName}/bottom.jpg",
-            $"{_resourcesPath}Skyboxes\\{skyboxName}/back.jpg",
-            $"{_resourcesPath}Skyboxes\\{skyboxName}/front.jpg",
+            $"{_resourcesPath}Skyboxes/{skyboxName}/right{extension}",
+            $"{_resourcesPath}Skyboxes/{skyboxName}/left{extension}",
+            $"{_resourcesPath}Skyboxes/{skyboxName}/top{extension}",
+            $"{_resourcesPath}Skyboxes/{skyboxName}/bottom{extension}",
+            $"{_resourcesPath}Skyboxes/{skyboxName}/back{extension}",
+            $"{_resourcesPath}Skyboxes/{skyboxName}/front{extension}",
         };
     }
 }

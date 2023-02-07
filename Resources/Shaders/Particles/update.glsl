@@ -21,37 +21,38 @@ layout (binding = 0, std430) buffer ParticlesData
     Particle[] Particles; 
 };
  
-bool needToUpdate(uint id)
+bool needToUpdate(inout Particle particle)
 {       
-    if (Particles[id].enabled == 1)
+    if (particle.enabled == 1)
     {
-        Particles[id].elapsedTime += deltaTime;
+        particle.elapsedTime += deltaTime;
         
-        if (Particles[id].elapsedTime > lifeTime)
+        if (particle.elapsedTime > lifeTime)
         {
-            Particles[id].enabled = 0;            
+            particle.enabled = 0;                            
         }
     }
         
-    return Particles[id].enabled == 1;
+    return particle.enabled == 1;
 }
  
-void update(uint id)
+void update(inout Particle particle)
 { 
-    Particles[id].position += Particles[id].velocity * deltaTime * speed;             
-    Particles[id].rotation.z += deltaTime * 4;
+    particle.position += particle.velocity * deltaTime * speed;             
+    particle.rotation.z += deltaTime * 4;
     
-    float lerp = Particles[id].elapsedTime / lifeTime;
-    Particles[id].scale = mix(1, 0, lerp);
-    Particles[id].color = mix(vec4(1, 0, 0, 1), vec4(0, 0, 1, 0), lerp);          
+    float lerp = particle.elapsedTime / lifeTime;
+    particle.scale = mix(1, 0, lerp);
+    particle.color = mix(vec4(1, 0, 0, 1), vec4(0, 0, 1, 0), lerp);          
 }
 
 void main()
 {
-    uint particleId = gl_GlobalInvocationID.x;
+    Particle particle = Particles[gl_GlobalInvocationID.x];
     
-    if (needToUpdate(particleId))
+    if (needToUpdate(particle))
     {
-        update(particleId);
-    }    
+        update(particle);
+        Particles[gl_GlobalInvocationID.x] = particle;
+    }      
 }

@@ -1,6 +1,5 @@
 ﻿using System.Numerics;
 using ImGuiNET;
-using OpenTK.Windowing.Common;
 
 public class ViewportPanel : Panel
 {
@@ -23,7 +22,7 @@ public class ViewportPanel : Panel
 
     private void TryControlCamera(float deltaTime)
     {
-        _window.CursorState = _isCameraControlling ? CursorState.Grabbed : CursorState.Normal;
+        //_window.CursorState = _isCameraControlling ? CursorState.Grabbed : CursorState.Normal;
         
         if (_isCameraControlling)
         {
@@ -44,7 +43,7 @@ public class ViewportPanel : Panel
         Vector2 size = ImGui.GetWindowSize() - _offset;
         Viewport.Set(size);
         
-        ImGui.Image((IntPtr) Framebuffer.FramebufferTexture, size, Vector2.UnitY, Vector2.UnitX);
+        ImGui.Image(Framebuffer.FramebufferTexture, size, Vector2.UnitY, Vector2.UnitX);
     }
 
     private void UpdateCameraControllingState()

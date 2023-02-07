@@ -116,11 +116,11 @@ public static class VectorExtensions
         return result;
     }
     
-    public static float[] ToFloatArray(this Vector3[] array)
+    public static float[] ToFloatArray(this IList<Vector3> array)
     {
-        float[] result = new float[array.Length * 3];
+        float[] result = new float[array.Count * 3];
 
-        for (int i = 0, j = 0; i < array.Length; ++i, j += 3)
+        for (int i = 0, j = 0; i < array.Count; ++i, j += 3)
         {
             result[j] = array[i].X;
             result[j + 1] = array[i].Y;
@@ -130,11 +130,11 @@ public static class VectorExtensions
         return result;
     }
     
-    public static float[] ToFloatArray(this Vector2[] array)
+    public static float[] ToFloatArray(this IList<Vector2> array)
     {
-        float[] result = new float[array.Length * 2];
+        float[] result = new float[array.Count * 2];
 
-        for (int i = 0, j = 0; i < array.Length; ++i, j += 2)
+        for (int i = 0, j = 0; i < array.Count; ++i, j += 2)
         {
             result[j] = array[i].X;
             result[j + 1] = array[i].Y;

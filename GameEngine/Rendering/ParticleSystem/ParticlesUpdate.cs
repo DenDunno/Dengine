@@ -1,5 +1,4 @@
-﻿using MethodTimer;
-using OpenTK.Graphics.OpenGL;
+﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
 public class ParticlesUpdate
@@ -29,11 +28,14 @@ public class ParticlesUpdate
     
     public void Update(float deltaTime)
     {
+        //OpenGLStopwatch.Start();
+        
         _computeShader.Bridge.SetFloat("deltaTime", deltaTime);
         _computeShader.Use();
+        
+        //Stats.Instance.Table.AddDelta("Compute", OpenGLStopwatch.Stop());
     }
-
-    [Time("Emit")]
+    
     public unsafe void Emit(Vector3 position, int particlesCount = 1)
     { 
         _shaderStorageBuffer.Bind();

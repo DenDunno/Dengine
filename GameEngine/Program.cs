@@ -1,2 +1,2 @@
 ﻿
-Dengine.Run(new ParticleSystemDemo());
+Dengine.Run(new GPUInstancingDemo());

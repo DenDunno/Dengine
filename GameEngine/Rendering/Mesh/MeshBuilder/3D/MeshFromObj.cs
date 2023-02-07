@@ -11,7 +11,18 @@ public class MeshFromObj : IMeshDataSource
     
     Mesh IMeshDataSource.Build()
     {
-        throw new NotImplementedException();
+        IReadOnlyList<ObjVertex> vertices = _objParser.Parse();
+        IReadOnlyList<ObjVertex> optimizedVertices = OptimizeVertices(vertices);
+
+        return new Mesh(new List<VertexAttribute>()
+        {
+            new("Position", 0, 3, optimizedVertices.Select(vertex => vertex.Position).ToArray().ToFloatArray()),
+            new("Normals", 1, 3, optimizedVertices.Select(vertex => vertex.Normal).ToArray().ToFloatArray()),
+            new("TexCoord", 2, 2, optimizedVertices.Select(vertex => vertex.TextureCoordinate).ToArray().ToFloatArray()),
+        })
+        {
+            Indices = CreateIndices(vertices)
+        };
     }
 
     private IReadOnlyList<ObjVertex> OptimizeVertices(IReadOnlyList<ObjVertex> vertices)

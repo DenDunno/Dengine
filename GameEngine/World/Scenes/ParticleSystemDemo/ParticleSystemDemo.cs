@@ -37,9 +37,9 @@ public class ParticleSystemDemo : IWorldFactory
                 EasingFunction = EasingFunctions.InOutQuad
             }
         }),
-        ParticlesPerSecond = 10000,
+        ParticlesPerSecond = 10_000,
         Pool = 1_00_000,
-        LifeTime = 8,
+        LifeTime = 10,
         Speed = 4,
         MeshDataSource = new TriangleMeshData(0.5f)
     };
