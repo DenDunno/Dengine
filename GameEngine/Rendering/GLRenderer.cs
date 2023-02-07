@@ -13,7 +13,8 @@ public class GLRenderer
 
     public void Draw()
     {
-        GL.DrawElements(PrimitiveType.Triangles, _indicesLength, DrawElementsType.UnsignedInt, 0);
+        //GL.DrawElements(PrimitiveType.Triangles, _indicesLength, DrawElementsType.UnsignedInt, 0);
+        GL.DrawElementsInstanced(PrimitiveType.Triangles, _indicesLength, DrawElementsType.UnsignedInt, 0, 5);
         Stats.Instance.AddDrawCallStats(_verticesCount, _indicesLength / 3);
     }
 }

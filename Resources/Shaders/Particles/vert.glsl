@@ -51,9 +51,8 @@ mat4 build_transform(vec4 position, vec4 angles, float scale)
 }
  
 void main(void)
-{   
-    int particleIndex = gl_VertexID / verticesCount;
-    Particle particle = Particles[particleIndex];     
+{       
+    Particle particle = Particles[gl_InstanceID];     
     
     mat4 model = build_transform(particle.position, particle.rotation, particle.scale);
     inputColor = particle.color;

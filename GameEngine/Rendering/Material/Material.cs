@@ -2,7 +2,7 @@
 
 public class Material : ShaderProgram
 {
-    protected Material(string vertexPath, string fragmentPath) : 
+    public Material(string vertexPath, string fragmentPath) : 
         base(new Shader[]
         {
             new(vertexPath, ShaderType.VertexShader), 

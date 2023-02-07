@@ -8,4 +8,5 @@ public class RenderData
     public BufferUsageHint VertexBufferUsage { get; init; } = BufferUsageHint.StaticDraw;
     public BufferUsageHint IndexBufferUsage { get; init; } = BufferUsageHint.StaticDraw;
     public CullFaceMode CullingMode { get; init; } = CullFaceMode.Front;
+    public GLDrawCommand DrawCommand { get; init; } = new DrawElements();
 }

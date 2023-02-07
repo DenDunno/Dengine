@@ -32,11 +32,9 @@ public class GPUInstancingDemo : IWorldFactory
             Drawable = new Model(new RenderData()
             {
                 Transform = transform,
-                Mesh = MeshBuilder.FromObj("rock"),
-                Material = new UnlitMaterial(new LitMaterialData()
-                {
-                    Base = new Texture(Paths.GetTexture("rock.png"))
-                })
+                Mesh = MeshBuilder.Quad(1f),
+                Material = new Material(Paths.GetShader("vert"), Paths.GetShader("uv")),
+                DrawCommand = new DrawElementsInstanced(1_000_000)
             })
         });
     }
