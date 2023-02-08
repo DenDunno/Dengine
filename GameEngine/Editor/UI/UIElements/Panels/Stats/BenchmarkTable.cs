@@ -15,11 +15,15 @@ public class BenchmarkTable
         _table.AddColumn(_columns);
 
         AddRow("Frame", frameTime, frameTime);
-
+        double other = frameTime;
+        
         foreach (BenchmarkResult result in _benchmark.GetData())
         {
             AddRow(result.Name, result.Value, frameTime);
+            other -= result.Value;
         }
+        
+        AddRow("Other", other, frameTime);
 
         Value = _table.ToMinimalString();
     }

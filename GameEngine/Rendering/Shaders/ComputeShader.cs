@@ -3,16 +3,14 @@ using OpenTK.Mathematics;
 
 public class ComputeShader : ShaderProgram
 {
-    private readonly Vector3i _numGroups;
-
-    public ComputeShader(string path, Vector3i numGroups) : base(new Shader[] {new(path, ShaderType.ComputeShader)})
+    public ComputeShader(string path) : base(new Shader[] {new(path, ShaderType.ComputeShader)})
     {
-        _numGroups = numGroups;
     }
-
-    protected override void OnUse()
+    
+    public void Dispatch(Vector3i numGroups)
     {
-        GL.DispatchCompute(_numGroups.X, _numGroups.Y, _numGroups.Z);
+        Use();
+        GL.DispatchCompute(numGroups.X, numGroups.Y, numGroups.Z);
         GL.MemoryBarrier(MemoryBarrierFlags.AllBarrierBits);
     }
 }

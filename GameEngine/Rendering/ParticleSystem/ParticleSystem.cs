@@ -34,11 +34,9 @@ public class ParticleSystem : IDrawable
     
     private void Emit()
     {
-        int particlesCount = (int)(_timer.Difference / _timer.Rate);
-        
-        _update.Emit(Transform.Position, particlesCount);
+        _update.Emit(Transform.Position, (int)(_timer.Difference / _timer.Rate));
     }
-
+    
     public void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
     {
         _view.Draw(in projectionMatrix, in viewMatrix);

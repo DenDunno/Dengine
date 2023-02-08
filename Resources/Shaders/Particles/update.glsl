@@ -1,6 +1,12 @@
 #version 430 core
 layout(local_size_x = 32, local_size_y = 1, local_size_z = 1) in;
 
+uniform int colorsSize;
+uniform vec4[30] colors;
+
+uniform int sizeArrayLength;
+uniform float[30] sizes;
+
 uniform float deltaTime;
 uniform float lifeTime;
 uniform float speed;
@@ -36,14 +42,35 @@ bool needToUpdate(inout Particle particle)
     return particle.enabled == 1;
 }
  
+vec4 getColor(float lerp)
+{
+    float scale = 1 / float(colorsSize);
+    int firstIndex = int(lerp / scale);
+    int secondIndex = firstIndex + 1;
+    lerp = smoothstep(firstIndex * scale, secondIndex * scale, lerp);
+    
+    return mix(colors[firstIndex], colors[secondIndex], lerp);       
+}
+
+float getSize(float lerp)
+{
+    float scale = 1 / float(sizeArrayLength);
+    int firstIndex = int(lerp / scale);
+    int secondIndex = firstIndex + 1;
+    lerp = smoothstep(firstIndex * scale, secondIndex * scale, lerp);
+    
+    return mix(sizes[firstIndex], sizes[secondIndex], lerp);       
+}
+ 
 void update(inout Particle particle)
 { 
     particle.position += particle.velocity * deltaTime * speed;             
     particle.rotation.z += deltaTime * 4;
     
     float lerp = particle.elapsedTime / lifeTime;
-    particle.scale = mix(1, 0, lerp);
-    particle.color = mix(vec4(1, 0, 0, 1), vec4(0, 0, 1, 0), lerp);          
+       
+    particle.scale = getSize(lerp);     
+    particle.color = getColor(lerp);    
 }
 
 void main()

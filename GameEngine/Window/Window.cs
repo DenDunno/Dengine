@@ -14,15 +14,20 @@ public class Window : GameWindow
     {
         base.OnUpdateFrame(args);
     }
-
-    [Time("Render")]
+    
     protected override void OnRenderFrame(FrameEventArgs args)
     {
-        base.OnRenderFrame(args);
+        Render(args);
         SwapBuffers();
         Stats.Instance.Reset();
     }
 
+    [Time("Render")]
+    private void Render(FrameEventArgs args)
+    {
+        base.OnRenderFrame(args);
+    }
+    
     [Time("Swap")]
     public override void SwapBuffers()
     {

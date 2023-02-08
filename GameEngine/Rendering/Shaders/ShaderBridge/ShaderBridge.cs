@@ -33,9 +33,17 @@ public class ShaderBridge
 
     public void SetMatrix4(string name, Matrix4 value) => _uniforms.SetValue(name, value, Uniforms.Uniform4);
     
-    public void SetColor(string name, Color value) => _uniforms.SetValue(name, value, Uniforms.Uniform3);
+    public void SetColor(string name, Color value) => _uniforms.SetValue(name, value, Uniforms.Uniform4);
     
     public void SetFloat(string name, float value) => _uniforms.SetValue(name, value, Uniforms.Uniform1);
 
     public void SetInt(string name, int value) => _uniforms.SetValue(name, value, Uniforms.Uniform1);
+
+    public void SetVector4(string name, Vector4 value) => _uniforms.SetValue(name, value, Uniforms.Uniform4);
+
+    public void SetIntArray(string name, int[] value) => _uniforms.SetValue(name, value, Uniforms.Uniform1);
+
+    public void SetColorArray(string name, Color[] value) => _uniforms.SetValue(name, value, Uniforms.Uniform4);
+    
+    public void SetFloatArray(string name, float[] value) => _uniforms.SetValue(name, value, Uniforms.Uniform1);
 }

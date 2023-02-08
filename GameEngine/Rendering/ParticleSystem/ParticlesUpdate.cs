@@ -3,38 +3,50 @@ using OpenTK.Mathematics;
 
 public class ParticlesUpdate
 {
-    private readonly ComputeShader _computeShader;
+    private readonly ComputeShader _emissionShader = new(Paths.GetShader("Particles/emission"));
+    private readonly ComputeShader _updateShader = new(Paths.GetShader("Particles/update"));
     private readonly ShaderStorageBuffer<Particle> _shaderStorageBuffer = new();
     private readonly ParticleSystemData _data;
+    private readonly Vector3i _updateDispatch;
     private int _poolIndex;
-
+    
     public ParticlesUpdate(ParticleSystemData data)
     {
         int batchSize = (int)MathF.Ceiling(data.Pool / 32f);
-        _computeShader = new(Paths.GetShader("Particles/update"), new Vector3i(batchSize, 1, 1));
+        _updateDispatch = new(batchSize, 1, 1);
         _data = data;
     }
 
     public void Initialize()
     {
-        _computeShader.Initialize();
-        _computeShader.Bridge.SetFloat("lifeTime", _data.LifeTime);
-        _computeShader.Bridge.SetFloat("speed", _data.Speed);
-        
+        _updateShader.Initialize();
+        _emissionShader.Initialize();
+
+        _updateShader.Bridge.SetInt("sizeArrayLength", _data.Size.Length);
+        _updateShader.Bridge.SetInt("colorsSize", _data.Color.Length);
+        _updateShader.Bridge.SetFloat("lifeTime", _data.LifeTime);
+        _updateShader.Bridge.SetColorArray("colors", _data.Color);
+        _updateShader.Bridge.SetFloatArray("sizes", _data.Size);
+        _updateShader.Bridge.SetFloat("speed", _data.Speed);
+        _emissionShader.Bridge.SetInt("pool", _data.Pool);
+
         _shaderStorageBuffer.Bind();
         _shaderStorageBuffer.BufferData(EnumerableExtensions.CreateFilledArray<Particle>(_data.Pool));
-        _shaderStorageBuffer.BufferBase(0);
+        _shaderStorageBuffer.BindToPoint(0);
     }
     
     public void Update(float deltaTime)
     {
-        //OpenGLStopwatch.Start();
-        
-        _computeShader.Bridge.SetFloat("deltaTime", deltaTime);
-        _computeShader.Use();
-        
-        //Stats.Instance.Table.AddDelta("Compute", OpenGLStopwatch.Stop());
+        _updateShader.Bridge.SetFloat("deltaTime", deltaTime);
+        _updateShader.Dispatch(_updateDispatch);
     }
+    
+    // public void Emit(Vector3 position, int particlesCount = 1)
+    // {
+    //     _emissionShader.Bridge.SetInt("index", MoveIndex(particlesCount));
+    //     _emissionShader.Bridge.SetVector4("position", position.ToVector4());
+    //     _emissionShader.Dispatch(new Vector3i(particlesCount, 1, 1));
+    // }
     
     public unsafe void Emit(Vector3 position, int particlesCount = 1)
     { 

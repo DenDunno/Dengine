@@ -38,4 +38,19 @@ public static class ColorExtensions
             (byte)((value >> 8) & 0xFF),
             (byte) (value & 0xFF));
     }
+
+    public static float[] ToFloatArray(this Color[] colors)
+    {
+        float[] result = new float[colors.Length * 4];
+
+        for (int i = 0; i < colors.Length; ++i)
+        {
+            result[i * 4 + 0] = colors[i].R / 255f;
+            result[i * 4 + 1] = colors[i].G / 255f;
+            result[i * 4 + 2] = colors[i].B / 255f;
+            result[i * 4 + 3] = colors[i].A / 255f;
+        }
+
+        return result;
+    }
 }

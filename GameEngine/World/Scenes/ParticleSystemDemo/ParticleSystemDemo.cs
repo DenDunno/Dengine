@@ -19,26 +19,11 @@ public class ParticleSystemDemo : IWorldFactory
 
     private ParticleSystemData Data => new()
     {
-        Color = new AnimationCurve<Color>(Color.Red, Color.FromArgb(0, 0, 0, 255)),
-        Rotation = new AnimationCurve<Vector3>(new Vector3(0, 0, 0), new Vector3(0, 0, 8 * MathF.PI)),
-        Size = new AnimationCurve<float>(new CurvePart<float>[]
-        {
-            new()
-            {
-                FirstKey = new CurveKey<float>(1, 0),
-                SecondKey = new CurveKey<float>(2, 0.5f),
-                EasingFunction = EasingFunctions.InOutQuad
-            },
-            
-            new()
-            {
-                FirstKey = new CurveKey<float>(2, 0.5f),
-                SecondKey = new CurveKey<float>(1, 1f),
-                EasingFunction = EasingFunctions.InOutQuad
-            }
-        }),
-        ParticlesPerSecond = 100_000,
-        Pool = 1_000_000,
+        Color = new[]{Color.FromArgb(255, 124, 0), Color.Fuchsia, Color.FromArgb(0, 0, 255, 0)},
+        Rotation = Vector3.UnitZ,
+        Size = new[] {1, 0.5f, 0.3f, 0},
+        ParticlesPerSecond = 10_000,
+        Pool = 100_000,
         LifeTime = 10,
         Speed = 4,
         MeshDataSource = new TriangleMeshData(0.5f)

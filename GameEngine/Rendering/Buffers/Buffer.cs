@@ -47,7 +47,7 @@ public abstract class Buffer<T> : GLObject, IDisposable where T : struct
         GL.BufferData(_bufferTarget, size * Unsafe.SizeOf<T>(), IntPtr.Zero, _bufferUsageHint);
     }
 
-    public void BufferBase(int bindingPoint)
+    public void BindToPoint(int bindingPoint)
     {
         GL.BindBufferBase(BufferRangeTarget.ShaderStorageBuffer, bindingPoint, Id);
     }
