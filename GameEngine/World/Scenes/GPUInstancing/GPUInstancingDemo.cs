@@ -39,8 +39,11 @@ public class GPUInstancingDemo : IWorldFactory
         return GameObjectFactory.WithRenderData("Rock", new RenderData()
         {
             Transform = new Transform(new Vector3(0, 3, 0)),
-            Mesh = MeshBuilder.Hexagon(2f),
-            Material = new UnlitMaterial(new LitMaterialData()),
+            Mesh = MeshBuilder.FromObj("asteroid"),
+            Material = new UnlitMaterial(new LitMaterialData()
+            {
+                Base = new Texture(Paths.GetTexture("asteroid.jpg"))
+            }),
         });
     }
 }
