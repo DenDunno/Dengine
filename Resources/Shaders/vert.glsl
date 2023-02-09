@@ -16,5 +16,11 @@ void main(void)
     fragmentPosition = vec3(vec4(vertexPosition, 1.0) * model);
     normal = vertexNormal * mat3(transpose(inverse(model)));
     
-    gl_Position = vec4(vertexPosition, 1.0) * model * view * projection;
+    mat4 dummy = model;
+    dummy += mat4(0,0,0,gl_InstanceID, 
+                  0,0,0,0,
+                  0,0,0,0,
+                  0,0,0,0);
+                  
+    gl_Position = vec4(vertexPosition, 1.0) * dummy * view * projection;
 }

@@ -2,8 +2,7 @@
 using OpenTK.Mathematics;
 
 public class ParticlesUpdate
-{
-    private readonly ComputeShader _emissionShader = new(Paths.GetShader("Particles/emission"));
+{    
     private readonly ComputeShader _updateShader = new(Paths.GetShader("Particles/update"));
     private readonly ShaderStorageBuffer<Particle> _shaderStorageBuffer = new();
     private readonly ParticleSystemData _data;
@@ -20,7 +19,6 @@ public class ParticlesUpdate
     public void Initialize()
     {
         _updateShader.Initialize();
-        _emissionShader.Initialize();
 
         _updateShader.Bridge.SetInt("sizeArrayLength", _data.Size.Length);
         _updateShader.Bridge.SetInt("colorsSize", _data.Color.Length);
@@ -28,7 +26,6 @@ public class ParticlesUpdate
         _updateShader.Bridge.SetColorArray("colors", _data.Color);
         _updateShader.Bridge.SetFloatArray("sizes", _data.Size);
         _updateShader.Bridge.SetFloat("speed", _data.Speed);
-        _emissionShader.Bridge.SetInt("pool", _data.Pool);
 
         _shaderStorageBuffer.Bind();
         _shaderStorageBuffer.BufferData(EnumerableExtensions.CreateFilledArray<Particle>(_data.Pool));
@@ -40,14 +37,7 @@ public class ParticlesUpdate
         _updateShader.Bridge.SetFloat("deltaTime", deltaTime);
         _updateShader.Dispatch(_updateDispatch);
     }
-    
-    // public void Emit(Vector3 position, int particlesCount = 1)
-    // {
-    //     _emissionShader.Bridge.SetInt("index", MoveIndex(particlesCount));
-    //     _emissionShader.Bridge.SetVector4("position", position.ToVector4());
-    //     _emissionShader.Dispatch(new Vector3i(particlesCount, 1, 1));
-    // }
-    
+
     public unsafe void Emit(Vector3 position, int particlesCount = 1)
     { 
         _shaderStorageBuffer.Bind();

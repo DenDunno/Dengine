@@ -1,6 +1,6 @@
 #version 330 core
-uniform vec3 baseColor;
-uniform vec3 lightColor;
+uniform vec4 baseColor;
+uniform vec4 lightColor;
 uniform vec3 lightPosition; 
 uniform vec3 viewPosition; 
 uniform float specularValue; 
@@ -24,17 +24,19 @@ void main()
     float diffuseDot = max(dot(fragmentNormal, lightDirection), 0.0);
     float specularDot = pow(max(dot(viewDirection, reflectDirection), 0.0), 32);
     
-    vec3 ambient = ambientValue * lightColor;
-    vec3 diffuse = diffuseDot * lightColor * diffuseValue;  
-    vec3 specular = specularDot * lightColor * specularValue;
+    vec4 ambient = ambientValue * lightColor;
+    vec4 diffuse = diffuseDot * lightColor * diffuseValue;  
+    vec4 specular = specularDot * lightColor * specularValue;
 
-    vec3 base = baseColor;
+    vec4 base = baseColor;
      
     if (hasTexture == 1)
     {
-        base *= vec3(texture(tex, textureCoordinates));
+        base *= vec4(texture(tex, textureCoordinates));
     }
-    
-    vec3 result = (ambient + diffuse + specular) * base;
-    outputColor = vec4(result, 1.0);      
+
+    vec4 light = ambient + diffuse + specular;
+    light.w = 1;
+          
+    outputColor = light * base;      
 }

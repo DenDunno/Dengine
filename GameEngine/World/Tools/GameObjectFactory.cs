@@ -73,6 +73,14 @@ public static class GameObjectFactory
         });
     }
 
+    public static GameObject WithRenderData(string name, RenderData renderData)
+    {
+        return new GameObject(new GameObjectData(name, renderData.Transform)
+        {
+            Drawable = new Model(renderData)
+        });
+    }
+
     public static GameObject Sprite(string sprite, Transform transform)
     {
         return Sprite(new Texture(sprite), transform);
@@ -125,7 +133,7 @@ public static class GameObjectFactory
             Drawable = new ParticleSystem(transform, particleSystemData)
         });
     }
-    
+
     public static GameObject CreateParticleSystem(ParticleSystem particleSystem)
     {
         return new GameObject(new GameObjectData("Particle system", particleSystem.Transform)

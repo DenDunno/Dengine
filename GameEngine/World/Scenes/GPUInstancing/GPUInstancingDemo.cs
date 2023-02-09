@@ -11,6 +11,7 @@ public class GPUInstancingDemo : IWorldFactory
         {
             GameObjectFactory.CreateCamera(camera),
             CreateSpace(camera),
+            CreatePlanet(),
             CreateRock()
         };
     }
@@ -23,19 +24,23 @@ public class GPUInstancingDemo : IWorldFactory
         return skybox;
     }
 
+    private GameObject CreatePlanet()
+    {
+        return GameObjectFactory.WithRenderData("Planet", new RenderData()
+        {
+            Transform = new Transform(),
+            Mesh = MeshBuilder.Quad(1f),
+            Material = new Material(Paths.GetShader("vert"), Paths.GetShader("uv")),
+        });
+    }
+
     private GameObject CreateRock()
     {
-        Transform transform = new();
-
-        return new GameObject(new GameObjectData("Rock", transform)
+        return GameObjectFactory.WithRenderData("Rock", new RenderData()
         {
-            Drawable = new Model(new RenderData()
-            {
-                Transform = transform,
-                Mesh = MeshBuilder.Quad(1f),
-                Material = new Material(Paths.GetShader("vert"), Paths.GetShader("uv")),
-                DrawCommand = new DrawElementsInstanced(1_000_000)
-            })
+            Transform = new Transform(new Vector3(0, 3, 0)),
+            Mesh = MeshBuilder.Hexagon(2f),
+            Material = new UnlitMaterial(new LitMaterialData()),
         });
     }
 }

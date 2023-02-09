@@ -1,14 +1,16 @@
 #version 330
 
 in vec2 textureCoordinates;
-out vec4 outputColor;
-uniform vec3 baseColor;
+
+uniform vec4 baseColor;
 //uniform sampler2D tex;
 uniform int hasTexture = 1;
 
+out vec4 outputColor;
+
 void main()
 {
-    vec4 result = vec4(baseColor, 1);        
+    vec4 result = baseColor;
     
     if (hasTexture == 1)
     {
