@@ -33,7 +33,7 @@ public class Demo3D : IWorldFactory
             })
         };
 
-        _light.Add(renderData.Material);
+        _light.Add(renderData.Material.Bridge);
         
         return new GameObject(new GameObjectData(name, renderData.Transform)
         {

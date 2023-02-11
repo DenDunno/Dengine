@@ -1,14 +1,13 @@
 ﻿using System.Runtime.CompilerServices;
 using OpenTK.Graphics.OpenGL;
 
-public abstract class Buffer<T> : GLObject, IDisposable where T : struct
+public abstract class Buffer<T> : GLObject, IDisposable where T : unmanaged
 {
     private readonly BufferUsageHint _bufferUsageHint;
     private readonly BufferTarget _bufferTarget;
     private T[] _data;
 
-    protected Buffer(BufferUsageHint bufferUsageHint, BufferTarget bufferTarget, T[] data) 
-        : base(GL.GenBuffer())
+    protected Buffer(BufferUsageHint bufferUsageHint, BufferTarget bufferTarget, T[] data) : base(GL.GenBuffer())
     {
         _bufferUsageHint = bufferUsageHint;
         _bufferTarget = bufferTarget;
@@ -37,7 +36,7 @@ public abstract class Buffer<T> : GLObject, IDisposable where T : struct
         GL.BufferData(_bufferTarget, _data.Length * Unsafe.SizeOf<T>(), _data, _bufferUsageHint);
     }
     
-    public void BufferData<TY>(TY[] data) where TY : struct
+    public void BufferData(T[] data) 
     {
         GL.BufferData(_bufferTarget, data.Length * Unsafe.SizeOf<T>(), data, _bufferUsageHint);
     }
@@ -52,9 +51,9 @@ public abstract class Buffer<T> : GLObject, IDisposable where T : struct
         GL.BindBufferBase(BufferRangeTarget.ShaderStorageBuffer, bindingPoint, Id);
     }
 
-    public unsafe TY* MapBuffer<TY>(BufferAccess access) where TY : unmanaged
+    public unsafe T* MapBuffer(BufferAccess access) 
     {
-        return (TY*)GL.MapBuffer(_bufferTarget, access);
+        return (T*)GL.MapBuffer(_bufferTarget, access);
     }
 
     public void UnMapBuffer()

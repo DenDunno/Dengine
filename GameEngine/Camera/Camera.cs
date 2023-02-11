@@ -9,7 +9,11 @@ public class Camera : IGameComponent
     public Camera() : this(new Transform(new Vector3(0, 0, 10)), new PerspectiveProjection())
     {
     }
-    
+
+    public Camera(Transform transform) : this(transform, new PerspectiveProjection())
+    {
+    }
+
     public Camera(CameraProjection projection) : this(new Transform(new Vector3(0, 0, 10)), projection)
     {
     }

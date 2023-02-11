@@ -41,7 +41,7 @@ public class ParticlesUpdate
     public unsafe void Emit(Vector3 position, int particlesCount = 1)
     { 
         _shaderStorageBuffer.Bind();
-        Particle* particles = _shaderStorageBuffer.MapBuffer<Particle>(BufferAccess.WriteOnly);
+        Particle* particles = _shaderStorageBuffer.MapBuffer(BufferAccess.WriteOnly);
         
         for (int i = 0; i < particlesCount; ++i)
         {

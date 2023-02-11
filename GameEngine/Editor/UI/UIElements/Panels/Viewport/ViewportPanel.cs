@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using ImGuiNET;
+using OpenTK.Windowing.Common;
 
 public class ViewportPanel : Panel
 {
@@ -22,7 +23,10 @@ public class ViewportPanel : Panel
 
     private void TryControlCamera(float deltaTime)
     {
-        //_window.CursorState = _isCameraControlling ? CursorState.Grabbed : CursorState.Normal;
+        if (PlayMode.IsActive == false)
+        {
+            _window.CursorState = _isCameraControlling ? CursorState.Grabbed : CursorState.Normal;
+        }
         
         if (_isCameraControlling)
         {

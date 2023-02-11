@@ -30,6 +30,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Include="..\Resources\Shaders\asteroids.glsl">
+        <Link>Shaders\asteroids.glsl</Link>
+      </Content>
+      <Content Include="..\Resources\Shaders\asteroidsUpdate.glsl">
+        <Link>Shaders\asteroidsUpdate.glsl</Link>
+      </Content>
       <Content Include="..\Resources\Shaders\lit.glsl">
         <Link>Shaders\lit.glsl</Link>
       </Content>
@@ -50,6 +56,9 @@
       </Content>
       <Content Include="..\Resources\Shaders\skyboxVert.glsl">
         <Link>Shaders\skyboxVert.glsl</Link>
+      </Content>
+      <Content Include="..\Resources\Shaders\sun.glsl">
+        <Link>Shaders\sun.glsl</Link>
       </Content>
       <Content Include="..\Resources\Shaders\unlit.glsl">
         <Link>Shaders\unlit.glsl</Link>

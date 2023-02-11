@@ -11,6 +11,11 @@ public abstract class Panel : UIElement
         _flags = flags;
     }
 
+    protected void SetFocused()
+    {
+        ImGui.SetWindowFocus(Name);
+    }
+        
     protected override void OnDraw()
     {
         ImGui.Begin(Name, _flags);

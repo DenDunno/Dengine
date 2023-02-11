@@ -35,7 +35,7 @@ public static class WorldBrowser
     {
         if (gameObject == null)
         {
-            DengineConsole.LogWarning("You tried to destroy null gameObject");
+            DengineConsole.Instance.LogWarning("You tried to destroy null gameObject");
         }
         else
         {

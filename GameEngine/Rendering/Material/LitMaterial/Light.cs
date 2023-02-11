@@ -7,7 +7,7 @@ public class Light : IGameComponent
     [EditorField] private readonly float _specular = 0.75f;
     [EditorField] private readonly float _diffuse = 1.65f;
     [EditorField] private readonly float _ambient = 0.4f;
-    private readonly List<LitMaterial> _materials = new();
+    private readonly List<ShaderBridge> _materials = new();
     private readonly Transform _camera;
 
     public Light(Transform transform, Transform camera, Color color)
@@ -17,21 +17,21 @@ public class Light : IGameComponent
         _color = color;
     }
     
-    public void Add(Material standartMaterial)
+    public void Add(ShaderBridge bridge)
     {
-        _materials.Add((LitMaterial)standartMaterial);
+        _materials.Add(bridge);
     }
 
     void IGameComponent.Update(float deltaTime)
     {
-        foreach (LitMaterial litMaterial in _materials)
+        foreach (ShaderBridge bridge in _materials)
         {
-            litMaterial.Bridge.SetVector3("lightPosition", Transform.Position);
-            litMaterial.Bridge.SetVector3("viewPosition", _camera.Position);
-            litMaterial.Bridge.SetColor("lightColor", _color);
-            litMaterial.Bridge.SetFloat("specularValue", _specular);
-            litMaterial.Bridge.SetFloat("diffuseValue", _diffuse);
-            litMaterial.Bridge.SetFloat("ambientValue", _ambient);
+            bridge.SetVector3("lightPosition", Transform.Position);
+            bridge.SetVector3("viewPosition", _camera.Position);
+            bridge.SetColor("lightColor", _color);
+            bridge.SetFloat("specularValue", _specular);
+            bridge.SetFloat("diffuseValue", _diffuse);
+            bridge.SetFloat("ambientValue", _ambient);
         }
     }
 }

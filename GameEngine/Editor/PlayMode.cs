@@ -40,7 +40,7 @@ public class PlayMode
         if (ControlPanel.IsFullscreen)
         {
             _window.WindowState = isPlaymode ? WindowState.Fullscreen : WindowState.Normal;
-            //_window.CursorState = isPlaymode ? CursorState.Grabbed : CursorState.Normal;
+            _window.CursorState = isPlaymode ? CursorState.Grabbed : CursorState.Normal;
         }
     }
 

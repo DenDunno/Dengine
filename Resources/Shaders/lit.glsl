@@ -24,7 +24,7 @@ void main()
     float diffuseDot = max(dot(fragmentNormal, lightDirection), 0.0);
     float specularDot = pow(max(dot(viewDirection, reflectDirection), 0.0), 32);
     
-    vec4 ambient = ambientValue * lightColor;
+    vec4 ambient = ambientValue * vec4(1);
     vec4 diffuse = diffuseDot * lightColor * diffuseValue;  
     vec4 specular = specularDot * lightColor * specularValue;
 

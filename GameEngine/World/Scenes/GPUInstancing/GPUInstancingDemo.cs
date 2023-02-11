@@ -1,18 +1,20 @@
-﻿
+﻿using System.Drawing;
 using OpenTK.Mathematics;
 
 public class GPUInstancingDemo : IWorldFactory
 {
     public List<GameObject> CreateGameObjects()
     {
-        Camera camera = new();
+        Camera camera = new(new Transform(new Vector3(150, 200, 700)));
+        Light light = new(new Transform(), camera.Transform, Color.Orange);
         
         return new List<GameObject>()
         {
+            GameObjectFactory.Point(light, light.Transform),
             GameObjectFactory.CreateCamera(camera),
             CreateSpace(camera),
-            CreatePlanet(),
-            CreateRock()
+            CreateAsteroids(light),
+            CreateSun(),
         };
     }
 
@@ -24,26 +26,48 @@ public class GPUInstancingDemo : IWorldFactory
         return skybox;
     }
 
-    private GameObject CreatePlanet()
+    private GameObject CreateAsteroids(Light light)
     {
-        return GameObjectFactory.WithRenderData("Planet", new RenderData()
+        const int count = 16_000;
+        
+        RenderData renderData = new()
         {
-            Transform = new Transform(),
-            Mesh = MeshBuilder.Quad(1f),
-            Material = new Material(Paths.GetShader("vert"), Paths.GetShader("uv")),
+            Mesh = MeshBuilder.FromObj("rock"),
+            DrawCommand = new DrawElementsInstanced(count),
+            Material = new AsteroidsMaterial(new LitMaterialData()
+            {
+                Base = new Texture(Paths.GetTexture("rock.png"))
+            }),
+        };
+
+        light.Add(renderData.Material.Bridge);
+        
+        return new GameObject(new GameObjectData("Asteroids", renderData.Transform)
+        {
+            Drawable = new Model(renderData),
+            Components = new List<IGameComponent>()
+            {
+                new AsteroidsAnimation(renderData.Material, count)
+            }
         });
     }
 
-    private GameObject CreateRock()
+    private GameObject CreateSun()
     {
-        return GameObjectFactory.WithRenderData("Rock", new RenderData()
+        RenderData renderData = new()
         {
-            Transform = new Transform(new Vector3(0, 3, 0)),
-            Mesh = MeshBuilder.FromObj("asteroid"),
-            Material = new UnlitMaterial(new LitMaterialData()
+            Transform = new Transform() { Scale = Vector3.One * 60 },
+            Mesh = MeshBuilder.FromObj("sun"),
+            Material = new SunMaterial(),
+        };
+
+        return new GameObject(new GameObjectData("Sun", renderData.Transform)
+        {
+            Drawable = new Model(renderData),
+            Components = new List<IGameComponent>()
             {
-                Base = new Texture(Paths.GetTexture("asteroid.jpg"))
-            }),
+                new SunAnimation(renderData.Material.Bridge, renderData.Transform)
+            }
         });
     }
 }

@@ -33,7 +33,7 @@ public class ShaderUniforms
         
         if (errorCode != ErrorCode.NoError)
         {
-            DengineConsole.LogError(errorCode);
+            DengineConsole.Instance.LogError(errorCode);
             Debugger.Break();
         }
     }
