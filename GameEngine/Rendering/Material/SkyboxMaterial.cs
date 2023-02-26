@@ -15,6 +15,6 @@ public class SkyboxMaterial : Material
 
     protected override void OnUse()
     {
-        _texture.Use();
+        _texture.Bind();
     }
 }

@@ -36,7 +36,7 @@ public class GPUInstancingDemo : IWorldFactory
             DrawCommand = new DrawElementsInstanced(count),
             Material = new AsteroidsMaterial(new LitMaterialData()
             {
-                Base = new Texture(Paths.GetTexture("rock.png"))
+                Base = new Texture2D(Paths.GetTexture("rock.png"))
             }),
         };
 

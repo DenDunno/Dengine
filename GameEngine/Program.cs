@@ -1,2 +1,2 @@
 ﻿
-Dengine.Run(new StaticBatchingDemo());
+Dengine.Run(new Demo3D());

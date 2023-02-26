@@ -47,7 +47,7 @@ public static class GameObjectFactory
         });
     }
 
-    private static GameObject Sprite(Texture sprite, Transform transform)
+    private static GameObject Sprite(Texture2D sprite, Transform transform)
     {
         RenderData renderData = new()
         {
@@ -83,7 +83,7 @@ public static class GameObjectFactory
 
     public static GameObject Sprite(string sprite, Transform transform)
     {
-        return Sprite(new Texture(sprite), transform);
+        return Sprite(new Texture2D(sprite), transform);
     }
 
     public static GameObject Sprite(IGameComponent tag, string sprite, Transform transform)

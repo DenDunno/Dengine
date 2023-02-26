@@ -20,6 +20,6 @@ public class AsteroidsMaterial : Material
 
     protected override void OnUse()
     {
-        _data.Base?.Use();
+        _data.Base?.Bind();
     }
 }

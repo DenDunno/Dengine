@@ -6,7 +6,7 @@ public class UnlitMaterial : LitMaterial
     {
     }
     
-    public UnlitMaterial(string texturePath) : base(new LitMaterialData() { Base = new Texture(texturePath)})
+    public UnlitMaterial(string texturePath) : base(new LitMaterialData() { Base = new Texture2D(texturePath)})
     {
     }
 

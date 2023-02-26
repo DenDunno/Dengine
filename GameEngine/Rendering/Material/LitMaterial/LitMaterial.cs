@@ -18,7 +18,7 @@ public class LitMaterial : Material
         int hasTexture = Convert.ToInt32(Data.Base != null);
         Bridge.SetInt("hasTexture", hasTexture);
 
-        Data.Base?.Use();
+        Data.Base?.Bind();
         Bridge.SetColor("baseColor", Data.Color);
     }
 }

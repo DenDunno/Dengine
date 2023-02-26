@@ -2,7 +2,7 @@
 public class SpriteAnimation : TogglingComponent
 {
     [EditorField] private readonly float _rate;
-    private readonly Texture[] _frames;
+    private readonly Texture2D[] _frames;
     private readonly LitMaterial _material;
     private float _clock;
     private int _currentFrame;
@@ -14,13 +14,13 @@ public class SpriteAnimation : TogglingComponent
         _material = (LitMaterial)material;
     }
 
-    private Texture[] GetFrames(IReadOnlyList<string> pathToSprites)
+    private Texture2D[] GetFrames(IReadOnlyList<string> pathToSprites)
     {
-        Texture[] result = new Texture[pathToSprites.Count];
+        Texture2D[] result = new Texture2D[pathToSprites.Count];
 
         for (int i = 0; i < result.Length; ++i)
         {
-            result[i] = new Texture(pathToSprites[i]);
+            result[i] = new Texture2D(pathToSprites[i]);
         }
 
         return result;
@@ -28,7 +28,7 @@ public class SpriteAnimation : TogglingComponent
 
     protected override void OnInitialize()
     {
-        foreach (Texture frame in _frames)
+        foreach (Texture2D frame in _frames)
         {
             frame.Load();
         }

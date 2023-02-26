@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using ImGuiNET;
 
-public class TextureSerialization : FieldSerialization<Texture?>
+public class TextureSerialization : FieldSerialization<Texture2D?>
 {
     private readonly TexturesViewer _texturesViewer = new();
 
@@ -10,7 +10,7 @@ public class TextureSerialization : FieldSerialization<Texture?>
         _texturesViewer.Init();
     }
     
-    protected override object OnSerialize(string fieldInfoName, Texture? texture)
+    protected override object OnSerialize(string fieldInfoName, Texture2D? texture)
     {
         ImGui.Text(fieldInfoName);
 
@@ -19,12 +19,6 @@ public class TextureSerialization : FieldSerialization<Texture?>
         if (ImGui.ImageButton(id, Vector2.One * 100))
         {
             ImGui.OpenPopup("TexturesPopUp");
-        }
-        
-        if (texture != null)
-        {
-            ImGui.SameLine();
-            ImGui.Text(Path.GetFileName(texture?.Path));
         }
 
         if (TryGetNewTexturePath(out string newTexturePath))
@@ -35,7 +29,7 @@ public class TextureSerialization : FieldSerialization<Texture?>
         return texture!;
     }
 
-    private void SetupTexture(ref Texture? texture, string path)
+    private void SetupTexture(ref Texture2D? texture, string path)
     {
         texture?.Dispose();
             
@@ -45,7 +39,7 @@ public class TextureSerialization : FieldSerialization<Texture?>
         }
         else
         {
-            texture = new Texture(path);
+            texture = new Texture2D(path);
             texture.Load();
         }
     }

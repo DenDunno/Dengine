@@ -35,7 +35,7 @@ public class Demo2D : IWorldFactory
                 Mesh = mesh,
                 Material = new UnlitMaterial(new LitMaterialData()
                 {
-                    Base = new Texture(Paths.GetTexture("crate.png"))
+                    Base = new Texture2D(Paths.GetTexture("crate.png"))
                 })
             }),
             
