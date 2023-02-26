@@ -2,13 +2,13 @@
 
 public class AsteroidsAnimation : IGameComponent
 {
-    private readonly float _radius = 600;
+    private readonly float _radius = 700;
     private readonly float _offset = 200f;
     private readonly int _count;
     private readonly AsteroidsMaterial _material;
     private readonly ShaderStorageBuffer<Matrix4> _modelMatrices = new();
     private readonly ShaderStorageBuffer<Vector4> _updateData = new();
-    private readonly ComputeShader _update = new(Paths.GetShader("asteroidsUpdate"));
+    private readonly ComputeShader _update = new(Paths.GetShader("Asteroids/update"));
     
     public AsteroidsAnimation(Material material, int count)
     {
@@ -20,10 +20,12 @@ public class AsteroidsAnimation : IGameComponent
     {
         _material.Initialize();
         _update.Initialize();
+        
         _material.Bridge.SetFloat("radius", _radius);
+        _update.Bridge.SetFloat("rotationSpeed", 0.1f);
         _material.Bridge.BindShaderStorageBlockToPoint("Data", 1);
         _update.Bridge.BindShaderStorageBlockToPoint("UpdateData", 2);
-        
+
         _modelMatrices.Bind();
         _modelMatrices.BufferData(GetMatrices());
         _modelMatrices.BindToPoint(1);
@@ -31,7 +33,6 @@ public class AsteroidsAnimation : IGameComponent
         _updateData.Bind();
         _updateData.BufferData(GetRotationVectors());
         _updateData.BindToPoint(2);
-        _update.Bridge.SetFloat("rotationSpeed", 0.1f);
     }
     
     private Matrix4[] GetMatrices()

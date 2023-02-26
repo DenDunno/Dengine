@@ -59,7 +59,7 @@ public class ParticlesUpdate
         particles[_poolIndex].ElapsedTime = 0;
         particles[_poolIndex].Color = new Vector4(1, 0, 0, 1);
         particles[_poolIndex].Rotation.Z = 0;
-        particles[_poolIndex].Scale = 1;
+        particles[_poolIndex].Scale = 0;
     }
 
     private void MoveIndex()

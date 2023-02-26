@@ -5,7 +5,7 @@ public class GPUInstancingDemo : IWorldFactory
 {
     public List<GameObject> CreateGameObjects()
     {
-        Camera camera = new(new Transform(new Vector3(150, 200, 700)));
+        Camera camera = new(new Transform(new Vector3(150, 200, 900)));
         Light light = new(new Transform(), camera.Transform, Color.Orange);
         
         return new List<GameObject>()
@@ -28,7 +28,7 @@ public class GPUInstancingDemo : IWorldFactory
 
     private GameObject CreateAsteroids(Light light)
     {
-        const int count = 16_000;
+        const int count = 18_000;
         
         RenderData renderData = new()
         {

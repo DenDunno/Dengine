@@ -6,9 +6,9 @@ public class WindowFactory
 {
     private readonly NativeWindowSettings _nativeWindowSettings = new()
     {
-        Size = new Vector2i(1536, 864),
+        Size = new Vector2i(480, 480),
         Location = new Vector2i(1536/8, 864/8),
-        Title = "Game engine",
+        Title = "Dengine",
         API = ContextAPI.OpenGL,
         Profile = ContextProfile.Compatability,
     };

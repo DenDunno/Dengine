@@ -1,2 +1,2 @@
 ﻿
-Dengine.Run(new GPUInstancingDemo());
+Dengine.Run(new StaticBatchingDemo());

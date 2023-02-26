@@ -3,11 +3,11 @@
 public class World : EngineComponent
 {
     public readonly List<GameObject> GameObjects;
-    private readonly RenderQueue _renderQueue;
+    public readonly RenderQueue RenderQueue;
 
     public World(List<GameObject> gameObjects)
     {
-        _renderQueue = new RenderQueue(gameObjects);
+        RenderQueue = new RenderQueue(gameObjects);
         GameObjects = gameObjects;
     }
 
@@ -18,7 +18,7 @@ public class World : EngineComponent
             GameObjects[i].Initialize();
         }
 
-        _renderQueue.Initialize();
+        RenderQueue.Initialize();
         Enabled = false;
     }
 
@@ -35,11 +35,11 @@ public class World : EngineComponent
 
     public override void Draw(FrameEventArgs args)
     {
-        _renderQueue.Draw();
+        RenderQueue.Draw();
     }
 
     public override void OnResize(ResizeEventArgs obj)
     {
-        _renderQueue.ResizeFrameBuffer(obj.Width, obj.Height);
+        RenderQueue.ResizeFrameBuffer(obj.Width, obj.Height);
     }
 }

@@ -18,7 +18,7 @@ public class ParticlesView
     public void Initialize()
     {
         _view.Initialize();
-        _view.Material.Bridge.BindShaderStorageBlockToPoint("ParticlesData", 0);
+        _view.Data.Material.Bridge.BindShaderStorageBlockToPoint("ParticlesData", 0);
     }
 
     public void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)

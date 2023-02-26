@@ -2,43 +2,38 @@
 
 public class Model : IDrawable
 {
-    [EditorField] public readonly Material Material;
-    [EditorField] private readonly bool _visible = true;
+    [EditorField] public readonly RenderData Data;
     private readonly VertexArrayObject _vertexArrayObject;
-    private readonly GLDrawCommand _glDrawCommand;
-    private readonly Transform _transform;
 
-    public Model(RenderData renderData)
+    public Model(RenderData data)
     {
-        _vertexArrayObject = new VertexArrayObject(renderData);
-        _glDrawCommand = renderData.DrawCommand;
-        _transform = renderData.Transform;
-        Material = renderData.Material;
-        _glDrawCommand.SetMesh(renderData.Mesh);
+        Data = data;
+        _vertexArrayObject = new VertexArrayObject(data);
+        data.DrawCommand.SetMesh(data.Mesh);
     }
 
     public void Initialize()
     {
-        Material.Initialize();
+        Data.Material.Initialize();
         _vertexArrayObject.Init();
     }
 
     public void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
     {
-        if (_visible)
+        if (Data.Visible)
         {
-            Material.Bridge.SetMatrix4("model", _transform.ModelMatrix);
-            Material.Bridge.SetMatrix4("view", viewMatrix);
-            Material.Bridge.SetMatrix4("projection", projectionMatrix);
+            Data.Material.Bridge.SetMatrix4("model", Data.Transform.ModelMatrix);
+            Data.Material.Bridge.SetMatrix4("view", viewMatrix);
+            Data.Material.Bridge.SetMatrix4("projection", projectionMatrix);
             _vertexArrayObject.Bind();
-            Material.Use();
-            _glDrawCommand.Execute();
+            Data.Material.Use();
+            Data.DrawCommand.Execute();
         }
     }
 
     public void Dispose()
     {
         _vertexArrayObject.Dispose();
-        Material.Dispose();
+        Data.Material.Dispose();
     }
 }

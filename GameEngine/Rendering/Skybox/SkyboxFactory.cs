@@ -1,4 +1,6 @@
-﻿
+﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
+
 public class SkyboxFactory
 {
     private readonly IReadOnlyList<string> _paths;
@@ -12,11 +14,11 @@ public class SkyboxFactory
     
     public GameObject Create()
     {
-        Transform transform = new();
+        Transform transform = new() {Scale = Vector3.One * 10000};
         RenderData renderData = new()
         {
             Transform = transform,
-            Mesh = MeshBuilder.Cube(1000),
+            Mesh = MeshBuilder.FromObj("cube"),
             Material = new SkyboxMaterial(new Cubemap(_paths)),
         };
 

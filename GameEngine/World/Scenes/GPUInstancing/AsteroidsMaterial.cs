@@ -4,7 +4,7 @@ public class AsteroidsMaterial : Material
 {
     [EditorField] private readonly LitMaterialData _data;
 
-    public AsteroidsMaterial(LitMaterialData data) : base(Paths.GetShader("asteroids"), Paths.GetShader("lit"))
+    public AsteroidsMaterial(LitMaterialData data) : base(Paths.GetShader("Asteroids/vert"), Paths.GetShader("lit"))
     {
         _data = data;
     }

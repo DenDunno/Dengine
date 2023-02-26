@@ -40,6 +40,8 @@ public class HexagonMeshData : IMeshDataSource
                 normals[4].X, normals[4].Y, normals[4].Z,
                 normals[5].X, normals[5].Y, normals[5].Z,
             }),
+            
+            new VertexAttribute("TexCoord", 2, 2, Array.Empty<float>())
         };
 
         return new Mesh(data)

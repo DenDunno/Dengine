@@ -30,11 +30,17 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\Resources\Shaders\asteroids.glsl">
-        <Link>Shaders\asteroids.glsl</Link>
+      <Content Include="..\Resources\Shaders\Asteroids\vert.glsl">
+        <Link>Shaders\Asteroids\vert.glsl</Link>
       </Content>
-      <Content Include="..\Resources\Shaders\asteroidsUpdate.glsl">
-        <Link>Shaders\asteroidsUpdate.glsl</Link>
+      <Content Include="..\Resources\Shaders\Asteroids\update.glsl">
+        <Link>Shaders\Asteroids\update.glsl</Link>
+      </Content>
+      <Content Include="..\Resources\Shaders\Batching\frag.glsl">
+        <Link>Shaders\Batching\frag.glsl</Link>
+      </Content>
+      <Content Include="..\Resources\Shaders\Batching\vert.glsl">
+        <Link>Shaders\Batching\vert.glsl</Link>
       </Content>
       <Content Include="..\Resources\Shaders\lit.glsl">
         <Link>Shaders\lit.glsl</Link>

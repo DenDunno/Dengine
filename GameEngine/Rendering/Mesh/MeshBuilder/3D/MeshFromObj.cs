@@ -1,22 +1,29 @@
-﻿
+﻿using OpenTK.Mathematics;
+
 public class MeshFromObj : IMeshDataSource
 {
     private readonly ObjParser _objParser;
     private readonly Dictionary<ObjVertex, uint> _indicesDictionary = new();
-    
-    public MeshFromObj(string pathToModel)
+    private readonly Vector3 _offset;
+
+    public MeshFromObj(string pathToModel) : this(pathToModel, Vector3.Zero)
+    {
+    }
+
+    public MeshFromObj(string pathToModel, Vector3 offset)
     {
         _objParser = new ObjParser(pathToModel);
+        _offset = offset;
     }
-    
-    Mesh IMeshDataSource.Build()
+
+    public Mesh Build()
     {
         IReadOnlyList<ObjVertex> vertices = _objParser.Parse();
         IReadOnlyList<ObjVertex> optimizedVertices = OptimizeVertices(vertices);
 
         return new Mesh(new List<VertexAttribute>()
         {
-            new("Position", 0, 3, optimizedVertices.Select(vertex => vertex.Position).ToArray().ToFloatArray()),
+            new("Position", 0, 3, optimizedVertices.Select(vertex => vertex.Position + _offset).ToArray().ToFloatArray()),
             new("Normals", 1, 3, optimizedVertices.Select(vertex => vertex.Normal).ToArray().ToFloatArray()),
             new("TexCoord", 2, 2, optimizedVertices.Select(vertex => vertex.TextureCoordinate).ToArray().ToFloatArray()),
         })
