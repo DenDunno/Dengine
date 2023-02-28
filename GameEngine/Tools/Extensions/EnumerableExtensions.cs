@@ -35,12 +35,17 @@ public static class EnumerableExtensions
     
     public static T GetRandomElement<T>(this IReadOnlyList<T> collection)
     {
-        int randomIndex = new Random().Next(collection.Count);
+        int randomIndex = Random.Shared.Next(collection.Count);
 
         return collection[randomIndex];
     }
     
     public static bool IsNotEmpty<T>(this IEnumerable<T> collection)
+    {
+        return collection.Count() != 0;
+    }
+    
+    public static bool IsEmpty<T>(this IEnumerable<T> collection)
     {
         return collection.Count() != 0;
     }

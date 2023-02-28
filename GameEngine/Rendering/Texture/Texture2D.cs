@@ -1,7 +1,14 @@
 ﻿
 public class Texture2D : Texture
 {
-    public Texture2D(string path) : base(new Texture2DSettings(), new TextureFromFile(path, new PNG()))
+    public readonly Texture2DData Data;
+
+    public Texture2D(string path) : this(new TextureFromFile(path, new PNG()))
     {
+    }
+
+    public Texture2D(ITextureSource source) : base(new Texture2DSettings(), source)
+    {
+        Data = new Texture2DData(Id);
     }
 }

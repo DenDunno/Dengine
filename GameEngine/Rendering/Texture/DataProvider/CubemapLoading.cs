@@ -1,6 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-public class CubemapLoading : ITextureDataProvider
+public class CubemapLoading : ITextureSource
 {
     private readonly TextureFromFile[] _textureFromFiles;
 

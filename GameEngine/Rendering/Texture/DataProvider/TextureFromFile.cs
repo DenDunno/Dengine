@@ -1,7 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using StbImageSharp;
 
-public class TextureFromFile : ITextureDataProvider
+public class TextureFromFile : ITextureSource
 {
     private readonly string _path;
     private readonly TextureTarget _target;

@@ -3,9 +3,10 @@ using OpenTK.Mathematics;
 
 public class Camera : IGameComponent
 {
+    [EditorField] public readonly RenderSettings Settings = new();
     [EditorField] public readonly CameraProjection Projection;
     public readonly Transform Transform;
-
+    
     public Camera() : this(new Transform(new Vector3(0, 0, 10)), new PerspectiveProjection())
     {
     }

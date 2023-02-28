@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using OpenTK.Graphics.OpenGL;
+﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
 public class RenderQueue
@@ -33,7 +32,7 @@ public class RenderQueue
 
     private void ResetFrame()
     {
-        GL.ClearColor(Color.Black);
+        GL.ClearColor(_camera.Settings.ClearColor);
         GL.Viewport(0, 0, WindowSettings.Width, WindowSettings.Height);
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);

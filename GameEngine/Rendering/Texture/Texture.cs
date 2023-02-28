@@ -3,12 +3,12 @@
 public class Texture : GLObject, IDisposable
 {
     private readonly TextureSettings _settings;
-    private readonly ITextureDataProvider _dataProvider;
+    private readonly ITextureSource _source;
     
-    protected Texture(TextureSettings settings, ITextureDataProvider dataProvider) : base(GL.GenTexture())
+    protected Texture(TextureSettings settings, ITextureSource source) : base(GL.GenTexture())
     {
         _settings = settings;
-        _dataProvider = dataProvider;
+        _source = source;
     }
 
     public void Bind(TextureUnit unit = TextureUnit.Texture0)
@@ -20,7 +20,7 @@ public class Texture : GLObject, IDisposable
     public void Load()
     {
         Bind();
-        _dataProvider.Load();
+        _source.Load();
         _settings.Apply();
     }
 

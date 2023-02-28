@@ -14,7 +14,7 @@ public class TextureSerialization : FieldSerialization<Texture2D?>
     {
         ImGui.Text(fieldInfoName);
 
-        IntPtr id = (IntPtr)(texture?.Id ?? 0);
+        nint id = texture?.Id ?? 0;
         
         if (ImGui.ImageButton(id, Vector2.One * 100))
         {

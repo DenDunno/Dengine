@@ -16,7 +16,7 @@ public class DataSerialization
             {typeof(Color), new ColorSerialization()},
             {typeof(bool), new BooleanSerialization()},
             {typeof(Vector3), new Vector3Serialization()},
-            {typeof(Texture), new TextureSerialization()},
+            {typeof(Texture2D), new TextureSerialization()},
             {typeof(int), new IntSerialization()},
         };
     }

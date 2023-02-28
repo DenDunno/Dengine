@@ -29,18 +29,23 @@ public class DengineConsole : Panel
 
     protected override void OnPanelDraw()
     {
-        if (ImGui.Button("Clear logs") || _logs.Count > 10_000)
+        if (ImGui.Button("Clear logs"))
         {
             _logs.Clear();
         }
-         
-        foreach (Log log in _logs)
+
+        if (_logs.Count > 2000)
         {
-            ImGui.TextDisabled(log.Time);
+            _logs.RemoveRange(0, 1000);
+        }
+
+        for (int i = _logs.Count - 1; i >= 0; --i)
+        {
+            ImGui.TextDisabled(_logs[i].Time);
             ImGui.SameLine();
             ImGui.Dummy(new Vector2(10, 0));
             ImGui.SameLine();
-            ImGui.TextColored(log.Color, log.Text);
+            ImGui.TextColored(_logs[i].Color, _logs[i].Text);
         }
     }
 }
