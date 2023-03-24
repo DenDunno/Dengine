@@ -11,6 +11,7 @@ The editor has a similar UX to Unity. When play mode, use WASD + mouse for explo
  ### <p align="center">Avaliable demos</p>
   ### <p align="center">Particle system up to 1 million particles</p>
  **Command:** dotnet run --project ParticleSystemDemo/ParticleSystemDemo.csproj
+ 
  **Key features:**
 
  - Hold left mouse button to emit particles 
@@ -43,6 +44,7 @@ public unsafe void Emit(Vector3 position, int particlesCount = 1)
 
    ### <p align="center">GPU instancing</p>
  **Command:** dotnet run --project GPUInstancingDemo/GPUInstancingDemo.csproj
+ 
  **Key features:**
  
  - Compute shader for asteroids update
