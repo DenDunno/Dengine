@@ -1,7 +1,7 @@
 ﻿
 public static class Paths
 {
-    private static readonly string _resourcesPath = Path.GetFullPath(@"..\..\..\..\Resources\");
+    private static readonly string _resourcesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "Resources/");
 
     public static string GetModel(string modelName)
     {

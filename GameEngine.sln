@@ -2,9 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine", "GameEngine\GameEngine.csproj", "{4C993D91-23CC-4B89-A4EE-300623FFE261}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPUInstancing", "GPUInstancing\GPUInstancing.csproj", "{78B27CD7-B888-45BB-98A6-8E659EDF506E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPUInstancingDemo", "GPUInstancingDemo\GPUInstancingDemo.csproj", "{78B27CD7-B888-45BB-98A6-8E659EDF506E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleSystem", "ParticleSystem\ParticleSystem.csproj", "{DB815168-5714-49BA-9F1F-06D841AF9112}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleSystemDemo", "ParticleSystemDemo\ParticleSystemDemo.csproj", "{DB815168-5714-49BA-9F1F-06D841AF9112}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
