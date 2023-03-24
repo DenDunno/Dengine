@@ -44,7 +44,7 @@ public class PlayMode
         }
     }
 
-    public void Update(float deltaTime)
+    public void Update()
     {
         if (IsActive && _keyboardState.IsKeyPressed(Keys.Escape))
         {

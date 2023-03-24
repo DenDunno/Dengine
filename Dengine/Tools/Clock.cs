@@ -1,5 +1,5 @@
 ﻿
-public class Clock
+public static class Clock
 {
     public static float Time { get; private set; }
         

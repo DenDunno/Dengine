@@ -38,4 +38,6 @@ public static class Paths
             $"{_resourcesPath}Skyboxes/{skyboxName}/front{extension}",
         };
     }
+
+    public static string IniFile => Path.Combine(_resourcesPath, "imgui.ini");
 }

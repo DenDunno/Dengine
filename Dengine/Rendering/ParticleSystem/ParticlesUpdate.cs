@@ -46,7 +46,7 @@ public class ParticlesUpdate
         for (int i = 0; i < particlesCount; ++i)
         {
             ResetParticle(particles, position);
-            MoveIndex();
+            MovePoolIndex();
         }
         
         _shaderStorageBuffer.UnMapBuffer();
@@ -62,7 +62,7 @@ public class ParticlesUpdate
         particles[_poolIndex].Scale = 0;
     }
 
-    private void MoveIndex()
+    private void MovePoolIndex()
     {
         --_poolIndex;
 

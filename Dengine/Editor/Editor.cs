@@ -27,8 +27,8 @@ public class Editor : EngineComponent
         
         Clock.Update(deltaTime);
         _imGui.Update(deltaTime);
-        _playMode.Update(deltaTime);
         _ui.Update(deltaTime);
+        _playMode.Update();
     }
 
     public override void Draw(FrameEventArgs args)
