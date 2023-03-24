@@ -9,7 +9,10 @@ public struct Particle
     public float Scale = 1;
     public float ElapsedTime = 0;
     public int Enabled = 0;
+    
+#pragma warning disable CS0169
     private int _padding; // std430 layout
+#pragma warning restore CS0169
     
     public Particle()
     {

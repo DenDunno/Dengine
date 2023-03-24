@@ -26,7 +26,7 @@ public class Stats : Singlton<Stats>
 
     public void Update(float deltaTime)
     {
-        _fpsCounter.Update(deltaTime);
+        _fpsCounter.Update();
         
         if (Clock.Time >= _coolDown + _clock)
         {
