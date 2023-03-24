@@ -1,6 +1,6 @@
 
 
-### <p align="center">Build & Usage</p>
+### <p align="center">Build & Usage (.NET 7 required)</p>
 
  - git clone https://github.com/DenDunno/Dengine.git
  - cd Dengine
