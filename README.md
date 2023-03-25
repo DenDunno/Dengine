@@ -3,7 +3,7 @@
 ### <p align="center">Build & Usage (.NET 7 required)</p>
 
  - git clone https://github.com/DenDunno/Dengine.git
- - cd Dengine
+ - cd REPO_NAME
  - dotnet run --project DEMO_NAME/DEMO_NAME.csproj 
 
 The editor has a similar UX to Unity. When play mode, use WASD + mouse for exploring.
