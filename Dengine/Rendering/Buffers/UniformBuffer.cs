@@ -1,8 +1,8 @@
-﻿
-public class UniformBuffer 
+﻿using OpenTK.Graphics.OpenGL;
+
+public class UniformBuffer<T> : Storage<T> where T : unmanaged
 {
-    static UniformBuffer()
+    public UniformBuffer() : base(BufferTarget.UniformBuffer, BufferRangeTarget.UniformBuffer)
     {
-        
     }
 }

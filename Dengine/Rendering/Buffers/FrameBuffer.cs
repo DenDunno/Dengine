@@ -8,7 +8,7 @@ public class Framebuffer
     private int _width = 1536;
     private int _height = 864;
 
-    public void Init()
+    public void Initialize()
     {
         GL.DeleteFramebuffer(_fbo);
         GL.DeleteTexture(FramebufferTexture);
@@ -51,6 +51,6 @@ public class Framebuffer
         
         _width = width;
         _height = height;
-        Init();
+        Initialize();
     }
 }

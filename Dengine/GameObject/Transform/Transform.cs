@@ -73,7 +73,8 @@ public class Transform
         get
         {
             Matrix4 localMatrix = Matrix4.CreateScale(Scale) * Matrix4.CreateFromQuaternion(Rotation) * Matrix4.CreateTranslation(Position);
-            
+            localMatrix.Transpose();
+
             if (Parent != null)
                 return  localMatrix * Parent.ModelMatrix;
 

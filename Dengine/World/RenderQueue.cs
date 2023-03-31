@@ -3,8 +3,8 @@ using OpenTK.Mathematics;
 
 public class RenderQueue
 {
-    private readonly List<GameObject> _gameObjects;
     private readonly Framebuffer _framebuffer = new();
+    private readonly List<GameObject> _gameObjects;
     private readonly Camera _camera;
 
     public RenderQueue(List<GameObject> gameObjects)
@@ -15,7 +15,7 @@ public class RenderQueue
 
     public void Initialize()
     {
-        _framebuffer.Init();
+        _framebuffer.Initialize();
     }
 
     public void ResizeFrameBuffer(int width, int height)
@@ -42,12 +42,9 @@ public class RenderQueue
 
     private void DrawObjects()
     {
-        Matrix4 projectionMatrix = _camera.Projection.Value;
-        Matrix4 viewMatrix = _camera.ViewMatrix;
-        
         foreach (GameObject gameObject in _gameObjects)
         {
-            gameObject.Draw(in projectionMatrix, in viewMatrix);
+            gameObject.Draw();
         }
     }
 }

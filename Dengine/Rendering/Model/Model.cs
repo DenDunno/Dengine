@@ -1,5 +1,4 @@
-﻿using OpenTK.Mathematics;
-
+﻿
 public class Model : IDrawable
 {
     [EditorField] public readonly RenderData Data;
@@ -15,16 +14,15 @@ public class Model : IDrawable
     public void Initialize()
     {
         Data.Material.Initialize();
-        _vertexArrayObject.Init();
+        _vertexArrayObject.Initialize();
+        Data.Material.Bridge.BindUniformBlock("MyUniformBlock", 0);
     }
 
-    public void Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
+    public void Draw()
     {
         if (Data.Visible)
         {
             Data.Material.Bridge.SetMatrix4("model", Data.Transform.ModelMatrix);
-            Data.Material.Bridge.SetMatrix4("view", viewMatrix);
-            Data.Material.Bridge.SetMatrix4("projection", projectionMatrix);
             _vertexArrayObject.Bind();
             Data.Material.Use();
             Data.DrawCommand.Execute();

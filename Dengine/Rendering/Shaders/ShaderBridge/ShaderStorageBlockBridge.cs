@@ -9,8 +9,15 @@ public class ShaderStorageBlockBridge
         _shaderProgramId = shaderProgramId;
     }
 
-    public void BindToPoint(int blockIndex, int point)
+    public void BindShaderStorageBlock(string blockName, int bindingPoint)
     {
-        GL.ShaderStorageBlockBinding(_shaderProgramId, blockIndex, point);
+        int index = GL.GetProgramResourceIndex(_shaderProgramId, ProgramInterface.ShaderStorageBlock, blockName);
+        GL.ShaderStorageBlockBinding(_shaderProgramId, index, bindingPoint);
+    }
+    
+    public void BindUniformBlock(string blockName, int bindingPoint)
+    {        
+        int index = GL.GetUniformBlockIndex(_shaderProgramId, blockName);
+        GL.UniformBlockBinding(_shaderProgramId, index, bindingPoint);
     }
 }

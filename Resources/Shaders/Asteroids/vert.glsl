@@ -5,12 +5,15 @@ layout (location = 1) in vec3 vertexNormal;
 layout(location = 2) in vec2 vertexTextureCoordinates;
 
 uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
 
 layout (binding = 1, std430) buffer Data
 { 
     mat4[] modelMatrices; 
+};
+
+layout (std140) uniform MyUniformBlock
+{ 
+    mat4[] matrices; 
 };
 
 out vec2 textureCoordinates;
@@ -20,8 +23,8 @@ out vec3 normal;
 void main(void)
 {        
     textureCoordinates = vertexTextureCoordinates;    
-    fragmentPosition = vec3(vec4(vertexPosition, 1.0) * modelMatrices[gl_InstanceID]);
-    normal = vertexNormal * mat3(transpose(inverse(modelMatrices[gl_InstanceID])));                                         
+    fragmentPosition = vec3(modelMatrices[gl_InstanceID] * vec4(vertexPosition, 1.0));
+    normal = vertexNormal * mat3(inverse(modelMatrices[gl_InstanceID]));                               
     
-    gl_Position = vec4(vertexPosition, 1.0) * modelMatrices[gl_InstanceID] * view * projection;
+    gl_Position = matrices[1] * matrices[0] * modelMatrices[gl_InstanceID] * vec4(vertexPosition, 1.0);
 }

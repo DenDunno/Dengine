@@ -23,8 +23,8 @@ public class AsteroidsAnimation : IGameComponent
         
         _material.Bridge.SetFloat("radius", _radius);
         _update.Bridge.SetFloat("rotationSpeed", 0.1f);
-        _material.Bridge.BindShaderStorageBlockToPoint("Data", 1);
-        _update.Bridge.BindShaderStorageBlockToPoint("UpdateData", 2);
+        _material.Bridge.BindShaderStorageBlock("Data", 1);
+        _update.Bridge.BindShaderStorageBlock("UpdateData", 2);
 
         _modelMatrices.Bind();
         _modelMatrices.BufferData(GetMatrices());

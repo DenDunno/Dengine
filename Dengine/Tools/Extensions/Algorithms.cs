@@ -109,6 +109,11 @@ public static class Algorithms
         return Random.Shared.NextSingle() * 2.0f - 1.0f;
     }
     
+    public static float RandomFloat(float start, float end)
+    {
+        return Random.Shared.NextSingle() * (end - start) + start;
+    }
+    
     public static float InverseLerp(float start, float end, float value)
     {
         return (value - start) / (end - start);

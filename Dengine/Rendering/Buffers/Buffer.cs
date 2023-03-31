@@ -41,16 +41,11 @@ public abstract class Buffer<T> : GLObject, IDisposable where T : unmanaged
         GL.BufferData(_bufferTarget, data.Length * Unsafe.SizeOf<T>(), data, _bufferUsageHint);
     }
     
-    public void AllocateMutableData(int size)
+    public void BufferData(T data) 
     {
-        GL.BufferData(_bufferTarget, size * Unsafe.SizeOf<T>(), IntPtr.Zero, _bufferUsageHint);
+        GL.BufferData(_bufferTarget, Unsafe.SizeOf<T>(), ref data, _bufferUsageHint);
     }
-
-    public void BindToPoint(int bindingPoint)
-    {
-        GL.BindBufferBase(BufferRangeTarget.ShaderStorageBuffer, bindingPoint, Id);
-    }
-
+    
     public unsafe T* MapBuffer(BufferAccess access) 
     {
         return (T*)GL.MapBuffer(_bufferTarget, access);

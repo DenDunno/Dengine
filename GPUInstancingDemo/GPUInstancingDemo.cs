@@ -10,11 +10,11 @@ public class GPUInstancingDemo : IWorldFactory
         
         return new List<GameObject>()
         {
-            GameObjectFactory.Point(light, light.Transform),
             GameObjectFactory.CreateCamera(camera),
-            CreateSpace(camera),
-            CreateAsteroids(light),
-            CreateSun(),
+            GameObjectFactory.CreateSkybox("Space", camera),
+            GameObjectFactory.Point(light, light.Transform),
+            //CreateAsteroids(light),
+            //CreateSun(),
         };
     }
 

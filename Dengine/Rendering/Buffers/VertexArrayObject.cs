@@ -13,7 +13,7 @@ public class VertexArrayObject : GLObject, IDisposable
         _vertexAttributeGroup = renderData.Mesh.AttributeGroup;
     }
 
-    public void Init()
+    public void Initialize()
     {
         Bind();
         _indexBufferObject.SendAndRelease();

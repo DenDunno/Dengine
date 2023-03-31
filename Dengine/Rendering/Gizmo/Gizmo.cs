@@ -39,7 +39,7 @@ public class Gizmo : Singlton<Gizmo>, IDrawable
         _drawables.Add(new GizmoPlane(centre, normal, color));
     }
 
-    void IDrawable.Draw(in Matrix4 projectionMatrix, in Matrix4 viewMatrix)
+    void IDrawable.Draw()
     {
         GL.UseProgram(0);
         

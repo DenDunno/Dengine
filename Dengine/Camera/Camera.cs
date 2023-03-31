@@ -5,8 +5,9 @@ public class Camera : IGameComponent
 {
     [EditorField] public readonly RenderSettings Settings = new();
     [EditorField] public readonly CameraProjection Projection;
+    private readonly UniformBuffer<Matrix4> _viewProjMatrix = new();
     public readonly Transform Transform;
-    
+
     public Camera() : this(new Transform(new Vector3(0, 0, 10)), new PerspectiveProjection())
     {
     }
@@ -30,10 +31,20 @@ public class Camera : IGameComponent
     public Vector2 ScreenToWorldCoordinates(Vector2 screenPosition) =>
         CameraUtils.ScreenToWorldCoordinates(ViewMatrix, Projection.Value, screenPosition);
 
+    void IGameComponent.Initialize()
+    {
+        _viewProjMatrix.Bind();
+        _viewProjMatrix.BindToPoint(0);
+        _viewProjMatrix.BufferData(Matrix4.Identity);
+    }
+    
     void IGameComponent.Update(float deltaTime)
     {
         Matrix4 projectionMatrix = Projection.Value;
         Matrix4 viewMatrix = ViewMatrix;
+
+        _viewProjMatrix.Bind();
+        _viewProjMatrix.BufferData(new[]{viewMatrix, projectionMatrix});
         
         GL.MatrixMode(MatrixMode.Projection);
         GL.LoadMatrix(ref projectionMatrix);
