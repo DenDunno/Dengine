@@ -18,8 +18,8 @@ public class MouseInput : IGameComponent
         
         if (_particleSystem.Emitting)
         {
-            Vector3 position = _camera.ScreenToWorldCoordinates(WindowSettings.Mouse.Position).ToVector3();
-            _particleSystem.Transform.Position = position;
+            // Vector3 position = _camera.ScreenToWorldCoordinates(WindowSettings.Mouse.Position).ToVector3();
+            // _particleSystem.Transform.Position = position;
         }
     }
 }

@@ -16,7 +16,7 @@ public class ShaderStorageBlockBridge
     }
     
     public void BindUniformBlock(string blockName, int bindingPoint)
-    {        
+    {
         int index = GL.GetUniformBlockIndex(_shaderProgramId, blockName);
         GL.UniformBlockBinding(_shaderProgramId, index, bindingPoint);
     }

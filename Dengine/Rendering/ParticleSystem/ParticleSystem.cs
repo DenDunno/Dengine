@@ -1,6 +1,4 @@
-﻿using OpenTK.Mathematics;
-
-public class ParticleSystem : IDrawable
+﻿public class ParticleSystem : IDrawable
 {
     public bool Emitting = true;
     public readonly Transform Transform;

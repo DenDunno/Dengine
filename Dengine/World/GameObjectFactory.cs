@@ -105,6 +105,11 @@ public static class GameObjectFactory
         return CreateCamera(new Camera(projection));
     }
 
+    public static GameObject CreateCamera(Transform transform)
+    {
+        return CreateCamera(new Camera(transform));
+    }
+
     public static GameObject CreateCamera(Camera camera)
     {
         return new GameObject(new GameObjectData("Camera", camera.Transform)
@@ -119,9 +124,9 @@ public static class GameObjectFactory
         });
     }
 
-    public static GameObject CreateSkybox(string name, Camera camera)
+    public static GameObject CreateSkybox(string name)
     {
-        return new SkyboxFactory(name, camera.Transform).Create();
+        return new SkyboxFactory(name).Create();
     }
 
     public static GameObject CreateParticleSystem(ParticleSystemData particleSystemData)

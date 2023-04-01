@@ -1,8 +1,7 @@
 #version 330 core
 uniform vec4 baseColor;
 uniform vec4 lightColor;
-uniform vec3 lightPosition; 
-uniform vec3 viewPosition; 
+uniform vec3 lightPosition;  
 uniform float specularValue; 
 uniform float diffuseValue; 
 uniform float ambientValue; 
@@ -14,11 +13,18 @@ in vec2 textureCoordinates;
 
 out vec4 outputColor;
 
+layout (std140) uniform CameraData
+{ 
+    mat4 viewMatrix;
+    mat4 projectionMatrix;
+    vec4 position;
+};
+
 void main()
 {        
     vec3 fragmentNormal = normalize(normal);
     vec3 lightDirection = normalize(lightPosition - fragmentPosition);
-    vec3 viewDirection = normalize(viewPosition - fragmentPosition);
+    vec3 viewDirection = normalize(vec3(position) - fragmentPosition);
     vec3 reflectDirection = reflect(-lightDirection, fragmentNormal);
     
     float diffuseDot = max(dot(fragmentNormal, lightDirection), 0.0);

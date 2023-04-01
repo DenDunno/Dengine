@@ -8,12 +8,10 @@ public class Light : IGameComponent
     [EditorField] private readonly float _diffuse = 1.65f;
     [EditorField] private readonly float _ambient = 0.4f;
     private readonly List<ShaderBridge> _materials = new();
-    private readonly Transform _camera;
 
-    public Light(Transform transform, Transform camera, Color color)
+    public Light(Transform transform, Color color)
     {
         Transform = transform;
-        _camera = camera;
         _color = color;
     }
     
@@ -27,7 +25,6 @@ public class Light : IGameComponent
         foreach (ShaderBridge bridge in _materials)
         {
             bridge.SetVector3("lightPosition", Transform.Position);
-            bridge.SetVector3("viewPosition", _camera.Position);
             bridge.SetColor("lightColor", _color);
             bridge.SetFloat("specularValue", _specular);
             bridge.SetFloat("diffuseValue", _diffuse);

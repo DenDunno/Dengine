@@ -5,22 +5,21 @@ public class GPUInstancingDemo : IWorldFactory
 {
     public List<GameObject> CreateGameObjects()
     {
-        Camera camera = new(new Transform(new Vector3(150, 200, 900)));
-        Light light = new(new Transform(), camera.Transform, Color.Orange);
+        Light light = new(new Transform(), Color.Orange);
         
         return new List<GameObject>()
         {
-            GameObjectFactory.CreateCamera(camera),
-            GameObjectFactory.CreateSkybox("Space", camera),
+            GameObjectFactory.CreateCamera(new Transform(new Vector3(150, 200, 900))),
+            GameObjectFactory.CreateSkybox("Space"),
             GameObjectFactory.Point(light, light.Transform),
-            //CreateAsteroids(light),
-            //CreateSun(),
+            CreateAsteroids(light),
+            CreateSun(),
         };
     }
 
-    private GameObject CreateSpace(Camera camera)
+    private GameObject CreateSpace()
     {
-        GameObject skybox = GameObjectFactory.CreateSkybox("Space", camera);
+        GameObject skybox = GameObjectFactory.CreateSkybox("Space");
         skybox.Data.Components.Add(new RotationAnimation(skybox.Data.Transform, Vector3.One, 0.015f));
 
         return skybox;

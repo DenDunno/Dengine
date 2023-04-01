@@ -3,15 +3,20 @@ layout(location = 0) in vec3 vertexPosition;
 
 smooth out vec3 textureCoordinates;
 
-uniform mat4 model;
-
-layout (std140) uniform MyUniformBlock
+layout (std140) uniform CameraData
 { 
-    mat4[] matrices; 
+    mat4 viewMatrix;
+    mat4 projectionMatrix;
+    vec4 position;
 };
 
 void main()
 {       
-    textureCoordinates = vertexPosition;
-    gl_Position = matrices[1] * matrices[0] * model * vec4(vertexPosition, 1.0);
+    textureCoordinates = vertexPosition;    
+    mat4 modelMatrix = mat4(10000, 0, 0, 0,
+                            0, 10000, 0, 0,
+                            0, 0, 10000, 0,
+                            position.x, position.y, position.z, 1);
+                            
+    gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(vertexPosition, 1.0);
 }

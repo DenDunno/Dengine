@@ -14,7 +14,6 @@ layout (binding = 2, std430) buffer UpdateData
     vec4[] rotationVectors; 
 };
 
-
 mat4 rotation3d(vec4 axis, float angle) {
   axis = normalize(axis);
   float s = sin(angle);

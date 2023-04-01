@@ -53,8 +53,6 @@ public class AsteroidsAnimation : IGameComponent
             matrices[i] = Matrix4.CreateScale(scale) * 
                           Matrix4.CreateFromAxisAngle(new Vector3(0.4f, 0.6f, 0.8f), rotAngle) * 
                           Matrix4.CreateTranslation(x, y, z);
-            
-            matrices[i].Transpose();
         }
         
         return matrices;

@@ -1,6 +1,4 @@
-﻿using OpenTK.Mathematics;
-
-public class ParticlesView
+﻿public class ParticlesView
 {
     private readonly Model _view;
 

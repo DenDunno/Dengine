@@ -8,9 +8,11 @@ out vec2 textureCoordinates;
 out vec3 fragmentPosition;
 out vec3 normal;
 
-layout (std140) uniform MyUniformBlock
+layout (std140) uniform CameraData
 { 
-    mat4[] matrices; 
+    mat4 viewMatrix;
+    mat4 projectionMatrix;
+    vec4 position;
 };
 
 void main(void)
@@ -19,5 +21,5 @@ void main(void)
     fragmentPosition = vec3(model * vec4(vertexPosition, 1.0));
     normal = vertexNormal * mat3(inverse(model));    
                  
-    gl_Position = matrices[1] * matrices[0] * model * vec4(vertexPosition, 1.0);
+    gl_Position = projectionMatrix * viewMatrix * model * vec4(vertexPosition, 1.0);
 }

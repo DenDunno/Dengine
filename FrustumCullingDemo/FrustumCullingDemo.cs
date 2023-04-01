@@ -9,19 +9,18 @@ public class FrustumCullingDemo : IWorldFactory
     
     public List<GameObject> CreateGameObjects()
     {
-        Camera camera = new(new Transform(Vector3.One * _count * _distance / 2));
         _cachedRenderData = CreateRenderData();
-        Light light = new(new Transform(), camera.Transform, Color.FromArgb(255,216,128,54));
+        Light light = new(new Transform(), Color.FromArgb(255,216,128,54));
         light.Add(_cachedRenderData.Material.Bridge);
 
         List<GameObject> gameObjects = new()
         {
-            GameObjectFactory.CreateCamera(camera),
-            CreateCube(Vector3.Zero),
-            //GameObjectFactory.Point(light),
+            GameObjectFactory.CreateCamera(new Transform(Vector3.One * _count * _distance / 2)),
+            GameObjectFactory.Point(light),
+            GameObjectFactory.CreateSkybox("Storm")
         };
         
-        //AddCubes(gameObjects);
+        AddCubes(gameObjects);
 
         return gameObjects;
     }
