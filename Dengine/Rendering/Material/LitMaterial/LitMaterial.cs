@@ -11,6 +11,7 @@ public class LitMaterial : Material
     protected override void OnInit()
     {
         Data.Base?.Load();
+        Bridge.BindUniformBlock("LightData", 1);
     }
 
     protected override void OnUse()

@@ -5,7 +5,7 @@ public class ParticleSystemDemo : IWorldFactory
 {
     public List<GameObject> CreateGameObjects()
     {
-        ParticleSystem particleSystem = new(new Transform(), Data);
+        ParticleSystem particleSystem = new(Data);
         Camera camera = new(new OrthographicProjection());
         MouseInput mouseInput = new(camera, particleSystem);
 

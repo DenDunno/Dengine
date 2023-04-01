@@ -1,16 +1,15 @@
 ﻿public class ParticleSystem : IDrawable
 {
     public bool Emitting = true;
-    public readonly Transform Transform;
+    public readonly Transform Transform = new();
     private readonly ParticlesUpdate _update;
     private readonly ParticlesView _view;
     private readonly Timer _timer;
 
-    public ParticleSystem(Transform transform, ParticleSystemData data)
+    public ParticleSystem(ParticleSystemData data)
     {
-        Transform = transform;
         _timer = new LocalTimer(1f / data.ParticlesPerSecond, Emit);
-        _view = new ParticlesView(transform, data);
+        _view = new ParticlesView(Transform, data);
         _update = new ParticlesUpdate(data);
     }
 

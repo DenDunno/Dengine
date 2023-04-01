@@ -26,7 +26,7 @@ public abstract class Buffer<T> : GLObject, IDisposable where T : unmanaged
         GL.BindBuffer(_bufferTarget, Id);
     }
 
-    protected void UnBind()
+    public void UnBind()
     {
         GL.BindBuffer(_bufferTarget, 0);
     }
@@ -46,7 +46,7 @@ public abstract class Buffer<T> : GLObject, IDisposable where T : unmanaged
         GL.BufferData(_bufferTarget, Unsafe.SizeOf<T>(), ref data, _bufferUsageHint);
     }
     
-    public unsafe T* MapBuffer(BufferAccess access) 
+    public unsafe T* MapBuffer(BufferAccess access)
     {
         return (T*)GL.MapBuffer(_bufferTarget, access);
     }

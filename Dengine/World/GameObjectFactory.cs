@@ -126,16 +126,20 @@ public static class GameObjectFactory
 
     public static GameObject CreateSkybox(string name)
     {
-        return new SkyboxFactory(name).Create();
+        return WithRenderData("Skybox", new RenderData()
+        {
+            Mesh = MeshBuilder.FromObj("cube"),
+            Material = new SkyboxMaterial(new Cubemap(Paths.GetSkybox(name))),
+        });
     }
 
     public static GameObject CreateParticleSystem(ParticleSystemData particleSystemData)
     {
-        Transform transform = new();
+        ParticleSystem particleSystem = new(particleSystemData);
         
-        return new GameObject(new GameObjectData("Particle system", transform)
+        return new GameObject(new GameObjectData("Particle system", particleSystem.Transform)
         {
-            Drawable = new ParticleSystem(transform, particleSystemData)
+            Drawable = particleSystem
         });
     }
 
@@ -144,6 +148,16 @@ public static class GameObjectFactory
         return new GameObject(new GameObjectData("Particle system", particleSystem.Transform)
         {
             Drawable = particleSystem
+        });
+    }
+
+    public static GameObject CreateLight(LightData data)
+    {
+        Light light = new(data);
+        
+        return new GameObject(new GameObjectData("Light", light.Transform)
+        {
+            Drawable = light
         });
     }
 }

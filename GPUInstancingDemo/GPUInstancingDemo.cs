@@ -5,14 +5,12 @@ public class GPUInstancingDemo : IWorldFactory
 {
     public List<GameObject> CreateGameObjects()
     {
-        Light light = new(new Transform(), Color.Orange);
-        
         return new List<GameObject>()
         {
             GameObjectFactory.CreateCamera(new Transform(new Vector3(150, 200, 900))),
+            GameObjectFactory.CreateLight(new LightData()),
             GameObjectFactory.CreateSkybox("Space"),
-            GameObjectFactory.Point(light, light.Transform),
-            CreateAsteroids(light),
+            CreateAsteroids(),
             CreateSun(),
         };
     }
@@ -25,7 +23,7 @@ public class GPUInstancingDemo : IWorldFactory
         return skybox;
     }
 
-    private GameObject CreateAsteroids(Light light)
+    private GameObject CreateAsteroids()
     {
         const int count = 18_000;
         
@@ -39,8 +37,6 @@ public class GPUInstancingDemo : IWorldFactory
             }),
         };
 
-        light.Add(renderData.Material.Bridge);
-        
         return new GameObject(new GameObjectData("Asteroids", renderData.Transform)
         {
             Drawable = new Model(renderData),

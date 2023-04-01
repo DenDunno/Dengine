@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 
 public class FrustumCullingDemo : IWorldFactory
 {
@@ -10,13 +9,11 @@ public class FrustumCullingDemo : IWorldFactory
     public List<GameObject> CreateGameObjects()
     {
         _cachedRenderData = CreateRenderData();
-        Light light = new(new Transform(), Color.FromArgb(255,216,128,54));
-        light.Add(_cachedRenderData.Material.Bridge);
 
         List<GameObject> gameObjects = new()
         {
             GameObjectFactory.CreateCamera(new Transform(Vector3.One * _count * _distance / 2)),
-            GameObjectFactory.Point(light),
+            GameObjectFactory.CreateLight(new LightData()),
             GameObjectFactory.CreateSkybox("Storm")
         };
         

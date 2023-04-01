@@ -22,6 +22,7 @@ public class CameraUniformBuffer
     
     public unsafe void Update(Matrix4 viewMatrix)
     {
+        _uniformBuffer.Bind();
         CameraUniformData* data = _uniformBuffer.MapBuffer(BufferAccess.WriteOnly);
 
         data->Position = new Vector4(_transform.Position);

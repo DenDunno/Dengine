@@ -1,10 +1,6 @@
 #version 330 core
 uniform vec4 baseColor;
-uniform vec4 lightColor;
-uniform vec3 lightPosition;  
-uniform float specularValue; 
-uniform float diffuseValue; 
-uniform float ambientValue; 
+
 uniform int hasTexture = 1;
 uniform sampler2D tex;
 in vec3 normal;
@@ -20,10 +16,19 @@ layout (std140) uniform CameraData
     vec4 position;
 };
 
+layout (std140) uniform LightData
+{ 
+    vec4 lightColor;
+    vec4 lightPosition;
+    float specularValue; 
+    float diffuseValue; 
+    float ambientValue;   
+};
+
 void main()
 {        
     vec3 fragmentNormal = normalize(normal);
-    vec3 lightDirection = normalize(lightPosition - fragmentPosition);
+    vec3 lightDirection = normalize(vec3(lightPosition.x, lightPosition.y, lightPosition.z) - fragmentPosition);
     vec3 viewDirection = normalize(vec3(position) - fragmentPosition);
     vec3 reflectDirection = reflect(-lightDirection, fragmentNormal);
     
