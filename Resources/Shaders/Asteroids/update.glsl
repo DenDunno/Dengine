@@ -4,7 +4,7 @@ layout(local_size_x = 32, local_size_y = 1, local_size_z = 1) in;
 uniform float deltaTime;
 uniform float rotationSpeed;
 
-layout (binding = 1, std430) buffer Data
+layout (binding = 1, std430) buffer ModelMatrices
 { 
     mat4[] modelMatrices; 
 };
@@ -32,5 +32,14 @@ void main()
 {
     uint id = gl_GlobalInvocationID.x;
     
-    modelMatrices[id] *= rotation3d(rotationVectors[id], deltaTime * rotationSpeed);                                                   
+    vec3 asteroidPos = vec3(modelMatrices[id][3]);
+    
+    vec3 sunToAsteroid = -asteroidPos;
+    
+    mat4 rotationMatrix = rotation3d(rotationVectors[id], deltaTime * rotationSpeed);
+    asteroidPos = vec3(rotationMatrix * vec4(asteroidPos, 1.0));
+    
+    modelMatrices[id][3] = vec4(asteroidPos, 1.0);
+    
+    modelMatrices[id] *= rotation3d(rotationVectors[id], deltaTime * rotationSpeed);
 }

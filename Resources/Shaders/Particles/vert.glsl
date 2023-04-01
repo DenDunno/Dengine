@@ -1,9 +1,6 @@
 #version 430 core
 
 layout(location = 0) in vec3 vertexPosition;
-
-uniform mat4 view;
-uniform mat4 projection;
 uniform int verticesCount;
 
 struct Particle
@@ -20,6 +17,13 @@ struct Particle
 layout (binding = 0, std430) buffer ParticlesData
 { 
     Particle[] Particles; 
+};
+
+layout (std140) uniform CameraData
+{ 
+    mat4 viewMatrix;
+    mat4 projectionMatrix;
+    vec4 position;
 };
 
 out vec4 inputColor;
@@ -57,5 +61,6 @@ void main(void)
     mat4 model = build_transform(particle.position, particle.rotation, particle.scale);
     inputColor = particle.color;
     
-    gl_Position = vec4(vertexPosition, particle.enabled) * model * view * projection;
+    model = transpose(model);
+    gl_Position = projectionMatrix * viewMatrix * model * vec4(vertexPosition, particle.enabled);
 }

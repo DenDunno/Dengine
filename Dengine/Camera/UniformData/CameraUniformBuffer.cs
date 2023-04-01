@@ -20,12 +20,12 @@ public class CameraUniformBuffer
         _uniformBuffer.BufferData(new CameraUniformData());
     }
     
-    public unsafe void Update()
+    public unsafe void Update(Matrix4 viewMatrix)
     {
         CameraUniformData* data = _uniformBuffer.MapBuffer(BufferAccess.WriteOnly);
 
         data->Position = new Vector4(_transform.Position);
-        data->ViewMatrix = Matrix4.LookAt(_transform.Position, _transform.Position + _transform.Front, _transform.Up);
+        data->ViewMatrix = viewMatrix;
         data->ProjectionMatrix = _projection.Value;
         
         _uniformBuffer.UnMapBuffer();

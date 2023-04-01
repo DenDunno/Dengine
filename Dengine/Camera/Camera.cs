@@ -26,14 +26,19 @@ public class Camera : IGameComponent
         _cameraUniformBuffer = new CameraUniformBuffer(Transform, Projection);
     }
 
+    private Matrix4 ViewMatrix => Matrix4.LookAt(Transform.Position, Transform.Position + Transform.Front, Transform.Up);
+
+    public Vector2 ScreenToWorldCoordinates(Vector2 mousePosition) =>
+        CameraUtils.ScreenToWorldCoordinates(ViewMatrix, Projection.Value, mousePosition);
+
     void IGameComponent.Initialize()
     {
         _cameraUniformBuffer.Initialize();
     }
-    
+
     public void UpdateViewProjectionMatrices()
     {
-        _cameraUniformBuffer.Update();
+        _cameraUniformBuffer.Update(ViewMatrix);
     }
 
     public void Dispose()
