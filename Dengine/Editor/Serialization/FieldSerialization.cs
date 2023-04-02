@@ -27,5 +27,5 @@ public abstract class FieldSerialization<T> : IFieldSerialization
         return result;
     }
 
-    protected abstract object OnSerialize(string fieldInfoName, T texture);
+    protected abstract object OnSerialize(string fieldInfoName, T value);
 }

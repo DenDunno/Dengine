@@ -1,4 +1,4 @@
-#version 330 core
+#version 430 core
 uniform vec4 baseColor;
 
 uniform int hasTexture = 1;
@@ -9,14 +9,14 @@ in vec2 textureCoordinates;
 
 out vec4 outputColor;
 
-layout (std140) uniform CameraData
+layout (binding = 0, std140) uniform CameraData
 { 
     mat4 viewMatrix;
     mat4 projectionMatrix;
     vec4 position;
 };
 
-layout (std140) uniform LightData
+layout (binding = 1, std140) uniform LightData
 { 
     vec4 lightColor;
     vec4 lightPosition;

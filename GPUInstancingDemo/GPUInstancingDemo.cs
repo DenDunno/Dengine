@@ -8,7 +8,7 @@ public class GPUInstancingDemo : IWorldFactory
         return new List<GameObject>()
         {
             GameObjectFactory.CreateCamera(new Transform(new Vector3(150, 200, 900))),
-            GameObjectFactory.CreateLight(new LightData()),
+            GameObjectFactory.CreateLight(new LightData() {Color = new ColorVector4(Color.Orange)}),
             GameObjectFactory.CreateSkybox("Space"),
             CreateAsteroids(),
             CreateSun(),

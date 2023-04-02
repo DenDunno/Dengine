@@ -1,9 +1,9 @@
-#version 330
+#version 430
 layout(location = 0) in vec3 vertexPosition;
 
 smooth out vec3 textureCoordinates;
 
-layout (std140) uniform CameraData
+layout (binding = 0, std140) uniform CameraData
 { 
     mat4 viewMatrix;
     mat4 projectionMatrix;

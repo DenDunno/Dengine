@@ -12,12 +12,13 @@ public class DataSerialization
     {
         _typeSerialization = new Dictionary<Type, IFieldSerialization>()
         {
+            {typeof(int), new IntSerialization()},
             {typeof(float), new FloatSerialization()},
             {typeof(Color), new ColorSerialization()},
             {typeof(bool), new BooleanSerialization()},
             {typeof(Vector3), new Vector3Serialization()},
             {typeof(Texture2D), new TextureSerialization()},
-            {typeof(int), new IntSerialization()},
+            {typeof(ColorVector4), new ColorVector4Serialization()},
         };
     }
 
@@ -64,7 +65,8 @@ public class DataSerialization
         {
             serialization = _enumSerialization;
         }
-        
+
+        fieldInfo.SetValue(instance, field);
         serialization?.Serialize(fieldInfo, field, instance);
     }
 }

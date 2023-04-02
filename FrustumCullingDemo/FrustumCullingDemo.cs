@@ -1,4 +1,5 @@
-﻿using OpenTK.Mathematics;
+﻿using System.Drawing;
+using OpenTK.Mathematics;
 
 public class FrustumCullingDemo : IWorldFactory
 {
@@ -12,8 +13,8 @@ public class FrustumCullingDemo : IWorldFactory
 
         List<GameObject> gameObjects = new()
         {
-            GameObjectFactory.CreateCamera(new Transform(Vector3.One * _count * _distance / 2)),
-            GameObjectFactory.CreateLight(new LightData()),
+            GameObjectFactory.CreateCamera(new Transform(Vector3.One * _count * _distance / 2 - new Vector3(2, 2, 0))),
+            GameObjectFactory.CreateLight(new LightData() {Color = new ColorVector4(Color.FromArgb(255, 216, 128, 54))}),
             GameObjectFactory.CreateSkybox("Storm")
         };
         

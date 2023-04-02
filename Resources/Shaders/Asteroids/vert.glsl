@@ -3,13 +3,14 @@
 layout(location = 0) in vec3 vertexPosition;
 layout (location = 1) in vec3 vertexNormal;
 layout(location = 2) in vec2 vertexTextureCoordinates;
+uniform mat4 model;
 
 layout (binding = 1, std430) buffer ModelMatrices
 { 
     mat4[] modelMatrices; 
 };
 
-layout (std140) uniform CameraData
+layout (binding = 0, std140) uniform CameraData
 { 
     mat4 viewMatrix;
     mat4 projectionMatrix;

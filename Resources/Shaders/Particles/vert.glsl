@@ -19,7 +19,7 @@ layout (binding = 0, std430) buffer ParticlesData
     Particle[] Particles; 
 };
 
-layout (std140) uniform CameraData
+layout (binding = 0, std140) uniform CameraData
 { 
     mat4 viewMatrix;
     mat4 projectionMatrix;

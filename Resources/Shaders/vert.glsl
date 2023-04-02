@@ -1,19 +1,20 @@
-#version 330 core
+#version 430 core
 
 layout(location = 0) in vec3 vertexPosition;
 layout (location = 1) in vec3 vertexNormal;
 layout(location = 2) in vec2 vertexTextureCoordinates;
 uniform mat4 model;
-out vec2 textureCoordinates;
-out vec3 fragmentPosition;
-out vec3 normal;
 
-layout (std140) uniform CameraData
+layout (binding = 0, std140) uniform CameraData
 { 
     mat4 viewMatrix;
     mat4 projectionMatrix;
     vec4 position;
 };
+
+out vec2 textureCoordinates;
+out vec3 fragmentPosition;
+out vec3 normal;
 
 void main(void)
 {    

@@ -2,10 +2,11 @@
 
 public class Camera : IGameComponent
 {
+    public readonly Transform Transform;
     [EditorField] public readonly RenderSettings Settings = new();
     [EditorField] public readonly CameraProjection Projection;
-    private readonly CameraUniformBuffer _cameraUniformBuffer;
-    public readonly Transform Transform;
+    private readonly UniformData<CameraUniformData> _uniformData = new(0);
+    private CameraUniformData _data;
 
     public Camera() : this(new Transform(new Vector3(0, 0, 10)), new PerspectiveProjection())
     {
@@ -23,7 +24,6 @@ public class Camera : IGameComponent
     {
         Transform = transform;
         Projection = projection;
-        _cameraUniformBuffer = new CameraUniformBuffer(Transform, Projection);
     }
 
     private Matrix4 ViewMatrix => Matrix4.LookAt(Transform.Position, Transform.Position + Transform.Front, Transform.Up);
@@ -33,16 +33,20 @@ public class Camera : IGameComponent
 
     void IGameComponent.Initialize()
     {
-        _cameraUniformBuffer.Initialize();
+        _uniformData.Initialize();
     }
 
     public void UpdateViewProjectionMatrices()
     {
-        _cameraUniformBuffer.Update(ViewMatrix);
+        _data.Position = new Vector4(Transform.Position);
+        _data.ViewMatrix = ViewMatrix;
+        _data.ProjectionMatrix = Projection.Value;
+        
+        _uniformData.Map(_data);
     }
 
     public void Dispose()
     {
-        _cameraUniformBuffer.Dispose();
+        _uniformData.Dispose();
     }
 }
