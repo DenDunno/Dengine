@@ -3,29 +3,33 @@ using OpenTK.Mathematics;
 
 public class FrustumCullingDemo : IWorldFactory
 {
-    private readonly int _count = 10;
+    private readonly int _countInAxis = 10;
     private readonly float _distance = 10f;
-    private RenderData _cachedRenderData = null!;
+
+    private Transform CameraTransform => new(Vector3.One * _countInAxis * _distance / 2 - new Vector3(2, 2, 0));
     
+    private Light SunLight => new(new Transform(new Vector3(-1, 1, -1) * 10000), new LightData()
+    {
+        Color = new ColorVector4(Color.FromArgb(255, 216, 128, 54))
+    });
+
     public List<GameObject> CreateGameObjects()
     {
-        _cachedRenderData = CreateRenderData();
-
         List<GameObject> gameObjects = new()
         {
-            GameObjectFactory.CreateCamera(new Transform(Vector3.One * _count * _distance / 2 - new Vector3(2, 2, 0))),
-            GameObjectFactory.CreateLight(new LightData() {Color = new ColorVector4(Color.FromArgb(255, 216, 128, 54))}),
+            GameObjectFactory.CreateCamera(CameraTransform),
+            GameObjectFactory.CreateLight(SunLight),
             GameObjectFactory.CreateSkybox("Storm")
         };
         
-        AddCubes(gameObjects);
+        AddCubes(gameObjects, CreateRenderData());
 
         return gameObjects;
     }
 
     private RenderData CreateRenderData()
     {
-        return new()
+        return new RenderData
         {
             Mesh = MeshBuilder.Cube(1f),
             Material = new LitMaterial(new LitMaterialData()
@@ -35,21 +39,21 @@ public class FrustumCullingDemo : IWorldFactory
         };
     }
 
-    private void AddCubes(List<GameObject> gameObjects)
+    private void AddCubes(List<GameObject> gameObjects, RenderData renderData)
     {
-        for (int x = 0; x < _count; ++x)
+        for (int x = 0; x < _countInAxis; ++x)
         {
-            for (int y = 0; y < _count; ++y)
+            for (int y = 0; y < _countInAxis; ++y)
             {
-                for (int z = 0; z < _count; ++z)
+                for (int z = 0; z < _countInAxis; ++z)
                 {
-                    gameObjects.Add(CreateCube(new Vector3(x, y, z) * _distance));
+                    gameObjects.Add(CreateCube(new Vector3(x, y, z) * _distance, renderData));
                 }
             }
         }
     }
 
-    private GameObject CreateCube(Vector3 position)
+    private GameObject CreateCube(Vector3 position, RenderData renderData)
     {
         Transform transform = new(position);
 
@@ -57,8 +61,8 @@ public class FrustumCullingDemo : IWorldFactory
         {
             Drawable = new Model(new RenderData()
             {
-                Mesh = _cachedRenderData.Mesh,
-                Material = _cachedRenderData.Material,
+                Mesh = renderData.Mesh,
+                Material = renderData.Material,
                 Transform = transform
             }),
             

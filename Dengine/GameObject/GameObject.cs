@@ -10,7 +10,7 @@ public class GameObject : IDisposable
 
     public void Initialize()
     {
-        Data.Components.Add(Data.Drawable);
+        Data.Components.InsertFirst(Data.Drawable);
         Data.Components.ForEach(initializables => initializables.Initialize());
     }
 

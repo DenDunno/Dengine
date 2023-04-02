@@ -4,14 +4,23 @@ public class Light : IDrawable
 {
     [EditorField] private readonly UniformData<LightData> _uniformData = new(1);
     [EditorField] private LightData _data;
-    public readonly Transform Transform = new();
+    public readonly Transform Transform;
 
-    public Light() : this(new LightData())
+    public Light() : this(new Transform(), new LightData())
     {
     }
     
-    public Light(LightData data)
+    public Light(Transform transform) : this(transform, new LightData())
     {
+    }
+    
+    public Light(LightData data) : this(new Transform(), data)
+    {
+    }
+    
+    public Light(Transform transform, LightData data)
+    {
+        Transform = transform;
         _data = data;
     }
 

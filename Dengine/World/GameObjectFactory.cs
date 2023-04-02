@@ -1,4 +1,6 @@
 ﻿
+using OpenTK.Mathematics;
+
 public static class GameObjectFactory
 {
     public static GameObject Point(string name, IGameComponent tag)
@@ -126,10 +128,21 @@ public static class GameObjectFactory
 
     public static GameObject CreateSkybox(string name)
     {
-        return WithRenderData("Skybox", new RenderData()
+        return CreateSkybox(name, new Vector3(1, 0, 0), 0);
+    }
+    
+    public static GameObject CreateSkybox(string name, Vector3 rotationVector, float rotationSpeed)
+    {
+        RenderData renderData = new()
         {
             Mesh = MeshBuilder.FromObj("cube"),
             Material = new SkyboxMaterial(new Cubemap(Paths.GetSkybox(name))),
+        };
+
+        return new GameObject(new GameObjectData("Skybox", renderData.Transform)
+        {
+            Drawable = new Model(renderData),
+            Components = new List<IGameComponent>() {new Skybox(renderData.Material.Bridge, rotationVector, rotationSpeed)}
         });
     }
 
@@ -151,10 +164,18 @@ public static class GameObjectFactory
         });
     }
 
+    public static GameObject CreateLight(Transform transform, LightData data)
+    {
+        return CreateLight(new Light(transform, data));
+    }
+    
     public static GameObject CreateLight(LightData data)
     {
-        Light light = new(data);
-        
+        return CreateLight(new Light(data));
+    }
+
+    public static GameObject CreateLight(Light light)
+    {
         return new GameObject(new GameObjectData("Light", light.Transform)
         {
             Drawable = light
