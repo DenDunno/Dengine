@@ -1,21 +1,21 @@
 ﻿
 public static class WorldBrowser
 {
-    private static World _world = null!;
-
-    public static void Setup(World world)
+    private static List<GameObject> _gameObjects = null!;
+    
+    public static void Setup(List<GameObject> gameObjects)
     {
-        _world = world;
+        _gameObjects = gameObjects;
     }
 
     public static T FindObjectOfType<T>() where T : IGameComponent
     {
-        return _world.GameObjects.Find<T>();
+        return _gameObjects.Find<T>();
     }
 
     public static GameObject FindGameObject(int id)
     {
-        foreach (GameObject gameObject in _world.GameObjects)
+        foreach (GameObject gameObject in _gameObjects)
         {
             if (gameObject.Data.Id == id)
             {
@@ -28,7 +28,7 @@ public static class WorldBrowser
 
     public static void Add(GameObject gameObject)
     {
-        _world.GameObjects.Add(gameObject);
+        _gameObjects.Add(gameObject);
     }
     
     public static void Destroy(GameObject? gameObject)
@@ -40,7 +40,7 @@ public static class WorldBrowser
         else
         {
             gameObject.Dispose();
-            _world.GameObjects.Remove(gameObject);
+            _gameObjects.Remove(gameObject);
         }
     }
 }

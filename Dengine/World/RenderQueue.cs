@@ -4,11 +4,11 @@ public class RenderQueue
     private readonly Framebuffer _framebuffer = new();
     private readonly Camera _camera;
     private readonly Frame _frame;
-    
-    public RenderQueue(List<GameObject> gameObjects)
+
+    public RenderQueue(IReadOnlyList<GameObject> gameObjects)
     {
         _camera = gameObjects.Find<Camera>();
-        _frame = new Frame(gameObjects, _camera.Settings);
+        _frame = new Frame(gameObjects, _camera.Settings, _camera.Culling);
     }
 
     public void Initialize()
@@ -24,7 +24,7 @@ public class RenderQueue
     public void Draw()
     {
         _framebuffer.Bind();
-        _camera.UpdateViewProjectionMatrices();
+        _camera.UpdateMatrices();
         _frame.Reset();
         _frame.DrawObjects();
     }

@@ -2,13 +2,15 @@
 
 public class Frame
 {
+    private readonly IReadOnlyList<GameObject> _gameObjects;
     private readonly RenderSettings _settings;
-    private readonly List<GameObject> _gameObjects;
+    private readonly FrustumCulling _culling;
 
-    public Frame(List<GameObject> gameObjects, RenderSettings settings)
+    public Frame(IReadOnlyList<GameObject> gameObjects, RenderSettings settings, FrustumCulling culling)
     {
         _gameObjects = gameObjects;
         _settings = settings;
+        _culling = culling;
     }
 
     public void Reset()
@@ -25,7 +27,10 @@ public class Frame
     {
         foreach (GameObject gameObject in _gameObjects)
         {
-            gameObject.Draw();
+            if (_culling.ContainsSphere(gameObject.Data.Transform.Position, 1))
+            {
+                gameObject.Draw();
+            }
         }
     }
 }

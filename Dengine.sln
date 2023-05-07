@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleSystemDemo", "Parti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrustumCullingDemo", "FrustumCullingDemo\FrustumCullingDemo.csproj", "{280F64BE-5E61-4B12-8D9A-8BBE4BB3D550}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DengineTests", "DengineTests\DengineTests.csproj", "{7079F127-83C5-43F5-B05B-F8D02F6A7F9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{280F64BE-5E61-4B12-8D9A-8BBE4BB3D550}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{280F64BE-5E61-4B12-8D9A-8BBE4BB3D550}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{280F64BE-5E61-4B12-8D9A-8BBE4BB3D550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7079F127-83C5-43F5-B05B-F8D02F6A7F9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7079F127-83C5-43F5-B05B-F8D02F6A7F9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7079F127-83C5-43F5-B05B-F8D02F6A7F9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7079F127-83C5-43F5-B05B-F8D02F6A7F9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

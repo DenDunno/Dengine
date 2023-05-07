@@ -3,6 +3,7 @@ using OpenTK.Graphics.OpenGL;
 
 public class UniformData<T> where T : unmanaged
 {
+    [EditorField] public T Value = new();
     private readonly UniformBuffer<T> _uniformBuffer = new();
     private readonly int _bindingPoint;
 
@@ -15,15 +16,15 @@ public class UniformData<T> where T : unmanaged
     {
         _uniformBuffer.Bind();
         _uniformBuffer.BindToPoint(_bindingPoint);
-        _uniformBuffer.BufferData(new T());
+        _uniformBuffer.BufferData(Value);
     }
 
-    public unsafe void Map(T data)
+    public unsafe void Map()
     {
         _uniformBuffer.Bind();
         T* pointer = _uniformBuffer.MapBuffer(BufferAccess.WriteOnly);
         
-        Marshal.StructureToPtr(data, (nint)pointer, false);
+        Marshal.StructureToPtr(Value, (nint)pointer, false);
 
         _uniformBuffer.UnMapBuffer();
     }

@@ -2,9 +2,8 @@
 
 public class Light : IDrawable
 {
-    [EditorField] private readonly UniformData<LightData> _uniformData = new(1);
-    [EditorField] private LightData _data;
     public readonly Transform Transform;
+    [EditorField] private readonly UniformData<LightData> _uniformData = new(1);
 
     public Light() : this(new Transform(), new LightData())
     {
@@ -18,10 +17,10 @@ public class Light : IDrawable
     {
     }
     
-    public Light(Transform transform, LightData data)
+    public Light(Transform transform, LightData value)
     {
         Transform = transform;
-        _data = data;
+        _uniformData.Value = value;
     }
 
     void IGameComponent.Initialize()
@@ -31,8 +30,8 @@ public class Light : IDrawable
     
     void IDrawable.Draw()
     {
-        _data.Position = new Vector4(Transform.Position);
-        _uniformData.Map(_data);
+        _uniformData.Value.Position = new Vector4(Transform.Position);
+        _uniformData.Map();
     }
 
     public void Dispose()

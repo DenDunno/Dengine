@@ -9,7 +9,7 @@ public static class Dengine
         
         List<GameObject> gameObjects = worldFactory.CreateGameObjects();
         World world = new(gameObjects);
-        WorldBrowser.Setup(world);
+        WorldBrowser.Setup(gameObjects);
 
         Engine engine = new(window, world, new Editor(window, world));
         engine.Initialize();

@@ -2,10 +2,10 @@
 
 public class World : EngineComponent
 {
-    public readonly List<GameObject> GameObjects;
+    public readonly IReadOnlyList<GameObject> GameObjects;
     private readonly RenderQueue _renderQueue;
 
-    public World(List<GameObject> gameObjects)
+    public World(IReadOnlyList<GameObject> gameObjects)
     {
         _renderQueue = new RenderQueue(gameObjects);
         GameObjects = gameObjects;

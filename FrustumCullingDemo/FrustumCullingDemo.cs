@@ -7,7 +7,6 @@ public class FrustumCullingDemo : IWorldFactory
     private readonly float _distance = 10f;
 
     private Transform CameraTransform => new(Vector3.One * _countInAxis * _distance / 2 - new Vector3(2, 2, 0));
-    
     private Light SunLight => new(new Transform(new Vector3(-1, 1, -1) * 10000), new LightData()
     {
         Color = new ColorVector4(Color.FromArgb(255, 216, 128, 54))
@@ -17,9 +16,10 @@ public class FrustumCullingDemo : IWorldFactory
     {
         List<GameObject> gameObjects = new()
         {
+            CreateFilmCamera(),
             GameObjectFactory.CreateCamera(CameraTransform),
             GameObjectFactory.CreateLight(SunLight),
-            GameObjectFactory.CreateSkybox("Storm")
+            GameObjectFactory.CreateSkybox("Storm"),
         };
         
         AddCubes(gameObjects, CreateRenderData());
@@ -39,6 +39,15 @@ public class FrustumCullingDemo : IWorldFactory
         };
     }
 
+    private GameObject CreateFilmCamera()
+    {
+        return GameObjectFactory.WithRenderData("Film camera", new RenderData()
+        {
+            Mesh = MeshBuilder.FromObj("camera"),
+            Material = new LitMaterial(new LitMaterialData()),
+        });
+    }
+    
     private void AddCubes(List<GameObject> gameObjects, RenderData renderData)
     {
         for (int x = 0; x < _countInAxis; ++x)
