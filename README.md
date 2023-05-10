@@ -8,6 +8,8 @@
 
 The editor has a similar UX to Unity. When play mode, use WASD + mouse for exploring.
  
+If you get "System.DllNotFoundException: Unable to load DLL 'cimgui' or one of its dependencies", load Visual C++ Redistributable from MS VS from https://learn.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170
+
  ### <p align="center">Avaliable demos</p>
   ### <p align="center">Particle system up to 1 million particles</p>
  **Command:** dotnet run --project ParticleSystemDemo/ParticleSystemDemo.csproj
