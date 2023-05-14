@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPUInstancingDemo", "GPUIns
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleSystemDemo", "ParticleSystemDemo\ParticleSystemDemo.csproj", "{DB815168-5714-49BA-9F1F-06D841AF9112}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrustumCullingDemo", "FrustumCullingDemo\FrustumCullingDemo.csproj", "{280F64BE-5E61-4B12-8D9A-8BBE4BB3D550}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LODGroupDemo", "LODGroupDemo\LODGroupDemo.csproj", "{B094C5C2-0876-4E0E-84D7-D0932223962B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,9 +26,9 @@ Global
 		{DB815168-5714-49BA-9F1F-06D841AF9112}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB815168-5714-49BA-9F1F-06D841AF9112}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB815168-5714-49BA-9F1F-06D841AF9112}.Release|Any CPU.Build.0 = Release|Any CPU
-		{280F64BE-5E61-4B12-8D9A-8BBE4BB3D550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{280F64BE-5E61-4B12-8D9A-8BBE4BB3D550}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{280F64BE-5E61-4B12-8D9A-8BBE4BB3D550}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{280F64BE-5E61-4B12-8D9A-8BBE4BB3D550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B094C5C2-0876-4E0E-84D7-D0932223962B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B094C5C2-0876-4E0E-84D7-D0932223962B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B094C5C2-0876-4E0E-84D7-D0932223962B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B094C5C2-0876-4E0E-84D7-D0932223962B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

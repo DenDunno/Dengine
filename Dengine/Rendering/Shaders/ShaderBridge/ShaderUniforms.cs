@@ -16,7 +16,7 @@ public class ShaderUniforms
         GL.UseProgram(_shaderProgramId);
         TryAddUniformId(name);
         uniformFunction.SetValue(_uniformLocations[name], value);
-        HandleError(name, value!.ToString()!);
+        HandleError(name, value);
     }
 
     private void TryAddUniformId(string name)
@@ -27,13 +27,13 @@ public class ShaderUniforms
         }
     }
 
-    private void HandleError(string name, string value)
+    private void HandleError<T>(string name, T value)
     {
         ErrorCode errorCode = GL.GetError();
         
         if (errorCode != ErrorCode.NoError)
         {
-            DengineConsole.Instance.LogError($"{errorCode}: \tName = \"{name}\" \tIndex = {_uniformLocations[name]} \tValue = {value}");
+            DengineConsole.Instance.LogError($"{errorCode}: \tName = \"{name}\" \tIndex = {_uniformLocations[name]} \tValue = {value!.ToString()}");
             Debugger.Break();
         }
     }

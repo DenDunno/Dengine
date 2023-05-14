@@ -25,6 +25,8 @@ public class ShaderBridge
     public void SetFloatArray(string name, float[] value) => _uniforms.SetValue(name, value, Uniforms.Uniform1);
     
     public void SetVector3(string name, Vector3 value) => _uniforms.SetValue(name, value, Uniforms.Uniform3);
+    
+    public void SetVector2(string @name, Vector2 value) => _uniforms.SetValue(name, value, Uniforms.Uniform2);
 
     public void SetMatrix4(string name, Matrix4 value) => _uniforms.SetValue(name, value, Uniforms.Uniform4);
 

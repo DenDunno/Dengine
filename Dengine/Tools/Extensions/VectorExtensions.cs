@@ -38,6 +38,11 @@ public static class VectorExtensions
         return new Vector3(vector3.X, vector3.Y, vector3.Z);
     }
     
+    public static Vector4 ToOpenTk(this System.Numerics.Vector4 vector4)
+    {
+        return new Vector4(vector4.X, vector4.Y, vector4.Z, vector4.W);
+    }
+    
     public static Vector2 ToOpenTk(this System.Numerics.Vector2 vector2)
     {
         return new Vector2(vector2.X, vector2.Y);

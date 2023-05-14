@@ -1,2 +1,0 @@
-﻿
-Dengine.Run(new FrustumCullingDemo());

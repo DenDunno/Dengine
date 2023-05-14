@@ -16,7 +16,7 @@ public class WindowFactory
     public Window Create()
     {
         Window window = new(_nativeWindowSettings);
-        window.VSync = VSyncMode.On;
+        window.VSync = VSyncMode.Off;
 
         return window;
     }

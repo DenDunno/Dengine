@@ -7,7 +7,7 @@ public abstract class FieldSerialization<T> : IFieldSerialization
         string displayName = GetDisplayFieldName(fieldInfo.Name);
         object newValue = OnSerialize(displayName, (T)value);
 
-        if (value.Equals(newValue) == false)
+        if (value != newValue)
         {
             fieldInfo.SetValue(instance, newValue);
         }

@@ -6,6 +6,8 @@ public class GrayOrangeTheme : IEditorTheme
     public void Load()
     {
         ImGuiStylePtr style = ImGui.GetStyle();
+        ImGui.GetIO().FontGlobalScale = 2f;
+        
         style.ItemSpacing = new Vector2(3, 15);
         style.WindowTitleAlign = Vector2.One * 0.5f;
         style.ItemInnerSpacing = Vector2.One * 15;

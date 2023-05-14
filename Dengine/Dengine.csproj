@@ -42,6 +42,9 @@
       <Content Include="..\Resources\Shaders\Batching\vert.glsl">
         <Link>Shaders\Batching\vert.glsl</Link>
       </Content>
+      <Content Include="..\Resources\Shaders\grid.glsl">
+        <Link>Shaders\grid.glsl</Link>
+      </Content>
       <Content Include="..\Resources\Shaders\lit.glsl">
         <Link>Shaders\lit.glsl</Link>
       </Content>
