@@ -1,10 +1,13 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
-public static class CameraUtils
+public static class CameraExtensions
 {
-    public static Vector2 ScreenToWorldCoordinates(Matrix4 view, Matrix4 projection, Vector2 screenPosition)
+    public static Vector2 ScreenToWorldCoordinates(this Camera camera, Vector2 screenPosition)
     {
+        Matrix4 view = camera.ViewMatrix;
+        Matrix4 projection = camera.Projection.Value;
+        
         int[] viewport = new int[4];
         GL.GetInteger(GetPName.Viewport, viewport);
         view[1,3] = -view[1,3];

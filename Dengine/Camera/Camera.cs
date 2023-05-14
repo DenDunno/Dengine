@@ -6,7 +6,6 @@ public class Camera : IGameComponent
     [EditorField] public readonly RenderSettings Settings = new();
     [EditorField] public readonly CameraProjection Projection;
     private readonly UniformData<CameraUniformData> _uniformData = new(0);
-    private CameraUniformData _data;
 
     public Camera() : this(new Transform(new Vector3(0, 0, 10)), new PerspectiveProjection())
     {
@@ -26,10 +25,7 @@ public class Camera : IGameComponent
         Projection = projection;
     }
 
-    private Matrix4 ViewMatrix => Matrix4.LookAt(Transform.Position, Transform.Position + Transform.Front, Transform.Up);
-
-    public Vector2 ScreenToWorldCoordinates(Vector2 mousePosition) =>
-        CameraUtils.ScreenToWorldCoordinates(ViewMatrix, Projection.Value, mousePosition);
+    public Matrix4 ViewMatrix => Matrix4.LookAt(Transform.Position, Transform.Position + Transform.Front, Transform.Up);
 
     void IGameComponent.Initialize()
     {
@@ -38,11 +34,11 @@ public class Camera : IGameComponent
 
     public void UpdateViewProjectionMatrices()
     {
-        _data.Position = new Vector4(Transform.Position);
-        _data.ViewMatrix = ViewMatrix;
-        _data.ProjectionMatrix = Projection.Value;
+        _uniformData.Data.Position = new Vector4(Transform.Position);
+        _uniformData.Data.ViewMatrix = ViewMatrix;
+        _uniformData.Data.ProjectionMatrix = Projection.Value;
         
-        _uniformData.Map(_data);
+        _uniformData.Map();
     }
 
     public void Dispose()
