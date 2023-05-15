@@ -5,13 +5,14 @@ public class CameraControlling : TogglingComponent
 {
     private readonly Camera _camera;
     private readonly IEnumerable<MovementKey> _movementKeys;
-    [EditorField] private readonly float _translationSpeed = 4f;
+    [EditorField] private readonly float _translationSpeed;
     private readonly float _rotationSpeed = 7f;
     private readonly float _draggingSpeed = 2f;
     
-    public CameraControlling(Camera camera)
+    public CameraControlling(Camera camera, float translationSpeed = 4)
     {
         _camera = camera;
+        _translationSpeed = translationSpeed;
         _movementKeys = new List<MovementKey>
         {
             new(Keys.W, ()=> _camera.Transform.Front),

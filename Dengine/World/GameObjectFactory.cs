@@ -107,14 +107,14 @@ public static class GameObjectFactory
         return CreateCamera(new Camera(transform));
     }
 
-    public static GameObject CreateCamera(Camera camera)
+    public static GameObject CreateCamera(Camera camera, float translationSpeed = 4)
     {
         return new GameObject(new GameObjectData("Camera", camera.Transform)
         {
             Components = new List<IGameComponent>
             {
                 camera,
-                new CameraControlling(camera),
+                new CameraControlling(camera, translationSpeed),
             },
 
             Drawable = Gizmo.Instance

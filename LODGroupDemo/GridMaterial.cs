@@ -3,9 +3,9 @@ using OpenTK.Mathematics;
 
 public class GridMaterial : Material
 {
-    [EditorField] private readonly Vector2 _value = new(28.250f, 0.4f);
-    [EditorField] private readonly ColorVector4 _quadColor = new(Color.MediumPurple);
-    [EditorField] private readonly ColorVector4 _voidColor = new(Color.Black);
+    [EditorField] private readonly Vector2 _value = new(43.650f, 0.35f);
+    [EditorField] private readonly ColorVector4 _quadColor = new(Color.FromArgb(255, 26, 97, 0));
+    [EditorField] private readonly ColorVector4 _voidColor = new(Color.FromArgb(255, 76, 61, 0));
     
     public GridMaterial() : base(Paths.GetShader("vert"), Paths.GetShader("grid"))
     {

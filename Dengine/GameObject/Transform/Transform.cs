@@ -32,6 +32,10 @@ public class Transform
     public Transform(Vector3 position, Quaternion rotation) : this(Vector3.One, rotation, position, null)
     {
     }
+    
+    public Transform(Vector3 position, Quaternion rotation, Vector3 scale) : this(scale, rotation, position, null)
+    {
+    }
 
     public Transform(Vector3 position, Transform parent) : this(Vector3.One, Quaternion.Identity, position, parent)
     {
