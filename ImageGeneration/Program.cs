@@ -1,0 +1,2 @@
+﻿
+Dengine.Run(new ImageGenerationDemo());

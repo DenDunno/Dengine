@@ -3,26 +3,27 @@
 public class Camera : IGameComponent
 {
     public readonly Transform Transform;
-    [EditorField] public readonly RenderSettings Settings = new();
+    [EditorField] public readonly RenderSettings Settings;
     [EditorField] public readonly CameraProjection Projection;
     private readonly UniformData<CameraUniformData> _uniformData = new(0);
 
-    public Camera() : this(new Transform(new Vector3(0, 0, 10)), new PerspectiveProjection())
+    public Camera(CameraProjection projection, RenderSettings renderSettings) : this(new Transform(), projection, renderSettings)
+    {
+    }
+    
+    public Camera(Transform transform) : this(transform, new PerspectiveProjection(), new RenderSettings())
     {
     }
 
-    public Camera(Transform transform) : this(transform, new PerspectiveProjection())
+    public Camera(CameraProjection projection) : this(new Transform(), projection, new RenderSettings())
     {
     }
 
-    public Camera(CameraProjection projection) : this(new Transform(new Vector3(0, 0, 10)), projection)
-    {
-    }
-
-    private Camera(Transform transform, CameraProjection projection)
+    public Camera(Transform transform, CameraProjection projection, RenderSettings renderSettings)
     {
         Transform = transform;
         Projection = projection;
+        Settings = renderSettings;
     }
 
     public Matrix4 ViewMatrix => Matrix4.LookAt(Transform.Position, Transform.Position + Transform.Front, Transform.Up);

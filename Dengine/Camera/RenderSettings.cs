@@ -2,5 +2,5 @@
 
 public class RenderSettings
 {
-    [field: EditorField] public Color ClearColor { get; } = Color.Black;
+    [field: EditorField] public Color ClearColor { get; init; } = Color.Black;
 }

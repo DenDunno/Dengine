@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleSystemDemo", "Parti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LODGroupDemo", "LODGroupDemo\LODGroupDemo.csproj", "{B094C5C2-0876-4E0E-84D7-D0932223962B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageGeneration", "ImageGeneration\ImageGeneration.csproj", "{B4586021-72B7-47D7-8567-FDDDAB852910}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{B094C5C2-0876-4E0E-84D7-D0932223962B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B094C5C2-0876-4E0E-84D7-D0932223962B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B094C5C2-0876-4E0E-84D7-D0932223962B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4586021-72B7-47D7-8567-FDDDAB852910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4586021-72B7-47D7-8567-FDDDAB852910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4586021-72B7-47D7-8567-FDDDAB852910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4586021-72B7-47D7-8567-FDDDAB852910}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
