@@ -51,14 +51,9 @@ public static class GameObjectFactory
 
     private static GameObject Sprite(Texture2D sprite, Transform transform)
     {
-        RenderData renderData = new()
+        RenderData renderData = new(MeshBuilder.Quad(1f), new UnlitMaterial(new LitMaterialData() { Base = sprite }))
         {
             Transform = transform,
-            Mesh = MeshBuilder.Quad(1f),
-            Material = new UnlitMaterial(new LitMaterialData()
-            {
-                Base = sprite
-            })
         };
 
         return new GameObject(new GameObjectData("Default name", renderData.Transform)
@@ -133,11 +128,7 @@ public static class GameObjectFactory
     
     public static GameObject CreateSkybox(string name, Vector3 rotationVector, float rotationSpeed)
     {
-        RenderData renderData = new()
-        {
-            Mesh = MeshBuilder.FromObj("cube"),
-            Material = new SkyboxMaterial(new Cubemap(Paths.GetSkybox(name))),
-        };
+        RenderData renderData = new(MeshBuilder.FromObj("cube"), new SkyboxMaterial(new Cubemap(Paths.GetSkybox(name))));
 
         return new GameObject(new GameObjectData("Skybox", renderData.Transform)
         {

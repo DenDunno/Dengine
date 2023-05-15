@@ -18,8 +18,15 @@ public class ShaderProgram : GLObject, IDisposable
         {
             _wasInited = true;
             LoadShaders();
+            BindCamera();
             OnInit();
         }
+    }
+
+    public void Use()
+    {
+        GL.UseProgram(Id);
+        OnUse();
     }
 
     private void LoadShaders()
@@ -39,15 +46,20 @@ public class ShaderProgram : GLObject, IDisposable
         }
     }
 
-    public void Use()
+    private void BindCamera()
     {
-        GL.UseProgram(Id);
-        OnUse();
+        Bridge.BindUniformBlock("CameraData", 0);
     }
 
+    public void Dispose()
+    {
+        OnDispose();
+        GL.DeleteProgram(Id);
+    }
+    
     protected virtual void OnInit() { }
 
     protected virtual void OnUse() { }
-
-    public virtual void Dispose() { }
+    
+    protected virtual void OnDispose() { }
 }

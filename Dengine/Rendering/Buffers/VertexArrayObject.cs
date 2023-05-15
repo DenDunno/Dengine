@@ -2,37 +2,22 @@
 
 public class VertexArrayObject : GLObject, IDisposable
 {
-    private readonly VertexAttributeGroup _vertexAttributeGroup;
-    private readonly VertexBufferObject _vertexBufferObject;
-    private readonly IndexBufferObject _indexBufferObject;
+    private readonly IMeshProvider _meshProvider;
 
-    public VertexArrayObject(RenderData renderData) : base(GL.GenVertexArray())
+    public VertexArrayObject(IMeshProvider meshProvider) : base(GL.GenVertexArray())
     {
-        _vertexBufferObject = new VertexBufferObject(renderData.Mesh.GetRawData(), renderData.VertexBufferUsage);
-        _indexBufferObject = new IndexBufferObject(renderData.Mesh.Indices, renderData.IndexBufferUsage);
-        _vertexAttributeGroup = renderData.Mesh.AttributeGroup;
-    }
-
-    public void Initialize()
-    {
-        Bind();
-        _indexBufferObject.Bind();
-        _vertexBufferObject.Bind();
-        _indexBufferObject.BufferData();
-        _vertexBufferObject.BufferData();
-        _vertexAttributeGroup.Enable();
+        _meshProvider = meshProvider;
     }
     
     public void Bind()
     {
         GL.BindVertexArray(Id);
+        _meshProvider.Bind();
     }
 
     public void Dispose()
     {
-        _vertexBufferObject.Dispose();
-        _indexBufferObject.Dispose();
-        _vertexAttributeGroup.Disable();
+        _meshProvider.Dispose();
         GL.DeleteVertexArray(Id);
     }
 }

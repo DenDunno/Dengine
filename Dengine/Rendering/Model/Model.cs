@@ -2,28 +2,25 @@
 public class Model : IDrawable
 {
     [EditorField] public readonly RenderData Data;
-    private readonly VertexArrayObject _vertexArrayObject;
-
+    private readonly Transform _transform;
+    
     public Model(RenderData data)
     {
         Data = data;
-        _vertexArrayObject = new VertexArrayObject(data);
-        data.DrawCommand.SetMesh(data.Mesh);
+        _transform = data.Transform;
     }
 
     public void Initialize()
     {
         Data.Material.Initialize();
-        _vertexArrayObject.Initialize();
-        Data.Material.Bridge.BindUniformBlock("CameraData", 0);
     }
 
     public void Draw()
     {
         if (Data.Visible)
         {
-            Data.Material.Bridge.SetMatrix4("model", Data.Transform.ModelMatrix);
-            _vertexArrayObject.Bind();
+            Data.Material.Bridge.SetMatrix4("model", _transform.ModelMatrix);
+            Data.VertexArrayObject.Bind();
             Data.Material.Use();
             Data.DrawCommand.Execute();
         }
@@ -31,7 +28,7 @@ public class Model : IDrawable
 
     public void Dispose()
     {
-        _vertexArrayObject.Dispose();
+        Data.VertexArrayObject.Dispose();
         Data.Material.Dispose();
     }
 }

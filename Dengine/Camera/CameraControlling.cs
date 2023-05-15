@@ -5,8 +5,7 @@ public class CameraControlling : TogglingComponent
 {
     private readonly Camera _camera;
     private readonly IEnumerable<MovementKey> _movementKeys;
-    private readonly float _translationSpeed = 4f;
-    private readonly float _acceleratedTranslationSpeed = 12f;
+    [EditorField] private readonly float _translationSpeed = 4f;
     private readonly float _rotationSpeed = 7f;
     private readonly float _draggingSpeed = 2f;
     
@@ -24,6 +23,8 @@ public class CameraControlling : TogglingComponent
         };
     }
 
+    private float Speed => WindowSettings.Keyboard.IsKeyDown(Keys.LeftShift) ? _translationSpeed * 3 : _translationSpeed;
+    
     protected override void OnUpdate(float deltaTime)
     {
         Move(deltaTime);
@@ -33,8 +34,6 @@ public class CameraControlling : TogglingComponent
 
     public void Move(float deltaTime)
     {
-        float speed = WindowSettings.Keyboard.IsKeyDown(Keys.LeftShift) ? _acceleratedTranslationSpeed : _translationSpeed;
-
         if (_camera.Projection is OrthographicProjection)
         {
             if (WindowSettings.Mouse.IsButtonDown(MouseButton.Button2))
@@ -49,7 +48,7 @@ public class CameraControlling : TogglingComponent
             {
                 if (WindowSettings.Keyboard.IsKeyDown(movementKey.Key))
                 {
-                    _camera.Transform.Position += movementKey.Direction() * speed * deltaTime;
+                    _camera.Transform.Position += movementKey.Direction() * Speed * deltaTime;
                 }
             }
         }

@@ -1,15 +1,15 @@
 ﻿
 public abstract class GLDrawCommand
 {
-    protected int Indices { get; private set; }
-    protected int VerticesCount { get; private set; }
-    protected int Tris { get; private set; }
+    private IMeshProvider _meshProvider = null!;
 
-    public void SetMesh(Mesh mesh)
+    protected int Indices => _meshProvider.Mesh.Indices.Length;
+    protected int VerticesCount => _meshProvider.Mesh.VerticesCount;
+    protected int Tris => _meshProvider.Mesh.Indices.Length / 3;
+
+    public void SetMeshProvider(IMeshProvider meshProvider)
     {
-        Tris = mesh.Indices.Length / 3;
-        Indices = mesh.Indices.Length;
-        VerticesCount = mesh.VerticesCount;
+        _meshProvider = meshProvider;
     }
 
     public abstract void Execute();

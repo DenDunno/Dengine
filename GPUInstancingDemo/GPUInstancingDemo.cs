@@ -18,16 +18,12 @@ public class GPUInstancingDemo : IWorldFactory
     private GameObject CreateAsteroids()
     {
         const int count = 18_000;
-        
-        RenderData renderData = new()
+        Material material = new AsteroidsMaterial(new LitMaterialData()
         {
-            Mesh = MeshBuilder.FromObj("rock"),
-            DrawCommand = new DrawElementsInstanced(count),
-            Material = new AsteroidsMaterial(new LitMaterialData()
-            {
-                Base = new Texture2D(Paths.GetTexture("rock.png"))
-            }),
-        };
+            Base = new Texture2D(Paths.GetTexture("rock.png"))
+        });
+        
+        RenderData renderData = new(MeshBuilder.FromObj("rock"), material, new DrawElementsInstanced(count));
 
         return new GameObject(new GameObjectData("Asteroids", renderData.Transform)
         {
@@ -41,11 +37,9 @@ public class GPUInstancingDemo : IWorldFactory
 
     private GameObject CreateSun()
     {
-        RenderData renderData = new()
+        RenderData renderData = new(MeshBuilder.FromObj("sun"), new SunMaterial())
         {
             Transform = new Transform() { Scale = Vector3.One * 60 },
-            Mesh = MeshBuilder.FromObj("sun"),
-            Material = new SunMaterial(),
         };
 
         return new GameObject(new GameObjectData("Sun", renderData.Transform)

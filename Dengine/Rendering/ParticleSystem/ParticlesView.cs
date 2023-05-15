@@ -4,12 +4,9 @@
 
     public ParticlesView(Transform parent, ParticleSystemData data)
     {
-        _view = new Model(new RenderData()
+        _view = new Model(new RenderData(data.MeshDataSource.Build(), new ParticleSystemMaterial(), new DrawElementsInstanced(data.Pool))
         {
-            Transform = parent,
-            Mesh = data.MeshDataSource.Build(),
-            Material = new ParticleSystemMaterial(),
-            DrawCommand = new DrawElementsInstanced(data.Pool)
+            Transform = parent
         });
     }
 
