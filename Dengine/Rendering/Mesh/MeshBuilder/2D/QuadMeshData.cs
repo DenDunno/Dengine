@@ -27,10 +27,10 @@ public class QuadMeshData : IMeshDataSource
             
         new VertexAttribute("Normals", 1, 3, new float[]
         {
-            0,  0, 1,
-            0,  0, 1,
-            0,  0, 1,
-            0,  0, 1,
+            0,  0,  1,
+            0,  0,  1,
+            0,  0,  1,
+            0,  0,  1,
         }),
             
         new VertexAttribute("TexCoord", 2, 2, new float[]

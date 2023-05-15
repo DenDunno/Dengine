@@ -5,17 +5,37 @@ public class LODGroupDemo : IWorldFactory
 {
     public List<GameObject> CreateGameObjects()
     {
+        Camera camera = new();
+        
         List<GameObject> gameObjects = new()
         {
-            GameObjectFactory.CreateCamera(new Transform(new Vector3(0, 15, 0))),
+            GameObjectFactory.CreateCamera(camera),
             GameObjectFactory.CreateSkybox("Storm"),
-            CreatePlane(),
+            CreateLod(camera),
             CreateLight(),
+            // CreatePlane(),
         };
 
-        AddObjects(gameObjects);
+        //AddObjects(gameObjects);
 
         return gameObjects;
+    }
+
+    private GameObject CreateLod(Camera camera)
+    {
+        Transform transform = new();
+        LODGroup lodGroup = new(transform, camera, new LODMesh[]
+        {
+            new(MeshBuilder.Quad(1f), 5),
+            new(MeshBuilder.FromObj("monkey"), 50),
+            new(MeshBuilder.Cube(1f), 10),
+            new(MeshBuilder.Cube(1f), 55),
+        });
+        
+        return GameObjectFactory.WithRenderData(new RenderData(lodGroup, new LitMaterial(new LitMaterialData()))
+        {
+            Transform = transform
+        });
     }
 
     private GameObject CreatePlane()

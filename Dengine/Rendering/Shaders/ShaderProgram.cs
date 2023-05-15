@@ -18,7 +18,6 @@ public class ShaderProgram : GLObject, IDisposable
         {
             _wasInited = true;
             LoadShaders();
-            BindCamera();
             OnInit();
         }
     }
@@ -44,11 +43,6 @@ public class ShaderProgram : GLObject, IDisposable
             GL.DetachShader(Id, shader.Id);
             GL.DeleteShader(shader.Id);
         }
-    }
-
-    private void BindCamera()
-    {
-        Bridge.BindUniformBlock("CameraData", 0);
     }
 
     public void Dispose()

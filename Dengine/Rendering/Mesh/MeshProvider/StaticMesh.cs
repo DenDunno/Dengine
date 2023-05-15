@@ -1,37 +1,23 @@
-﻿using OpenTK.Graphics.OpenGL;
-
+﻿
 public class StaticMesh : IMeshProvider
 {
-    private readonly VertexBufferObject _vertexBufferObject;
-    private readonly IndexBufferObject _indexBufferObject;
-    private bool _wasDataBuffered;
+    private readonly MeshBinding _meshBinding;
 
     public StaticMesh(Mesh mesh)
     {
-        Mesh = mesh;
-        _vertexBufferObject = new VertexBufferObject(mesh.GetRawData(), BufferUsageHint.StaticDraw);
-        _indexBufferObject = new IndexBufferObject(mesh.Indices, BufferUsageHint.StaticDraw);
+        _meshBinding = new MeshBinding(mesh);
     }
 
-    public Mesh Mesh { get; }
+    public Mesh Mesh => _meshBinding.Mesh;
 
     public void Bind()
     { 
-        if (_wasDataBuffered == false)
-        {
-            _wasDataBuffered = true;
-            _indexBufferObject.Bind();
-            _vertexBufferObject.Bind();
-            _indexBufferObject.BufferData();
-            _vertexBufferObject.BufferData();
-            Mesh.AttributeGroup.Enable();
-        }
+        _meshBinding.Bind();
+        _meshBinding.TryBufferData();
     }
 
     public void Dispose()
     {
-        _vertexBufferObject.Dispose();
-        _indexBufferObject.Dispose();
-        Mesh.AttributeGroup.Disable();
+        _meshBinding.Dispose();
     }
 }

@@ -18,6 +18,11 @@ public abstract class Buffer<T> : GLObject, IDisposable where T : unmanaged
     {
         GL.BindBuffer(_bufferTarget, Id);
     }
+    
+    public void UnBind()
+    {
+        GL.BindBuffer(_bufferTarget, 0);
+    }
 
     public void BufferData()
     {

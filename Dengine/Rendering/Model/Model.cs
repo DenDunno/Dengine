@@ -13,6 +13,7 @@ public class Model : IDrawable
     public void Initialize()
     {
         Data.Material.Initialize();
+        Data.Material.Bridge.BindUniformBlock("CameraData", 0);
     }
 
     public void Draw()
