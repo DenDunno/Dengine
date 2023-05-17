@@ -14,15 +14,15 @@ public class Mesh
         }
     }
 
-    public VertexAttributeGroup AttributeGroup => new(Attributes.Values, Stride);
+    public VertexAttributeGroup AttributeGroup { get; private set; } = null!;
     public required uint[] Indices { get; init; } = Array.Empty<uint>();
-    
     private int Stride => Attributes.Values.Sum(attribute => attribute.Size);
 
     public void PushAttribute(VertexAttribute attribute)
     {
         attribute.Offset = Stride;
         Attributes[attribute.Name] = attribute;
+        AttributeGroup = new VertexAttributeGroup(Attributes.Values.ToArray(), Stride); // ToArray(): ValueCollection enumeration is too expensive
     }
     
     public float[] GetRawData()
