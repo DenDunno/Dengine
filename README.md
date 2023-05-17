@@ -1,5 +1,3 @@
-
-
 ### <p align="center">Build & Usage (.NET 7 required)</p>
 
  - git clone https://github.com/DenDunno/Dengine.git
@@ -11,7 +9,13 @@ The editor has a similar UX to Unity. When play mode, use WASD + mouse for explo
 If you get "System.DllNotFoundException: Unable to load DLL 'cimgui' or one of its dependencies", load Visual C++ Redistributable from MS VS from https://learn.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170
 
  ### <p align="center">Avaliable demos</p>
-  ### <p align="center">Particle system up to 1 million particles</p>
+ 
+
+ - [Particle system](#Particle-system)
+ - [GPU instancing](#GPU-instancing)
+ - [LOD Group](#LOD-Group)
+
+  ### <p align="center">Particle system</p>
  **Command:** dotnet run --project ParticleSystemDemo/ParticleSystemDemo.csproj
  
  **Key features:**
@@ -57,5 +61,40 @@ public unsafe void Emit(Vector3 position, int particlesCount = 1)
 
   <p align="center">
 <img src="https://dunnospace.com/images/gpuInstancing/gpuInstancing.gif?raw=true"/>
+</p>
+
+### <p align="center">LOD Group</p>
+ **Command:** dotnet run --project LODGroupDemo/LODGroupDemo.csproj
+ 
+ **Key features:**
+ 
+ - The selection of LOD  is determined by recalculating the distance between an object and the camera during runtime.
+
+```c#
+public void Bind()
+{
+    _current = GetLODMesh();
+    _current.Bind();
+    _current.BufferData();
+}
+
+private MeshBinding GetLODMesh()
+{
+    float distance = Vector3.Distance(_camera.Transform.Position, _transform.Position);
+    MeshBinding result = _lodMeshes[0].Mesh;
+
+    for (int i = 0; i < _lodMeshes.Length - 1; ++i)
+    {
+        if (distance > _lodMeshes[i].Distance)
+        {
+            result = _lodMeshes[i + 1].Mesh;
+        }
+    }
+
+    return result;
+}
+```
+  <p align="center">
+<img src="https://dunnospace.com/images/lodGroup/lodGroup.gif?raw=true"/>
 </p>
 
