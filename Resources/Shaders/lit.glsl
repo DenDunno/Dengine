@@ -1,8 +1,9 @@
 #version 430 core
-uniform vec4 baseColor;
 
+uniform vec4 baseColor;
 uniform int hasTexture = 1;
 uniform sampler2D tex;
+
 in vec3 normal;
 in vec3 fragmentPosition; 
 in vec2 textureCoordinates;

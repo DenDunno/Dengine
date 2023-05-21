@@ -51,7 +51,7 @@ public static class GameObjectFactory
 
     private static GameObject Sprite(Texture2D sprite, Transform transform)
     {
-        RenderData renderData = new(MeshBuilder.Quad(1f), new UnlitMaterial(new LitMaterialData() { Base = sprite }))
+        RenderData renderData = new(MeshBuilder.Quad(1f), new LitMaterial(new LitMaterialData() { Base = sprite }))
         {
             Transform = transform,
         };

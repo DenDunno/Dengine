@@ -43,4 +43,17 @@ public static class WorldBrowser
             _world.GameObjects.Remove(gameObject);
         }
     }
+
+    public static GameObject FindGameObject(string name)
+    {
+        foreach (GameObject gameObject in _world.GameObjects)
+        {
+            if (gameObject.Data.Name == name)
+            {
+                return gameObject;
+            }
+        }
+        
+        throw new Exception($"No gameObject with name {name}");
+    }
 }

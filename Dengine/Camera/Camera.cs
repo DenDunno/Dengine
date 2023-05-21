@@ -1,4 +1,5 @@
-﻿using OpenTK.Mathematics;
+﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 public class Camera : IGameComponent
 {
@@ -34,10 +35,19 @@ public class Camera : IGameComponent
 
     public void UpdateViewProjectionMatrices()
     {
+        Matrix4 projectionMatrix = Projection.Value;
+        Matrix4 viewMatrix = ViewMatrix;
+
+        GL.MatrixMode(MatrixMode.Projection);
+        GL.LoadMatrix(ref projectionMatrix);
+        
+        GL.MatrixMode(MatrixMode.Modelview);
+        GL.LoadMatrix(ref viewMatrix);
+        
         _uniformData.Data.Position = new Vector4(Transform.Position);
         _uniformData.Data.ViewMatrix = ViewMatrix;
         _uniformData.Data.ProjectionMatrix = Projection.Value;
-        
+
         _uniformData.Map();
     }
 
