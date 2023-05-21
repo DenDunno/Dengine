@@ -30,5 +30,6 @@ public class GameObject : IDisposable
     public void Dispose()
     {
         Data.Drawable.Dispose();
+        Data.Components.Clear();
     }
 }
