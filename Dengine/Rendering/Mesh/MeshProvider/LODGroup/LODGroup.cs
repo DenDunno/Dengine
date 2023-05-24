@@ -16,12 +16,20 @@ public class LODGroup : IMeshProvider
     }
 
     public Mesh Mesh => _current.Mesh;
+    
+    public void Initialize()
+    {
+        foreach (LODMesh lodMesh in _lodMeshes)
+        {
+            lodMesh.Mesh.Bind();
+            lodMesh.Mesh.BufferData();
+        }
+    }
 
     public void Bind()
     {
         _current = GetLODMesh();
         _current.Bind();
-        _current.BufferData();
     }
 
     private MeshBinding GetLODMesh()

@@ -9,11 +9,16 @@ public class StaticMesh : IMeshProvider
     }
 
     public Mesh Mesh => _meshBinding.Mesh;
+    
+    public void Initialize()
+    {
+        _meshBinding.Bind();
+        _meshBinding.BufferData();
+    }
 
     public void Bind()
     { 
         _meshBinding.Bind();
-        _meshBinding.TryBufferData();
     }
 
     public void Dispose()

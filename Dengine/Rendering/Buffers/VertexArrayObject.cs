@@ -8,7 +8,13 @@ public class VertexArrayObject : GLObject, IDisposable
     {
         _meshProvider = meshProvider;
     }
-    
+
+    public void Initialize()
+    {
+        GL.BindVertexArray(Id);
+        _meshProvider.Initialize();
+    }
+
     public void Bind()
     {
         GL.BindVertexArray(Id);

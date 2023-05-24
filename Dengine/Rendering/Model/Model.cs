@@ -14,6 +14,7 @@ public class Model : IDrawable
     {
         Data.Material.Initialize();
         Data.Material.Bridge.BindUniformBlock("CameraData", 0);
+        Data.VertexArrayObject.Initialize();
     }
 
     public void Draw()

@@ -9,7 +9,7 @@ public class CameraControlling : TogglingComponent
     private readonly float _rotationSpeed = 7f;
     private readonly float _draggingSpeed = 2f;
     
-    public CameraControlling(Camera camera, float translationSpeed = 4)
+    public CameraControlling(Camera camera, float translationSpeed = 8)
     {
         _camera = camera;
         _translationSpeed = translationSpeed;
