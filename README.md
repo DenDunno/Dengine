@@ -74,8 +74,7 @@ public unsafe void Emit(Vector3 position, int particlesCount = 1)
 public void Bind()
 {
     _current = GetLODMesh();
-    _current.Bind();
-    _current.BufferData();
+    _current.Bind();    
 }
 
 private MeshBinding GetLODMesh()
